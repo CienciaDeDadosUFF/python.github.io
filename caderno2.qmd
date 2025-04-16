@@ -11,57 +11,63 @@ jupyter: python3
 
 # Conteúdos
 
-* Controle de Fluxo
-* Estruturas de repetição
-* Funções
-* Orientação a Objetos
-* Instalação de bibliotecas
-* Importação de bibliotecas
+-   Controle de Fluxo
+-   Estruturas de repetição
+-   Funções
+-   Orientação a Objetos
+-   Instalação de bibliotecas
+-   Importação de bibliotecas
 
 # Controle de fluxo
+
 Nem sempre nosso código deve se comportar de maneira igual para todas as situações, às vezes precisamos tomar uma decisão em função de nossas operações em situações específicas e para isso podemos utilizar estruturas de condição.
 
 ## if
+
 Quando falamos em tomar decisões, a estrutura que trabalhamos é sempre o `if`, que é uma estrutura que testa condições impostas para decidir como prosseguir em certas situações, como por exemplo checar se um número é maior, menor ou igual a outro. Testando uma condição única:
 
-```python 
+``` python
 if 10 < 30:
     print('10 é menor que 30')
 ```
-:::{.callout}
-   10 é menor que 30 
+
+::: callout
+10 é menor que 30
 :::
 
 Podemos também testar múltiplas condições exigindo que todas sejam verdadeiras ou apenas uma seja, dependendo do operador usado: or ou and. Precisamos separar essas diferentes condições usando parentêsis.
 
 O operador `or`, "ou" traduzindo do inglês, faz com que a condição seja satisfeita se a primeira **ou** a segunda expressão (ou as duas) forem verdadeiras. Pode ser também representado pelo caractere `|`
 
-```python
+``` python
 if (7 < 3) or (5 > 1):
     print('Pelo menos um é verdade')
 ```
 
-:::{.callout}
-    Pelo menos um é verdade
+::: callout
+```         
+Pelo menos um é verdade
+```
 :::
 
 Já o operador `and`, "e" traduzindo do inglês, faz com que a condição seja satisfeita se a primeira **e** a segunda expressão sejam verdadeiras Pode ser também representado pelo caractere `&`
 
-```python
+``` python
 if (7 == 7) and (5 > 1):
     print('Ambas expressões são verdadeiras')
 ```
 
-:::{.callout}
-    Ambas expressões são verdadeiras
+::: callout
+```         
+Ambas expressões são verdadeiras
+```
 :::
-
 
 ## else
 
 Para toda situação sempre podemos incluir uma saída padrão como resposta se a condição não for satisfeita, para isso temos o `else`.
 
-```python
+``` python
 n = 40
 if n < 30:
     print('%i é menor que 30'%(n))
@@ -69,14 +75,17 @@ else:
     print('%i é maior ou igual a 30'%(n))
 ```
 
-:::{.callout}
-    40 é menor maior ou igual a 30
+::: callout
+```         
+40 é menor maior ou igual a 30
+```
 :::
 
 ## elif
+
 Podemos também incluir mais de uma condição a ser testada, adicionando mais instâncias do if ao mesmo if com a estrutura `elif`.
 
-```python
+``` python
 n = 40
 if n < 30:
     print('%i é menor que 30'%(n))
@@ -86,88 +95,99 @@ else:
     print('%i é igual a 30'%(n))
 ```
 
-:::{.callout}
-    40 é maior que 30
+::: callout
+```         
+40 é maior que 30
+```
 :::
 
-   
 # Estruturas de repetição
 
 No python, assim como qualquer linguagem de programação, existe o que chamamos de estruturas de repetição. Elas servem para executar um mesmo comando mais de uma vez, muito útil quando trabalhando com listas.
-   
+
 ## for
+
 O `for` é uma estrutura de repetição que percorre um escopo de valores específicos, por exemplo se queremos printar os números de 0 até 10 podemos escrever desta forma:
 
-```python
+``` python
 for numero in range(0,10):
     print(numero)
 ```
 
-:::{.callout}
-    0
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
+::: callout
+```         
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
 :::
 
 Note que o primeiro número impresso é o 0 como especificado e o último número o 9. A variável numero armazena o valor de cada iteração do loop, mas o for sempre para antes do último número, que seria o 10, porque o Python é uma linguagem que começa com 0 invés de 1, e descartar esse último número auxilia na hora de iterar listas, a principal razão do uso do laço for. Observe como percorrer os elementos de uma lista:
 
-```python
+``` python
 meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun']
 for i in range(length(meses)):
     print(meses[i])
 ```
-:::{.callout}
-    jan
-    fev
-    mar
-    abr
-    mai
-    jun
+
+::: callout
+```         
+jan
+fev
+mar
+abr
+mai
+jun
+```
 :::
 
 Por convenção, no python usamos como variável do loop o `i` se quisermos percorrer uma lista. Usar um for dentro de outro serve para percorrer uma matriz. Nesse caso usaremos `j` no segundo. Se mais uma dimensão for adicionada será `k`. Para ordens ainda maiores não existe uma convenção, porém, eu utilizo o alfabeto invés de i, j, k.
 
-```python
+``` python
 matriz = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 for i in range(length(matriz)):
     for j in range(length(matriz[i])):
         print(matriz[i][j])
 ```
 
-:::{.callout}
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
+::: callout
+```         
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
 :::
 
 Existe uma alternativa ao range de como percorrer uma lista com o for. O range cria esses índices para serem referenciados na lista. Podemos salvar os elementos direto na variável do loop como feito a seguir:
 
-```python
+``` python
 meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun']
 for mes in meses:
     print(mes)
 ```
 
-:::{.callout}
-    jan
-    fev
-    mar
-    abr
-    mai
-    jun
+::: callout
+```         
+jan
+fev
+mar
+abr
+mai
+jun
+```
 :::
 
 O problema de usar o loop dessa forma é que não podemos alterar a lista original já que perdemos a referência numérica dela. Existem situações que o primeiro método é preferível e situações que o segundo método é preferível.
@@ -176,23 +196,26 @@ O problema de usar o loop dessa forma é que não podemos alterar a lista origin
 
 O `while` é um loop que enquanto uma condição não for satisfeita ou enquanto ela for satisfeita esse loop permanecerá ocorrendo, usado principalmente quando o número de iterações do loop não é definido por um número e sim por uma condição.
 
-```python
+``` python
 animais = ['cachorro', 'gato', 'rato', 'macaco', 'cachorro', 'cachorro', 'elefante', 'leao']
 while 'cachorro' in animais:
     animais.remove('cachorro')
 print(animais)
 ```
 
-:::{.callout}
-    ['gato', 'rato', 'macaco', 'elefante', 'leao']
+::: callout
+```         
+['gato', 'rato', 'macaco', 'elefante', 'leao']
+```
 :::
 
 Repare que `'cachorro'` foi removido mais de uma vez da lista de animais. Uma vez que não haviam mais cachorros na lista de animais, o loop do while foi finalizado.
 
 ### break e flags
+
 Podemos interromper o while utilizando o `break` ou flags, como nos exemplos abaixo:
 
-```python
+``` python
 # Saudando pessoas até que elas queiram sair do programa com o break
 while True:
     resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'(Entre com "quit" para sair da aplicacao)\n\n')
@@ -203,13 +226,15 @@ while True:
 print('Olá, ' + resposta)
 ```
 
-:::{.callout}
-    Olá quit
+::: callout
+```         
+Olá quit
+```
 :::
- 
+
 Um exemplo com flags que são variáveis booleanas que controlam o fluxo.
 
-```python
+``` python
 continuar_execucao = True
 while continuar_execucao:
     resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'(Entre com "quit" para sair da aplicacao)\n\n')
@@ -219,15 +244,17 @@ while continuar_execucao:
         continuar_execucao = False
 ```
 
-:::{.callout}
-    Olá quit
+::: callout
+```         
+Olá quit
+```
 :::
 
 ### continue
+
 Também podemos dar continuidade a um ciclo com a utilização do `continue`.
 
-
-```python
+``` python
 while True:
     resposta = input('Digite seu nome para que eu possa te dar um oi!:\n' + '(Entre com "quit" para sair da aplicacao)\n\n')
     if resposta == '':
@@ -241,44 +268,45 @@ while True:
     print('Olá, ' + resposta)
 ```
 
-:::{.callout}
-    Digite um nome válido!
+::: callout
+```         
+Digite um nome válido!
+```
 :::
 
 Repare que o `print('Olá, ' + resposta)` não foi feito porque na primeira iteração o loop caiu no continue e no segundo no break porque o quit foi digitado.
 
 # Funções
+
 Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisamos criar uma tarefa que possa ser usada mais tarde em outro programa, para evitar repetição de código e seguir um dos princípios da programação que é a modulação utilizamos da criação de funções.
 
 Em resumo, funções são um escopo de código que pode ser chamado para realizar uma tarefa específica, podem ter ou não um tipo de retorno, possuem um título e podem ter ou não parâmetros passados para a função.
 
-Em python utilizamos a sintaxe: 
-def nome_da_funcao(parametros):
-       #escopo da função
-       return objeto_a_ser_retornado
+Em python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado
 
 Os exemplos mais simples de funções podem ser vistos abaixo:
 
-```python
+``` python
 def soma(a, b): #definição/criação da função
     return a + b #escopo da função
 soma(3, 4) #chamada da função
 ```
 
-```python
+``` python
 def ola_mundo():
     print('Olá, Mundo!')
 ola_mundo() 
 ```
 
-:::{.callout}
-    Olá, Mundo!
+::: callout
+```         
+Olá, Mundo!
+```
 :::
 
 Exemplo de uma função com retorno de um objeto do tipo lista:
 
-
-```python
+``` python
 def formata_nomes(nomes):
     lista_formatada = []
     for nome in nomes:
@@ -289,20 +317,23 @@ lista_formatada = formata_nomes(lista_formatada)
 print(lista_formatada)
 ```
 
-:::{.callout}
-    ['Daniel', 'Igor', 'Carolina']
+::: callout
+```         
+['Daniel', 'Igor', 'Carolina']
+```
 :::
-    
-# Orientação a objetos
-No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No python, um dos paradigmas explorados é o de orientação a objetos. 
 
-Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro. 
+# Orientação a objetos
+
+No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No python, um dos paradigmas explorados é o de orientação a objetos.
+
+Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro.
 
 Um carro possui características específicas: modelo, cor, velocidade. O carro possui ainda comportamentos: acelerar e freiar, acessíveis pelo motorista para usar quando quiser. Na programação, o carro é o objeto, a ideia do que é um carro é a classe e o motorista é o programador que usa o carro em seu programa.
 
 Traduzindo para python:
 
-```python
+``` python
 class Carro():
     
     def __init__(self, modelo, cor, velocidade):
@@ -338,58 +369,52 @@ O método \_\_init\_\_ é um método especial, ele pode ser chamado de construto
 
 Para usar os métodos precisa digitar a variável em que o objeto está armazenado depois .nomeDoMetodo(argumentos) como segue no exemplo abaixo:
 
-```python
+``` python
 print("Velocidade antes de acelerar:", meuCarro.getVelocidade()) 
 meuCarro.acelerar(10)
 print("Velocidade depois de acelerar:", meuCarro.getVelocidade())
 ```
 
-::: {.callout}
+::: callout
 Velocidade antes de acelerar: 0
 
 Velocidade depois de acelerar: 10
 :::
 
-
 O código do exemplo mudou a velocidade do objeto meuCarro, que originalmente era 0 e passou para 10.
 
-
-Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado. 
+Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado.
 
 Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. Orientação a objetos é toda uma forma de se programar, um assunto extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.
 
 # Instalação de bibliotecas
 
-O `píp` é um repositório que guarda uma quantidade enorme de pacotes e módulos para utilizarmos em nossas aplicações.
-Se o Python estiver adicionado ao PATH digite no terminal do windows:  
-~~~
-$ pip --version
-~~~
+O `píp` é um repositório que guarda uma quantidade enorme de pacotes e módulos para utilizarmos em nossas aplicações. Se o Python estiver adicionado ao PATH digite no terminal do windows:\
+\~\~\~ \$ pip --version \~\~\~
 
 Caso seu pip esteja desatualizado utilize:
 
-~~~
+```         
 $ python -m pip install --upgrade pip
-~~~
+```
 
 Para instalar algum pacote execute:
 
-~~~
+```         
 $ pip install "nome do pacote"
-~~~
+```
 
 ou ainda
 
-~~~
+```         
 $ python -m pip install "nome do pacote"
-~~~
+```
 
 # Importação
 
 Agora veremos as diferentes formas de importar módulos (os pacotes do python) para seu ambiente.
 
-
-```python
+``` python
 import numpy                        # Importa o módulo numpy
 import pandas as pd                 # Importa o módulo pandas com um alias pd
 import matplotlib.pyplot as plt     # Importa a classe pyplot dentro do pacote matplotlib com o alias plt
@@ -404,53 +429,38 @@ from statistics import *            # Importa tudo que pertence ao módulo stati
 
 Veja que o numpy foi importado utilizando `import numpy` dessa forma devemos sempre colocar o nome do módulo antes de utilizar os métodos e atributos que ele possui
 
-
-```python
+``` python
 numpy.random.seed(60)
 numpy.random.normal(0, 1, 10)       # Cria um array aleatório de tamanho 10 com distriuição normal mu = 0, sigma = 1.
 ```
 
-
-
-::: {.callout}
-array([-9.21770993e-01, -5.86317634e-01,  1.16399914e+00, -1.24172396e+00,
-           -1.98523022e+00,  1.30670891e+00,  7.37807059e-01,  3.79111282e-01,
-            9.89200864e-04, -1.10503482e+00])
+::: callout
+array(\[-9.21770993e-01, -5.86317634e-01, 1.16399914e+00, -1.24172396e+00, -1.98523022e+00, 1.30670891e+00, 7.37807059e-01, 3.79111282e-01, 9.89200864e-04, -1.10503482e+00\])
 :::
 
 Já em `from os import getcwd` apenas importamos a função `getcwd` do módulo os
 
-
-```python
+``` python
 getcwd()                            # Retorna o diretório atual do workspace.
 ```
 
-::: {.callout}
+::: callout
 '/home/daniel.dsantos/Documents/personal/git/python-basico/notebooks/01_python_basico'
 :::
 
+Utilizando o comando `from time import asctime as data` importamos a função asctime do módulo time e adicionamos um *alias* data utilizando a *keyword* `as`.
 
-    
-
-
-
-Utilizando o comando `from time import asctime as data` importamos a função asctime do módulo time e adicionamos um _alias_ data utilizando a _keyword_ `as`.
-
-
-```python
+``` python
 data()                              # Retorna a data de hoje
 ```
 
-::: {.callout}
+::: callout
 'Wed Nov 13 10:39:42 2019'
 :::
 
+Ao utilizar `from statistics import *` estamos importando todas as funções e métodos pertencentes ao módulo statistics. Não é aconselhável utilizar já que o código perde semântica.
 
-Ao utilizar `from statistics import *` estamos importando todas as funções e métodos pertencentes ao módulo statistics.
-Não é aconselhável utilizar já que o código perde semântica.
-
-
-```python
+``` python
 numpy.random.seed(35)
 numbers = numpy.random.randint(1, 20, 30)
 
@@ -459,12 +469,15 @@ print(harmonic_mean(numbers))
 print(median(numbers))
 ```
 
-::: {.callout}
-    9
-    4.522366591633217
-    10.5
+::: callout
+```         
+9
+4.522366591633217
+10.5
+```
 :::
 
 ### Referências
-MATTHES, Eric. **Python Crash Course: A Hands-On, Project-Based Introduction to Programming**. San Francisco: No Starch Press, 2016.  
+
+MATTHES, Eric. **Python Crash Course: A Hands-On, Project-Based Introduction to Programming**. San Francisco: No Starch Press, 2016.\
 LUTZ, Mark. **Learning Python**. Estados Unidos: O'Reilly Media, 2013.

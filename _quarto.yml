@@ -24,6 +24,7 @@ book:
     - "caderno2.qmd"
     - "ConceitosGeraisDeEstatistica.qmd"
     - "VisualizacaoDeDados.qmd"
+    - "APMPython.qmd"
     - "EstimativaPorIntervalos.qmd"
     - "TesteDeHipotesesParte1.qmd"
     - "TesteDeHipotesesParte2.qmd"
