@@ -46,7 +46,7 @@ OBS: Mesmo representado através de uma probabilidade, não podemos interpretar 
 
 Seja $X_{1}, X_{2}, \ldots, X_{n}$ uma amostra aleatória proveniente de uma população $X \sim N(µ,σ²)$ com variância desconhecida, temos que:
 
-$X \sim N(µ; σ^{2})⇒ \bar{X} ∼ N(µ;\frac{\sigma^{2}}{n}) ⇒  T = \frac{\bar{X}-\mu }{\frac{S}{\sqrt{n}}} ∼ t_{n−1}$
+$X \sim N(µ; σ^{2})⇒ \bar{X} ∼ N(µ;\frac{\sigma^{2}}{n}) ⇒ T = \frac{\bar{X}-\mu }{\frac{S}{\sqrt{n}}} ∼ t_{n−1}$
 
 Logo,
 
@@ -177,6 +177,7 @@ df.head()
 </table>
 </div>
 ```
+
 **Exemplo 1**: Supondo que a idade das mulheres segue uma distribuição normal, vamos estimar a idade média das mulheres dessa população através da amostra de 310 mulheres contida nesse banco de dados. Para isso calcularemos um intervalo de 95% de confiança.
 
 ``` python
@@ -291,6 +292,7 @@ df2.head()
 </table>
 </div>
 ```
+
 ``` python
 ss.t.interval(alpha = 0.95, df = len(df2['Age'])-1, loc = np.mean(df2['Age']), scale = ss.sem(df2['Age']))
 ```
@@ -415,6 +417,7 @@ df3.head()
 </table>
 </div>
 ```
+
 ``` python
 ss.t.interval(alpha = 0.99, df = len(df3['Age'])-1, loc = np.mean(df3['Age']), scale = ss.sem(df3['Age']))
 ```
@@ -427,7 +430,7 @@ Portanto, podemos concluir que com 99% de confiança o intervalo $[36.4635;41.59
 
 # Intervalos de Confiança para a proporção populacional
 
-Seja ${X_{1}, X_{2}, …, X_{n}}$ uma amostra aleatórial proveniente de uma população ${X \sim  Ber(p)}$, logo ${\hat{p} \sim  N(p, p(1-p))}$, ${\hat{p}}$ estimador de p, então:
+Seja ${X_{1}, X_{2}, …, X_{n}}$ uma amostra aleatórial proveniente de uma população ${X \sim Ber(p)}$, logo ${\hat{p} \sim N(p, p(1-p))}$, ${\hat{p}}$ estimador de p, então:
 
 $\frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}} \sim N(0, 1)$
 

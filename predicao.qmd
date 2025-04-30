@@ -1,5 +1,5 @@
 ---
-title:  "Aprendizado de Máquinas com Python"
+title:  "Predição"
 format:
   html:
     code-fold: false
@@ -9,15 +9,13 @@ number-sections: false
 jupyter: python3
 ---
 
+Neste capítulo, vamos estudar sobre os algoritmos de predição, que são capazes de inferir se um dado pertence ou não a uma certa categoria. Dessa forma, eles são construidos utilizando as seguintes etapas: Pergunta → Amostra de entrada → Características → Algoritmo → Parâmetros → Avaliação.
 
-Neste capítulo, vamos estudar sobre os algoritmos de predição, que são capazes de inferir se um dado pertence ou não a uma certa categoria. Dessa forma, eles são construidos utilizando as seguintes etapas:
-Pergunta → Amostra de entrada → Características → Algoritmo → Parâmetros → Avaliação.
-
-## 3.1 - Pergunta
+# Pergunta
 
 O nosso objetivo é responder a uma pergunta de tipo “O dado A é do tipo x ou do tipo y?”. Por exemplo, podemos querer saber se é possível detectar automaticamente se um e-mail é um spam ou um “ham”, isto é, não spam. O que na verdade queremos saber é: “É possível usar características quantitativas para classificar um e-mail como spam?”.
 
-## 3.2 - Amostra de Entrada
+# Amostra de Entrada
 
 Uma vez formulada a pergunta, precisamos obter uma amostra de onde tentaremos extrair informações que caracterizam a categoria a qual um dado pertence (dados rotulados) e então usar essas informações para classificar outros dados não categorizados. O ideal é que se tenha uma amostra grande, assim teremos melhores parâmetros para construir nosso preditor.
 
@@ -64,7 +62,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 ```
 
-## 3.3 - Características
+# Características
 
 Temos que encontrar agora características que possam indicar a categoria dos dados. Podemos, por exemplo, vizualizar algumas variáveis graficamente para obter uma ideia do que podemos fazer. No nosso exemplo de e-mails, podemos querer avaliar se a frequência de palavras “your” em um e-mail pode indicar se ele é um spam ou não.
 
@@ -134,7 +132,7 @@ plt.show()
 
 Os e-mails à direita da linha preta seriam classificados como spam, enquanto que os à esquerda seriam classificados como não spam.
 
-## 3.4.1 Avaliação
+# Avaliação
 
 Agora vamos avaliar nosso modelo de predição
 
@@ -176,3 +174,28 @@ disp_teste.plot(cmap=plt.cm.Blues)
 
 Já na amostra teste acertamos 47+28=75% das vezes. O erro na amostra teste é o que chamamos de erro real. É o erro que esperamos em amostras novas que passarem por nosso preditor.
 
+# Como construir um bom algoritmo de aprendizado de máquina?
+
+O "melhor" método de aprendizado de máquina é caracterizado por:
+
+-   Uma boa base de dados;
+
+-   Reter informações relevantes;
+
+-   Ser bem interpretável;
+
+-   Fácil de ser explicado e entendido;
+
+-   Ser preciso;
+
+-   Fácil de se construir e de se testar em pequenas amostras;
+
+-   Fácil aplicar a um grande conjunto de dados.
+
+Os erros mais comuns, que se deve tomar um certo cuidado, são:
+
+-   Tentar automatizar a seleção de variáveis (características) de uma maneira que não permita que você entenda como essas variáveis estão sendo aplicadas para fazer previsões;
+
+-   Não prestar atenção a peculiaridades específicas de alguns dados, como comportamentos estranhos de variáveis específicas;
+
+-   Jogar fora informações desnecessariamente.

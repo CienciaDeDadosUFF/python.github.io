@@ -1,0 +1,337 @@
+---
+title:  "Criação e Avaliação de Preditores"
+format:
+  html:
+    code-fold: false
+toc: true
+toc-title: Navegação
+number-sections: false
+jupyter: python3
+---
+
+O pacote scikit-learn é um pacote muito útil para o machine learning pois entrega muitas ferramentas que simplificam a criação de modelos preditivos. A função train_test_split exposta em capítulos anteriores é um exemplo. A construção de preditores feitos usando esse pacote será o foco desse capítulo. 
+
+# Imports
+
+Segue abaixo os imports:
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.utils import all_estimators
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import classification_report
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import r2_score
+```
+
+# Classificadores
+Vamos utilizar a base de dados spam novamente para realizarmos o procedimento de predição para um e-mail (se ele é spam ou não spam), dessa vez utilizando o pacote scikit-learn.
+
+## Analisando a base spam
+
+Vamos analisar a base spam.
+
+```{python}
+#trocar essa url pelo caminho da base spam de vocês.
+spam = pd.read_csv("Cadernos Grupo Python\\Criação e Avaliação de Preditores\\spam.csv")
+print(spam)
+```
+
+A base possui 58 colunas 4601 linhas. Essas colunas estão em frequência ( Detalhar a base aqui). 
+
+A coluna type possui valores diferentes dos demais, spam e nonspam. Ela é a coluna de rótulo da base. Com ela conseguimos saber a classificação original dos emails em spam ou não spam. Precisamos entregar ao scikit learn essa coluna separada das demais para não influenciar o modelo, o modelo estaria "colando" se fosse mantida.
+
+## Separação treino e teste
+
+Para fazer a separação das amostras em treino e teste vamos primeiramente particionar a base de dados com a função `train_test_split()`. Ela divide a base mantendo a proporção das classes de classificação, nesse caso, spam e nonspam, mantendo a proporção da base original. Isso evita que ao acaso possa sair da separação uma base para treino muito diferente da original, que afeta severamente a qualidade do modelo.
+
+
+```{python}
+# Separando a coluna de rótulo das demais
+XSpam = spam.loc[:, spam.columns != "type"]
+YSpam = spam["type"]
+
+# Separação de amostras treino e teste
+x_trainSpam, x_testSpam, y_trainSpam, y_testSpam = train_test_split(XSpam, YSpam, test_size=0.4, random_state=11)
+```
+
+No caderno de Introdução a Programação com Python falamos que é importante criar variáveis com nomes elucidativos.Esse X e Y podem parecer estranho a partir desse princípio, porém, essa nomenclatura de variáveis é um padrão utilizado por muitos no Python para fazer a separação do rótulo das demais colunas. Assim como numa função matemática, X -> Y, colunas de dados -> coluna de rótulo, por isso X e Y. 
+
+O parâmetro `test_size` recebe a proporção de dados teste dentro do total, logo, seguindo o exemplo, 40% da base é teste e 60% é treino. 
+
+O parâmetro `random_state` é uma maneira de assegurar que a separação que está sendo feita aqui é a separação que está sendo feita por vocês, para fins didáticos. Ele trapaceia a aleatoriedade do sorteio, pré-determinando o resultado a partir do número inserido, conhecido como seed. Isso é útil também se quisermos guardar a aleatoriedade usada para testar novamente depois. Normalmente sempre inserimos uma seed para que possamos replicar o experimento caso seja do nosso desejo no futuro. 
+
+O resultado da função train_test_split são 4 bases novas, `x_train`, `x_teste`, `y_train` e `y_test`. Dados para treino sem rótulo, dados para teste sem rótulo, rótulo dos dados para treino, rótulo dos dados para teste, gerados a partir do `X` (dados sem rótulo) e do `Y` (rótulo dos dados) que inserimos dentro da função `train_test_split`. Acrescentei `Spam` no final de cada variável para diferenciar do regressor que faremos a seguir.
+
+## Seleção de algoritmo de aprendizado de máquina para o classificador.
+
+Dado que já foi feito a separação das amostras treino e teste, o próximo passo é realizarmos o treinamento. Para isso é preciso escolher um dos algoritmos para ser utilizado. O scikit-learn suporta uma infinidade de diferentes modelos que podemos escolher. 
+
+Uma lista com todos os algoritmos implementados no pacote scikit-learn pode ser obtida com o seguinte comando:
+
+```{python}
+# para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)
+print(all_estimators())
+
+# para filtrar os algoritmos por seu tipo 
+print(all_estimators(type_filter='classifier')) 
+```
+
+`type_filter` pode receber:
+- "regressor" para regressores
+- "classifier" para classificadores 
+- "cluster" para agrupadores
+- "transformer" para transformadores
+- "outlier_detector" para detectores de anomalia
+
+Nesse e nos próximos cadernos focaremos mais nos regressores e classificadores, de aprendizado de máquina supervisionado.
+
+Escolher entre quais algoritmos utilizar pode variar de acordo com o problema que queremos resolver. (escrever aqui sobre como selecionar modelos a ser utilizado.)
+
+Para o nosso exemplo vamos utilizar regressão logística (em inglês, LogisticRegression), um algoritmo simples comumente utilizado em classificação.
+
+Cada modelo no scikit-learn precisa ser importado, podemos importar a biblioteca inteira ou apenas o modelo que queremos. Como o scikit-learn é uma biblioteca pesada, idealmente apenas importamos aquilo que formos utilizar. No início desse caderno, nos imports, importamos a regressão logística com `from sklearn.linear_model import LogisticRegression`, esse é o comando para importar a regressão logística. Cada algoritmo está localizado em um lugar diferente da biblioteca e possui formas de uso que podem variar. Nesse e nos próximos cadernos falaremos apenas de alguns.
+
+## Criação e treino do classificador
+
+Agora vamos criar o nosso classificador. Para isso vamos usar a função `LogisticRegression()` para instanciá-lo e o método `.fit()` para treiná-lo.
+
+``` {python}
+modelSpam = LogisticRegression(max_iter=3000)
+modelSpam.fit(x_trainSpam, y_trainSpam)
+```
+
+A função `LogisticRegression` que cria o modelo de regressão logística possui diversos parâmetros que possuem valores padrão. Alterei apenas o `max_iter` para 3000 porque o padrão de 100 não é suficiente para o modelo convergir na base de dados utilizada. Falaremos mais detalhadamente sobre como cada algoritmo funciona nos próximos cadernos.
+
+## Utilização do classificador
+
+Uma vez que ajustamos o classificador podemos aplicá-lo na amostra teste, para estimarmos sua qualidade. Para isso utilizamos o método `.predict()`. Dentro do método passamos a base de dados gostaríamos de realizar a predição, nesse caso a base teste.
+
+```{python}
+y_predSpam = modelSpam.predict(x_testSpam)
+print(y_predSpam)
+```
+
+Ao fazermos isso obtemos uma série de predições para as classes dos e-mails do conjunto teste. 
+
+## Avaliação do classificador
+
+Podemos realizar a avaliação do modelo comparando os resultados da predição com os reais rótulos dos e-mails que salvamos na variável `y_test`, por meio da função `confusion_matrix()`. Essa função cria uma matriz de confusão a partir do resultado da predição e os rótulos originais. 
+
+A matriz de confusão é a matriz de comparação feita após a predição, onde as linhas correspondem ao que foi previsto e as colunas correspondem à verdade conhecida.
+
+A matriz de confusão para o problema de predição dos e-mails em spam ou não spam fica da seguinta forma:
+
+![](Cadernos%20Grupo%20Python/AvaliandoPreditores/matrizDeConfusaoVazia.png)
+
+Onde na primeira coluna se encontram os elementos que possuem a característica de interesse (os e-mails que são spam), e, respectivamente nas linhas, os que foram corretamente identificados - o qual são chamados de **Verdadeiros Positivos (VP)** - e os que foram erroneamente identificados - os **Falsos Negativos (FP)**. Na segunda coluna se encontram os elementos que não possuem a característica de interesse (os e-mails que são ham) e, respectivamente nas linhas, os que foram erroneamente identificados - o qual são chamados de **Falsos Positivos (FN)** - e os que foram corretamente identificados - os **Verdadeiros Negativos (VN)**.
+
+Com as devidas classificações a matriz de confusão fica da seguinte forma:
+
+![](Cadernos%20Grupo%20Python/AvaliandoPreditores/matrizDeConfusaoPreenchida.png)
+
+Dentro da função passamos as predições que obtemos pelo modelo ajustado e as reais classificações dos e-mails do conjunto teste.
+
+
+```{python}
+cmSpam = confusion_matrix(y_testSpam, y_predSpam)
+print(cmSpam)
+```
+
+O que acharam da matriz confusão? Alguns números numa matriz do Python não é a melhor apresentação. Para deixar mais apresentável podemos fazer um gráfico:
+
+``` {python}
+plt.figure(figsize=(6,4))
+sns.heatmap(cmSpam, annot=True, fmt='d', cmap='Blues', xticklabels=["nonspam", "spam"], yticklabels=["nonspam", "spam"], cbar=False)
+plt.xlabel('Predito')
+plt.ylabel('Real')
+plt.title('Matriz de Confusão')
+plt.show()
+```
+
+Só o gráfico com números em valor absoluto não é o suficiente para avaliar o modelo. Podemos a partir desses números usar algumas métricas, muitas existem que podemos usar a partir desses valores. Falaremos mais sobre sensibilidade, especificidade e acurácia.
+
+Existem classificadores com mais de duas classes. A matriz de confusão na verdade tem cardinalidade de acordo com o número de classes e a nomenclatura verdadeiro positivo, verdadeira negativo, falso positivo, falso negativo, ganha uma complexidade maior. Por simplicidade, estamos usando apenas um classificador com duas classes. 
+
+### Sensibilidade
+
+Definição (Sensibilidade): A sensibilidade de um método de predição é a porcentagem dos elementos da amostra que possuem a característica de interesse e foram corretamente identificados. Para o nosso exemplo dos e-mails, a sensabilidade é a porcentagem dos e-mails que são spam e foram classificados pelo nosso algoritmo de predição como spam.
+
+Ou seja, podemos escrever $ Sensibilidade = \frac{VP}{VP+FN}$
+
+### Especificidade
+
+Definição (Especificidade): A especificidade de um método de predição é a porcentagem dos elementos da amostra que não possuem a característica de interesse e foram corretamente identificados. Para o nosso exemplo dos e-mails, a especificidade é a porcentagem dos e-mails que são “ham” e o algoritmo de predição os classificou como tal.
+
+Ou seja, podemos escrever $Especificidade = \frac{VN}{VN+FP}$
+
+### Acurácia
+
+Avalia a porcentagem de acertos que tivemos em geral. Ou seja, somamos o número de Verdadeiros Positivos com o número de Verdadeiros Negativos e dividimos pelo tamanho da amostra.
+
+$Acurácia = \frac{VP+VN}{VP+VN+FN+FP}$
+
+### Relação entre métricas
+
+Quando obtemos as sensibilidades e as especificidades de diferentes preditores, naturalmente surge o questionamente: qual deles é melhor para estimar as verdadeiras características de interesse? A resposta depende do que é mais importante para o problema.
+
+Se identificar corretamente os positivos for mais importante, utilizamos o preditor com maior sensibilidade. Se identificar corretamente os negativos for mais importante, utilizamos o preditor com maior especificidade.
+
+Acurácia da uma visão mais geral. Muitos cientistas de dados a consideram a métrica mais importante para classificadores, porém, acurácia não é tudo. Um modelo pode ser feito de maneira errada e mesmo assim ter alta acurácia. Em certas situações o debate Sensibilidade X Especificidade pode acabar reduzindo a acurácia e produzir um modelo melhor para o uso. 
+
+Outro exemplo de situação adversa para análise exclusiva da acurácia é quando uma das classes da variável resposta é muito mais presente no conjunto de dados que outra, o algoritmo do classificador pode acabar chutando tudo ou quase tudo como uma classe só e teremos um modelo com grande acurácia e péssima especificidade. Falaremos sobre como lhidar com base de dados desbalanceadas no futuro.
+
+Em classificadores com mais de duas classes a nomenclatura de especificidade e sensibilidade perde o sentido. Nesse caso é apenas `recall` entre as diferentes classes. Para duas classes, recall da classe positiva é sensibilidade e da negativa, especificidade.
+
+### Análise do resultado final do classificador de Spam
+
+Faremos a análise do resultado final do classificador da base Spam com as funções prontas do scikit-learn para o cálculo da sensibilidade, especificidade e acurácia.
+
+A função `classification_report()` entrega todas essas métricas e mais algumas. Por suportar classificadores com mais de duas classes, ele usa a coluna recall. Sensibilidade é o recall da classe positiva e especificidade é o recall da negativa.
+
+```{python}
+print(classification_report(y_testSpam, y_predSpam))
+```
+
+Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Para dizermos se o modelo é bom ou não precisariámos comparar a outros. O que podemos afirmar apenas com esses números é que em 92% dos casos, o modelo acerta a classificação e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.
+
+# Regressores
+
+Agora vamos utilizar a base de dados faithful para tentar prever o tempo de espera (waiting) entre uma erupção e outra de um gêiser dado a duração das erupções (eruption).
+
+## Analisando a base faithful
+
+```{python}
+faithfulDF = pd.read_csv("Cadernos Grupo Python\\Criação e Avaliação de Preditores\\faithful.csv")
+print(faithfulDF)
+```
+
+A base de dados `faithful` contém dados sobre as eurupções do geiser Old Faithful no parque nacional de Yellowstone nos Estados Unidos da América. A base de dados possui medições de das variáveis:
+
+- `eruptions`: Eurupções, traduzido do inglês, contém a duração das eurupções em minutos.
+- `waiting`: Espera, traduzido do inglês, contém o tempo de espera até a eurupção seguinte em minutos.
+
+Estamos assumindo antes de criar o modelo computacional que existe uma relação entre as eurupções e o tempo de espera para a eurupção seguinte. Vamos usar a variável eruptions para prever a variável waiting.
+
+## Separação treino e teste
+
+Faremos identicamente a como fizemos para o classificador da base spam.
+
+```{python}
+# Separando a coluna de rótulo das demais
+XFaithful = faithfulDF.loc[:, faithfulDF.columns != "waiting"]
+YFaithful = faithfulDF["waiting"]
+
+# Separação de amostras treino e teste
+x_trainFaithful, x_testFaithful, y_trainFaithful, y_testFaithful = train_test_split(XFaithful, YFaithful, test_size=0.3, random_state=11)
+```
+
+## Seleção de algoritmo de aprendizado de máquina para o modelo.
+
+Para a seleção do algoritmo de aprendizado de máquina que usaremos podemos consultar novamente a lista do scikit-learn, agora para regressores.
+
+```{python}
+# para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)
+print(all_estimators())
+
+# para filtrar os algoritmos por seu tipo 
+print(all_estimators(type_filter='regressor')) 
+```
+
+Usaremos o LinearRegression, usado quando queremos estimar a relação entre duas variáveis contínuas. É um dos modelos de aprendizado de máquina mais simples e rápidos. Falaremos mais sobre o funcionamento dele em próximos cadernos.
+
+## Criação e treino do regressor
+
+Agora vamos criar o nosso regressor. Para isso vamos usar a função `LinearRegression()` para instanciá-lo e o método `.fit()` para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: `from sklearn.linear_model import LinearRegression`
+
+``` {python}
+modelFaithful = LinearRegression()
+modelFaithful.fit(x_trainFaithful, y_trainFaithful)
+```
+
+## Utilização do regressor
+
+A utilização do regressor é a mesma do classificador. Basta passar pelo método predict o conjunto de dados que queremos usar para prever a variável resposta. Como queremos testar o modelo, usaremos o conjunto teste que haviámos separado.
+
+```{python}
+y_predFaithful = modelFaithful.predict(x_testFaithful)
+print(y_predFaithful)
+```
+
+Ao fazermos isso obtemos uma série de predições para waiting a partir do conjunto teste. 
+
+## Avaliação do regressor
+
+Assim como há diversas formas de compararmos a qualidade dos classificadores, há também diversas formas de compararmos regressores. O que estudaremos agora é o MAE, MSE e $R^2$. Mais formas de comparação de regressores também serão vistas futuramente.
+
+### MAE
+
+MAE (Mean Absolute Error - erro médio absoluto) é a média das diferenças absolutas entre o predito e o real. Ele diz como as previsões de um modelo diferem dos resultados de forma absoluta, em média.
+
+$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|$
+
+- `n`: número de observações
+- `Yi`: valor real
+- `Ŷi`: valor predito
+- `|Yi - Ŷi|`: Erro absoluto de uma predição
+
+
+### MSE
+
+MSE (mean squared error - erro quadrático médio) é a média de quanto os valores previstos para as observações se distanciaram dos valores verdadeiros dessa observação. Obtemos ele somando essas distâncias entre os valores previstos e os reais ao quadrado e dividindo por n.
+
+$MSE = \frac{1}{n}\sum_{i=1}^{n} \left( Yi - \hat{Y}i \right)^2$
+
+- `n`: número de observações
+- `Yi`: valor real
+- `Ŷi`: valor predito
+- `(Yi - Ŷi)^2`: Erro ao quadrado de uma predição
+
+![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/MSE.jpg)
+
+### R ao quadrado
+
+$R^2$, R ao quadrado ou R-Squared mede quanto da variabilidade da variável resposta é explicada pelo modelo de regressão, indica o quão bem o modelo se ajusta aos dados. É uma porcentagem.
+
+$R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$
+
+- `Yi`: valor real
+- `Ŷi`: valor predito
+- `ȳ`: média dos valores reais
+
+### Relação entre métricas
+Tanto o MAE quanto o MSE medem a distância entre o real e o previsto. O que muda entre os dois é que um eleva ao quadrado e o outro faz o módulo. Em dados com poucos outliers o MSE é um medidor mais importante que o MAE e em dados com muitos outliers é o MAE que é mais importante. Isso se da porque o MAE, ao não elevar ao quadrado, da menos importancia a anomalias. O MSE, por um outro lado, durante o treino dos modelos de aprendizado de máquinas é mais utilizado por fazer os algoritmos convergirem mais rápido logo, por ser mais utilizado no processo de treino é mais importante na maioria dos casos. Para aumentar a qualidade de um modelo queremos minimar ambos.
+
+O MAE para uma análise rápida é um pouco mais intuitivo por ser em termos absoluto.
+
+O R ao quadrado é independente do MAE e o do MSE. Quanto maior o R ao quadrado melhor, significa que o modelo consegue melhor generalizar a variável resultado a partir das variáveis e menos ao acaso.
+
+### Análise do resultado final do regressor de Faithful
+
+Faremos a análise do resultado final do regressor da base Faithful com as funções prontas do scikit-learn para o cálculo do MAE, MSE e R ao quadrado.
+
+As funções são `mean_absolute_error`, `mean_squared_error`, `r2_score` respectivamente.
+
+```{python}
+#MAE
+print(f"MAE: {mean_absolute_error(y_testFaithful, y_predFaithful)}")
+
+#MSE
+print(f"MSE: {mean_squared_error(y_testFaithful, y_predFaithful)}")
+
+#R-Squared
+print(f"R ao quadrado: {r2_score(y_testFaithful, y_predFaithful)}")
+```
+
+Assim como nos classificadores, só podemos dizer se um regressor é bom se comparar-mos a outros. Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções. 
+
+Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, ou seja, se nos contentar-mos com um modelo que erra mais então esse modelo é bom.
+
+O R ao quadrado afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados. 
