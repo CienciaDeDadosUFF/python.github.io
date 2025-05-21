@@ -30,6 +30,7 @@ book:
     - "predicao.qmd"
     - "ErrosAmostrais.qmd"
     - "AvaliandoPreditores.qmd"
+    - "CrossValidation.qmd"
 
 
 

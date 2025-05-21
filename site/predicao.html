@@ -232,6 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CrossValidation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -469,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotando a visualização</span></span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>disp_treino.plot(cmap<span class="op">=</span>plt.cm.Blues)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x1f43b6196a0&gt;</code></pre>
+<pre><code>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x2616a6e2060&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="predicao_files/figure-html/cell-15-output-2.png" width="561" height="429"></p>
@@ -484,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>disp_teste <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm_teste, display_labels<span class="op">=</span>[<span class="st">"spam"</span>, <span class="st">"nonspam"</span>])</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>disp_teste.plot(cmap<span class="op">=</span>plt.cm.Blues)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x1f43b405b50&gt;</code></pre>
+<pre><code>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x2616e94d580&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="predicao_files/figure-html/cell-16-output-2.png" width="561" height="429"></p>

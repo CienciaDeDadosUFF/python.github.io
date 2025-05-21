@@ -13,7 +13,7 @@ O pacote scikit-learn é um pacote muito útil para o machine learning pois entr
 
 # Imports
 
-Segue abaixo os imports:
+Segue abaixo o código da importação dos módulos que usaremos nesse caderno:
 
 ```{python}
 import pandas as pd
@@ -44,9 +44,13 @@ spam = pd.read_csv("Cadernos Grupo Python\\Criação e Avaliação de Preditores
 print(spam)
 ```
 
-A base possui 58 colunas 4601 linhas. Essas colunas estão em frequência ( Detalhar a base aqui). 
+Os dados são valores quantitativos que foram extraidos de 4601 e-mails e associam o e-mail a uma classificação: `spam` ou `nom-spam`. Há 2788 spams e 1813 e-mails normais.
 
-A coluna type possui valores diferentes dos demais, spam e nonspam. Ela é a coluna de rótulo da base. Com ela conseguimos saber a classificação original dos emails em spam ou não spam. Precisamos entregar ao scikit learn essa coluna separada das demais para não influenciar o modelo, o modelo estaria "colando" se fosse mantida.
+Mesmo sem ter a íntegra dos e-mails originais, os dados que a base apresenta já são suficientes para determinar se o conteúdo é ou não spam para o escopo original da base. Em outros estudos, a seleção de dados pode ser diferente.
+
+As primeiras 48 colunas possuem a frequência de certas palavras que estão fortemente associadas com a classificação, como "business". Da coluna 49 à coluna 54, frequência de caracteres de pontuação como a interrogação, também fortemente associado a spams. As colunas 55 a 57 contém a média de letras maiúsculas por palavra, o número de letras maiúsculas na maior palavra e o número absoluto de letras maiúsculas respectivamente, todas importantes estatísticas no problema de classificação de e-mails.
+
+A coluna 58, type, possui valores diferentes dos demais, categóricos, spam e nonspam. Ela é a coluna de rótulo da base. Com ela conseguimos saber a classificação original dos e-mails em spam ou não spam. Precisamos entregar ao scikit learn essa coluna separada das demais para não influenciar o modelo, o modelo estaria "colando" se fosse mantida.
 
 ## Separação treino e teste
 
@@ -129,13 +133,13 @@ A matriz de confusão é a matriz de comparação feita após a predição, onde
 
 A matriz de confusão para o problema de predição dos e-mails em spam ou não spam fica da seguinta forma:
 
-![](Cadernos%20Grupo%20Python/AvaliandoPreditores/matrizDeConfusaoVazia.png)
+![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/matrizDeConfusaoVazia.png)
 
 Onde na primeira coluna se encontram os elementos que possuem a característica de interesse (os e-mails que são spam), e, respectivamente nas linhas, os que foram corretamente identificados - o qual são chamados de **Verdadeiros Positivos (VP)** - e os que foram erroneamente identificados - os **Falsos Negativos (FP)**. Na segunda coluna se encontram os elementos que não possuem a característica de interesse (os e-mails que são ham) e, respectivamente nas linhas, os que foram erroneamente identificados - o qual são chamados de **Falsos Positivos (FN)** - e os que foram corretamente identificados - os **Verdadeiros Negativos (VN)**.
 
 Com as devidas classificações a matriz de confusão fica da seguinte forma:
 
-![](Cadernos%20Grupo%20Python/AvaliandoPreditores/matrizDeConfusaoPreenchida.png)
+![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/matrizDeConfusaoVazia.png)
 
 Dentro da função passamos as predições que obtemos pelo modelo ajustado e as reais classificações dos e-mails do conjunto teste.
 
@@ -164,7 +168,7 @@ Existem classificadores com mais de duas classes. A matriz de confusão na verda
 
 Definição (Sensibilidade): A sensibilidade de um método de predição é a porcentagem dos elementos da amostra que possuem a característica de interesse e foram corretamente identificados. Para o nosso exemplo dos e-mails, a sensabilidade é a porcentagem dos e-mails que são spam e foram classificados pelo nosso algoritmo de predição como spam.
 
-Ou seja, podemos escrever $ Sensibilidade = \frac{VP}{VP+FN}$
+Ou seja, podemos escrever $Sensibilidade = \frac{VP}{VP+FN}$
 
 ### Especificidade
 
@@ -200,7 +204,7 @@ A função `classification_report()` entrega todas essas métricas e mais alguma
 print(classification_report(y_testSpam, y_predSpam))
 ```
 
-Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Para dizermos se o modelo é bom ou não precisariámos comparar a outros. O que podemos afirmar apenas com esses números é que em 92% dos casos, o modelo acerta a classificação e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.
+Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Para dizermos se o modelo é bom ou não precisaríamos comparar a outros. O que podemos afirmar apenas com esses números é que em 92% dos casos, o modelo acerta a classificação e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.
 
 # Regressores
 
@@ -273,49 +277,63 @@ Assim como há diversas formas de compararmos a qualidade dos classificadores, h
 
 ### MAE
 
-MAE (Mean Absolute Error - erro médio absoluto) é a média das diferenças absolutas entre o predito e o real. Ele diz como as previsões de um modelo diferem dos resultados de forma absoluta, em média.
+O **erro médio absoluto** é uma métrica estatística utilizada para medir a **distância entre os valores previstos e os reais**, ou seja, o **erro**. Para calculá-lo, obtemos a média das diferenças absolutas entre os valores previstos e os valores reais, como mostrado na fórmula a seguir:
 
 $\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|$
 
 - `n`: número de observações
-- `Yi`: valor real
-- `Ŷi`: valor predito
-- `|Yi - Ŷi|`: Erro absoluto de uma predição
+- `yi`: valor real
+- `ŷi`: valor predito
+- `|yi - ŷi|`: Erro absoluto de uma predição
 
+**Interpretação**: O cálculo é baseado na distância entre os dados previstos e reais (erro), portanto, quanto **menor** o valor do MAE, melhor será o desempenho do modelo pois isso indica uma **maior proximidade** entre esses valores.
+
+**Limitações**: O MAE não consegue te indicar a **direção dos dados** por conta da utilização do módulo e por não elevar os dados ao quadrado, ou seja, não é possível dizer se os dados se distanciam dos valores reais positivamente ou negativamente. Além disso, ele é pouco sensível a outliers, ou seja, **erros grandes e pequenos tendem a ter a mesma influência** e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.
 
 ### MSE
 
-MSE (mean squared error - erro quadrático médio) é a média de quanto os valores previstos para as observações se distanciaram dos valores verdadeiros dessa observação. Obtemos ele somando essas distâncias entre os valores previstos e os reais ao quadrado e dividindo por n.
+O **erro médio quadrático** segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o **quadrado** ao invés do módulo, o que o torna **mais sensível a outliers** e penalizando mais **erros grandes**. Ele também é utilizado como **função de custo** (loss function) em modelos de regressão, como forma de **otimizar os parâmetros do modelo**, especialmente em **regressão linear** e em **redes neurais**, pois é sempre **diferenciável**, o que facilita minimizar a função utilizando **algoritmos de otimização**, como o gradiente descendente, por exemplo. Sendo assim, sua fórmula é:
 
-$MSE = \frac{1}{n}\sum_{i=1}^{n} \left( Yi - \hat{Y}i \right)^2$
+$MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2$
 
 - `n`: número de observações
-- `Yi`: valor real
-- `Ŷi`: valor predito
-- `(Yi - Ŷi)^2`: Erro ao quadrado de uma predição
+- `yi`: valor real
+- `ŷi`: valor predito
+- `(yi - ŷi)^2`: Erro ao quadrado de uma predição
 
 ![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/MSE.jpg)
 
-### R ao quadrado
+**Interpretação**: Assim como o MAE, quanto **menor** o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois um mesmo valor de MSE pode ser suficientemente próximo do zero ou não dado o contexto, além de **não estar na mesma unidade dos dados**.
 
-$R^2$, R ao quadrado ou R-Squared mede quanto da variabilidade da variável resposta é explicada pelo modelo de regressão, indica o quão bem o modelo se ajusta aos dados. É uma porcentagem.
+**Limitações**: Comocitado anteriormente, o MSE tem uma **sensibilidade maior a outliers**, o que aumenta seu valor e pode indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é **dependente da escala dos dados**, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, devemos **normalizar ou padronizar** os dados antes de realizar a conta. Outro problema a ser considerado é a **falta de informações direcionais** ao usá-lo, ou seja, nunca se sabe o modelo está prevendo valores grandes ou pequenos em relação à variável alvo
+
+### $R^2$
+
+$R^2$, também conhecido como coeficiente de determinação, é uma medida que **explica a proporção da variância** da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se **ajustam ao modelo**. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar duas neste texto. A primeira, se baseia em utilizar os **erros ao quadrado** e a **variância total do modelo**, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta.
+
+$R^2 = 1 - \frac{RSS}{TSS}$
+
+onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total. Podemos escrever de maneira mais detalhada:
 
 $R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$
 
-- `Yi`: valor real
-- `Ŷi`: valor predito
+- `yi`: valor real
+- `ŷi`: valor predito
 - `ȳ`: média dos valores reais
 
-### Relação entre métricas
-Tanto o MAE quanto o MSE medem a distância entre o real e o previsto. O que muda entre os dois é que um eleva ao quadrado e o outro faz o módulo. Em dados com poucos outliers o MSE é um medidor mais importante que o MAE e em dados com muitos outliers é o MAE que é mais importante. Isso se da porque o MAE, ao não elevar ao quadrado, da menos importancia a anomalias. O MSE, por um outro lado, durante o treino dos modelos de aprendizado de máquinas é mais utilizado por fazer os algoritmos convergirem mais rápido logo, por ser mais utilizado no processo de treino é mais importante na maioria dos casos. Para aumentar a qualidade de um modelo queremos minimar ambos.
+A segunda maneira de calcular o $R^2$ vamos utilizar o MSE e a **variância da variável dependente** (valor real).
 
-O MAE para uma análise rápida é um pouco mais intuitivo por ser em termos absoluto.
+$R^2 = 1 - \frac{MSE}{Var(y)}$
 
-O R ao quadrado é independente do MAE e o do MSE. Quanto maior o R ao quadrado melhor, significa que o modelo consegue melhor generalizar a variável resultado a partir das variáveis e menos ao acaso.
+Essa abordagem é especialmente relevante ao comparar modelos em diferentes escalas ou unidades, porque normaliza o erro do modelo pela disseminação geral de dados.
+
+**Interpretação**: Assim como o 𝑀𝐴𝐸, o $R^2$ tem uma interpretação que **varia de acordo com o contexto (dados)**, então nem sempre um valor alto é interessante ou necessário e nem valores baixos preocupantes. Mas, de forma geral, um valor alto explicaria grande parte da variabilidade dos dados e um valor pequeno o exato oposto.
+
+**Limitações**:  É importante lembrar que o $R^2$ mede a **correlação**, mas não mede a **causalidade**. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o $R^2$ não indica se as previsões são precisas.
 
 ### Análise do resultado final do regressor de Faithful
 
-Faremos a análise do resultado final do regressor da base Faithful com as funções prontas do scikit-learn para o cálculo do MAE, MSE e R ao quadrado.
+Faremos a análise do resultado final do regressor da base Faithful com as funções prontas do scikit-learn para o cálculo do MAE, MSE e $R^2$.
 
 As funções são `mean_absolute_error`, `mean_squared_error`, `r2_score` respectivamente.
 
@@ -332,6 +350,6 @@ print(f"R ao quadrado: {r2_score(y_testFaithful, y_predFaithful)}")
 
 Assim como nos classificadores, só podemos dizer se um regressor é bom se comparar-mos a outros. Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções. 
 
-Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, ou seja, se nos contentar-mos com um modelo que erra mais então esse modelo é bom.
+Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, então esse modelo é bom.
 
-O R ao quadrado afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados. 
+O $R^2$ afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados. 

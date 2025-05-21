@@ -1,0 +1,142 @@
+---
+title:  "Validação Cruzada"
+format:
+  html:
+    code-fold: false
+toc: true
+toc-title: Navegação
+number-sections: false
+jupyter: python3
+---
+
+# Imports
+
+Segue abaixo o código da importação dos módulos que usaremos nesse caderno:
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import StratifiedKFold
+```
+
+# Validação Cruzada
+
+Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Um jeito de fazer isso é usando a validação cruzada.
+
+A Validação Cruzada nos permite comparar diferentes métodos de aprendizado de máquina ou parâmetros para o método escolhido e avaliar qual funcionará melhor na prática.
+
+Então o que vamos fazer é, para cada método,
+
+1) Separar os dados em conjunto de treino e conjunto de teste.
+1) Treinar um modelo no conjunto de treino.
+1) Avaliar no conjunto de teste.
+1) Repetir os passos 1-3 e estimar o erro.
+
+Já sabemos que não é uma boa ideia usar toda a base de dados para treinar o nosso preditor e então podemos dividir por exemplo os primeiros 75% dos dados para treino e 25% finais para teste. Mas, e se esse não for o melhor jeito de dividir nossos dados? E se o melhor jeito de fazer essa divisão for usando os primeiros 25% para teste e o restante para treino? A Validação cruzada leva em consideração todas essas divisões usando uma de cada vez e tirando a média dos resultados no final. Para isso veremos como realizar alguns métodos de reamostragem, para utilizarmos várias amostras possíveis e não ficarmos dependentes de uma única amostra.
+
+Utilizaremos a base Spam ao longo do caderno.
+
+```{python}
+# trocar essa url pelo caminho da base spam de vocês.
+Spam = pd.read_csv("Cadernos Grupo Python\\Validação Cruzada\\spam.csv")
+# Separando o rótulo das demais variáveis
+XSpam = Spam.loc[:, Spam.columns != "type"]
+YSpam = Spam["type"]
+```
+
+# Alguns Métodos de Reamostragem
+
+Falaremos de 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada. 
+
+## K-fold
+
+### Definição
+
+Este método consiste em fatiar os dados em k pedaços iguais. Utilizamos um pedaço para o teste e os demais para o treino. Então realizamos esse procedimento k vezes, de modo que em cada repetição um novo pedaço seja utilizado para o teste. Para avaliar o erro nós tiramos a média de todos os erros de todas as replicações.
+
+**Exemplo**: K-fold com 10 partes:
+
+![](Cadernos%20Grupo%20Python/Valida%C3%A7%C3%A3o%20Cruzada/K-fold.png)
+
+
+Quanto maior o k escolhido obtemos menos viés, porém mais variância. Em outras palavras, você terá uma estimativa muito precisa do viés entre os valores previstos e os valores verdadeiros, porém altamente variável. Agora quanto menor o k escolhido, mais viés e menos variância. Ou seja, não iremos necessariamente obter uma boa estimativa do viés, mas ela será menos variável.
+
+**OBS**: Quando o k é igual ao tamanho da amostra, o método é também conhecido como *leave-one-out*.
+
+### Código de exemplo
+
+Vamos utilizar reamostragem por `k-fold` no conjunto de dados spam usando a implementação do scikit-learn. O scikit-learn possui algumas diferentes implementações para a reamostragem por k-folds. Usaremos a função `StratifiedKFold` porque ela faz a separação de k-folds preservando a proporção original da coluna com os rótulos.
+
+```{python}
+# Criação dos k-folds
+kfSpam = StratifiedKFold(n_splits=10, shuffle=True, random_state=11).split(XSpam, YSpam)
+```
+
+Parâmetros da função `StratifiedKFold()`:
+
+* `n_splits`: Recebe o número de partições, o padrão é 5.
+* `shuffle`: Se `False` os dados seguirão a ordem em que aparecem no conjunto de dados, se `True` os dados serão embaralhados. Padrão é `False`.
+* `random_state`: Semente de aleatoriedade para o embaralhamento. Padrão é `None`.
+
+Logo após chamar a função `StratifiedKFold()` chamamos um método, `.split()`. Esse método é aplicado em cima do resultado do StratifiedKFold(). Ele recebe os dados da base utilizada e o rótulo para realizar a separação em k-folds. Fizemos a chamada do método desse jeito para encurtar o processo de separação em k-folds, não usaremos o resultado da função StratifiedKFold() para nada sem antes inserir os dados, assim também evitamos ter uma variável interemediária desnecessária.
+
+O resultado da função StratifeidKFold(), assim como qualquer outra implementação de k-folds no scikit-learn é um `generator`:
+
+```{python}
+# Tipo da variável resultado do StratifiedKFold().split()
+print(type(kfSpam))
+```
+
+Eles são um tipo especial de vetor, possuindo um comportamento diferente de uma lista, notavelmente ele só pode ser iterado uma vez que para o scikit-learn é o ideal em termos de eficiência computacional. Vamos criar uma lista a partir desse generator apenas para poder entender como o scikit-learn fez a divisão, mas usaremos sempre a variável gerada a partir da chamada do método .split() em cima do resultado da função StratifiedKFold().
+
+```python
+# criação de uma lista para reutilização do generator 
+kfSpamLista = list(kfSpam)
+
+# Exibindo cada k-fold
+for K, (train, test) in enumerate(kfSpamLista, 1):
+    print("K:", K)
+    print("Treino:", train)
+    print("Teste:", test)
+    print(f"len(train): {len(train)}\nlen(test): {len(test)}\n\n")
+    if K == 3:
+        break
+```
+
+:::{.callout}
+    K: 1
+    Treino: [   0    1    2 ... 4598 4599 4600]
+    Teste: [   7   13  24  ... 4557 4558 4568]
+    len(train): 4140
+    len(test): 461
+
+    K: 2
+    Treino: [   0    2    3 ... 4598 4599 4600]
+    Teste: [   1   5  6  ... 4579 4590 4591]
+    len(train): 4141
+    len(test): 460
+
+    K: 3
+    Treino: [   0    1    2 ... 4596 4598 4600]
+    Teste: [   8   9  14  ... 4585 4597 4599]
+    len(train): 4141
+    len(test): 460
+:::
+
+K, train e test são gerada a partir de kfSpamLista através da função enumerate, um jeito de lidar com a lista gerada a partir do gerador, e são prontamente iterados. O foco dessa explicação é entender como os k-folds funcionam, entender o enumerate e o generator é secundário, não iremos abordar isso futaramente porque são detalhes muito específicos do python que não é importante para entender validação cruzada.
+
+Restringi para exibir apenas 3 k-folds para ficar melhor formatado aqui no caderno. Caso seja do interesse de vocês visualizar o exemplo com todos os k-folds, apenas retire a condição `if K == 3:` e o `break` do loop.
+
+No computador de vocês poderá aparecer mais elementos nas listas, formatei para mostrar os 3 primeiros e os 3 últimos apenas para fim explicativo.
+
+Analisando o resultado inteiro com todos os k-folds chegamos a algumas observações importantes:
+
+* a lista treino e teste de cada fold K são complementares
+* a união entre lista treino e teste de cada fold K é tem como resultado os índices da base original.
+* índices na lista de teste não se repetem em outras listas de teste
+* todos os índices passam uma vez pelo conjunto teste de algum k-fold
+* os índices se repetem K-1 vezes em diferentes k-folds
+
+## Repeated K-fold
+
+## Bootstrap
