@@ -337,6 +337,7 @@ base.head()
 </table>
 </div>
 ```
+
 ### Exemplo 1:
 
 Dado que a idade dos funcionários da empresa IBM que raramente viajam a trabalho segue uma distribuição normal com média e variância desconhecidas. Deseja-se testar se a média das idades dos funcionários que **raramente viajam a trabalho** pode ser considerada ou não `igual a 37 anos`, utilizando um nível de significância de `5%`.
@@ -519,6 +520,7 @@ base_rarely.head()
 </table>
 </div>
 ```
+
 ``` python
 ss.ttest_1samp(base_rarely['Age'],popmean = 37)
 Ttest_1sampResult(statistic=0.3183482529054914, pvalue=0.7502845793964478)
@@ -708,6 +710,7 @@ base_freq.head()
 </table>
 </div>
 ```
+
 ``` python
 ttest_uni(amostra = base_freq['Age'], popmean = 39, alternative = "smaller")
 ```
@@ -902,6 +905,7 @@ base_sales.head()
 </table>
 </div>
 ```
+
 ``` python
 ttest_uni(amostra = base_sales['Age'],popmean = 40, alternative = "larger")
 ```
@@ -1134,6 +1138,7 @@ base_sales.head()
 </table>
 </div>
 ```
+
 ``` python
 ztest(x1 = base_sales['Attrition'], value = 0.25, alternative = "two-sided")
 ```
@@ -1329,6 +1334,7 @@ base_pesq.head()
 </table>
 </div>
 ```
+
 ``` python
 ztest(x1 = base_pesq['Attrition'], value = 0.30, alternative = "smaller")
 ```
@@ -1519,6 +1525,7 @@ base_freq.head()
 </table>
 </div>
 ```
+
 ``` python
 ztest(x1 = base_freq['Attrition'], value = 0.6, alternative = "larger")
 ```
@@ -1812,6 +1819,7 @@ base_casados.head()
 </table>
 </div>
 ```
+
 ``` python
 test_var(amostra = base_casados['TotalWorkingYears'], sigma2 = 50, alternative = "larger")
 ```
@@ -1947,6 +1955,7 @@ df.head()
 </table>
 </div>
 ```
+
 ### Exemplo 1
 
 Deseja-se avaliar se no período de 2007 a 2011, a proporção de **filmes de Comédia** lançados no cinema foi `igual` a proporção de **filmes de Aventura**, utilizando um nível de significância de `5%`.
@@ -2054,6 +2063,7 @@ df.head()
 </table>
 </div>
 ```
+
 ``` python
 ztest(x1=df.Genre_Comedy, x2= df.Genre_Adventure, value = 0, alternative = 'two-sided')
 ```
@@ -2349,6 +2359,7 @@ df_comedia.head()
 </table>
 </div>
 ```
+
 Primeiro iremos aplicar o teste de razão de variâncias `rvar_test` para testar a igualdade entre elas. Utilize o nível de significância de `5%`.
 
 ``` python
@@ -2509,6 +2520,7 @@ data.head()
 </table>
 </div>
 ```
+
 ### Exemplo 1
 
 Um experimento foi realizado com moradores de diversas ilhas, onde foi possível testar os efeitos de remédios ansiolíticos no uso da memória. Sabendo que os tempos dos testes de memória, antes e depois, dos moradores expostos ao medicamento `A` seguem uma distribuição normal com média e variância desconhecidas, deseja-se avaliar se a droga `A` afeta o uso da memória, seja positivamente ou negativamente, observando a diferença do tempo do teste de memória antes e depois da exposição ao medicamento, ao nível de significância de `5%`.
@@ -2621,6 +2633,7 @@ data_A.head()
 </table>
 </div>
 ```
+
 Utilizaremos a variável `Diff` que já contém os valores das diferenças dos tempos de resposta dos testes de memórias, sendo calculado da forma: `Diff = Mem_Score_After - Mem_Score_Before`.
 
 ``` python
