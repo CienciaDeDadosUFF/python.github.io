@@ -35,365 +35,60 @@ import pandas as pd
 from scipy.stats import chisquare, kstest
 ```
 
-# Testes de Aderência
+# Teste U de Mann–Whitney
 
-Testes de aderência são ferramentas estatísticas utilizadas para avaliar se uma amostra segue uma distribuição teórica específica. Esses testes são \*\*não paramétricos\*\*, pois não dependem de suposições sobre os parâmetros da distribuição (como média ou variância). São úteis para:
+O **Teste U de Mann–Whitney**, também conhecido como **teste de Wilcoxon para duas amostras independentes**, é uma alternativa **não paramétrica** ao teste t de Student. Ele permite verificar se duas amostras independentes provêm da mesma população quanto à **mediana**, **sem pressupor normalidade**.
 
-\- Verificar a validade de modelos estatísticos;
+Esse teste é particularmente útil quando:
 
-\- Comparar distribuições teóricas e empíricas;
-
-\- Tomar decisões sobre qual abordagem estatística seguir (paramétrica ou não).
-
-## Teste Qui-Quadrado de Aderência
-
-**O Teste qui-quadrado de aderência** é uma ferramenta estatística **não paramétrica** utilizada para verificar se uma distribuição observada de frequências em categorias se ajusta a uma **distribuição teórica esperada**.
-
-### Hipóteses
-
-$H₀$: Os dados seguem a distribuição teórica.
-
-$H₁$: Os dados não seguem a distribuição teórica.
-
-### Metodologia
-
-Para realizar o teste, é necessário:
-
--   Comparar as **frequências observadas** com as **frequências esperadas**, que devem ser definidas pelo pesquisador com base em uma distribuição teórica (ex: uniforme, Poisson, etc.).
--   Considerar uma variável com $k$ categorias.
-
-Seja $O_i$ - frequência observada na categoria $i$
-
-$E_i$: frequência esperada na categoria $i$ , assumindo $H_0$ verdadeira
-
-A estatística de teste é dada por:
-
-$X^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}$
-
-Essa estatística mede o grau de divergência entre os valores observados e os esperados. Se os dados estiverem de acordo com a distribuição teórica, $X^2$ será pequeno. Quanto maior for $X^2$, mais evidência há contra a hipótese nula.
-
-#### Interpretação Estatística
-
-Se $O_i \approx E_i$ para todos os $i$, então $X^2$ tende a ser pequeno → **não se rejeita** $H_0$.
-
-Se $O_i$ difere muito de $E_i$ para algum $i$, então $X^2$ será grande → **rejeita-se** $H_0$.
-
-### Distribuição da Estatística
-
-Sob a hipótese nula, $X^2$ segue uma distribuição qui-quadrado com $k - 1$ graus de liberdade, assumindo que **nenhum parâmetro foi estimado**.
-
-Se houver parâmetros estimados da distribuição teórica (como a média λ da Poisson), deve-se **subtrair 1 grau de liberdade para cada parâmetro estimado**:
-
-$\text{GL} = k - 1 - p \quad \text{(onde \( p \) = n° de parâmetros estimados)}$
-
-### Decisão Estatística
-
-Seja $\chi^2_{k-1; \alpha}$ o valor crítico da distribuição qui-quadrado com nível de significância $\alpha$, então:
-
-$\text{Rejeita-se } H_0 \text{ se } X^2 \geq \chi^2_{k-1; \alpha}$
-
-Esse valor crítico pode ser consultado na tabela da qui-quadrado.
-
-### Exemplo: Corrida de Cavalos
-
--   Foram observadas **144 corridas** e registrada a posição do cavalo vencedor (1 a 8).
--   Espera-se que, sob hipótese de uniformidade, as vitórias estejam **uniformemente distribuídas** entre as 8 posições.
--   Assim, a frequência esperada por posição é: $E_i$ = 144/8 = 18
-
-\begin{array}{|c|c|c|}
-\hline
-\text{Posto (i)} & O_i & E_i \\
-\hline
-1 & 29 & 18 \\
-2 & 19 & 18 \\
-3 & 21 & 18 \\
-4 & 19 & 18 \\
-5 & 16 & 18 \\
-6 & 22 & 18 \\
-7 & 11 & 18 \\
-8 & 7  & 18 \\
-\hline
-\end{array}
-
-A estatística de teste será:
-
-$X^2 = \frac{(29-18)^2}{18} + \frac{(19-18)^2}{18} + \dots + \frac{(7-18)^2}{18} = 16{,}3$
-
-Graus de liberdade: ( $df = 8 - 1 = 7$ )
-
-Valor crítico da tabela: $\chi^2_{7;0{,}05} = 14{,}0671 )$
-
-Como $X^2 = 16{,}3 > 14{,}0671$, **rejeita-se** $H_0$. Há evidências de que a distribuição das vitórias **não é uniforme**.
-
-------------------------------------------------------------------------
-
-## Implementação em Python
-
-``` python
-import numpy as np
-from scipy.stats import chisquare
-
-# Frequências observadas
-observado = np.array([29, 19, 21, 19, 16, 22, 11, 7])
-
-# Frequência esperada (uniforme)
-esperado = np.repeat(18, 8)
-
-# Teste Qui-Quadrado
-stat, p = chisquare(f_obs=observado, f_exp=esperado)
-print(f"Estatística X² = {stat:.2f}, p-valor = {p:.4f}")
-```
-
-------------------------------------------------------------------------
-
-## Conclusão
-
-Com $X^2 = 16{,}3$ e $p < 0{,}05$, rejeitamos a hipótese de que as vitórias são uniformemente distribuídas entre as posições dos cavalos. O teste mostra que **algumas posições vencem mais do que o esperado por acaso**.
-
-# Teste de Kolmogorov-Smirnov (Uma Amostra)
-
-O teste de Kolmogorov-Smirnov (KS) para uma amostra é um **teste de aderência** não paramétrico que avalia se uma amostra contínua segue uma distribuição teórica totalmente especificada.
+-   Os dados não seguem distribuição normal;
+-   As variâncias são diferentes;
+-   As variáveis são ordinais ou contínuas, mas não podem ser modeladas parametrizadamente.
 
 ## Hipóteses
 
--   $H_0$: A função de distribuição acumulada da amostra $S(x)$ é igual à teórica $F(x)$ para todo $x$
--   $H_1$: Há pelo menos um $x$ tal que $S(x) \ne F(x)$
+Queremos testar se duas populações independentes têm **a mesma mediana**.
 
-$$
-H_0: S(x) = F(x) \quad \text{vs.} \quad H_1: \exists\, x: |S(x) - F(x)| > 0
-$$
+-   **Hipótese nula**: $H_0$: as distribuições de $X$ e $Y$ são iguais, ou seja, $md_X = md_Y$;
 
-## Suposições
+-   **Hipótese alternativa**: $H_1$: as distribuições são diferentes, ou seja, $md_X \neq md_Y$ (bilateral) ou $md_X > md_Y$ / $md_X < md_Y$ (unilateral).
 
--   A variável é contínua.
--   A distribuição teórica é completamente especificada (parâmetros não estimados).
--   A amostra é aleatória.
+## Metodologia
 
-## Estatística de Teste
+**Passo 1:** Combine as duas amostras e ordene os valores em ordem crescente.\
+**Passo 2:** Atribua postos aos dados combinados. Em caso de empates, atribua a média dos postos.\
+**Passo 3:** Calcule a soma dos postos do grupo $X$ ($R_X$) e do grupo $Y$ ($R_Y$).\
+**Passo 4:** Calcule as estatísticas de Mann–Whitney:
 
-A estatística de teste KS é baseada no **desvio máximo absoluto** entre as funções de distribuição acumulada empírica e teórica:
+-   $U_X = R_X - \dfrac{n_X(n_X + 1)}{2}$
+-   $U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}$
+-   $U = \min(U_X, U_Y)$
 
-$$
-D = \max_i |S(x_i) - F(x_i)|
-$$
-
-Se $D > w_{n;1-\alpha}$, rejeita-se $H_0$. Os valores críticos $w_{n;1-\alpha}$ são tabelados.
-
-## Exemplo
-
-Considere a seguinte amostra de tamanho $n = 20$, que representa distâncias até uma extremidade em que uma linha se rompe:
-
-``` python
-amostra = [0.6, 0.8, 1.1, 1.2, 1.4, 1.7, 1.8, 1.9, 2.2, 2.4,
-           2.5, 2.9, 3.1, 3.4, 3.6, 3.9, 4.4, 4.9, 5.2, 5.9]
-```
-
-Desejamos testar se essa amostra vem de uma distribuição **Uniforme(0, 6)**, ao nível de significância $\alpha = 0{,}05$.
-
-### Etapas
-
-1.  Calcular a função acumulada empírica $S(x)$ para cada ponto.
-2.  Calcular a função acumulada teórica $F(x) = x/6$.
-3.  Obter $|S(x_i) - F(x_i)|$.
-4.  Achar o maior valor absoluto: $D$.
-5.  Comparar com o valor crítico da tabela: $w_{20;0.95} = 0{,}294$.
-
-### Cálculo em Python
-
-``` python
-import numpy as np
-from scipy.stats import kstest
-
-# Dados da amostra
-amostra = np.array([0.6, 0.8, 1.1, 1.2, 1.4, 1.7, 1.8, 1.9, 2.2, 2.4,
-                    2.5, 2.9, 3.1, 3.4, 3.6, 3.9, 4.4, 4.9, 5.2, 5.9])
-
-# Teste KS com a função de distribuição uniforme(0, 6)
-D, p_valor = kstest(amostra, cdf='uniform', args=(0, 6))
-
-print(f"Estatística D = {D:.3f}")
-print(f"p-valor = {p_valor:.4f}")
-```
-
-### Resultado esperado
-
--   Estatística $D = 0{,}150$
--   Valor crítico da tabela: $w_{20;0.95} = 0{,}294$
--   Como $D < 0{,}294$, **não rejeitamos** $H_0$.
-
-## Conclusão
-
-Há evidências de que os dados seguem uma distribuição Uniforme(0,6).\
-\
-
-## Teste de Kolmogorov-Sminorv (Duas amostras)
-
-O teste de Kolmogorov-Smirnov (KS) para duas amostras é utilizado para verificar se **duas amostras independentes** provêm da **mesma distribuição populacional**. Ele é uma extensão natural do teste KS para uma amostra.
-
-### Hipóteses
-
--   $H_0$: As amostras provêm da mesma distribuição: $F(x) = G(x)$ para todo $x$
--   $H_1$: As amostras não provêm da mesma distribuição: $F(x) \ne G(x)$ para pelo menos um $x$
-
-### Suposições
-
-1.  As duas amostras são **aleatórias** e **independentes**.
-2.  As variáveis são **contínuas**.
-3.  Quando as variáveis são discretas, o teste se torna conservador, mas ainda válido.
-
-### Estatística de Teste
-
-Sejam $S(x)$ e $T(x)$ as funções de distribuição empírica das duas amostras.
-
-A estatística do teste é dada por:
-
-$$
-D = \max_{x} |S(x) - T(x)|
-$$
-
-### Exemplo
-
-Vamos testar se duas amostras de **taxa de produção de saliva** (em ml/min), uma de mulheres (n = 6) e outra de homens (n = 18), seguem a mesma distribuição.
-
-``` python
-from scipy.stats import ks_2samp
-
-mulheres = [0.45, 0.60, 0.80, 0.85, 0.95, 1.75]
-homens = [0.40, 0.50, 0.55, 0.65, 0.70, 0.75, 0.90, 1.05, 1.15, 1.25,
-          1.30, 1.35, 1.45, 1.50, 1.85, 1.90, 2.30, 2.55]
-
-estatistica_D, p_valor = ks_2samp(mulheres, homens)
-
-print(f"Estatística D = {estatistica_D:.3f}")
-print(f"p-valor = {p_valor:.4f}")
-```
+**Passo 5:** Compare o valor de $U$ com o valor crítico tabelado (ou use o valor-$p$ calculado).
 
 ------------------------------------------------------------------------
 
-### Interpretação
+## Exemplo
 
--   Resultado do teste: $D = 0.444$
--   Valor crítico da tabela para $n=6$, $m=18$ e $\alpha = 5\%$: $w_{6,18;0.95} = 0.611$
--   Como $D < 0.611$, **não rejeitamos** $H_0$.
+**Comparação entre marcas A e B de fertilizante no crescimento de plantas:**
 
-**Conclusão**: As amostras podem ter vindo da mesma distribuição.
+Marca A ($n_1 = 6$): 78, 85, 83, 74, 88, 90\
+Marca B ($n_2 = 7$): 82, 79, 76, 81, 77, 80, 78
 
-### Etapas resumidas
+Testar:
 
-1.  Ordenar os dados combinados das duas amostras;
-
-2.  Calcular as distribuições empíricas acumuladas $S(x)$ e $T(x)$ para cada ponto;
-
-3.  Obter $|S(x) - T(x)|$;
-
-4.  Calcular o máximo dos desvios;
-
-5.  Comparar com valor crítico da tabela ou usar o p-valor.
-
-### Considerações Finais
-
-O teste KS de duas amostras é muito útil para comparar distribuições **sem assumir nenhuma forma específica**, sendo especialmente valioso quando queremos evitar suposições paramétricas.
-
-# Caso de uma única amostra
-
-Nesta seção, abordaremos três testes não paramétricos aplicáveis ao **caso de uma única amostra**:
-
--   Teste Binomial
--   Teste do Sinal
--   Teste de Wilcoxon com postos e sinais
-
-Esses testes são utilizados para avaliar hipóteses sobre a **mediana** ou **proporção** de uma população, sem a necessidade de assumir normalidade dos dados.
-
-## Teste Binomial
-
-### Hipóteses
-
-Seja $p$ a proporção de sucessos:
-
-$$
-H_0: p = p_0 \quad \text{vs} \quad H_1: p \ne p_0 \text{ ou } p > p_0 \text{ ou } p < p_0
-$$
-
-### Suposições
-
--   Os dados são binários (sucesso/fracasso).
--   As observações são independentes.
--   A probabilidade de sucesso é constante.
-
-### Estatística do Teste
-
-Denote $K$ como o número de sucessos observados em uma amostra de tamanho $n$. Sob $H_0$, $K \sim \text{Bin}(n, p_0)$.
-
-### Valor-p:
-
--   $H_1: p < p_0 \Rightarrow \text{valor-p} = P(K \le k)$
--   $H_1: p > p_0 \Rightarrow \text{valor-p} = P(K \ge k)$
--   $H_1: p \ne p_0 \Rightarrow \text{valor-p} = 2 \cdot \min[P(K \le k), P(K \ge k)]$
-
-### Exemplo
-
-Em 20 cirurgias com nova técnica, 14 tiveram sucesso. Testar:
-
-$$
-H_0: p = 0.5 \quad \text{vs} \quad H_1: p > 0.5
-$$
+$H_0: md_X = md_Y \quad \text{vs} \quad H_1: md_X \neq md_Y$
 
 ``` python
-from scipy.stats import binom
-
-n = 20
-k = 14
-p0 = 0.5
-
-# P(K >= 14) para teste unilateral à direita
-p_valor = binom.sf(k - 1, n, p0)
-print(f"Valor-p = {p_valor:.4f}")
-```
-
-**Resultado**: valor-p ≈ 0.058 → **não rejeitamos** $H_0$ ao nível de 5%.
-
-## Teste do Sinal
-
-### Hipóteses
-
-Seja $md$ a mediana populacional e $m_0$ o valor de referência:
-
-$$
-H_0: md = m_0 \quad \text{vs} \quad H_1: md \ne m_0 \text{ ou } md > m_0 \text{ ou } md < m_0
-$$
-
-### Estatística do Teste
-
--   Calcular $d_i = x_i - m_0$ para cada observação
--   Ignorar $d_i = 0$
--   Contar os sinais positivos ($S^+$) e negativos ($S^-$)
--   Usar $S^+ \sim \text{Bin}(n^*, 0.5)$ onde $n^* = S^+ + S^-$
-
-### Exemplo
-
-Amostra: 165, 172, 169, 174, 170, 168, 175, 171, 167, 173. Testar:
-
-$$
-H_0: md = 170 \quad \text{vs} \quad H_1: md \ne 170
-$$
-
-``` python
-from scipy.stats import binom
+from scipy.stats 
+import mannwhitneyu 
 import numpy as np
 
-x = np.array([165, 172, 169, 174, 170, 168, 175, 171, 167, 173])
-m0 = 170
-d = x - m0
-d = d[d != 0]  # remove zero
-s_plus = np.sum(d > 0)
-n_efetivo = len(d)
+marca_A = np.array([78, 85, 83, 74, 88, 90]) 
+marca_B = np.array([82, 79, 76, 81, 77, 80, 78])
 
-# Bilateral
-p_valor = 2 * min(binom.cdf(s_plus, n_efetivo, 0.5), binom.sf(s_plus - 1, n_efetivo, 0.5))
-print(f"Valor-p = {p_valor:.4f}")
+stat, p_valor = mannwhitneyu(marca_A, marca_B, alternative='two-sided') print(f"Estatística U = {stat}, Valor-p = {p_valor:.4f}")
 ```
-
-**Resultado**: valor-p = 1 → **não rejeitamos** $H_0$
 
 ## Teste de Wilcoxon (Postos com Sinais)
 
@@ -433,8 +128,6 @@ print(f"Estatística W = {stat}, Valor-p = {p_valor:.4f}")
 
 ### Considerações Finais
 
--   Use o **teste binomial** para proporções com variáveis dicotômicas
--   Use o **teste do sinal** quando os dados forem assimétricos ou com poucos valores
 -   Use o **teste de Wilcoxon** quando quiser considerar **a magnitude das diferenças**
 
 # Referências

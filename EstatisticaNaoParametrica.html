@@ -109,20 +109,19 @@ window.Quarto = {
    
   <ul>
   <li><a href="#importação" id="toc-importação" class="nav-link active" data-scroll-target="#importação">Importação</a></li>
-  <li><a href="#testes-de-aderência" id="toc-testes-de-aderência" class="nav-link" data-scroll-target="#testes-de-aderência">Testes de Aderência</a>
-  <ul class="collapse">
-  <li><a href="#teste-qui-quadrado-de-aderência" id="toc-teste-qui-quadrado-de-aderência" class="nav-link" data-scroll-target="#teste-qui-quadrado-de-aderência">Teste Qui-Quadrado de Aderência</a>
+  <li><a href="#teste-u-de-mannwhitney" id="toc-teste-u-de-mannwhitney" class="nav-link" data-scroll-target="#teste-u-de-mannwhitney">Teste U de Mann–Whitney</a>
   <ul class="collapse">
   <li><a href="#hipóteses" id="toc-hipóteses" class="nav-link" data-scroll-target="#hipóteses">Hipóteses</a></li>
   <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">Metodologia</a></li>
-  <li><a href="#distribuição-da-estatística" id="toc-distribuição-da-estatística" class="nav-link" data-scroll-target="#distribuição-da-estatística">Distribuição da Estatística</a></li>
-  <li><a href="#decisão-estatística" id="toc-decisão-estatística" class="nav-link" data-scroll-target="#decisão-estatística">Decisão Estatística</a></li>
-  <li><a href="#exemplo-corrida-de-cavalos" id="toc-exemplo-corrida-de-cavalos" class="nav-link" data-scroll-target="#exemplo-corrida-de-cavalos">Exemplo: Corrida de Cavalos</a></li>
+  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo">Exemplo</a></li>
+  <li><a href="#teste-de-wilcoxon-postos-com-sinais" id="toc-teste-de-wilcoxon-postos-com-sinais" class="nav-link" data-scroll-target="#teste-de-wilcoxon-postos-com-sinais">Teste de Wilcoxon (Postos com Sinais)</a>
+  <ul class="collapse">
+  <li><a href="#hipóteses-1" id="toc-hipóteses-1" class="nav-link" data-scroll-target="#hipóteses-1">Hipóteses</a></li>
+  <li><a href="#metodologia-1" id="toc-metodologia-1" class="nav-link" data-scroll-target="#metodologia-1">Metodologia</a></li>
+  <li><a href="#exemplo-1" id="toc-exemplo-1" class="nav-link" data-scroll-target="#exemplo-1">Exemplo</a></li>
+  <li><a href="#considerações-finais" id="toc-considerações-finais" class="nav-link" data-scroll-target="#considerações-finais">Considerações Finais</a></li>
   </ul></li>
-  <li><a href="#implementação-em-python" id="toc-implementação-em-python" class="nav-link" data-scroll-target="#implementação-em-python">Implementação em Python</a></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">Conclusão</a></li>
   </ul></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
   </ul>
 </nav>
@@ -165,102 +164,93 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chisquare, kstest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="testes-de-aderência" class="level1">
-<h1>Testes de Aderência</h1>
-<p>Testes de aderência são ferramentas estatísticas utilizadas para avaliar se uma amostra segue uma distribuição teórica específica. Esses testes são **não paramétricos**, pois não dependem de suposições sobre os parâmetros da distribuição (como média ou variância). São úteis para:</p>
-<p>- Verificar a validade de modelos estatísticos;</p>
-<p>- Comparar distribuições teóricas e empíricas;</p>
-<p>- Tomar decisões sobre qual abordagem estatística seguir (paramétrica ou não).</p>
-<section id="teste-qui-quadrado-de-aderência" class="level2">
-<h2 class="anchored" data-anchor-id="teste-qui-quadrado-de-aderência">Teste Qui-Quadrado de Aderência</h2>
-<p><strong>O Teste qui-quadrado de aderência</strong> é uma ferramenta estatística <strong>não paramétrica</strong> utilizada para verificar se uma distribuição observada de frequências em categorias se ajusta a uma <strong>distribuição teórica esperada</strong>.</p>
-<section id="hipóteses" class="level3">
-<h3 class="anchored" data-anchor-id="hipóteses">Hipóteses</h3>
-<p><span class="math inline">\(H₀\)</span>: Os dados seguem a distribuição teórica.</p>
-<p><span class="math inline">\(H₁\)</span>: Os dados não seguem a distribuição teórica.</p>
-</section>
-<section id="metodologia" class="level3">
-<h3 class="anchored" data-anchor-id="metodologia">Metodologia</h3>
-<p>Para realizar o teste, é necessário:</p>
+<section id="teste-u-de-mannwhitney" class="level1">
+<h1>Teste U de Mann–Whitney</h1>
+<p>O <strong>Teste U de Mann–Whitney</strong>, também conhecido como <strong>teste de Wilcoxon para duas amostras independentes</strong>, é uma alternativa <strong>não paramétrica</strong> ao teste t de Student. Ele permite verificar se duas amostras independentes provêm da mesma população quanto à <strong>mediana</strong>, <strong>sem pressupor normalidade</strong>.</p>
+<p>Esse teste é particularmente útil quando:</p>
 <ul>
-<li>Comparar as <strong>frequências observadas</strong> com as <strong>frequências esperadas</strong>, que devem ser definidas pelo pesquisador com base em uma distribuição teórica (ex: uniforme, Poisson, etc.).</li>
-<li>Considerar uma variável com <span class="math inline">\(k\)</span> categorias.</li>
+<li>Os dados não seguem distribuição normal;</li>
+<li>As variâncias são diferentes;</li>
+<li>As variáveis são ordinais ou contínuas, mas não podem ser modeladas parametrizadamente.</li>
 </ul>
-<p>Seja <span class="math inline">\(O_i\)</span> - frequência observada na categoria <span class="math inline">\(i\)</span></p>
-<p><span class="math inline">\(E_i\)</span>: frequência esperada na categoria <span class="math inline">\(i\)</span> , assumindo <span class="math inline">\(H_0\)</span> verdadeira</p>
-<p>A estatística de teste é dada por:</p>
-<p><span class="math inline">\(X^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}\)</span></p>
-<p>Essa estatística mede o grau de divergência entre os valores observados e os esperados. Se os dados estiverem de acordo com a distribuição teórica, <span class="math inline">\(X^2\)</span> será pequeno. Quanto maior for <span class="math inline">\(X^2\)</span>, mais evidência há contra a hipótese nula.</p>
-<section id="interpretação-estatística" class="level4">
-<h4 class="anchored" data-anchor-id="interpretação-estatística">Interpretação Estatística</h4>
-<p>Se <span class="math inline">\(O_i \approx E_i\)</span> para todos os <span class="math inline">\(i\)</span>, então <span class="math inline">\(X^2\)</span> tende a ser pequeno → <strong>não se rejeita</strong> <span class="math inline">\(H_0\)</span>.</p>
-<p>Se <span class="math inline">\(O_i\)</span> difere muito de <span class="math inline">\(E_i\)</span> para algum <span class="math inline">\(i\)</span>, então <span class="math inline">\(X^2\)</span> será grande → <strong>rejeita-se</strong> <span class="math inline">\(H_0\)</span>.</p>
-</section>
-</section>
-<section id="distribuição-da-estatística" class="level3">
-<h3 class="anchored" data-anchor-id="distribuição-da-estatística">Distribuição da Estatística</h3>
-<p>Sob a hipótese nula, <span class="math inline">\(X^2\)</span> segue uma distribuição qui-quadrado com <span class="math inline">\(k - 1\)</span> graus de liberdade, assumindo que <strong>nenhum parâmetro foi estimado</strong>.</p>
-<p>Se houver parâmetros estimados da distribuição teórica (como a média λ da Poisson), deve-se <strong>subtrair 1 grau de liberdade para cada parâmetro estimado</strong>:</p>
-<p><span class="math inline">\(\text{GL} = k - 1 - p \quad \text{(onde \( p \) = n° de parâmetros estimados)}\)</span></p>
-</section>
-<section id="decisão-estatística" class="level3">
-<h3 class="anchored" data-anchor-id="decisão-estatística">Decisão Estatística</h3>
-<p>Seja <span class="math inline">\(\chi^2_{k-1; \alpha}\)</span> o valor crítico da distribuição qui-quadrado com nível de significância <span class="math inline">\(\alpha\)</span>, então:</p>
-<p><span class="math inline">\(\text{Rejeita-se } H_0 \text{ se } X^2 \geq \chi^2_{k-1; \alpha}\)</span></p>
-<p>Esse valor crítico pode ser consultado na tabela da qui-quadrado.</p>
-</section>
-<section id="exemplo-corrida-de-cavalos" class="level3">
-<h3 class="anchored" data-anchor-id="exemplo-corrida-de-cavalos">Exemplo: Corrida de Cavalos</h3>
+<section id="hipóteses" class="level2">
+<h2 class="anchored" data-anchor-id="hipóteses">Hipóteses</h2>
+<p>Queremos testar se duas populações independentes têm <strong>a mesma mediana</strong>.</p>
 <ul>
-<li>Foram observadas <strong>144 corridas</strong> e registrada a posição do cavalo vencedor (1 a 8).</li>
-<li>Espera-se que, sob hipótese de uniformidade, as vitórias estejam <strong>uniformemente distribuídas</strong> entre as 8 posições.</li>
-<li>Assim, a frequência esperada por posição é: <span class="math inline">\(E_i\)</span> = 144/8 = 18</li>
+<li><p><strong>Hipótese nula</strong>: <span class="math inline">\(H_0\)</span>: as distribuições de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são iguais, ou seja, <span class="math inline">\(md_X = md_Y\)</span>;</p></li>
+<li><p><strong>Hipótese alternativa</strong>: <span class="math inline">\(H_1\)</span>: as distribuições são diferentes, ou seja, <span class="math inline">\(md_X \neq md_Y\)</span> (bilateral) ou <span class="math inline">\(md_X &gt; md_Y\)</span> / <span class="math inline">\(md_X &lt; md_Y\)</span> (unilateral).</p></li>
 </ul>
-<span class="math display">\[\begin{array}{|c|c|c|}
-\hline
-\text{Posto (i)} &amp; O_i &amp; E_i \\
-\hline
-1 &amp; 29 &amp; 18 \\
-2 &amp; 19 &amp; 18 \\
-3 &amp; 21 &amp; 18 \\
-4 &amp; 19 &amp; 18 \\
-5 &amp; 16 &amp; 18 \\
-6 &amp; 22 &amp; 18 \\
-7 &amp; 11 &amp; 18 \\
-8 &amp; 7  &amp; 18 \\
-\hline
-\end{array}\]</span>
-<p>A estatística de teste será:</p>
-<p><span class="math inline">\(X^2 = \frac{(29-18)^2}{18} + \frac{(19-18)^2}{18} + \dots + \frac{(7-18)^2}{18} = 16{,}3\)</span></p>
-<p>Graus de liberdade: ( <span class="math inline">\(df = 8 - 1 = 7\)</span> )</p>
-<p>Valor crítico da tabela: <span class="math inline">\(\chi^2_{7;0{,}05} = 14{,}0671 )\)</span></p>
-<p>Como <span class="math inline">\(X^2 = 16{,}3 &gt; 14{,}0671\)</span>, <strong>rejeita-se</strong> <span class="math inline">\(H_0\)</span>. Há evidências de que a distribuição das vitórias <strong>não é uniforme</strong>.</p>
+</section>
+<section id="metodologia" class="level2">
+<h2 class="anchored" data-anchor-id="metodologia">Metodologia</h2>
+<p><strong>Passo 1:</strong> Combine as duas amostras e ordene os valores em ordem crescente.<br>
+<strong>Passo 2:</strong> Atribua postos aos dados combinados. Em caso de empates, atribua a média dos postos.<br>
+<strong>Passo 3:</strong> Calcule a soma dos postos do grupo <span class="math inline">\(X\)</span> (<span class="math inline">\(R_X\)</span>) e do grupo <span class="math inline">\(Y\)</span> (<span class="math inline">\(R_Y\)</span>).<br>
+<strong>Passo 4:</strong> Calcule as estatísticas de Mann–Whitney:</p>
+<ul>
+<li><span class="math inline">\(U_X = R_X - \dfrac{n_X(n_X + 1)}{2}\)</span></li>
+<li><span class="math inline">\(U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}\)</span></li>
+<li><span class="math inline">\(U = \min(U_X, U_Y)\)</span></li>
+</ul>
+<p><strong>Passo 5:</strong> Compare o valor de <span class="math inline">\(U\)</span> com o valor crítico tabelado (ou use o valor-<span class="math inline">\(p\)</span> calculado).</p>
 <hr>
 </section>
+<section id="exemplo" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo">Exemplo</h2>
+<p><strong>Comparação entre marcas A e B de fertilizante no crescimento de plantas:</strong></p>
+<p>Marca A (<span class="math inline">\(n_1 = 6\)</span>): 78, 85, 83, 74, 88, 90<br>
+Marca B (<span class="math inline">\(n_2 = 7\)</span>): 82, 79, 76, 81, 77, 80, 78</p>
+<p>Testar:</p>
+<p><span class="math inline">\(H_0: md_X = md_Y \quad \text{vs} \quad H_1: md_X \neq md_Y\)</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mannwhitneyu </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>marca_A <span class="op">=</span> np.array([<span class="dv">78</span>, <span class="dv">85</span>, <span class="dv">83</span>, <span class="dv">74</span>, <span class="dv">88</span>, <span class="dv">90</span>]) </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>marca_B <span class="op">=</span> np.array([<span class="dv">82</span>, <span class="dv">79</span>, <span class="dv">76</span>, <span class="dv">81</span>, <span class="dv">77</span>, <span class="dv">80</span>, <span class="dv">78</span>])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>stat, p_valor <span class="op">=</span> mannwhitneyu(marca_A, marca_B, alternative<span class="op">=</span><span class="st">'two-sided'</span>) <span class="bu">print</span>(<span class="ss">f"Estatística U = </span><span class="sc">{</span>stat<span class="sc">}</span><span class="ss">, Valor-p = </span><span class="sc">{</span>p_valor<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="implementação-em-python" class="level2">
-<h2 class="anchored" data-anchor-id="implementação-em-python">Implementação em Python</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chisquare</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequências observadas</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>observado <span class="op">=</span> np.array([<span class="dv">29</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">16</span>, <span class="dv">22</span>, <span class="dv">11</span>, <span class="dv">7</span>])</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequência esperada (uniforme)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>esperado <span class="op">=</span> np.repeat(<span class="dv">18</span>, <span class="dv">8</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste Qui-Quadrado</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>stat, p <span class="op">=</span> chisquare(f_obs<span class="op">=</span>observado, f_exp<span class="op">=</span>esperado)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estatística X² = </span><span class="sc">{</span>stat<span class="sc">:.2f}</span><span class="ss">, p-valor = </span><span class="sc">{</span>p<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
+<section id="teste-de-wilcoxon-postos-com-sinais" class="level2">
+<h2 class="anchored" data-anchor-id="teste-de-wilcoxon-postos-com-sinais">Teste de Wilcoxon (Postos com Sinais)</h2>
+<section id="hipóteses-1" class="level3">
+<h3 class="anchored" data-anchor-id="hipóteses-1">Hipóteses</h3>
+<p><span class="math display">\[
+H_0: md = m_0 \quad \text{vs} \quad H_1: md \ne m_0 \text{ ou } md &gt; m_0 \text{ ou } md &lt; m_0
+\]</span></p>
 </section>
-<section id="conclusão" class="level2">
-<h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
-<p>Com <span class="math inline">\(X^2 = 16{,}3\)</span> e <span class="math inline">\(p &lt; 0{,}05\)</span>, rejeitamos a hipótese de que as vitórias são uniformemente distribuídas entre as posições dos cavalos. O teste mostra que <strong>algumas posições vencem mais do que o esperado por acaso</strong>.</p>
+<section id="metodologia-1" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia-1">Metodologia</h3>
+<ol type="1">
+<li>Calcular <span class="math inline">\(d_i = x_i - m_0\)</span></li>
+<li>Ignorar <span class="math inline">\(d_i = 0\)</span>, tomar <span class="math inline">\(|d_i|\)</span> e rankear</li>
+<li>Reatribuir sinais e somar os postos positivos <span class="math inline">\(W^+\)</span> e negativos <span class="math inline">\(W^-\)</span></li>
+<li>Estatística do teste: <span class="math inline">\(W = \min(W^+, W^-)\)</span></li>
+</ol>
+</section>
+<section id="exemplo-1" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-1">Exemplo</h3>
+<p>Amostra: 88, 82, 87, 68, 106, 60, 97. Testar:</p>
+<p><span class="math display">\[
+H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
+\]</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">88</span>, <span class="dv">82</span>, <span class="dv">87</span>, <span class="dv">68</span>, <span class="dv">106</span>, <span class="dv">60</span>, <span class="dv">97</span>])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m0 <span class="op">=</span> <span class="dv">70</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> x <span class="op">-</span> m0</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>stat, p_valor <span class="op">=</span> wilcoxon(d)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estatística W = </span><span class="sc">{</span>stat<span class="sc">}</span><span class="ss">, Valor-p = </span><span class="sc">{</span>p_valor<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Resultado</strong>: Com W = 3 e valor-p &lt; 0.1 → <strong>rejeitamos</strong> <span class="math inline">\(H_0\)</span></p>
+</section>
+<section id="considerações-finais" class="level3">
+<h3 class="anchored" data-anchor-id="considerações-finais">Considerações Finais</h3>
+<ul>
+<li>Use o <strong>teste de Wilcoxon</strong> quando quiser considerar <strong>a magnitude das diferenças</strong></li>
+</ul>
 </section>
 </section>
-<section id="section" class="level1">
-<h1></h1>
 </section>
 <section id="referências" class="level1">
 <h1>Referências</h1>
