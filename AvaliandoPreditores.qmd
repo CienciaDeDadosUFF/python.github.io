@@ -9,7 +9,7 @@ number-sections: false
 jupyter: python3
 ---
 
-O pacote scikit-learn é um pacote muito útil para o machine learning pois entrega muitas ferramentas que simplificam a criação de modelos preditivos. A função train_test_split exposta em capítulos anteriores é um exemplo. A construção de preditores feitos usando esse pacote será o foco desse capítulo. 
+O pacote scikit-learn é um pacote muito útil para o machine learning pois entrega muitas ferramentas que simplificam a criação de modelos preditivos. A função train_test_split exposta em capítulos anteriores é um exemplo. A construção de preditores feitos usando esse pacote será o foco desse capítulo.
 
 # Imports
 
@@ -32,6 +32,7 @@ from sklearn.metrics import r2_score
 ```
 
 # Classificadores
+
 Vamos utilizar a base de dados spam novamente para realizarmos o procedimento de predição para um e-mail (se ele é spam ou não spam), dessa vez utilizando o pacote scikit-learn.
 
 ## Analisando a base spam
@@ -56,7 +57,6 @@ A coluna 58, type, possui valores diferentes dos demais, categóricos, spam e no
 
 Para fazer a separação das amostras em treino e teste vamos primeiramente particionar a base de dados com a função `train_test_split()`. Ela divide a base mantendo a proporção das classes de classificação, nesse caso, spam e nonspam, mantendo a proporção da base original. Isso evita que ao acaso possa sair da separação uma base para treino muito diferente da original, que afeta severamente a qualidade do modelo.
 
-
 ```{python}
 # Separando a coluna de rótulo das demais
 XSpam = spam.loc[:, spam.columns != "type"]
@@ -66,17 +66,17 @@ YSpam = spam["type"]
 x_trainSpam, x_testSpam, y_trainSpam, y_testSpam = train_test_split(XSpam, YSpam, test_size=0.4, random_state=11)
 ```
 
-No caderno de Introdução a Programação com Python falamos que é importante criar variáveis com nomes elucidativos.Esse X e Y podem parecer estranho a partir desse princípio, porém, essa nomenclatura de variáveis é um padrão utilizado por muitos no Python para fazer a separação do rótulo das demais colunas. Assim como numa função matemática, X -> Y, colunas de dados -> coluna de rótulo, por isso X e Y. 
+No caderno de Introdução a Programação com Python falamos que é importante criar variáveis com nomes elucidativos.Esse X e Y podem parecer estranho a partir desse princípio, porém, essa nomenclatura de variáveis é um padrão utilizado por muitos no Python para fazer a separação do rótulo das demais colunas. Assim como numa função matemática, X -\> Y, colunas de dados -\> coluna de rótulo, por isso X e Y.
 
-O parâmetro `test_size` recebe a proporção de dados teste dentro do total, logo, seguindo o exemplo, 40% da base é teste e 60% é treino. 
+O parâmetro `test_size` recebe a proporção de dados teste dentro do total, logo, seguindo o exemplo, 40% da base é teste e 60% é treino.
 
-O parâmetro `random_state` é uma maneira de assegurar que a separação que está sendo feita aqui é a separação que está sendo feita por vocês, para fins didáticos. Ele trapaceia a aleatoriedade do sorteio, pré-determinando o resultado a partir do número inserido, conhecido como seed. Isso é útil também se quisermos guardar a aleatoriedade usada para testar novamente depois. Normalmente sempre inserimos uma seed para que possamos replicar o experimento caso seja do nosso desejo no futuro. 
+O parâmetro `random_state` é uma maneira de assegurar que a separação que está sendo feita aqui é a separação que está sendo feita por vocês, para fins didáticos. Ele trapaceia a aleatoriedade do sorteio, pré-determinando o resultado a partir do número inserido, conhecido como seed. Isso é útil também se quisermos guardar a aleatoriedade usada para testar novamente depois. Normalmente sempre inserimos uma seed para que possamos replicar o experimento caso seja do nosso desejo no futuro.
 
 O resultado da função train_test_split são 4 bases novas, `x_train`, `x_teste`, `y_train` e `y_test`. Dados para treino sem rótulo, dados para teste sem rótulo, rótulo dos dados para treino, rótulo dos dados para teste, gerados a partir do `X` (dados sem rótulo) e do `Y` (rótulo dos dados) que inserimos dentro da função `train_test_split`. Acrescentei `Spam` no final de cada variável para diferenciar do regressor que faremos a seguir.
 
 ## Seleção de algoritmo de aprendizado de máquina para o classificador.
 
-Dado que já foi feito a separação das amostras treino e teste, o próximo passo é realizarmos o treinamento. Para isso é preciso escolher um dos algoritmos para ser utilizado. O scikit-learn suporta uma infinidade de diferentes modelos que podemos escolher. 
+Dado que já foi feito a separação das amostras treino e teste, o próximo passo é realizarmos o treinamento. Para isso é preciso escolher um dos algoritmos para ser utilizado. O scikit-learn suporta uma infinidade de diferentes modelos que podemos escolher.
 
 Uma lista com todos os algoritmos implementados no pacote scikit-learn pode ser obtida com o seguinte comando:
 
@@ -88,12 +88,7 @@ print(all_estimators())
 print(all_estimators(type_filter='classifier')) 
 ```
 
-`type_filter` pode receber:
-- "regressor" para regressores
-- "classifier" para classificadores 
-- "cluster" para agrupadores
-- "transformer" para transformadores
-- "outlier_detector" para detectores de anomalia
+`type_filter` pode receber: - "regressor" para regressores - "classifier" para classificadores - "cluster" para agrupadores - "transformer" para transformadores - "outlier_detector" para detectores de anomalia
 
 Nesse e nos próximos cadernos focaremos mais nos regressores e classificadores, de aprendizado de máquina supervisionado.
 
@@ -107,7 +102,7 @@ Cada modelo no scikit-learn precisa ser importado, podemos importar a biblioteca
 
 Agora vamos criar o nosso classificador. Para isso vamos usar a função `LogisticRegression()` para instanciá-lo e o método `.fit()` para treiná-lo.
 
-``` {python}
+```{python}
 modelSpam = LogisticRegression(max_iter=3000)
 modelSpam.fit(x_trainSpam, y_trainSpam)
 ```
@@ -123,11 +118,11 @@ y_predSpam = modelSpam.predict(x_testSpam)
 print(y_predSpam)
 ```
 
-Ao fazermos isso obtemos uma série de predições para as classes dos e-mails do conjunto teste. 
+Ao fazermos isso obtemos uma série de predições para as classes dos e-mails do conjunto teste.
 
 ## Avaliação do classificador
 
-Podemos realizar a avaliação do modelo comparando os resultados da predição com os reais rótulos dos e-mails que salvamos na variável `y_test`, por meio da função `confusion_matrix()`. Essa função cria uma matriz de confusão a partir do resultado da predição e os rótulos originais. 
+Podemos realizar a avaliação do modelo comparando os resultados da predição com os reais rótulos dos e-mails que salvamos na variável `y_test`, por meio da função `confusion_matrix()`. Essa função cria uma matriz de confusão a partir do resultado da predição e os rótulos originais.
 
 A matriz de confusão é a matriz de comparação feita após a predição, onde as linhas correspondem ao que foi previsto e as colunas correspondem à verdade conhecida.
 
@@ -143,7 +138,6 @@ Com as devidas classificações a matriz de confusão fica da seguinte forma:
 
 Dentro da função passamos as predições que obtemos pelo modelo ajustado e as reais classificações dos e-mails do conjunto teste.
 
-
 ```{python}
 cmSpam = confusion_matrix(y_testSpam, y_predSpam)
 print(cmSpam)
@@ -151,7 +145,7 @@ print(cmSpam)
 
 O que acharam da matriz confusão? Alguns números numa matriz do Python não é a melhor apresentação. Para deixar mais apresentável podemos fazer um gráfico:
 
-``` {python}
+```{python}
 plt.figure(figsize=(6,4))
 sns.heatmap(cmSpam, annot=True, fmt='d', cmap='Blues', xticklabels=["nonspam", "spam"], yticklabels=["nonspam", "spam"], cbar=False)
 plt.xlabel('Predito')
@@ -162,7 +156,7 @@ plt.show()
 
 Só o gráfico com números em valor absoluto não é o suficiente para avaliar o modelo. Podemos a partir desses números usar algumas métricas, muitas existem que podemos usar a partir desses valores. Falaremos mais sobre sensibilidade, especificidade e acurácia.
 
-Existem classificadores com mais de duas classes. A matriz de confusão na verdade tem cardinalidade de acordo com o número de classes e a nomenclatura verdadeiro positivo, verdadeira negativo, falso positivo, falso negativo, ganha uma complexidade maior. Por simplicidade, estamos usando apenas um classificador com duas classes. 
+Existem classificadores com mais de duas classes. A matriz de confusão na verdade tem cardinalidade de acordo com o número de classes e a nomenclatura verdadeiro positivo, verdadeira negativo, falso positivo, falso negativo, ganha uma complexidade maior. Por simplicidade, estamos usando apenas um classificador com duas classes.
 
 ### Sensibilidade
 
@@ -188,7 +182,7 @@ Quando obtemos as sensibilidades e as especificidades de diferentes preditores, 
 
 Se identificar corretamente os positivos for mais importante, utilizamos o preditor com maior sensibilidade. Se identificar corretamente os negativos for mais importante, utilizamos o preditor com maior especificidade.
 
-Acurácia da uma visão mais geral. Muitos cientistas de dados a consideram a métrica mais importante para classificadores, porém, acurácia não é tudo. Um modelo pode ser feito de maneira errada e mesmo assim ter alta acurácia. Em certas situações o debate Sensibilidade X Especificidade pode acabar reduzindo a acurácia e produzir um modelo melhor para o uso. 
+Acurácia da uma visão mais geral. Muitos cientistas de dados a consideram a métrica mais importante para classificadores, porém, acurácia não é tudo. Um modelo pode ser feito de maneira errada e mesmo assim ter alta acurácia. Em certas situações o debate Sensibilidade X Especificidade pode acabar reduzindo a acurácia e produzir um modelo melhor para o uso.
 
 Outro exemplo de situação adversa para análise exclusiva da acurácia é quando uma das classes da variável resposta é muito mais presente no conjunto de dados que outra, o algoritmo do classificador pode acabar chutando tudo ou quase tudo como uma classe só e teremos um modelo com grande acurácia e péssima especificidade. Falaremos sobre como lhidar com base de dados desbalanceadas no futuro.
 
@@ -204,7 +198,7 @@ A função `classification_report()` entrega todas essas métricas e mais alguma
 print(classification_report(y_testSpam, y_predSpam))
 ```
 
-Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Para dizermos se o modelo é bom ou não precisaríamos comparar a outros. O que podemos afirmar apenas com esses números é que em 92% dos casos, o modelo acerta a classificação e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.
+Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Podemos afirmar com esses números que o modelo acertou a classificação em 92% dos casos e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.
 
 # Regressores
 
@@ -219,8 +213,8 @@ print(faithfulDF)
 
 A base de dados `faithful` contém dados sobre as eurupções do geiser Old Faithful no parque nacional de Yellowstone nos Estados Unidos da América. A base de dados possui medições de das variáveis:
 
-- `eruptions`: Eurupções, traduzido do inglês, contém a duração das eurupções em minutos.
-- `waiting`: Espera, traduzido do inglês, contém o tempo de espera até a eurupção seguinte em minutos.
+-   `eruptions`: Eurupções, traduzido do inglês, contém a duração das eurupções em minutos.
+-   `waiting`: Espera, traduzido do inglês, contém o tempo de espera até a eurupção seguinte em minutos.
 
 Estamos assumindo antes de criar o modelo computacional que existe uma relação entre as eurupções e o tempo de espera para a eurupção seguinte. Vamos usar a variável eruptions para prever a variável waiting.
 
@@ -255,7 +249,7 @@ Usaremos o LinearRegression, usado quando queremos estimar a relação entre dua
 
 Agora vamos criar o nosso regressor. Para isso vamos usar a função `LinearRegression()` para instanciá-lo e o método `.fit()` para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: `from sklearn.linear_model import LinearRegression`
 
-``` {python}
+```{python}
 modelFaithful = LinearRegression()
 modelFaithful.fit(x_trainFaithful, y_trainFaithful)
 ```
@@ -269,7 +263,7 @@ y_predFaithful = modelFaithful.predict(x_testFaithful)
 print(y_predFaithful)
 ```
 
-Ao fazermos isso obtemos uma série de predições para waiting a partir do conjunto teste. 
+Ao fazermos isso obtemos uma série de predições para waiting a partir do conjunto teste.
 
 ## Avaliação do regressor
 
@@ -281,55 +275,48 @@ O **erro médio absoluto** é uma métrica estatística utilizada para medir a *
 
 $\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|$
 
-- `n`: número de observações
-- `yi`: valor real
-- `ŷi`: valor predito
-- `|yi - ŷi|`: Erro absoluto de uma predição
+-   `n`: número de observações
+-   `yi`: valor real
+-   `ŷi`: valor predito
+-   `|yi - ŷi|`: Erro absoluto de uma predição
 
 **Interpretação**: O cálculo é baseado na distância entre os dados previstos e reais (erro), portanto, quanto **menor** o valor do MAE, melhor será o desempenho do modelo pois isso indica uma **maior proximidade** entre esses valores.
 
-**Limitações**: O MAE não consegue te indicar a **direção dos dados** por conta da utilização do módulo e por não elevar os dados ao quadrado, ou seja, não é possível dizer se os dados se distanciam dos valores reais positivamente ou negativamente. Além disso, ele é pouco sensível a outliers, ou seja, **erros grandes e pequenos tendem a ter a mesma influência** e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.
+**Limitações**: O MAE é pouco sensível a outliers, ou seja, **erros grandes e pequenos tendem a ter a mesma influência** e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.
 
 ### MSE
 
-O **erro médio quadrático** segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o **quadrado** ao invés do módulo, o que o torna **mais sensível a outliers** e penalizando mais **erros grandes**. Ele também é utilizado como **função de custo** (loss function) em modelos de regressão, como forma de **otimizar os parâmetros do modelo**, especialmente em **regressão linear** e em **redes neurais**, pois é sempre **diferenciável**, o que facilita minimizar a função utilizando **algoritmos de otimização**, como o gradiente descendente, por exemplo. Sendo assim, sua fórmula é:
+O **erro médio quadrático** segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o **quadrado** ao invés do módulo, o que o torna mais **sensível a outliers** e penalizando mais **erros grandes**. Ele também pode ser utilizado como **função de custo** (loss function) em modelos de regressão, como forma de **otimizar os parâmetros do modelo**, especialmente em **regressão linear** e em **redes neurais**, pois costumar ser **diferenciável**, o que facilita minimizar a função utilizando **algoritmos de otimização**, como o **gradiente descendente**, por exemplo. Sendo assim, sua fórmula é:
 
 $MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2$
 
-- `n`: número de observações
-- `yi`: valor real
-- `ŷi`: valor predito
-- `(yi - ŷi)^2`: Erro ao quadrado de uma predição
+-   `n`: número de observações
+-   `yi`: valor real
+-   `ŷi`: valor predito
+-   `(yi - ŷi)^2`: Erro ao quadrado de uma predição
 
 ![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/MSE.jpg)
 
 **Interpretação**: Assim como o MAE, quanto **menor** o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois um mesmo valor de MSE pode ser suficientemente próximo do zero ou não dado o contexto, além de **não estar na mesma unidade dos dados**.
 
-**Limitações**: Comocitado anteriormente, o MSE tem uma **sensibilidade maior a outliers**, o que aumenta seu valor e pode indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é **dependente da escala dos dados**, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, devemos **normalizar ou padronizar** os dados antes de realizar a conta. Outro problema a ser considerado é a **falta de informações direcionais** ao usá-lo, ou seja, nunca se sabe o modelo está prevendo valores grandes ou pequenos em relação à variável alvo
+**Limitações**: Como citado anteriormente, o MSE tem uma **sensibilidade maior a outliers**, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é **dependente da escala dos dados**, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, podemos **normalizar ou padronizar** os dados antes de realizar o cálculo.
 
 ### $R^2$
 
-$R^2$, também conhecido como coeficiente de determinação, é uma medida que **explica a proporção da variância** da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se **ajustam ao modelo**. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar duas neste texto. A primeira, se baseia em utilizar os **erros ao quadrado** e a **variância total do modelo**, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta.
+$R^2$, também conhecido como coeficiente de determinação, é uma medida que **explica a proporção da variância** da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se **ajustam ao modelo**. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar a mais comum nesse texto e ela se baseia em utilizar os **erros ao quadrado** e a **variância total do modelo**, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta
 
-$R^2 = 1 - \frac{RSS}{TSS}$
+$R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$
 
-onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total. Podemos escrever de maneira mais detalhada:
+onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total.
 
-$R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$
+**Interpretação**: $R^2$ é a porcentagem de variação explicada pela relação entre duas variáveis. $R^2$ é sempreuma porcentagem entre 0% e 100% com 0%, o que significa que seus valores previstos não lhe disseram absolutamente nada sobre Y e 100%, o que significa que seus valores previstos eram perfeitamente precisos. Então, para responder ao exemplo que você deu, se $R^2$ = 0.8, então diríamos: “80% da variação observada na variável Y é explicada por nossa regressão (ou então você gerou previsões para Y)”. Contudo, devemos nos atentar a valores muito altos pois eles podem indicar overfitting.
 
-- `yi`: valor real
-- `ŷi`: valor predito
-- `ȳ`: média dos valores reais
+**Limitações**: É importante lembrar que o $R^2$ mede a **correlação**, mas não mede a **causalidade**. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o $R^2$ não indica se as previsões são precisas.
 
-A segunda maneira de calcular o $R^2$ vamos utilizar o MSE e a **variância da variável dependente** (valor real).
-
-$R^2 = 1 - \frac{MSE}{Var(y)}$
-
-Essa abordagem é especialmente relevante ao comparar modelos em diferentes escalas ou unidades, porque normaliza o erro do modelo pela disseminação geral de dados.
-
-**Interpretação**: Assim como o 𝑀𝐴𝐸, o $R^2$ tem uma interpretação que **varia de acordo com o contexto (dados)**, então nem sempre um valor alto é interessante ou necessário e nem valores baixos preocupantes. Mas, de forma geral, um valor alto explicaria grande parte da variabilidade dos dados e um valor pequeno o exato oposto.
-
-**Limitações**:  É importante lembrar que o $R^2$ mede a **correlação**, mas não mede a **causalidade**. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o $R^2$ não indica se as previsões são precisas.
+### Relação entre métricas
+* O MAE e o MSE tendem a diminuir juntos quando o modelo melhora
+* O MSE e  $R^2$ estão inversamente relacionados
+* MSE $\geq$ $MAE^2$ (por desigualdade de Jensen)
 
 ### Análise do resultado final do regressor de Faithful
 
@@ -348,8 +335,6 @@ print(f"MSE: {mean_squared_error(y_testFaithful, y_predFaithful)}")
 print(f"R ao quadrado: {r2_score(y_testFaithful, y_predFaithful)}")
 ```
 
-Assim como nos classificadores, só podemos dizer se um regressor é bom se comparar-mos a outros. Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções. 
+Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções. Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, então esse modelo é bom.
 
-Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, então esse modelo é bom.
-
-O $R^2$ afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados. 
+O $R^2$ afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados.

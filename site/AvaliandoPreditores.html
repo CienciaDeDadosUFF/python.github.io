@@ -279,6 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mae" id="toc-mae" class="nav-link" data-scroll-target="#mae">MAE</a></li>
   <li><a href="#mse" id="toc-mse" class="nav-link" data-scroll-target="#mse">MSE</a></li>
   <li><a href="#r2" id="toc-r2" class="nav-link" data-scroll-target="#r2"><span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#relação-entre-métricas-1" id="toc-relação-entre-métricas-1" class="nav-link" data-scroll-target="#relação-entre-métricas-1">Relação entre métricas</a></li>
   <li><a href="#análise-do-resultado-final-do-regressor-de-faithful" id="toc-análise-do-resultado-final-do-regressor-de-faithful" class="nav-link" data-scroll-target="#análise-do-resultado-final-do-regressor-de-faithful">Análise do resultado final do regressor de Faithful</a></li>
   </ul></li>
   </ul></li>
@@ -934,7 +935,7 @@ weighted avg       0.92      0.92      0.92      1841
 </code></pre>
 </div>
 </div>
-<p>Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Para dizermos se o modelo é bom ou não precisaríamos comparar a outros. O que podemos afirmar apenas com esses números é que em 92% dos casos, o modelo acerta a classificação e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.</p>
+<p>Podemos observar que obtivemos uma sensibilidade de 0.89, acurácia de 0.92 e especificidade de 0.95. Podemos afirmar com esses números que o modelo acertou a classificação em 92% dos casos e que ele é melhor para identificar mensagem que não são spam (95% de acerto) do que mensagens que são spam (89% de acerto). Em muitos casos desejamos apenas que o modelo alcance uma % em específica para ter um modelo bom o suficiente. Se considerarmos o objetivo como 90% de acurácia e no mínimo 85% para sensibilidade e especificidade, alcançamos o objetivo.</p>
 </section>
 </section>
 </section>
@@ -1452,11 +1453,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><code>|yi - ŷi|</code>: Erro absoluto de uma predição</li>
 </ul>
 <p><strong>Interpretação</strong>: O cálculo é baseado na distância entre os dados previstos e reais (erro), portanto, quanto <strong>menor</strong> o valor do MAE, melhor será o desempenho do modelo pois isso indica uma <strong>maior proximidade</strong> entre esses valores.</p>
-<p><strong>Limitações</strong>: O MAE não consegue te indicar a <strong>direção dos dados</strong> por conta da utilização do módulo e por não elevar os dados ao quadrado, ou seja, não é possível dizer se os dados se distanciam dos valores reais positivamente ou negativamente. Além disso, ele é pouco sensível a outliers, ou seja, <strong>erros grandes e pequenos tendem a ter a mesma influência</strong> e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.</p>
+<p><strong>Limitações</strong>: O MAE é pouco sensível a outliers, ou seja, <strong>erros grandes e pequenos tendem a ter a mesma influência</strong> e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.</p>
 </section>
 <section id="mse" class="level3">
 <h3 class="anchored" data-anchor-id="mse">MSE</h3>
-<p>O <strong>erro médio quadrático</strong> segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o <strong>quadrado</strong> ao invés do módulo, o que o torna <strong>mais sensível a outliers</strong> e penalizando mais <strong>erros grandes</strong>. Ele também é utilizado como <strong>função de custo</strong> (loss function) em modelos de regressão, como forma de <strong>otimizar os parâmetros do modelo</strong>, especialmente em <strong>regressão linear</strong> e em <strong>redes neurais</strong>, pois é sempre <strong>diferenciável</strong>, o que facilita minimizar a função utilizando <strong>algoritmos de otimização</strong>, como o gradiente descendente, por exemplo. Sendo assim, sua fórmula é:</p>
+<p>O <strong>erro médio quadrático</strong> segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o <strong>quadrado</strong> ao invés do módulo, o que o torna mais <strong>sensível a outliers</strong> e penalizando mais <strong>erros grandes</strong>. Ele também pode ser utilizado como <strong>função de custo</strong> (loss function) em modelos de regressão, como forma de <strong>otimizar os parâmetros do modelo</strong>, especialmente em <strong>regressão linear</strong> e em <strong>redes neurais</strong>, pois costumar ser <strong>diferenciável</strong>, o que facilita minimizar a função utilizando <strong>algoritmos de otimização</strong>, como o <strong>gradiente descendente</strong>, por exemplo. Sendo assim, sua fórmula é:</p>
 <p><span class="math inline">\(MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2\)</span></p>
 <ul>
 <li><code>n</code>: número de observações</li>
@@ -1466,24 +1467,23 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul>
 <p><img src="Cadernos Grupo Python/Criação e Avaliação de Preditores/MSE.jpg" class="img-fluid"></p>
 <p><strong>Interpretação</strong>: Assim como o MAE, quanto <strong>menor</strong> o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois um mesmo valor de MSE pode ser suficientemente próximo do zero ou não dado o contexto, além de <strong>não estar na mesma unidade dos dados</strong>.</p>
-<p><strong>Limitações</strong>: Comocitado anteriormente, o MSE tem uma <strong>sensibilidade maior a outliers</strong>, o que aumenta seu valor e pode indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é <strong>dependente da escala dos dados</strong>, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, devemos <strong>normalizar ou padronizar</strong> os dados antes de realizar a conta. Outro problema a ser considerado é a <strong>falta de informações direcionais</strong> ao usá-lo, ou seja, nunca se sabe o modelo está prevendo valores grandes ou pequenos em relação à variável alvo</p>
+<p><strong>Limitações</strong>: Como citado anteriormente, o MSE tem uma <strong>sensibilidade maior a outliers</strong>, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é <strong>dependente da escala dos dados</strong>, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, podemos <strong>normalizar ou padronizar</strong> os dados antes de realizar o cálculo.</p>
 </section>
 <section id="r2" class="level3">
 <h3 class="anchored" data-anchor-id="r2"><span class="math inline">\(R^2\)</span></h3>
-<p><span class="math inline">\(R^2\)</span>, também conhecido como coeficiente de determinação, é uma medida que <strong>explica a proporção da variância</strong> da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se <strong>ajustam ao modelo</strong>. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar duas neste texto. A primeira, se baseia em utilizar os <strong>erros ao quadrado</strong> e a <strong>variância total do modelo</strong>, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta.</p>
-<p><span class="math inline">\(R^2 = 1 - \frac{RSS}{TSS}\)</span></p>
-<p>onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total. Podemos escrever de maneira mais detalhada:</p>
-<p><span class="math inline">\(R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}\)</span></p>
-<ul>
-<li><code>yi</code>: valor real</li>
-<li><code>ŷi</code>: valor predito</li>
-<li><code>ȳ</code>: média dos valores reais</li>
-</ul>
-<p>A segunda maneira de calcular o <span class="math inline">\(R^2\)</span> vamos utilizar o MSE e a <strong>variância da variável dependente</strong> (valor real).</p>
-<p><span class="math inline">\(R^2 = 1 - \frac{MSE}{Var(y)}\)</span></p>
-<p>Essa abordagem é especialmente relevante ao comparar modelos em diferentes escalas ou unidades, porque normaliza o erro do modelo pela disseminação geral de dados.</p>
-<p><strong>Interpretação</strong>: Assim como o 𝑀𝐴𝐸, o <span class="math inline">\(R^2\)</span> tem uma interpretação que <strong>varia de acordo com o contexto (dados)</strong>, então nem sempre um valor alto é interessante ou necessário e nem valores baixos preocupantes. Mas, de forma geral, um valor alto explicaria grande parte da variabilidade dos dados e um valor pequeno o exato oposto.</p>
+<p><span class="math inline">\(R^2\)</span>, também conhecido como coeficiente de determinação, é uma medida que <strong>explica a proporção da variância</strong> da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se <strong>ajustam ao modelo</strong>. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar a mais comum nesse texto e ela se baseia em utilizar os <strong>erros ao quadrado</strong> e a <strong>variância total do modelo</strong>, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta</p>
+<p><span class="math inline">\(R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}\)</span></p>
+<p>onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total.</p>
+<p><strong>Interpretação</strong>: <span class="math inline">\(R^2\)</span> é a porcentagem de variação explicada pela relação entre duas variáveis. <span class="math inline">\(R^2\)</span> é sempreuma porcentagem entre 0% e 100% com 0%, o que significa que seus valores previstos não lhe disseram absolutamente nada sobre Y e 100%, o que significa que seus valores previstos eram perfeitamente precisos. Então, para responder ao exemplo que você deu, se <span class="math inline">\(R^2\)</span> = 0.8, então diríamos: “80% da variação observada na variável Y é explicada por nossa regressão (ou então você gerou previsões para Y)”. Contudo, devemos nos atentar a valores muito altos pois eles podem indicar overfitting.</p>
 <p><strong>Limitações</strong>: É importante lembrar que o <span class="math inline">\(R^2\)</span> mede a <strong>correlação</strong>, mas não mede a <strong>causalidade</strong>. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o <span class="math inline">\(R^2\)</span> não indica se as previsões são precisas.</p>
+</section>
+<section id="relação-entre-métricas-1" class="level3">
+<h3 class="anchored" data-anchor-id="relação-entre-métricas-1">Relação entre métricas</h3>
+<ul>
+<li>O MAE e o MSE tendem a diminuir juntos quando o modelo melhora</li>
+<li>O MSE e <span class="math inline">\(R^2\)</span> estão inversamente relacionados</li>
+<li>MSE <span class="math inline">\(\geq\)</span> <span class="math inline">\(MAE^2\)</span> (por desigualdade de Jensen)</li>
+</ul>
 </section>
 <section id="análise-do-resultado-final-do-regressor-de-faithful" class="level3">
 <h3 class="anchored" data-anchor-id="análise-do-resultado-final-do-regressor-de-faithful">Análise do resultado final do regressor de Faithful</h3>
@@ -1504,8 +1504,7 @@ MSE: 35.3906300883027
 R ao quadrado: 0.8332386607649062</code></pre>
 </div>
 </div>
-<p>Assim como nos classificadores, só podemos dizer se um regressor é bom se comparar-mos a outros. Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções.</p>
-<p>Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, então esse modelo é bom.</p>
+<p>Pelo MAE podemos aferir que nosso regressor erra, em média, por 4.65 minutos a previsão de espera entre as eurupções. Se nosso critério de aceitação do modelo for pior que 4.65 minutos de erro, então esse modelo é bom.</p>
 <p>O <span class="math inline">\(R^2\)</span> afere que 83.3% da variável waiting pode ser explicado pela variável etuption, logo podem existir mais variáveis que melhorariam o desempenho final do modelo que não entraram no conjunto de dados.</p>
 
 

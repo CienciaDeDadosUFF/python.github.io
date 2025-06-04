@@ -253,9 +253,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#definição" id="toc-definição" class="nav-link" data-scroll-target="#definição">Definição</a></li>
   <li><a href="#código-de-exemplo" id="toc-código-de-exemplo" class="nav-link" data-scroll-target="#código-de-exemplo">Código de exemplo</a></li>
   </ul></li>
-  <li><a href="#repeated-k-fold" id="toc-repeated-k-fold" class="nav-link" data-scroll-target="#repeated-k-fold">Repeated K-fold</a></li>
-  <li><a href="#bootstrap" id="toc-bootstrap" class="nav-link" data-scroll-target="#bootstrap">Bootstrap</a></li>
+  <li><a href="#repeated-k-fold" id="toc-repeated-k-fold" class="nav-link" data-scroll-target="#repeated-k-fold">Repeated K-fold</a>
+  <ul class="collapse">
+  <li><a href="#código-de-exemplo-1" id="toc-código-de-exemplo-1" class="nav-link" data-scroll-target="#código-de-exemplo-1">Código de exemplo</a></li>
   </ul></li>
+  <li><a href="#bootstrap" id="toc-bootstrap" class="nav-link" data-scroll-target="#bootstrap">Bootstrap</a>
+  <ul class="collapse">
+  <li><a href="#código-de-exemplo-2" id="toc-código-de-exemplo-2" class="nav-link" data-scroll-target="#código-de-exemplo-2">Código de exemplo</a></li>
+  </ul></li>
+  <li><a href="#criando-modelos-com-métodos-de-reamostragem." id="toc-criando-modelos-com-métodos-de-reamostragem." class="nav-link" data-scroll-target="#criando-modelos-com-métodos-de-reamostragem.">Criando modelos com métodos de reamostragem.</a></li>
+  </ul></li>
+  <li><a href="#tunagem-de-hiperparâmetros" id="toc-tunagem-de-hiperparâmetros" class="nav-link" data-scroll-target="#tunagem-de-hiperparâmetros">Tunagem de hiperparâmetros</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -285,13 +293,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedStratifiedKFold</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="validação-cruzada" class="level1">
 <h1>Validação Cruzada</h1>
-<p>Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Um jeito de fazer isso é usando a validação cruzada.</p>
-<p>A Validação Cruzada nos permite comparar diferentes métodos de aprendizado de máquina ou parâmetros para o método escolhido e avaliar qual funcionará melhor na prática.</p>
+<p>Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais parâmetros usar? Um jeito de resolver essas questões é usando a validação cruzada.</p>
+<p>A Validação Cruzada nos permite comparar diferentes métodos de aprendizado de máquina ou parâmetros e avaliar qual funcionará melhor na prática.</p>
 <p>Então o que vamos fazer é, para cada método,</p>
 <ol type="1">
 <li>Separar os dados em conjunto de treino e conjunto de teste.</li>
@@ -311,6 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="alguns-métodos-de-reamostragem" class="level1">
 <h1>Alguns Métodos de Reamostragem</h1>
+<p>FALAR SOBRE PORQUE FAZER REAMOSTRAGEM E O QUE ELA É DE FATO</p>
 <p>Falaremos de 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada.</p>
 <section id="k-fold" class="level2">
 <h2 class="anchored" data-anchor-id="k-fold">K-fold</h2>
@@ -387,22 +398,94 @@ len(test): 460</code></pre>
 <p>No computador de vocês poderá aparecer mais elementos nas listas, formatei para mostrar os 3 primeiros e os 3 últimos apenas para fim explicativo.</p>
 <p>Analisando o resultado inteiro com todos os k-folds chegamos a algumas observações importantes:</p>
 <ul>
-<li>a lista treino e teste de cada fold K são complementares</li>
-<li>a união entre lista treino e teste de cada fold K é tem como resultado os índices da base original.</li>
+<li>a lista treino e teste de cada fold são complementares</li>
+<li>a união entre lista treino e teste de cada fold tem como resultado os índices da base original.</li>
 <li>índices na lista de teste não se repetem em outras listas de teste</li>
-<li>todos os índices passam uma vez pelo conjunto teste de algum k-fold</li>
-<li>os índices se repetem K-1 vezes em diferentes k-folds</li>
+<li>todos os índices passam uma vez pelo conjunto teste de um k-fold</li>
+<li>os índices para treino se repetem K-1 vezes em diferentes folds</li>
 </ul>
+<p>REVISAR QUANDO USAR O NOME K-FOLD OU FOLD</p>
+<p>REVISAR E POR NOMENCLATURA VARIAVEL RESPOSTA VS EXPLICATIVA</p>
 </section>
 </section>
 <section id="repeated-k-fold" class="level2">
 <h2 class="anchored" data-anchor-id="repeated-k-fold">Repeated K-fold</h2>
+<p>O repeated k-fold se resume a repetir o método k-fold várias vezes, com o objetivo de melhorar nossa reamostragem.</p>
+<section id="código-de-exemplo-1" class="level3">
+<h3 class="anchored" data-anchor-id="código-de-exemplo-1">Código de exemplo</h3>
+<p>Vamos aplicar um método de treino 3 vezes em 10 folds. Para isso, utilizamos a função <code>RepeatedStratifiedKFold()</code>. Ela funciona semelhante ao <code>StratifiedKFold()</code>, porém com um argumento a mais: <code>n_repeats</code>, devemos inserir aqui o número de repetições que desejamos fazer.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>repeatedKfSpam <span class="op">=</span> RepeatedStratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, n_repeats<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">11</span>).split(XSpam, YSpam)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(<span class="bu">list</span>(repeatedKfSpam)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30</code></pre>
+</div>
+</div>
+<p>Repare que o tamanho da lista gerada é justamente o número de folds vezes o número de repetições, nesse caso 30.</p>
+<p>Observações:</p>
+<ul>
+<li>a lista treino e teste de cada fold K são complementares</li>
+<li>a união entre lista treino e teste de cada fold K é tem como resultado os índices da base original.</li>
+<li>índices na lista de teste podem se repetir em outras listas de teste</li>
+<li>todos os índices passam <em>n_repeats</em> vezes pelo conjunto teste de algum k-fold</li>
+<li>os índices para treino se repetem (K-1) * <em>n_repeats</em> vezes em diferentes k-folds</li>
+</ul>
+<p>Comparando Repeated K-fold com K-fold tradicional:</p>
+<p>Uma vantagem do repeated k-fold em relação ao k-fold é que ele permite que um elemento na lista passe mais de uma vez pelo conjunto teste, o número inserido em n_repeats.</p>
+<p>Uma limitação do repeated k-fold em relação ao k-fold é que, até o dia 04/06/2025, a implementação no scikitlearn, a função RepeatedStratifiedKFold(), não possui o argumento <code>shuffle</code> que o StratifiedKFold() possui. Ele por dentro roda a função StratifiedKFold() com o argumento shuffle em True, logo, se por alguma razão quisermos os dados não embaralhados, não devemos usar essa função e criar uma função como essa manualmente ou usar outro método de reamostragem.</p>
+</section>
 </section>
 <section id="bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap">Bootstrap</h2>
-
-
+<p>O bootstrap é uma técnica de reamostragem com o propósito de reduzir desvios e realizar amostragem dos dados de treino com repetições. Consiste em realizar amostragens com reposição a partir da amostra original. Quando fazemos amostragem com reposição, estamos recolocando o valor após cada amostra. Cada amostra, portanto, é independente do valor que veio antes dela.</p>
+<p>Quando fazemos amostragem sem reposição, não estamos recolocando os valores, uma vez que um valor é selecionado, ele não pode ser selecionado novamente, portanto não geram resultados independetes já que o valor obtido em uma amostra afeta a possibilidade dos valores da próxima amostra. Dessa forma podemos escolher um tamanho de amostras maior ou menor do que o vetor de entrada.</p>
+<p>Um ponto negativo do Bootstrap é que ao realizar um Bootstrap com menos amostras que o conjunto de dados original, a estratificação pode ficar um pouco diferente que a original, que para um número pequeno de amostras pode ser relevante.</p>
+<section id="código-de-exemplo-2" class="level3">
+<h3 class="anchored" data-anchor-id="código-de-exemplo-2">Código de exemplo</h3>
+<p>O scikitlearn possui uma implementação do Bootstrap quando usamos a função <code>resample</code> com <code>replace = True</code>. Segue abaixo um exemplo de uso:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>BootstrapSpam <span class="op">=</span> resample(XSpam, YSpam, n_samples<span class="op">=</span> <span class="dv">10000</span>, random_state<span class="op">=</span><span class="dv">11</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span>YSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Primeiro argumento posicional recebe as variáveis explicativas, nesse caso, XSpam</li>
+<li>Segundo argumento posicional recebe a variável resposta, nesse caso, YSpam</li>
+<li><code>n_samples</code> recebe o número de amostras que queremos.</li>
+<li><code>random_state</code> recebe a semente de aleatoriedade.</li>
+<li><code>replace</code> se True, permitirá reposição de amostras, se False, não. É essa variável em True que implementa o método Bootstrap. Se False e n_samples maior que número de amostras originais, um erro será gerado.</li>
+<li><code>stratify</code> recebe a variável resposta ou None. Se for None, não será feito estratificação e portanto, não haverá garantia da manutenção da proporção da variável resposta.</li>
+</ul>
+<p>A função gerou um vetor com dois vetores dentro: array(variaveisExplicativas, variavelResposta) para utilizarmos posteriormente. Repare que a função resample() automáticamente faz o embaralhamento dos dados.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BootstrapSpam[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>260        spam
+2562    nonspam
+3228    nonspam
+3233    nonspam
+1994    nonspam
+         ...   
+326        spam
+2193    nonspam
+3188    nonspam
+254        spam
+428        spam
+Name: type, Length: 10000, dtype: object</code></pre>
+</div>
+</div>
+<p>Como Spam possui um número muito alto de amostras e o embaralhemnto é sempre feito, visualizar o Bootstrap pode não ser tão fácil. Para facilitar o entendimento, vamos usar um exemplo mais simples: supomos que temos 10 indivíduos, numerados de 1 a 10. Ao realizar 3 bootstraps do mesmo tamanho da amostra obtemos:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>B1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>B2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>B3 <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
+<section id="criando-modelos-com-métodos-de-reamostragem." class="level2">
+<h2 class="anchored" data-anchor-id="criando-modelos-com-métodos-de-reamostragem.">Criando modelos com métodos de reamostragem.</h2>
+</section>
+</section>
+<section id="tunagem-de-hiperparâmetros" class="level1">
+<h1>Tunagem de hiperparâmetros</h1>
+
+
 </section>
 
 </main> <!-- /main -->
