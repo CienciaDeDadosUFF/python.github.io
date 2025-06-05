@@ -130,6 +130,112 @@ print(f"Estatística W = {stat}, Valor-p = {p_valor:.4f}")
 
 -   Use o **teste de Wilcoxon** quando quiser considerar **a magnitude das diferenças**
 
+# Teste de Kruskal–Wallis
+
+O **Teste de Kruskal–Wallis** é uma extensão do teste de Mann–Whitney para **mais de dois grupos independentes**.\
+Ele é um teste **não paramétrico** usado para verificar se há **diferenças significativas nas medianas** de três ou mais grupos.
+
+É considerado a **alternativa não paramétrica à ANOVA**, sendo ideal quando:
+
+-   Os dados **não são normalmente distribuídos**;
+-   Os dados são **ordinais** ou há **outliers** que inviabilizam testes paramétricos.
+
+------------------------------------------------------------------------
+
+## Aplicações comuns
+
+-   **Medicina**: comparação de três medicamentos distintos em um indicador clínico.
+-   **Educação**: avaliação do desempenho de turmas com três métodos de ensino.
+-   **Marketing**: comparação de satisfação entre usuários de três marcas diferentes.
+
+------------------------------------------------------------------------
+
+## Suposições
+
+1.  As variáveis devem ser **pelo menos ordinais**.
+2.  Os grupos devem ser **independentes entre si**.
+3.  As **formas das distribuições** nos grupos devem ser semelhantes (mas não necessariamente normais).
+
+------------------------------------------------------------------------
+
+## Hipóteses
+
+-   **Hipótese nula (**$H_0$): As medianas dos grupos são todas iguais.
+-   **Hipótese alternativa (**$H_1$): Pelo menos um grupo tem mediana diferente.
+
+------------------------------------------------------------------------
+
+## Metodologia
+
+**Passo 1:** Junte todas as observações de todos os grupos e atribua **ranks** (valores ordenados).\
+Em caso de empates, atribua o **posto médio**.
+
+**Passo 2:** Calcule, para cada grupo $i$:
+
+-   $n_i$: número de observações no grupo $i$\
+-   $R_i$: soma dos postos do grupo $i$
+
+**Passo 3:** Calcule a estatística de Kruskal–Wallis:
+
+$$
+H = \frac{12}{n(n+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(n+1)
+$$
+
+Onde: - $n$ é o número total de observações, - $k$ é o número de grupos.
+
+------------------------------------------------------------------------
+
+## Interpretação da Estatística
+
+-   Quando $H$ é **pequeno**, os ranks estão distribuídos de forma parecida → grupos semelhantes.
+-   Quando $H$ é **grande**, os ranks estão concentrados em alguns grupos → pelo menos um grupo é diferente.
+
+Sob $H_0$, a estatística $H$ segue uma **distribuição qui-quadrado com** $k - 1$ graus de liberdade.
+
+------------------------------------------------------------------------
+
+## Decisão
+
+Compare o valor de $H$ com o **valor crítico da distribuição** $\chi^2_{k - 1}$ (ou utilize o valor-$p$).\
+Se $H$ for maior que o valor crítico, ou se o valor-$p$ for menor que o nível de significância $\alpha$, **rejeita-se** $H_0$.
+
+------------------------------------------------------------------------
+
+## Exemplo prático em Python
+
+Vamos supor que queremos comparar o desempenho de alunos de três escolas diferentes em uma mesma prova. As notas estão listadas abaixo:
+
+\`\`\`python from scipy.stats import kruskal
+
+# Notas dos alunos em 3 escolas diferentes
+
+``` python
+escola_A = [7.5, 8.0, 6.5, 9.0, 7.8] 
+escola_B = [6.0, 6.5, 6.3, 6.8, 6.1] 
+escola_C = [8.5, 8.2, 8.8, 9.0, 8.6]
+```
+
+# Aplicando o teste de Kruskal–Wallis
+
+``` python
+stat, p_valor = kruskal(escola_A, escola_B, escola_C) 
+print(f"Estatística H = {stat:.4f}") print(f"Valor-p = {p_valor:.4f}")
+```
+
+## Comparações múltiplas
+
+Se o teste de Kruskal–Wallis indicar diferença significativa, recomenda-se aplicar testes de **comparações múltiplas** para descobrir **quais grupos diferem**.
+
+Um dos testes mais utilizados para isso é o **Teste de Dunn**, com correções de valor-$p$ como:
+
+-   Bonferroni
+-   Holm-Bonferroni
+-   Benjamini–Hochberg (BH)
+
+Esses testes comparam pares de grupos individualmente.
+
+------------------------------------------------------------------------
+
 # Referências
 
 FARIAS, A. M. L. **Apostila de Estatística II**. Departamento de Estatística. 2017. Universidade Federal Fluminense. Velarde, L. G. C. CAVALIERE, Y. F. **Apostila Inferência Estatística**. Departamento de Estatística. Universidade Federal Fluminense

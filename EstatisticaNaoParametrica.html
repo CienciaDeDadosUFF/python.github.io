@@ -122,6 +122,16 @@ window.Quarto = {
   <li><a href="#considerações-finais" id="toc-considerações-finais" class="nav-link" data-scroll-target="#considerações-finais">Considerações Finais</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#teste-de-kruskalwallis" id="toc-teste-de-kruskalwallis" class="nav-link" data-scroll-target="#teste-de-kruskalwallis">Teste de Kruskal–Wallis</a>
+  <ul class="collapse">
+  <li><a href="#aplicações-comuns" id="toc-aplicações-comuns" class="nav-link" data-scroll-target="#aplicações-comuns">Aplicações comuns</a></li>
+  <li><a href="#suposições" id="toc-suposições" class="nav-link" data-scroll-target="#suposições">Suposições</a></li>
+  <li><a href="#hipóteses-2" id="toc-hipóteses-2" class="nav-link" data-scroll-target="#hipóteses-2">Hipóteses</a></li>
+  <li><a href="#metodologia-2" id="toc-metodologia-2" class="nav-link" data-scroll-target="#metodologia-2">Metodologia</a></li>
+  <li><a href="#interpretação-da-estatística" id="toc-interpretação-da-estatística" class="nav-link" data-scroll-target="#interpretação-da-estatística">Interpretação da Estatística</a></li>
+  <li><a href="#decisão" id="toc-decisão" class="nav-link" data-scroll-target="#decisão">Decisão</a></li>
+  <li><a href="#comparações-múltiplas" id="toc-comparações-múltiplas" class="nav-link" data-scroll-target="#comparações-múltiplas">Comparações múltiplas</a></li>
+  </ul></li>
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
   </ul>
 </nav>
@@ -250,6 +260,87 @@ H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
 <li>Use o <strong>teste de Wilcoxon</strong> quando quiser considerar <strong>a magnitude das diferenças</strong></li>
 </ul>
 </section>
+</section>
+</section>
+<section id="teste-de-kruskalwallis" class="level1">
+<h1>Teste de Kruskal–Wallis</h1>
+<p>O <strong>Teste de Kruskal–Wallis</strong> é uma extensão do teste de Mann–Whitney para <strong>mais de dois grupos independentes</strong>.<br>
+Ele é um teste <strong>não paramétrico</strong> usado para verificar se há <strong>diferenças significativas nas medianas</strong> de três ou mais grupos.</p>
+<p>É considerado a <strong>alternativa não paramétrica à ANOVA</strong>, sendo ideal quando:</p>
+<ul>
+<li>Os dados <strong>não são normalmente distribuídos</strong>;</li>
+<li>Os dados são <strong>ordinais</strong> ou há <strong>outliers</strong> que inviabilizam testes paramétricos.</li>
+</ul>
+<hr>
+<section id="aplicações-comuns" class="level2">
+<h2 class="anchored" data-anchor-id="aplicações-comuns">Aplicações comuns</h2>
+<ul>
+<li><strong>Medicina</strong>: comparação de três medicamentos distintos em um indicador clínico.</li>
+<li><strong>Educação</strong>: avaliação do desempenho de turmas com três métodos de ensino.</li>
+<li><strong>Marketing</strong>: comparação de satisfação entre usuários de três marcas diferentes.</li>
+</ul>
+<hr>
+</section>
+<section id="suposições" class="level2">
+<h2 class="anchored" data-anchor-id="suposições">Suposições</h2>
+<ol type="1">
+<li>As variáveis devem ser <strong>pelo menos ordinais</strong>.</li>
+<li>Os grupos devem ser <strong>independentes entre si</strong>.</li>
+<li>As <strong>formas das distribuições</strong> nos grupos devem ser semelhantes (mas não necessariamente normais).</li>
+</ol>
+<hr>
+</section>
+<section id="hipóteses-2" class="level2">
+<h2 class="anchored" data-anchor-id="hipóteses-2">Hipóteses</h2>
+<ul>
+<li><strong>Hipótese nula (</strong><span class="math inline">\(H_0\)</span>): As medianas dos grupos são todas iguais.</li>
+<li><strong>Hipótese alternativa (</strong><span class="math inline">\(H_1\)</span>): Pelo menos um grupo tem mediana diferente.</li>
+</ul>
+<hr>
+</section>
+<section id="metodologia-2" class="level2">
+<h2 class="anchored" data-anchor-id="metodologia-2">Metodologia</h2>
+<p><strong>Passo 1:</strong> Junte todas as observações de todos os grupos e atribua <strong>ranks</strong> (valores ordenados).<br>
+Em caso de empates, atribua o <strong>posto médio</strong>.</p>
+<p><strong>Passo 2:</strong> Calcule, para cada grupo <span class="math inline">\(i\)</span>:</p>
+<ul>
+<li><span class="math inline">\(n_i\)</span>: número de observações no grupo <span class="math inline">\(i\)</span><br>
+</li>
+<li><span class="math inline">\(R_i\)</span>: soma dos postos do grupo <span class="math inline">\(i\)</span></li>
+</ul>
+<p><strong>Passo 3:</strong> Calcule a estatística de Kruskal–Wallis:</p>
+<p><span class="math display">\[
+H = \frac{12}{n(n+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(n+1)
+\]</span></p>
+<p>Onde: - <span class="math inline">\(n\)</span> é o número total de observações, - <span class="math inline">\(k\)</span> é o número de grupos.</p>
+<hr>
+</section>
+<section id="interpretação-da-estatística" class="level2">
+<h2 class="anchored" data-anchor-id="interpretação-da-estatística">Interpretação da Estatística</h2>
+<ul>
+<li>Quando <span class="math inline">\(H\)</span> é <strong>pequeno</strong>, os ranks estão distribuídos de forma parecida → grupos semelhantes.</li>
+<li>Quando <span class="math inline">\(H\)</span> é <strong>grande</strong>, os ranks estão concentrados em alguns grupos → pelo menos um grupo é diferente.</li>
+</ul>
+<p>Sob <span class="math inline">\(H_0\)</span>, a estatística <span class="math inline">\(H\)</span> segue uma <strong>distribuição qui-quadrado com</strong> <span class="math inline">\(k - 1\)</span> graus de liberdade.</p>
+<hr>
+</section>
+<section id="decisão" class="level2">
+<h2 class="anchored" data-anchor-id="decisão">Decisão</h2>
+<p>Compare o valor de <span class="math inline">\(H\)</span> com o <strong>valor crítico da distribuição</strong> <span class="math inline">\(\chi^2_{k - 1}\)</span> (ou utilize o valor-<span class="math inline">\(p\)</span>).<br>
+Se <span class="math inline">\(H\)</span> for maior que o valor crítico, ou se o valor-<span class="math inline">\(p\)</span> for menor que o nível de significância <span class="math inline">\(\alpha\)</span>, <strong>rejeita-se</strong> <span class="math inline">\(H_0\)</span>.</p>
+<hr>
+</section>
+<section id="comparações-múltiplas" class="level2">
+<h2 class="anchored" data-anchor-id="comparações-múltiplas">Comparações múltiplas</h2>
+<p>Se o teste de Kruskal–Wallis indicar diferença significativa, recomenda-se aplicar testes de <strong>comparações múltiplas</strong> para descobrir <strong>quais grupos diferem</strong>.</p>
+<p>Um dos testes mais utilizados para isso é o <strong>Teste de Dunn</strong>, com correções de valor-<span class="math inline">\(p\)</span> como:</p>
+<ul>
+<li>Bonferroni</li>
+<li>Holm-Bonferroni</li>
+<li>Benjamini–Hochberg (BH)</li>
+</ul>
+<p>Esses testes comparam pares de grupos individualmente.</p>
+<hr>
 </section>
 </section>
 <section id="referências" class="level1">
