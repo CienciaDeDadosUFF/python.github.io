@@ -45,7 +45,7 @@ spam = pd.read_csv("Cadernos Grupo Python\\Criação e Avaliação de Preditores
 print(spam)
 ```
 
-Os dados são valores quantitativos que foram extraidos de 4601 e-mails e associam o e-mail a uma classificação: `spam` ou `nom-spam`. Há 2788 spams e 1813 e-mails normais.
+Os dados são valores quantitativos que foram extraidos de 4601 e-mails e associam o e-mail a uma classificação: `spam` ou `nom-spam`. Há 2788 spams e 1813 e-mails normais, isto é, 60.6% para spam e 39.4% para nonspam aproximadamente.
 
 Mesmo sem ter a íntegra dos e-mails originais, os dados que a base apresenta já são suficientes para determinar se o conteúdo é ou não spam para o escopo original da base. Em outros estudos, a seleção de dados pode ser diferente.
 
@@ -271,7 +271,7 @@ Assim como há diversas formas de compararmos a qualidade dos classificadores, h
 
 ### MAE
 
-O **erro médio absoluto** é uma métrica estatística utilizada para medir a **distância entre os valores previstos e os reais**, ou seja, o **erro**. Para calculá-lo, obtemos a média das diferenças absolutas entre os valores previstos e os valores reais, como mostrado na fórmula a seguir:
+O **erro médio absoluto** (mean absolute error) mede a **distância absoluta entre os valores observados e os preditos pelo modelo**, ou seja, o **erro**. Para calculá-lo, obtemos a média das diferenças absolutas entre os valores preditos e os valores observados, como mostrado na fórmula a seguir:
 
 $\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|$
 
@@ -280,13 +280,13 @@ $\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|$
 -   `ŷi`: valor predito
 -   `|yi - ŷi|`: Erro absoluto de uma predição
 
-**Interpretação**: O cálculo é baseado na distância entre os dados previstos e reais (erro), portanto, quanto **menor** o valor do MAE, melhor será o desempenho do modelo pois isso indica uma **maior proximidade** entre esses valores.
+**Interpretação**: Como comentado anteriormente, o calculo é baseado na distância entre os dados previstos e observados, portanto, quanto **menor** o valor do MAE, melhor o desempenho do modelo pois isso indica uma **maior proximidade** entre esses valores.
 
-**Limitações**: O MAE é pouco sensível a outliers, ou seja, **erros grandes e pequenos tendem a ter a mesma influência** e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.
+**Limitações**: O MAE é pouco sensível a outliers, ou seja, **erros grandes e pequenos tendem a ter a mesma influência** e isso pode ser um problema em situações onde erros grandes seriam preocupantes por exemplo.
 
 ### MSE
 
-O **erro médio quadrático** segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o **quadrado** ao invés do módulo, o que o torna mais **sensível a outliers** e penalizando mais **erros grandes**. Ele também pode ser utilizado como **função de custo** (loss function) em modelos de regressão, como forma de **otimizar os parâmetros do modelo**, especialmente em **regressão linear** e em **redes neurais**, pois costumar ser **diferenciável**, o que facilita minimizar a função utilizando **algoritmos de otimização**, como o **gradiente descendente**, por exemplo. Sendo assim, sua fórmula é:
+O **erro médio quadrático** (mean squared error) segue a mesma lógica do MAE, calcula a distância entre o valor predito e o observado, mas utilizando o **quadrado** ao invés do módulo, o que o torna mais **sensível a outliers** penalizando mais **erros grandes**. Ele também pode ser utilizado como **função de custo** (loss function) em modelos de regressão, como forma de **otimizar os parâmetros do modelo**, especialmente em **regressão linear** e em **redes neurais**, pois costumar ser **diferenciável**, o que facilita minimizar a função utilizando **algoritmos de otimização**, como o **gradiente descendente**, por exemplo. O MSE é dado por:
 
 $MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2$
 
@@ -297,26 +297,27 @@ $MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2$
 
 ![](Cadernos%20Grupo%20Python/Cria%C3%A7%C3%A3o%20e%20Avalia%C3%A7%C3%A3o%20de%20Preditores/MSE.jpg)
 
-**Interpretação**: Assim como o MAE, quanto **menor** o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois um mesmo valor de MSE pode ser suficientemente próximo do zero ou não dado o contexto, além de **não estar na mesma unidade dos dados**.
+**Interpretação**: Assim como o MAE, quanto **menor** o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois, para ser considerado grande ou pequeno, devemos analisar o contexto, além de **não estar na mesma unidade dos dados**.
 
-**Limitações**: Como citado anteriormente, o MSE tem uma **sensibilidade maior a outliers**, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é **dependente da escala dos dados**, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, podemos **normalizar ou padronizar** os dados antes de realizar o cálculo.
+**Limitações**: Como citado anteriormente, o MSE tem uma **sensibilidade maior a outliers**, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior do que aparenta. Além disso, ele é **dependente da escala dos dados**, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior. Para contornar esse problema, podemos **normalizar ou padronizar** os dados antes de observadoizar o cálculo.
 
 ### $R^2$
 
-$R^2$, também conhecido como coeficiente de determinação, é uma medida que **explica a proporção da variância** da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se **ajustam ao modelo**. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar a mais comum nesse texto e ela se baseia em utilizar os **erros ao quadrado** e a **variância total do modelo**, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta
+O $R^2$, também conhecido como coeficiente de determinação, mede **a proporção da variância** da variável resposta que é explicada pelas variáveis explicativas. O cálculo do $R^2$ utiliza os **erros ao quadrado** e a **variância dos dados observados**.
 
 $R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$
 
 onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total.
 
-**Interpretação**: $R^2$ é a porcentagem de variação explicada pela relação entre duas variáveis. $R^2$ é sempreuma porcentagem entre 0% e 100% com 0%, o que significa que seus valores previstos não lhe disseram absolutamente nada sobre Y e 100%, o que significa que seus valores previstos eram perfeitamente precisos. Então, para responder ao exemplo que você deu, se $R^2$ = 0.8, então diríamos: “80% da variação observada na variável Y é explicada por nossa regressão (ou então você gerou previsões para Y)”. Contudo, devemos nos atentar a valores muito altos pois eles podem indicar overfitting.
+**Interpretação**: O $R^2$ assume valores no intervalo entre 0 e 1, de maneira que um $R^2$ igual a 0 indica que o modelo não consegue explicar a variância da variável resposta, enquanto 1 sugere que o modelo a explica perfeitamente. Contudo, valores de $R^2$ altos devem ser observados com cautela, pois podem indicar **overfitting**, comprometendo a generalização do modelo para novos dados.
 
-**Limitações**: É importante lembrar que o $R^2$ mede a **correlação**, mas não mede a **causalidade**. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o $R^2$ não indica se as previsões são precisas.
+**Limitações**: É importante lembrar que as variáveis explicativas explicam a variância da variável resposta mas não necessariamente sejam a causa dela. Além disso, o $R^2$ não indica se as previsões são precisas.
 
 ### Relação entre métricas
-* O MAE e o MSE tendem a diminuir juntos quando o modelo melhora
-* O MSE e  $R^2$ estão inversamente relacionados
-* MSE $\geq$ $MAE^2$ (por desigualdade de Jensen)
+
+-   O MAE e o MSE tendem a diminuir juntos quando o modelo melhora
+-   O MSE e $R^2$ estão inversamente relacionados
+-   MSE $\geq$ $MAE^2$ (por desigualdade de Jensen)
 
 ### Análise do resultado final do regressor de Faithful
 
