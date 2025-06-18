@@ -64,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./medidas_analise_preditores.html" rel="next">
 <link href="./AvaliandoPreditores.html" rel="prev">
 <link href="./uff-brasao.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -99,6 +98,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -235,12 +236,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./medidas_analise_preditores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Métricas para análise de preditores</span></span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -253,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#imports" id="toc-imports" class="nav-link active" data-scroll-target="#imports">Imports</a></li>
   <li><a href="#validação-cruzada" id="toc-validação-cruzada" class="nav-link" data-scroll-target="#validação-cruzada">Validação Cruzada</a></li>
-  <li><a href="#alguns-métodos-de-reamostragem" id="toc-alguns-métodos-de-reamostragem" class="nav-link" data-scroll-target="#alguns-métodos-de-reamostragem">Alguns Métodos de Reamostragem</a>
+  <li><a href="#reamostragem" id="toc-reamostragem" class="nav-link" data-scroll-target="#reamostragem">Reamostragem</a>
   <ul class="collapse">
   <li><a href="#k-fold" id="toc-k-fold" class="nav-link" data-scroll-target="#k-fold">K-fold</a>
   <ul class="collapse">
@@ -268,9 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#código-de-exemplo-2" id="toc-código-de-exemplo-2" class="nav-link" data-scroll-target="#código-de-exemplo-2">Código de exemplo</a></li>
   </ul></li>
-  <li><a href="#criando-modelos-com-métodos-de-reamostragem." id="toc-criando-modelos-com-métodos-de-reamostragem." class="nav-link" data-scroll-target="#criando-modelos-com-métodos-de-reamostragem.">Criando modelos com métodos de reamostragem.</a></li>
+  <li><a href="#questionamentos-comuns" id="toc-questionamentos-comuns" class="nav-link" data-scroll-target="#questionamentos-comuns">Questionamentos comuns</a></li>
+  <li><a href="#criando-e-comparando-preditores-com-os-métodos-de-reamostragem." id="toc-criando-e-comparando-preditores-com-os-métodos-de-reamostragem." class="nav-link" data-scroll-target="#criando-e-comparando-preditores-com-os-métodos-de-reamostragem.">Criando e comparando preditores com os métodos de reamostragem.</a></li>
+  <li><a href="#quando-usar-uma-reamostragem-invés-da-outra" id="toc-quando-usar-uma-reamostragem-invés-da-outra" class="nav-link" data-scroll-target="#quando-usar-uma-reamostragem-invés-da-outra">Quando usar uma reamostragem invés da outra?</a></li>
   </ul></li>
-  <li><a href="#tunagem-de-hiperparâmetros" id="toc-tunagem-de-hiperparâmetros" class="nav-link" data-scroll-target="#tunagem-de-hiperparâmetros">Tunagem de hiperparâmetros</a></li>
+  <li><a href="#ajuste-de-hiperparâmetros" id="toc-ajuste-de-hiperparâmetros" class="nav-link" data-scroll-target="#ajuste-de-hiperparâmetros">Ajuste de Hiperparâmetros</a></li>
+  <li><a href="#seleção-de-modelos" id="toc-seleção-de-modelos" class="nav-link" data-scroll-target="#seleção-de-modelos">Seleção de Modelos</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -300,23 +298,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedStratifiedKFold</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedStratifiedKFold</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="validação-cruzada" class="level1">
 <h1>Validação Cruzada</h1>
-<p>Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais parâmetros usar? Um jeito de resolver essas questões é usando a validação cruzada.</p>
-<p>A Validação Cruzada nos permite comparar diferentes métodos de aprendizado de máquina ou parâmetros e avaliar qual funcionará melhor na prática.</p>
-<p>Então o que vamos fazer é, para cada método,</p>
-<ol type="1">
-<li>Separar os dados em conjunto de treino e conjunto de teste.</li>
-<li>Treinar um modelo no conjunto de treino.</li>
-<li>Avaliar no conjunto de teste.</li>
-<li>Repetir os passos 1-3 e estimar o erro.</li>
-</ol>
-<p>Já sabemos que não é uma boa ideia usar toda a base de dados para treinar o nosso preditor e então podemos dividir por exemplo os primeiros 75% dos dados para treino e 25% finais para teste. Mas, e se esse não for o melhor jeito de dividir nossos dados? E se o melhor jeito de fazer essa divisão for usando os primeiros 25% para teste e o restante para treino? A Validação cruzada leva em consideração todas essas divisões usando uma de cada vez e tirando a média dos resultados no final. Para isso veremos como realizar alguns métodos de reamostragem, para utilizarmos várias amostras possíveis e não ficarmos dependentes de uma única amostra.</p>
+<p>Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais hiperparâmetros usar? Um jeito de resolver essas questões é usando a validação cruzada.</p>
+<p>A validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.</p>
+<p>Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Falaremos sobre os 3 aqui nesse caderno.</p>
 <p>Utilizaremos a base Spam ao longo do caderno.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># trocar essa url pelo caminho da base spam de vocês.</span></span>
@@ -326,9 +320,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>YSpam <span class="op">=</span> Spam[<span class="st">"type"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="alguns-métodos-de-reamostragem" class="level1">
-<h1>Alguns Métodos de Reamostragem</h1>
-<p>FALAR SOBRE PORQUE FAZER REAMOSTRAGEM E O QUE ELA É DE FATO</p>
+<section id="reamostragem" class="level1">
+<h1>Reamostragem</h1>
+<p>Reamostragem é rearrumar os dados. Reamostragem serve para diminuir o viés da separação Treino X Teste de um modelo ao criar várias separações em paralelo. Quando treinamos um modelo com uma base de dados separada em treino e teste sem reamostragem a análise do modelo será verdadeira apenas para aquela separação treino e teste. O preditor pode ser muito bom para aqueles casos teste específico, em uma outra separação ele se provaria menos eficaz possivelmente. Pode haver uma grande discrepancia entre o desempenho nos dados teste e para novos dados quando criamos um modelo com baixa capacidade de generalização, que pode ser acusado com a reamostragem.</p>
+<p>Reamostragem é usada durante o ajuste de hiperparâmetros e a seleção de modelos também, por reduzir o viés da separação Treino X Teste.</p>
 <p>Falaremos de 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada.</p>
 <section id="k-fold" class="level2">
 <h2 class="anchored" data-anchor-id="k-fold">K-fold</h2>
@@ -411,8 +406,6 @@ len(test): 460</code></pre>
 <li>todos os índices passam uma vez pelo conjunto teste de um k-fold</li>
 <li>os índices para treino se repetem K-1 vezes em diferentes folds</li>
 </ul>
-<p>REVISAR QUANDO USAR O NOME K-FOLD OU FOLD</p>
-<p>REVISAR E POR NOMENCLATURA VARIAVEL RESPOSTA VS EXPLICATIVA</p>
 </section>
 </section>
 <section id="repeated-k-fold" class="level2">
@@ -444,53 +437,285 @@ len(test): 460</code></pre>
 </section>
 <section id="bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap">Bootstrap</h2>
-<p>O bootstrap é uma técnica de reamostragem com o propósito de reduzir desvios e realizar amostragem dos dados de treino com repetições. Consiste em realizar amostragens com reposição a partir da amostra original. Quando fazemos amostragem com reposição, estamos recolocando o valor após cada amostra. Cada amostra, portanto, é independente do valor que veio antes dela.</p>
-<p>Quando fazemos amostragem sem reposição, não estamos recolocando os valores, uma vez que um valor é selecionado, ele não pode ser selecionado novamente, portanto não geram resultados independetes já que o valor obtido em uma amostra afeta a possibilidade dos valores da próxima amostra. Dessa forma podemos escolher um tamanho de amostras maior ou menor do que o vetor de entrada.</p>
-<p>Um ponto negativo do Bootstrap é que ao realizar um Bootstrap com menos amostras que o conjunto de dados original, a estratificação pode ficar um pouco diferente que a original, que para um número pequeno de amostras pode ser relevante.</p>
+<p>O bootstrap é uma técnica de reamostragem com o propósito de realizar amostragem dos dados de treino com repetições. Consiste em realizar amostragens com reposição a partir da amostra original. Quando fazemos amostragem com reposição, podemos repetir uma amostra e como consequência disso, cada amostra selecionada é independente das amostras que vieram antes dela.</p>
+<p>Quando fazemos amostragem sem reposição, não estamos recolocando os valores, uma vez que um valor é selecionado, ele não pode ser selecionado novamente, portanto não geram resultados independetes já que o valor obtido em uma amostra afeta a possibilidade dos valores da próxima amostra.</p>
+<p>Um ponto negativo do Bootstrap é que, ao realizar a reamostragem, a estratificação pode ficar um pouco diferente que a original. Em Spam por exemplo, 1813 amostras são classificadas como “spam” e 2788 são classificados como “nonspam”, uma proporção de 0.394 para spam e 0.606 para nonspam. Como o Bootstrap faz a reamostragem independente com reposição, essa proporção será alterada, o que pode aumentar o viés para um dos lados involuntariamente, que é especialmente danoso para bases de dados com poucas amostras.</p>
+<p>Podemos escolher um tamanho de amostras maior ou menor do que o vetor de entrada. Podemos fazer oversampling ou undersampling para corrigir o desbalanceamento da classe majoritária se julgarmos necessário. Falaremos mais sobre como lidar com o desbalanceamento da classe majoritária no futuro, por hora apenas é importante saber que podemos aumentar ou diminuir as amostras com bootstrap.</p>
+<p>Bootstrap seleciona amostras aleatoriamente na base sem se importar que elas se repetiam. Como consequênia, isso gera uma proporção de amostras que não foram selecionadas, que chamamos de proporção out-of-bag (OOB), justamente as que serão utilizadas como teste.</p>
+<p>É possível calcular a chance de uma amostra específica entrar na reamostragem por Bootstrap. Esse cálculo é baseado na distribuição binomial.</p>
+<p>Fórmula da PMF da distribuição binomial:</p>
+<p><span class="math inline">\(P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}\)</span></p>
+<p>No caso k=0 (não ser escolhido pelo Bootstrap):</p>
+<p><span class="math inline">\(P(X = 0) = \binom{n}{0} p^0 (1 - p)^n = 1 \cdot 1 \cdot (1 - p)^n = (1 - p)^n\)</span></p>
+<p>Ou seja,</p>
+<p><span class="math inline">\(P(X = 0) = (1 - p)^n\)</span></p>
+<p>Como todos os itens têm a mesma probabilidade de serem escolhidos, a probabilidade de que um item específico seja escolhido em um único sorteio é</p>
+<p><span class="math inline">\(p = \frac{1}{n}\)</span></p>
+<p>Logo, a probabilidade que um elemento específico seja escolhido pela reamostragem por Bootstrap é:</p>
+<p><span class="math inline">\(P_{escolhido} = 1 - (1 - \frac{1}{n_a})^{n_s}\)</span></p>
+<p>Sendo:</p>
+<ul>
+<li><p><span class="math inline">\(n_a\)</span>: número total de amostras na base de dados</p></li>
+<li><p><span class="math inline">\(n_s\)</span>: número total de sorteios realizados, ou seja, número total de amostras que queremos ter a apartir da reamostragem por Bootstrap.</p></li>
+</ul>
+<p><span class="math inline">\(n_s\)</span> pode ser entendido também como <span class="math inline">\(n_a\)</span> * proporção de reamostragem. No caso do tamanho do resultado desejado da reamostragem ser igual ao número de amostras da base de dados original <span class="math inline">\(n_s\)</span> = <span class="math inline">\(n_a\)</span>.</p>
+<p>Também é possível calcular uma estimativa da proporção OOB a partir da quantidade de amostras escolhidas em relação ao todo.</p>
+<p>Digamos que <span class="math inline">\(I_i\)</span> é 1 se a amostra i não foi selecionada pelo Bootstrap, 0 caso o contrário. A proporção OOB é:</p>
+<p><span class="math inline">\(\text{Proporção OOB} = \frac{1}{n} \sum_{i=1}^n I_i\)</span></p>
+<p>Pela linearidade da esperança:</p>
+<p><span class="math inline">\(\mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n I_i\right] = \frac{1}{n} \sum_{i=1}^n \mathbb{E}[I_i]\)</span></p>
+<p>Já vimos como calcular a probabilidade de numa amostra ter sido selecionada pelo Bootstrap. Seu corolário, ou seja, a probabilidade de uma amostra não ter sido selecionada pelo Bootstrap é:</p>
+<p><span class="math inline">\(\mathbb{E}[I_i] = P(I_i = 1) = P(\text{amostra i não foi selecionada}) = (1 - \frac{1}{n_a})^{n_s}\)</span></p>
+<p>Como os sorteios são simétricos e independentes, todos os <span class="math inline">\(I_i\)</span> têm a mesma esperança. Logo podemos calcular a proporção OOB:</p>
+<p><span class="math inline">\(\mathbb{E}[Proporção\:OOB]=\frac{1}{n}\cdot n\:\cdot (1 - \frac{1}{n_a})^{n_s} = (1 - \frac{1}{n_a})^{n_s}\)</span></p>
+<p>Ou simplemente:</p>
+<p><span class="math inline">\(\mathbb{E}[Proporção\:OOB]= (1 - \frac{1}{n_a})^{n_s}\)</span></p>
+<p>A fórmula ser a mesma não é coincidência.</p>
+<p>Mudando <span class="math inline">\(n_s\)</span> para <span class="math inline">\(n_a\)</span> * proporção de reamostragem (que vimos ser equivalente). Para um grande <span class="math inline">\(n_a\)</span> temos:</p>
+<p><span class="math inline">\(\left(1 - \frac{1}{n_a}\right)^{\text{proporção de reamostragem} \cdot n_a} \approx e^{-proporção\:de\:reamostragem}\)</span></p>
+<p>Lembrando:</p>
+<p><span class="math inline">\(\lim_{n \to \infty} \left(1 - \frac{1}{n}\right)^n = e^{-1}\)</span></p>
+<p>Logo uma boa estimativa para a proporção OOB é simplesmente:</p>
+<p><span class="math inline">\(\mathbb{E}[Proporção\:OOB]= e^{-\text{proporção de reamostragem}}\)</span></p>
+<p>Essa estimativa é mais precisa quanto maior for o número de amostras.</p>
+<p>A estimativa não necessariamente é verdadeira, como os sorteios são feitos independentemente, existe sempre uma pequena chance de todas as amostras serem escolhidas, assim como apenas uma amostra ser escolhida todas as vezes. Essa estimativa é verdadeira em média, por isso realizamos o Bootstrap várias vezes sequência.</p>
+<p>Saber calcular uma estimativa para a proporçao OOB de uma reamostragem por Bootstrap nos dá um recurso muito bom: poder manipular a proporção treino/teste em relação as amostras da base original. Se quisermos que a proporção treino/teste seja 70/30, por exemplo, precisaremos que a relação “amostras selecionadas pelo Bootstrap” / OOB seja 70/30. Como dito, é impossível assegurar que isso aconteça para uma reamostragem específica, portanto fazemos o Bootstrap inúmeras vezes para essa relação em média ser verdadeira.</p>
+<p>Segue abaixo uma tabela com a proporção de reamostragem, a estimativa para a proporção OOB (proporção de amostras para teste) respectiva e a proporção in-bag (oposto da OOB, proporção de amostras para treino) respectiva:</p>
+
+<div class="scroll_table">
+
+
+<table class="dataframe table-striped table-bordered table-sm table small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Proporção de reamostragem</th>
+<th data-quarto-table-cell-role="th">Proporção OOB (aprox)</th>
+<th data-quarto-table-cell-role="th">Proporção in-bag (aprox)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50.0%</td>
+<td>60.7%</td>
+<td>39.3%</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">100.0%</td>
+<td>36.8%</td>
+<td>63.2%</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">120.4%</td>
+<td>30.0%</td>
+<td>70.0%</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">150.0%</td>
+<td>22.3%</td>
+<td>77.7%</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">200.0%</td>
+<td>13.5%</td>
+<td>86.5%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>Podemos manipular a proporção de reamostragem para obter a proporção treino teste como desejamos.</p>
 <section id="código-de-exemplo-2" class="level3">
 <h3 class="anchored" data-anchor-id="código-de-exemplo-2">Código de exemplo</h3>
-<p>O scikitlearn possui uma implementação do Bootstrap quando usamos a função <code>resample</code> com <code>replace = True</code>. Segue abaixo um exemplo de uso:</p>
+<p>O scikitlearn possui uma implementação do Bootstrap quando usamos a função <code>resample()</code> com <code>replace = True</code>. Segue abaixo um exemplo de uso:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>BootstrapSpam <span class="op">=</span> resample(XSpam, YSpam, n_samples<span class="op">=</span> <span class="dv">10000</span>, random_state<span class="op">=</span><span class="dv">11</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span>YSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>propReamostragem <span class="op">=</span> <span class="fl">1.204</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="bu">int</span>(YSpam.shape[<span class="dv">0</span>]<span class="op">*</span>propReamostragem)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>BootstrapSpam <span class="op">=</span> resample(XSpam, YSpam, n_samples<span class="op">=</span>n_samples, random_state<span class="op">=</span><span class="dv">11</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span>YSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Primeiro argumento posicional recebe as variáveis explicativas, nesse caso, XSpam</li>
 <li>Segundo argumento posicional recebe a variável resposta, nesse caso, YSpam</li>
-<li><code>n_samples</code> recebe o número de amostras que queremos.</li>
+<li><code>n_samples</code> recebe o número de amostras que queremos, número de amostras vezes 1.204 implica numa proporção treino/teste de 70/30 em média em relação a base original.</li>
 <li><code>random_state</code> recebe a semente de aleatoriedade.</li>
 <li><code>replace</code> se True, permitirá reposição de amostras, se False, não. É essa variável em True que implementa o método Bootstrap. Se False e n_samples maior que número de amostras originais, um erro será gerado.</li>
 <li><code>stratify</code> recebe a variável resposta ou None. Se for None, não será feito estratificação e portanto, não haverá garantia da manutenção da proporção da variável resposta.</li>
 </ul>
-<p>A função gerou um vetor com dois vetores dentro: array(variaveisExplicativas, variavelResposta) para utilizarmos posteriormente. Repare que a função resample() automáticamente faz o embaralhamento dos dados.</p>
+<p>O stratify vai contra o príncipio do Bootstrap. Ele envieza o sorteio para preservar a proporção entre as classes da variável resposta. Outro problema de usar o stratify é que com ele aquelas fórmulas de estimativa da presença de um valor específico ser selecionado e a estimativa da proporção OOB não funcionarão mais, já que a independência dos sorteios é quebrada. É importante falar sobre ele porque é um bom recurso para se ter se quisermos muito manter a proporção. Daqui para frente não usarei ele para o Bootstrap.</p>
+<p>Calculei o n_samples fora da função para ter uma visualização melhor, mas poderia ter sido feito diretamente na hora de chamar a função resample.</p>
+<p>A função gerou uma lista com dois vetores dentro: [vetorVariaveisExplicativas, vetorVariavelResposta] para utilizarmos posteriormente. A função resample() faz o embaralhamento dos dados automaticamente por padrão.</p>
+<p>Segue abaixo um print do resultado da função resample, apenas do vetor da variável resposta para facilitar a visualização:</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BootstrapSpam[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>260        spam
-2562    nonspam
-3228    nonspam
-3233    nonspam
-1994    nonspam
+<pre><code>1328       spam
+1401       spam
+1959    nonspam
+1497       spam
+1815    nonspam
          ...   
-326        spam
-2193    nonspam
-3188    nonspam
-254        spam
-428        spam
-Name: type, Length: 10000, dtype: object</code></pre>
+2019    nonspam
+3911    nonspam
+3765    nonspam
+3623    nonspam
+4170    nonspam
+Name: type, Length: 5539, dtype: object</code></pre>
 </div>
 </div>
-<p>Como Spam possui um número muito alto de amostras e o embaralhemnto é sempre feito, visualizar o Bootstrap pode não ser tão fácil. Para facilitar o entendimento, vamos usar um exemplo mais simples: supomos que temos 10 indivíduos, numerados de 1 a 10. Ao realizar 3 bootstraps do mesmo tamanho da amostra obtemos:</p>
+<p>Como Spam possui um número muito alto de amostras e o embaralhemnto é sempre feito, visualizar o Bootstrap em ação pode não ser tão fácil. Para facilitar o entendimento, vamos usar um exemplo mais simples: supomos que temos 10 indivíduos, numerados de 1 a 10. Ao realizar 3 bootstraps do mesmo tamanho da amostra obtemos:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>B1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>B2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>B3 <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Precisamos fazer o Bootstrap diversas vezes para melhorar o resultado da validação cruzada. O scikit-learn não possui uma função RepeatedResample() equivalente a função RepeatedStratifiedKFold() em relação a StratifiedKFold(). Podemos facilmente implementá-la usando um laço for. Segue abaixo uma implementação do RepeatedResample() e uma execução com n_repeats=5.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RepeatedResample(X, Y, n_samples<span class="op">=</span><span class="va">None</span>, random_state<span class="op">=</span><span class="va">None</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span><span class="va">None</span>, n_repeats<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""X, Y, n_samples=None, random_state=None, replace=True, stratify=None, n_repeats=1"""</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ResultadosBootstrap <span class="op">=</span> []</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_repeats):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        ResultadosBootstrap.append(resample(X, Y, n_samples<span class="op">=</span>n_samples, random_state<span class="op">=</span>random_state, replace<span class="op">=</span>replace, stratify<span class="op">=</span>stratify))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">#iterando random_state para gerar reamostragens semi-aleatorias diferentemente</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        random_state <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ResultadosBootstrap</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#RepeatedBootstrapSpam = RepeatedResample(XSpam, YSpam, n_samples=n_samples, random_state=11, replace=True, stratify=YSpam, n_repeats=5)</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>RepeatedBootstrapSpam <span class="op">=</span> RepeatedResample(XSpam, YSpam, n_samples<span class="op">=</span>n_samples, random_state<span class="op">=</span><span class="dv">11</span>, replace<span class="op">=</span><span class="va">True</span>, n_repeats<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Criei a função com a possibilidade de manter ou não a estratificação original, mas como dito anteriormente, não usaremos daqui pra frente.</p>
+<p>Vamos agora verificar se a relação treino/teste está próxima de 70/30 como originalmente planejado. Vamos checar a estratificação de cada reamostragem também.</p>
+<p>Primeiro a relação treino/teste:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">4</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fig.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Treino X Teste Bootstrap'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(RepeatedBootstrapSpam)):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Removendo as duplicatas</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    BootstrapSemDup <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(<span class="bu">list</span>(RepeatedBootstrapSpam[i][<span class="dv">1</span>].index)))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    BootstrapETeste <span class="op">=</span> [<span class="bu">len</span>(BootstrapSemDup), YSpam.shape[<span class="dv">0</span>] <span class="op">-</span> <span class="bu">len</span>(BootstrapSemDup)]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(BootstrapETeste)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    axes[i].pie(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        BootstrapETeste,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>[<span class="st">'Treino'</span>, <span class="st">'Teste'</span>],</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        startangle<span class="op">=</span><span class="dv">90</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">10</span>}</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    axes[i].axis(<span class="st">'equal'</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    axes[i].set_title(<span class="ss">f'n°</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[3219, 1382]
+[3256, 1345]
+[3188, 1413]
+[3200, 1401]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[3211, 1390]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="CrossValidation_files/figure-html/cell-10-output-3.png" width="1881" height="381"></p>
+</div>
+</div>
+<p>Como podemos ver, a relação Treino X Teste em relação a base original está em torno de 70 / 30 como desejado.</p>
+<p>Agora a estratificação:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""for i in range(len(RepeatedBootstrapSpam)):</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">    contagem = RepeatedBootstrapSpam[i][1].value_counts()</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.figure(figsize=(6, 6))</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.pie(contagem.values, labels=contagem.index, autopct='%1.1f%%', startangle=140)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.title(f'Distribuição de Spam vs Nonspam Bootstrap n°{i+1}')</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.axis('equal')  # Para manter o formato circular</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.tight_layout()</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">    #plt.show()</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">4</span>))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>fig.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribuição de Spam vs Nonspam Bootstrap'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(RepeatedBootstrapSpam)):</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    contagem <span class="op">=</span> RepeatedBootstrapSpam[i][<span class="dv">1</span>].value_counts()</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    axes[i].pie(</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        contagem.values,</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>contagem.index,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        startangle<span class="op">=</span><span class="dv">90</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">10</span>}</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    axes[i].axis(<span class="st">'equal'</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    axes[i].set_title(<span class="ss">f'n°</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="CrossValidation_files/figure-html/cell-11-output-1.png" width="1907" height="381"></p>
+</div>
+</div>
+<p>Como optamos por manter o Bootstrap totalmente independente, a proporção original da base, 60.6% para spam e 39.4% para nonspam, não é preservada, o que não é um problema para bases com muitas amostras como Spam mas que pode causar problemas em bases pequenas.</p>
 </section>
 </section>
-<section id="criando-modelos-com-métodos-de-reamostragem." class="level2">
-<h2 class="anchored" data-anchor-id="criando-modelos-com-métodos-de-reamostragem.">Criando modelos com métodos de reamostragem.</h2>
+<section id="questionamentos-comuns" class="level2">
+<h2 class="anchored" data-anchor-id="questionamentos-comuns">Questionamentos comuns</h2>
+<p>Agora que vimos diferentes métodos de reamostragem, algumas perguntas podem surgir:</p>
+<p>Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem? Porque vocês deixam o melhor sempre para o depois?</p>
+<ol type="1">
+<li><p>Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.</p></li>
+<li><p>Reamostragem serve justamente para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o algoritmo de aprendizado de máquinas certo para o problema específico.</p></li>
+<li><p>Depende. Falaremos mais sobre isso também.</p></li>
+<li><p>Podemos usar mais de um ao mesmo tempo até. Mas por ser um processo muito custoso computacionalmente, pode não ser a melhor ideia.</p></li>
+<li><p>C’est la vie.</p></li>
+</ol>
+</section>
+<section id="criando-e-comparando-preditores-com-os-métodos-de-reamostragem." class="level2">
+<h2 class="anchored" data-anchor-id="criando-e-comparando-preditores-com-os-métodos-de-reamostragem.">Criando e comparando preditores com os métodos de reamostragem.</h2>
+<p>Como respondido anteriormente, o processo de criação de preditores é parecida entre os diferentes métodos de reamostragem.</p>
+<p>Em ambientes diferentes do scikit-learn, como no pacote caret do R, o processo de criação de preditores a partir de uma reamostragem é o mesmo, porque no caret tanto a seleção de algoritmo como a reamostragem é um argumento da função que treina o modelo, simplificando o trabalho.</p>
+<p>Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida. Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado a ser contornado.</p>
+<p>Feito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: <code>cross_val_score()</code>.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kfSpam <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#podemos usar a função com o repeated k-fold também</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>resultadoVC <span class="op">=</span> cross_val_score(RandomForestClassifier(), XSpam, YSpam, cv<span class="op">=</span>kfSpam, scoring<span class="op">=</span><span class="st">"accuracy"</span>) </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resultadoVC)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média:"</span>, resultadoVC.mean())</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão:"</span>, resultadoVC.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.94793926 0.94347826 0.96521739 0.95217391 0.94782609 0.9326087
+ 0.97173913 0.9673913  0.95652174 0.95      ]
+Média: 0.9534895784212015
+Desvio padrão: 0.011340488287539334</code></pre>
+</div>
+</div>
+<ul>
+<li><code>estimator</code> (primeiro argumento posicional): recebe a função que gera o preditor que queremos usar.<br>
+</li>
+<li><code>cv</code>: recebe o objeto gerado por uma função K-Fold ou repeated K-Fold.</li>
+<li><code>scoring</code>: recebe uma métrica, padrão accuracy, pesquisar na documentação do scikit-learn outras métricas possíveis</li>
+</ul>
+<p>Coloquei 3 prints após executar a função: o primeiro para mostrar a acurácia individual de cada modelo gerado por cada fold, o segundo e o terceiro para mostrar a média e o desvio padrão dos folds respectivamente. Podemos tirar algumas conclusões a respeito do RandomForestClassifier() para o problema dos spams, média de acurácia bem alta e desvio padrão bem baixo, é provavelmente um bom algoritmo para o problema dos spams, em todos os folds superior a regressão logística que fizemos no caderno Criação e Avaliação de Preditores.</p>
+<p>Essa função tem alguns problemas:</p>
+<ul>
+<li><p>Só funciona para objetos gerados por funções de K-Fold, não aceita outras reamostragens como Bootstrap.</p></li>
+<li><p>Pra cada métrica que queremos ver precisamos rodar ela novamente. O scikit-learn possui a função <code>cross_validate()</code> que supostamente deveria funcionar parecido mas que permite uma lista de métricas, porém, tanto na função cross_validate() quanto na cross_val_score() quando colocamos recall a função retorna um erro.</p></li>
+<li><p>Não podemos definir um random_state para o modelo que entra, logo não conseguiremos reproduzir um resultado.</p></li>
+<li><p>Geramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos</p></li>
+</ul>
+<p>No geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.</p>
+</section>
+<section id="quando-usar-uma-reamostragem-invés-da-outra" class="level2">
+<h2 class="anchored" data-anchor-id="quando-usar-uma-reamostragem-invés-da-outra">Quando usar uma reamostragem invés da outra?</h2>
+<p>Respondendo melhor aquela pergunta que você fez antes e que dissemos que iriámos falar mais depois:</p>
+<p>Cada algoritmo de aprendizado de máquina e cada problema tem sua preferência. Selecionar qual reamostragem usar para ter uma melhor análise para determinado problema usando um determinado algoritmo de aprendizado de máquina é ad-hoc, quase sempre será um chute. Ainda sim, por conta das características de cada método de aprendizado de máquina podemos inferir provaveis situações de melhor uso de um em relação ao outro.</p>
+<p>O tempo que cada um gasta é algo a ser considerado também. K-Fold é o mais rápido. Bootstrap podem ser mais rápido que o repeated K-Fold dependendo de como é feito.</p>
 </section>
 </section>
-<section id="tunagem-de-hiperparâmetros" class="level1">
-<h1>Tunagem de hiperparâmetros</h1>
+<section id="ajuste-de-hiperparâmetros" class="level1">
+<h1>Ajuste de Hiperparâmetros</h1>
+</section>
+<section id="seleção-de-modelos" class="level1">
+<h1>Seleção de Modelos</h1>
+<p>“An Introduction to the Bootstrap” – Efron &amp; Tibshirani (1993)</p>
 
 
 </section>
@@ -851,9 +1076,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./medidas_analise_preditores.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Métricas para análise de preditores</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

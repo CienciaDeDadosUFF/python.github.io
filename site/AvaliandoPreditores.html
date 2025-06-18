@@ -240,12 +240,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./medidas_analise_preditores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Métricas para análise de preditores</span></span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -398,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [4601 rows x 58 columns]</code></pre>
 </div>
 </div>
-<p>Os dados são valores quantitativos que foram extraidos de 4601 e-mails e associam o e-mail a uma classificação: <code>spam</code> ou <code>nom-spam</code>. Há 2788 spams e 1813 e-mails normais.</p>
+<p>Os dados são valores quantitativos que foram extraidos de 4601 e-mails e associam o e-mail a uma classificação: <code>spam</code> ou <code>nom-spam</code>. Há 2788 spams e 1813 e-mails normais, isto é, 60.6% para spam e 39.4% para nonspam aproximadamente.</p>
 <p>Mesmo sem ter a íntegra dos e-mails originais, os dados que a base apresenta já são suficientes para determinar se o conteúdo é ou não spam para o escopo original da base. Em outros estudos, a seleção de dados pode ser diferente.</p>
 <p>As primeiras 48 colunas possuem a frequência de certas palavras que estão fortemente associadas com a classificação, como “business”. Da coluna 49 à coluna 54, frequência de caracteres de pontuação como a interrogação, também fortemente associado a spams. As colunas 55 a 57 contém a média de letras maiúsculas por palavra, o número de letras maiúsculas na maior palavra e o número absoluto de letras maiúsculas respectivamente, todas importantes estatísticas no problema de classificação de e-mails.</p>
 <p>A coluna 58, type, possui valores diferentes dos demais, categóricos, spam e nonspam. Ela é a coluna de rótulo da base. Com ela conseguimos saber a classificação original dos e-mails em spam ou não spam. Precisamos entregar ao scikit learn essa coluna separada das demais para não influenciar o modelo, o modelo estaria “colando” se fosse mantida.</p>
@@ -1450,7 +1444,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Assim como há diversas formas de compararmos a qualidade dos classificadores, há também diversas formas de compararmos regressores. O que estudaremos agora é o MAE, MSE e <span class="math inline">\(R^2\)</span>. Mais formas de comparação de regressores também serão vistas futuramente.</p>
 <section id="mae" class="level3">
 <h3 class="anchored" data-anchor-id="mae">MAE</h3>
-<p>O <strong>erro médio absoluto</strong> é uma métrica estatística utilizada para medir a <strong>distância entre os valores previstos e os reais</strong>, ou seja, o <strong>erro</strong>. Para calculá-lo, obtemos a média das diferenças absolutas entre os valores previstos e os valores reais, como mostrado na fórmula a seguir:</p>
+<p>O <strong>erro médio absoluto</strong> (mean absolute error) mede a <strong>distância absoluta entre os valores observados e os preditos pelo modelo</strong>, ou seja, o <strong>erro</strong>. Para calculá-lo, obtemos a média das diferenças absolutas entre os valores preditos e os valores observados, como mostrado na fórmula a seguir:</p>
 <p><span class="math inline">\(\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|\)</span></p>
 <ul>
 <li><code>n</code>: número de observações</li>
@@ -1458,12 +1452,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><code>ŷi</code>: valor predito</li>
 <li><code>|yi - ŷi|</code>: Erro absoluto de uma predição</li>
 </ul>
-<p><strong>Interpretação</strong>: O cálculo é baseado na distância entre os dados previstos e reais (erro), portanto, quanto <strong>menor</strong> o valor do MAE, melhor será o desempenho do modelo pois isso indica uma <strong>maior proximidade</strong> entre esses valores.</p>
-<p><strong>Limitações</strong>: O MAE é pouco sensível a outliers, ou seja, <strong>erros grandes e pequenos tendem a ter a mesma influência</strong> e isso pode ser um problema em situações onde erros grandes seriam inaceitáveis por exemplo.</p>
+<p><strong>Interpretação</strong>: Como comentado anteriormente, o calculo é baseado na distância entre os dados previstos e observados, portanto, quanto <strong>menor</strong> o valor do MAE, melhor o desempenho do modelo pois isso indica uma <strong>maior proximidade</strong> entre esses valores.</p>
+<p><strong>Limitações</strong>: O MAE é pouco sensível a outliers, ou seja, <strong>erros grandes e pequenos tendem a ter a mesma influência</strong> e isso pode ser um problema em situações onde erros grandes seriam preocupantes por exemplo.</p>
 </section>
 <section id="mse" class="level3">
 <h3 class="anchored" data-anchor-id="mse">MSE</h3>
-<p>O <strong>erro médio quadrático</strong> segue a mesma lógica do MAE, calcula a distância entre o valor predito e o real, mas utilizando o <strong>quadrado</strong> ao invés do módulo, o que o torna mais <strong>sensível a outliers</strong> e penalizando mais <strong>erros grandes</strong>. Ele também pode ser utilizado como <strong>função de custo</strong> (loss function) em modelos de regressão, como forma de <strong>otimizar os parâmetros do modelo</strong>, especialmente em <strong>regressão linear</strong> e em <strong>redes neurais</strong>, pois costumar ser <strong>diferenciável</strong>, o que facilita minimizar a função utilizando <strong>algoritmos de otimização</strong>, como o <strong>gradiente descendente</strong>, por exemplo. Sendo assim, sua fórmula é:</p>
+<p>O <strong>erro médio quadrático</strong> (mean squared error) segue a mesma lógica do MAE, calcula a distância entre o valor predito e o observado, mas utilizando o <strong>quadrado</strong> ao invés do módulo, o que o torna mais <strong>sensível a outliers</strong> penalizando mais <strong>erros grandes</strong>. Ele também pode ser utilizado como <strong>função de custo</strong> (loss function) em modelos de regressão, como forma de <strong>otimizar os parâmetros do modelo</strong>, especialmente em <strong>regressão linear</strong> e em <strong>redes neurais</strong>, pois costumar ser <strong>diferenciável</strong>, o que facilita minimizar a função utilizando <strong>algoritmos de otimização</strong>, como o <strong>gradiente descendente</strong>, por exemplo. O MSE é dado por:</p>
 <p><span class="math inline">\(MSE = \frac{1}{n}\sum_{i=1}^{n} \left( yi - \hat{y}i \right)^2\)</span></p>
 <ul>
 <li><code>n</code>: número de observações</li>
@@ -1472,16 +1466,16 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><code>(yi - ŷi)^2</code>: Erro ao quadrado de uma predição</li>
 </ul>
 <p><img src="Cadernos Grupo Python/Criação e Avaliação de Preditores/MSE.jpg" class="img-fluid"></p>
-<p><strong>Interpretação</strong>: Assim como o MAE, quanto <strong>menor</strong> o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois um mesmo valor de MSE pode ser suficientemente próximo do zero ou não dado o contexto, além de <strong>não estar na mesma unidade dos dados</strong>.</p>
-<p><strong>Limitações</strong>: Como citado anteriormente, o MSE tem uma <strong>sensibilidade maior a outliers</strong>, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior quando isso não é verdade. Além disso, ele é <strong>dependente da escala dos dados</strong>, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior, tornando a comparação entre diferentes bases de dados injusta. Para contornar esse problema, podemos <strong>normalizar ou padronizar</strong> os dados antes de realizar o cálculo.</p>
+<p><strong>Interpretação</strong>: Assim como o MAE, quanto <strong>menor</strong> o MSE de um modelo, melhor. Contudo, sua interpretação requer cuidado, pois, para ser considerado grande ou pequeno, devemos analisar o contexto, além de <strong>não estar na mesma unidade dos dados</strong>.</p>
+<p><strong>Limitações</strong>: Como citado anteriormente, o MSE tem uma <strong>sensibilidade maior a outliers</strong>, o que pode aumentar seu valor e indicar que o desempenho do modelo está pior do que aparenta. Além disso, ele é <strong>dependente da escala dos dados</strong>, de maneira que modelos que preveem faixas de valor mais altas terão naturalmente um MSE maior. Para contornar esse problema, podemos <strong>normalizar ou padronizar</strong> os dados antes de observadoizar o cálculo.</p>
 </section>
 <section id="r2" class="level3">
 <h3 class="anchored" data-anchor-id="r2"><span class="math inline">\(R^2\)</span></h3>
-<p><span class="math inline">\(R^2\)</span>, também conhecido como coeficiente de determinação, é uma medida que <strong>explica a proporção da variância</strong> da variável dependente que pode ser explicada pelas variáveis independentes, ou seja, o quão bem os dados se <strong>ajustam ao modelo</strong>. Dessa forma, ele assume valores de zero até um, onde 1 significaria que os dados se encaixaram perfeitamente. Existem diversas maneiras de se calcular seu valor, vamos abordar a mais comum nesse texto e ela se baseia em utilizar os <strong>erros ao quadrado</strong> e a <strong>variância total do modelo</strong>, de maneira que essa abordagem destaca o quão melhor o modelo de regressão funciona em comparação com simplesmente prever a média da resposta</p>
+<p>O <span class="math inline">\(R^2\)</span>, também conhecido como coeficiente de determinação, mede <strong>a proporção da variância</strong> da variável resposta que é explicada pelas variáveis explicativas. O cálculo do <span class="math inline">\(R^2\)</span> utiliza os <strong>erros ao quadrado</strong> e a <strong>variância dos dados observados</strong>.</p>
 <p><span class="math inline">\(R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}\)</span></p>
 <p>onde RSS (residual sum of squares) é a soma dos erros ao quadrado e TSS (total sum of squares) é a variância total.</p>
-<p><strong>Interpretação</strong>: <span class="math inline">\(R^2\)</span> é a porcentagem de variação explicada pela relação entre duas variáveis. <span class="math inline">\(R^2\)</span> é sempreuma porcentagem entre 0% e 100% com 0%, o que significa que seus valores previstos não lhe disseram absolutamente nada sobre Y e 100%, o que significa que seus valores previstos eram perfeitamente precisos. Então, para responder ao exemplo que você deu, se <span class="math inline">\(R^2\)</span> = 0.8, então diríamos: “80% da variação observada na variável Y é explicada por nossa regressão (ou então você gerou previsões para Y)”. Contudo, devemos nos atentar a valores muito altos pois eles podem indicar overfitting.</p>
-<p><strong>Limitações</strong>: É importante lembrar que o <span class="math inline">\(R^2\)</span> mede a <strong>correlação</strong>, mas não mede a <strong>causalidade</strong>. Só porque nossos preditores explicam o resultado não significa que eles causam isso, porque correlação ainda não significa causalidade. Além disso, o <span class="math inline">\(R^2\)</span> não indica se as previsões são precisas.</p>
+<p><strong>Interpretação</strong>: O <span class="math inline">\(R^2\)</span> assume valores no intervalo entre 0 e 1, de maneira que um <span class="math inline">\(R^2\)</span> igual a 0 indica que o modelo não consegue explicar a variância da variável resposta, enquanto 1 sugere que o modelo a explica perfeitamente. Contudo, valores de <span class="math inline">\(R^2\)</span> altos devem ser observados com cautela, pois podem indicar <strong>overfitting</strong>, comprometendo a generalização do modelo para novos dados.</p>
+<p><strong>Limitações</strong>: É importante lembrar que as variáveis explicativas explicam a variância da variável resposta mas não necessariamente sejam a causa dela. Além disso, o <span class="math inline">\(R^2\)</span> não indica se as previsões são precisas.</p>
 </section>
 <section id="relação-entre-métricas-1" class="level3">
 <h3 class="anchored" data-anchor-id="relação-entre-métricas-1">Relação entre métricas</h3>

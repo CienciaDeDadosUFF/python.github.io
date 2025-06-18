@@ -204,7 +204,9 @@ Logo, a probabilidade que um elemento específico seja escolhido pela reamostrag
 $P_{escolhido} = 1 - (1 - \frac{1}{n_a})^{n_s}$
 
 Sendo:
+
 * $n_a$: número total de amostras na base de dados
+
 * $n_s$: número total de sorteios realizados, ou seja, número total de amostras que queremos ter a apartir da reamostragem por Bootstrap.
 
 $n_s$ pode ser entendido também como $n_a$ * proporção de reamostragem. No caso do tamanho do resultado desejado da reamostragem ser igual ao número de amostras da base de dados original $n_s$ = $n_a$.
@@ -271,7 +273,6 @@ Segue abaixo uma tabela com a proporção de reamostragem, a estimativa para a p
 <table border="1" class="dataframe table-striped table-bordered table-sm">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>Proporção de reamostragem</th>
       <th>Proporção OOB (aprox)</th>
       <th>Proporção in-bag (aprox)</th>
