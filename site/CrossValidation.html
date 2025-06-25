@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./CrossValidation.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./CrossValidation.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -214,26 +214,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./EstatisticaNaoParametrica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estatística Não Paramétrica</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introducaoML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./predicao.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Predição</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Predição</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ErrosAmostrais.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./AvaliandoPreditores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./CrossValidation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span></a>
   </div>
 </li>
     </ul>
@@ -277,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></h1>
 </div>
 
 
@@ -607,46 +619,48 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[3219, 1382]
 [3256, 1345]
-[3188, 1413]
-[3200, 1401]</code></pre>
+[3188, 1413]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[3200, 1401]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[3211, 1390]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="CrossValidation_files/figure-html/cell-10-output-3.png" width="1881" height="381"></p>
+<p><img src="CrossValidation_files/figure-html/cell-10-output-4.png" width="1881" height="381"></p>
 </div>
 </div>
 <p>Como podemos ver, a relação Treino X Teste em relação a base original está em torno de 70 / 30 como desejado.</p>
 <p>Agora a estratificação:</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""for i in range(len(RepeatedBootstrapSpam)):</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">    contagem = RepeatedBootstrapSpam[i][1].value_counts()</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.figure(figsize=(6, 6))</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.pie(contagem.values, labels=contagem.index, autopct='%1.1f%%', startangle=140)</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.title(f'Distribuição de Spam vs Nonspam Bootstrap n°{i+1}')</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.axis('equal')  # Para manter o formato circular</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.tight_layout()</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">    #plt.show()</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">4</span>))</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>fig.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribuição de Spam vs Nonspam Bootstrap'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(RepeatedBootstrapSpam)):</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    contagem <span class="op">=</span> RepeatedBootstrapSpam[i][<span class="dv">1</span>].value_counts()</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    axes[i].pie(</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        contagem.values,</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>contagem.index,</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        startangle<span class="op">=</span><span class="dv">90</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">10</span>}</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    axes[i].axis(<span class="st">'equal'</span>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    axes[i].set_title(<span class="ss">f'n°</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""for i in range(len(RepeatedBootstrapSpam)):</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">    contagem = RepeatedBootstrapSpam[i][1].value_counts()</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.figure(figsize=(6, 6))</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.pie(contagem.values, labels=contagem.index, autopct='%1.1f%%', startangle=140)</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.title(f'Distribuição de Spam vs Nonspam Bootstrap n°{i+1}')</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.axis('equal')  # Para manter o formato circular</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.tight_layout()</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">    #plt.show()</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">4</span>))</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fig.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribuição de Spam vs Nonspam Bootstrap'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(RepeatedBootstrapSpam)):</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    contagem <span class="op">=</span> RepeatedBootstrapSpam[i][<span class="dv">1</span>].value_counts()</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    axes[i].pie(</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        contagem.values,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>contagem.index,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        startangle<span class="op">=</span><span class="dv">90</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">10</span>}</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    axes[i].axis(<span class="st">'equal'</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    axes[i].set_title(<span class="ss">f'n°</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="CrossValidation_files/figure-html/cell-11-output-1.png" width="1907" height="381"></p>
 </div>
@@ -657,34 +671,34 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <section id="questionamentos-comuns" class="level2">
 <h2 class="anchored" data-anchor-id="questionamentos-comuns">Questionamentos comuns</h2>
 <p>Agora que vimos diferentes métodos de reamostragem, algumas perguntas podem surgir:</p>
-<p>Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem? Porque vocês deixam o melhor sempre para o depois?</p>
+<p>Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem?</p>
 <ol type="1">
-<li><p>Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.</p></li>
-<li><p>Reamostragem serve justamente para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o algoritmo de aprendizado de máquinas certo para o problema específico.</p></li>
+<li><p>Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo, é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.</p></li>
+<li><p>Reamostragem serve para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.</p></li>
 <li><p>Depende. Falaremos mais sobre isso também.</p></li>
-<li><p>Podemos usar mais de um ao mesmo tempo até. Mas por ser um processo muito custoso computacionalmente, pode não ser a melhor ideia.</p></li>
-<li><p>C’est la vie.</p></li>
+<li><p>Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante. Além disso, pensando em custo computacional pode não ser a melhor ideia.</p></li>
 </ol>
 </section>
 <section id="criando-e-comparando-preditores-com-os-métodos-de-reamostragem." class="level2">
 <h2 class="anchored" data-anchor-id="criando-e-comparando-preditores-com-os-métodos-de-reamostragem.">Criando e comparando preditores com os métodos de reamostragem.</h2>
 <p>Como respondido anteriormente, o processo de criação de preditores é parecida entre os diferentes métodos de reamostragem.</p>
 <p>Em ambientes diferentes do scikit-learn, como no pacote caret do R, o processo de criação de preditores a partir de uma reamostragem é o mesmo, porque no caret tanto a seleção de algoritmo como a reamostragem é um argumento da função que treina o modelo, simplificando o trabalho.</p>
-<p>Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida. Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado a ser contornado.</p>
+<p>Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida.</p>
+<p>Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado de máquinas a ser contornado.</p>
 <p>Feito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: <code>cross_val_score()</code>.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kfSpam <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#podemos usar a função com o repeated k-fold também</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>resultadoVC <span class="op">=</span> cross_val_score(RandomForestClassifier(), XSpam, YSpam, cv<span class="op">=</span>kfSpam, scoring<span class="op">=</span><span class="st">"accuracy"</span>) </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resultadoVC)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média:"</span>, resultadoVC.mean())</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão:"</span>, resultadoVC.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kfSpam <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#podemos usar a função com o repeated k-fold também</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>resultadoVC <span class="op">=</span> cross_val_score(RandomForestClassifier(), XSpam, YSpam, cv<span class="op">=</span>kfSpam, scoring<span class="op">=</span><span class="st">"accuracy"</span>) </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resultadoVC)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média:"</span>, resultadoVC.mean())</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão:"</span>, resultadoVC.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[0.94793926 0.94347826 0.96521739 0.95217391 0.94782609 0.9326087
- 0.97173913 0.9673913  0.95652174 0.95      ]
-Média: 0.9534895784212015
-Desvio padrão: 0.011340488287539334</code></pre>
+<pre><code>[0.94360087 0.94347826 0.96086957 0.95652174 0.94782609 0.94130435
+ 0.96956522 0.97173913 0.95869565 0.95869565]
+Média: 0.9552296519852872
+Desvio padrão: 0.010284096595788836</code></pre>
 </div>
 </div>
 <ul>
@@ -1072,7 +1086,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./AvaliandoPreditores.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>APRENDIZADO DE MÁQUINA COM PYTHON - Erros Amostrais</title>
+<title>APRENDIZADO DE MÁQUINA COM PYTHON - Introdução a Aprendizado de Máquina</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AvaliandoPreditores.html" rel="next">
-<link href="./predicao.html" rel="prev">
+<link href="./predicao.html" rel="next">
+<link href="./EstatisticaNaoParametrica.html" rel="prev">
 <link href="./uff-brasao.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -111,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ErrosAmostrais.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introducaoML.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -219,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introducaoML.html" class="sidebar-item-text sidebar-link">
+  <a href="./introducaoML.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></span></a>
   </div>
 </li>
@@ -231,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ErrosAmostrais.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ErrosAmostrais.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></span></a>
   </div>
 </li>
@@ -257,10 +223,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Navegação</h2>
    
   <ul>
-  <li><a href="#erro-dentro-da-amostra-in-sample-error" id="toc-erro-dentro-da-amostra-in-sample-error" class="nav-link active" data-scroll-target="#erro-dentro-da-amostra-in-sample-error">Erro dentro da Amostra (In Sample Error)</a></li>
-  <li><a href="#erro-fora-da-amostra-out-of-sample-error" id="toc-erro-fora-da-amostra-out-of-sample-error" class="nav-link" data-scroll-target="#erro-fora-da-amostra-out-of-sample-error">Erro fora da Amostra (Out of Sample Error)</a>
+  <li><a href="#o-que-é-o-aprendizado-de-máquina" id="toc-o-que-é-o-aprendizado-de-máquina" class="nav-link active" data-scroll-target="#o-que-é-o-aprendizado-de-máquina">O que é o aprendizado de máquina?</a></li>
+  <li><a href="#para-que-serve" id="toc-para-que-serve" class="nav-link" data-scroll-target="#para-que-serve">Para que serve?</a>
   <ul class="collapse">
-  <li><a href="#algumas-ideias-chave" id="toc-algumas-ideias-chave" class="nav-link" data-scroll-target="#algumas-ideias-chave">Algumas ideias-chave</a></li>
+  <li><a href="#classificação" id="toc-classificação" class="nav-link" data-scroll-target="#classificação">Classificação:</a></li>
+  <li><a href="#regressão" id="toc-regressão" class="nav-link" data-scroll-target="#regressão">Regressão:</a></li>
+  <li><a href="#clusterização" id="toc-clusterização" class="nav-link" data-scroll-target="#clusterização">Clusterização:</a></li>
+  <li><a href="#detecção-de-anomalia" id="toc-detecção-de-anomalia" class="nav-link" data-scroll-target="#detecção-de-anomalia">Detecção de anomalia:</a></li>
+  </ul></li>
+  <li><a href="#tipos-de-aprendizado-de-máquina" id="toc-tipos-de-aprendizado-de-máquina" class="nav-link" data-scroll-target="#tipos-de-aprendizado-de-máquina">Tipos de Aprendizado de Máquina</a>
+  <ul class="collapse">
+  <li><a href="#aprendizado-supervisionado" id="toc-aprendizado-supervisionado" class="nav-link" data-scroll-target="#aprendizado-supervisionado">Aprendizado supervisionado</a></li>
+  <li><a href="#aprendizado-não-supervisionado" id="toc-aprendizado-não-supervisionado" class="nav-link" data-scroll-target="#aprendizado-não-supervisionado">Aprendizado não supervisionado</a></li>
+  <li><a href="#aprendizado-por-reforço" id="toc-aprendizado-por-reforço" class="nav-link" data-scroll-target="#aprendizado-por-reforço">Aprendizado por reforço</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -270,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></h1>
 </div>
 
 
@@ -285,158 +260,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Este é um dos conceitos mais fundamentais com os quais lidamos na aprendizagem de máquina e previsão. Temos dois tipos de erros amostrais: o erro dentro da amostra (in sample error) e o erro fora da amostra (out of sample error).</p>
-<section id="erro-dentro-da-amostra-in-sample-error" class="level1">
-<h1>Erro dentro da Amostra (In Sample Error)</h1>
-<p>A taxa de erro dentro da amostra refere-se ao erro calculado no mesmo conjunto de dados utilizado para treinar o modelo preditivo. Na literatura, isso é frequentemente denominado como “erro de resubstituição”. Em outras palavras, essa taxa de erro mede o quanto algoritmo de previsão se ajusta exatamente aos mesmos dados utilizados para o treinamento do modelo. No entanto, quando o modelo é aplicado a um novo conjunto de dados, é esperado que essa precisão diminua.</p>
+<section id="o-que-é-o-aprendizado-de-máquina" class="level1">
+<h1>O que é o aprendizado de máquina?</h1>
+<p>Ja ouvimos em diversos lugares esse termo ser utilizado, em todas as áreas do conhecimento. Seu uso é tão abrangente que parece ser um tipo de oráculo. Existe outro termo, que geralmente aparece junto com aprendizado de máquina e que parece por vezes se tratar de sinônimo: Inteligência Artificial. Vamos entender o que é cada um.</p>
+<p>Inteligência Artificial é um campo mais amplo que engloba aprendizado de máquina, é a simulação da inteligência humana por máquinas. Ela não se restringe a aprendizado de máquinas, existem modelos de IA que não são baseados em aprendizado de máquina e sim regras lógicas, campo esse chamado de inteligência artificial simbolista, enquanto aprendizado de máquina se enquadra na inteligencia artificial conexionista.</p>
+<p>Simbolismo baseia-se na ideia de que o raciocínio humano pode ser representado por símbolos e regras explícitas de manipulação lógica. Nesse paradigma, o conhecimento é modelado de forma clara e interpretável, por meio de regras do tipo “se… então…”, expressões lógicas e estruturas simbólicas. Os sistemas simbólicos são ótimos para tarefas que envolvem lógica, planejamento e resolução de problemas estruturados, como jogos de tabuleiro. No entanto, eles têm dificuldade em lidar com incertezas, ambiguidade e informações sensoriais complexas, como imagens ou fala.</p>
+<p>Conexionismo é uma abordagem da inteligência artificial e da cognição que propõe que o conhecimento e o pensamento surgem da interação entre muitas unidades simples interconectadas. Em vez de representar o conhecimento como regras lógicas ou símbolos explícitos (como no simbolismo), o conexionismo defende que ele é distribuído em um sistema, e que o comportamento inteligente emerge dos padrões de ativação e das conexões entre essas unidades. Nesse modelo, não há uma regra explícita dizendo o que fazer; o sistema aprende ajustando as forças das conexões entre unidades com base na experiência. A inteligência, portanto, não vem de raciocinar com símbolos, mas de reconhecer padrões e se adaptar com a prática.</p>
+<p>Em 1959, Arthur Samuel definiu o aprendizado de máquina como o “campo de estudo que dá aos computadores a habilidade de aprender sem serem explicitamente programados”. Ou seja, é um método de análise de dados que automatiza a construção de modelos analíticos. É baseado na ideia de que sistemas podem aprender com dados, identificar padrões e tomar decisões com o mínimo de intervenção humana.</p>
+<p>A importância desse aprendizado se deve principalmente ao fato de que atualmente tem surgido cada vez mais a necessidade de manipulações de grandes volumes e variedades de dados disponíveis.</p>
 </section>
-<section id="erro-fora-da-amostra-out-of-sample-error" class="level1">
-<h1>Erro fora da Amostra (Out of Sample Error)</h1>
-<p>É a taxa de erro que você recebe em um novo conjunto de dados. Na literatura às vezes é chamado de erro de generalização. Uma vez que coletamos uma amostra de dados e construímos um modelo para ela, podemos querer testá-lo em uma nova amostra, por exemplo uma amostra coletada em um horário diferente ou em um local diferente. Daí podemos analisar o quão bem o algoritmo executará a predição nesse novo conjunto de dados.</p>
-<section id="algumas-ideias-chave" class="level2">
-<h2 class="anchored" data-anchor-id="algumas-ideias-chave">Algumas ideias-chave</h2>
-<ol type="1">
-<li><p>Quase sempre o erro fora da amostra é o que interessa.</p></li>
-<li><p>Erro dentro da amostra é menor que o erro fora da amostra.</p></li>
-<li><p>Um erro frequente é ajustar muito o algoritmo aos dados que temos. Em outras palavras, criar um modelo sobreajustado (também chamado de overfitting(*)).</p></li>
-</ol>
-<p>(*) Overfitting é um termo usado na estatística para descrever quando um modelo estatístico se ajusta muito bem a um conjunto de dados anteriormente observado e, como consequência, se mostra ineficaz para prever novos resultados.</p>
-<p>Vejamos um exemplo de erro dentro da amostra vs erro fora da amostra:</p>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># importando a base utilizando o pacote pandas</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">spam.csv"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>spam[<span class="st">"type_code"</span>] <span class="op">=</span> np.where(spam[<span class="st">"type"</span>] <span class="op">==</span> <span class="st">"spam"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vamos selecionar um amostra de tamanho dez da base</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">151</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>amostra_spam <span class="op">=</span> resample(spam, n_samples<span class="op">=</span><span class="dv">10</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># criando gráfico de dispersão para a média de letras maiúsculas</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 322</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-2-output-1.png" width="577" height="450"></p>
-</div>
-</div>
-<p>Podemos notar que, em geral, as mensagens classificadas como spam possuem uma frequência maior de letras maiúsculas do que as mensagens classificadas como não spam. Com base nisso queremos construir um preditor, onde podemos classificar e-mails como spam se a frequência de letras maiúsculas for maior que uma determida constante, e não spam caso contrário.</p>
-<p>Veja que se separarmos os dados pela frequência de letras maiúsculas maior que 2,5 e classificarmos o que está acima como spam e abaixo como não spam, ainda teríamos duas observações que não são spam acima da linha.</p>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando um gráfico de dispersão para a média de letras maiúsculas</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.hlines(y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>], xmin<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">0</span>], xmax<span class="op">=</span>[<span class="dv">15</span>, <span class="dv">15</span>])</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-3-output-1.png" width="577" height="450"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_sobreajustado(x):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where((x <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (x <span class="op">&lt;=</span> <span class="dv">2</span>), <span class="st">'spam'</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                        np.where((x <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (x <span class="op">&gt;</span> <span class="dv">2</span>), <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(predicao)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaliando o modelo sobreajustado</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> modelo_sobreajustado(amostra_spam[<span class="st">'capitalAve'</span>])</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>confusion_matrix(resultado, amostra_spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([[0, 5],
-       [5, 0]], dtype=int64)</code></pre>
-</div>
-</div>
-<p>Note que obtivemos uma precisão perfeita nessa amostra, como já era esperado. Nesse caso, o erro dentro da amostra é de 0%. Mas será que esse modelo é o mais eficiente em outros dados também?</p>
-<p>Vamos usar essa segunda regra para criarmos um modelo mais geral:</p>
+<section id="para-que-serve" class="level1">
+<h1>Para que serve?</h1>
+<p>Com o aprendizado de máquina é possível produzir, rápida e automaticamente, modelos capazes de analisar dados maiores e mais complexos, e entregar resultados mais rápidos e precisos – mesmo em grande escala.</p>
+<p>Aprendizado de máquina possui 4 tarefas principais:</p>
+<section id="classificação" class="level2">
+<h2 class="anchored" data-anchor-id="classificação">Classificação:</h2>
+<p>Atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas.</p>
+<p>ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.</p>
+</section>
+<section id="regressão" class="level2">
+<h2 class="anchored" data-anchor-id="regressão">Regressão:</h2>
+<p>Atribuir um valor numérico a uma amostra dado as suas características.</p>
+<p>ex: Prever a temperatura de um dia baseado nas condições atmosféricas.</p>
+</section>
+<section id="clusterização" class="level2">
+<h2 class="anchored" data-anchor-id="clusterização">Clusterização:</h2>
+<p>Agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida.</p>
+<p>ex: Segmentação de clientes em marketing.</p>
+</section>
+<section id="detecção-de-anomalia" class="level2">
+<h2 class="anchored" data-anchor-id="detecção-de-anomalia">Detecção de anomalia:</h2>
+<p>Identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados.</p>
+<p>ex: Detecção de fraudes em transações financeiras.</p>
+</section>
+</section>
+<section id="tipos-de-aprendizado-de-máquina" class="level1">
+<h1>Tipos de Aprendizado de Máquina</h1>
+<p>Aprendizado de máquinas pode ser feito de 3 formas distintas:</p>
+<section id="aprendizado-supervisionado" class="level2">
+<h2 class="anchored" data-anchor-id="aprendizado-supervisionado">Aprendizado supervisionado</h2>
+<p>O modelo aprende a partir de dados rotulados, ou seja, cada exemplo de treinamento já vem com a resposta correta (rótulo). O objetivo é criar um modelo capaz de aferir uma classificação ou prever um valor numérico a outros dados do mesmo tipo e que ainda não foram rotulados apenas com suas caracteristicas representadas nos dados pelas variáveis explicativas. Método de construção de aprendizado de máquina comumente utilizado para classificação e regressão. Será o principal foco dos próximos cadernos. Segue alguns exemplos:</p>
 <ul>
-<li><p>letras maiúsculas &gt; 2,4 ⇒ spam;</p></li>
-<li><p>letras maiúsculas &lt;= 2,4 ⇒ não spam.</p></li>
+<li><p>Exemplo 1: Queremos estimar o preço de venda de uma casa baseado na sua localidade, tamanho e data de construção baseando-se no preço de venda real de casas que possuam esses mesmos dados coletados recentemente.</p></li>
+<li><p>Exemplo 2: Classificar flores em três espécies diferentes com base em medidas das pétalas e sépalas, com flores com essas medidas e previamente rotuladas para realizar o treinamento.</p></li>
 </ul>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.hlines(y <span class="op">=</span> [<span class="fl">2.4</span>], xmin<span class="op">=</span>[<span class="dv">0</span>], xmax<span class="op">=</span>[<span class="dv">10</span>])</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-5-output-1.png" width="577" height="450"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_geral(x):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where(x <span class="op">&gt;=</span> <span class="dv">0</span>, <span class="st">'spam'</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        np.where(x <span class="op">&lt;</span> <span class="dv">0</span>, <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predicao</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaliando o modelo sobreajustado</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>resultado_geral <span class="op">=</span> modelo_geral(amostra_spam[<span class="st">'capitalAve'</span>])</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>confusion_matrix(resultado_geral, amostra_spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>array([[0, 0],
-       [5, 5]], dtype=int64)</code></pre>
-</div>
-</div>
-<p>Observe que dessa forma temos um erro dentro da amostra de 20%. Vamos agora aplicar esses dois modelos para toda a base de dados:</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando o modelo na base toda e criando a tabela</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>array([[1183, 1493],
-       [1605,  320]], dtype=int64)</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_geral(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>array([[   0,    0],
-       [2788, 1813]], dtype=int64)</code></pre>
-</div>
-</div>
-<p>Olhando para a precisão de nossos modelos:</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_geral(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>1813</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>1503</code></pre>
-</div>
-</div>
-<p>Observe que utilizando o modelo sobreajustado obtivemos um erro fora da amostra de 40,77%, enquanto que com o modelo geral esse erro foi de 27,95%. Note que se queremos construir um modelo que melhor representa qualquer amostra que pegarmos, um modelo não sobreajustado possuirá uma precisão maior.</p>
+</section>
+<section id="aprendizado-não-supervisionado" class="level2">
+<h2 class="anchored" data-anchor-id="aprendizado-não-supervisionado">Aprendizado não supervisionado</h2>
+<p>Na aprendizagem não supervisionada, temos um conjunto de dados não rotulados e queremos de alguma forma agrupá-los por um certo padrão ou estruturas escondidas nos dados. Comumente utilizado para clusterização e detecção de anomalias. Falaremos um pouco sobre mas não será um ponto focal nos próximos cadernos. Segue alguns exemplos:</p>
+<ul>
+<li><p>Exemplo 1: Uma plataforma de transmissão de música recebe centenas de músicas novas diferentes todos os dias. Podemos atribuir um gênero musical a elas baseado nas características sonoras.</p></li>
+<li><p>Exemplo 2: Em uma rede social milhões de tentativas de login são feitas todos os dias. Porém existem dentre esses alguns acessos que podem ter sido feito por hackers invés do dono legítimo da conta. Podemos evitar que isso aconteça baseado no padrão de acesso de cada usuário e como isso destoa em relação a nova tentativa de acesso.</p></li>
+</ul>
+</section>
+<section id="aprendizado-por-reforço" class="level2">
+<h2 class="anchored" data-anchor-id="aprendizado-por-reforço">Aprendizado por reforço</h2>
+<p>O modelo aprende a tomar decisões através de interações com um ambiente, recebendo recompensas ou punições conforme as ações executadas. O objetivo é aprender uma política que maximize a recompensa acumulada. Utilizada para aperfeiçoar a capacidade da IA de um jogo e para robótica. Não falaremos sobre isso nos próximos cadernos.</p>
 
 
 </section>
@@ -793,13 +672,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./predicao.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Predição</span></span>
+      <a href="./EstatisticaNaoParametrica.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estatística Não Paramétrica</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AvaliandoPreditores.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./predicao.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Predição</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

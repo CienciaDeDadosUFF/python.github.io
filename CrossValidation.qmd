@@ -435,17 +435,16 @@ Como optamos por manter o Bootstrap totalmente independente, a proporção origi
 
 Agora que vimos diferentes métodos de reamostragem, algumas perguntas podem surgir:
 
-Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem? Porque vocês deixam o melhor sempre para o depois? 
+Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem? 
 
-1) Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.
+1) Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo, é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.
 
-2) Reamostragem serve justamente para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o algoritmo de aprendizado de máquinas certo para o problema específico.
+2) Reamostragem serve para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.
 
 3) Depende. Falaremos mais sobre isso também.
 
-4) Podemos usar mais de um ao mesmo tempo até. Mas por ser um processo muito custoso computacionalmente, pode não ser a melhor ideia.
+4) Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante. Além disso, pensando em custo computacional pode não ser a melhor ideia.
 
-5) C'est la vie.
 
 ## Criando e comparando preditores com os métodos de reamostragem.
 
@@ -453,7 +452,9 @@ Como respondido anteriormente, o processo de criação de preditores é parecida
 
 Em ambientes diferentes do scikit-learn, como no pacote caret do R, o processo de criação de preditores a partir de uma reamostragem é o mesmo, porque no caret tanto a seleção de algoritmo como a reamostragem é um argumento da função que treina o modelo, simplificando o trabalho. 
 
-Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida. Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado a ser contornado.
+Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida. 
+
+Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado de máquinas a ser contornado.
 
 Feito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: `cross_val_score()`. 
 
