@@ -26,9 +26,13 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Validação Cruzada
 
-Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais hiperparâmetros usar? Um jeito de resolver essas questões é usando a validação cruzada.
+Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais hiperparâmetros usar? Um jeito de resolver essas questões é utilizar a validação cruzada.
 
-A validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.
+MEXER NA PRIMEIRA FRASE, FALAR QUE ISSO É PRA REDUZIR VIES DE SELEÇÃO DE AMOSTRA
+
+RETIRAR PRIMEIRAS PESSOAS.
+
+A validação cruzada consiste em simular diferentes cenários de treino/teste afim de reduzir o viés amostral do desempenho de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.
 
 Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Falaremos sobre os 3 aqui nesse caderno.
 
@@ -44,11 +48,15 @@ YSpam = Spam["type"]
 
 # Reamostragem
 
+MELHORAR ESSA PRIMEIRA FRASE.
+
 Reamostragem é rearrumar os dados. Reamostragem serve para diminuir o viés da separação Treino X Teste de um modelo ao criar várias separações em paralelo. Quando treinamos um modelo com uma base de dados separada em treino e teste sem reamostragem a análise do modelo será verdadeira apenas para aquela separação treino e teste. O preditor pode ser muito bom para aqueles casos teste específico, em uma outra separação ele se provaria menos eficaz possivelmente. Pode haver uma grande discrepancia entre o desempenho nos dados teste e para novos dados quando criamos um modelo com baixa capacidade de generalização, que pode ser acusado com a reamostragem. 
 
-Reamostragem é usada durante o ajuste de hiperparâmetros e a seleção de modelos também, por reduzir o viés da separação Treino X Teste.
+Reamostragem é usada durante o ajuste de hiperparâmetros e a seleção de modelos, por reduzir o viés da separação Treino X Teste.
 
-Falaremos de 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada.
+MELHORAR ESSA PARTE
+
+Apresentaremos 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada.
 
 ## K-fold
 
@@ -66,7 +74,7 @@ Quanto maior o k escolhido obtemos menos viés, porém mais variância. Em outra
 
 ### Código de exemplo
 
-Vamos utilizar reamostragem por `k-fold` no conjunto de dados spam usando a implementação do scikit-learn. O scikit-learn possui algumas diferentes implementações para a reamostragem por k-folds. Usaremos a função `StratifiedKFold` porque ela faz a separação de k-folds preservando a proporção original da coluna com os rótulos.
+Vamos utilizar reamostragem por `k-fold` no conjunto de dados spam utilizando a implementação do scikit-learn. O scikit-learn possui algumas diferentes implementações para a reamostragem por k-folds. Usaremos a função `StratifiedKFold` porque ela faz a separação de k-folds preservando a proporção original da coluna com os rótulos.
 
 ```{python}
 # Criação dos k-folds

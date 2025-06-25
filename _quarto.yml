@@ -27,12 +27,12 @@ book:
     - "EstimativaPorIntervalos.qmd"
     - "TesteDeHipotesesParte1.qmd"
     - "TesteDeHipotesesParte2.qmd"
-    - "EstatisticaNaoParametrica.qmd"
-    - "introducaoML.qmd"
-    - "predicao.qmd"
-    - "ErrosAmostrais.qmd"
-    - "AvaliandoPreditores.qmd"
-    - "CrossValidation.qmd"
+    #- "EstatisticaNaoParametrica.qmd"
+    #- "introducaoML.qmd"
+    #- "predicao.qmd"
+    #- "ErrosAmostrais.qmd"
+    #- "AvaliandoPreditores.qmd"
+    #- "CrossValidation.qmd"
 
 
 
