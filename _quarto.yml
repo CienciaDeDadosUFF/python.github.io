@@ -33,7 +33,7 @@ book:
     - "ErrosAmostrais.qmd"
     - "AvaliandoPreditores.qmd"
     - "CrossValidation.qmd"
-
+    - "AvaliandoFuncoesPreditoras.qmd"
 
 
 #bibliography: references.bib

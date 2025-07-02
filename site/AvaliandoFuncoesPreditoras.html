@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>APRENDIZADO DE MÁQUINA COM PYTHON - Erros Amostrais</title>
+<title>APRENDIZADO DE MÁQUINA COM PYTHON - Avaliando Funções Preditoras</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AvaliandoPreditores.html" rel="next">
-<link href="./predicao.html" rel="prev">
+<link href="./CrossValidation.html" rel="prev">
 <link href="./uff-brasao.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -99,6 +98,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -111,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ErrosAmostrais.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AvaliandoFuncoesPreditoras.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -231,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ErrosAmostrais.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ErrosAmostrais.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></span></a>
   </div>
 </li>
@@ -249,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AvaliandoFuncoesPreditoras.html" class="sidebar-item-text sidebar-link">
+  <a href="./AvaliandoFuncoesPreditoras.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></span></a>
   </div>
 </li>
@@ -263,10 +264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Navegação</h2>
    
   <ul>
-  <li><a href="#erro-dentro-da-amostra-in-sample-error" id="toc-erro-dentro-da-amostra-in-sample-error" class="nav-link active" data-scroll-target="#erro-dentro-da-amostra-in-sample-error">Erro dentro da Amostra (In Sample Error)</a></li>
-  <li><a href="#erro-fora-da-amostra-out-of-sample-error" id="toc-erro-fora-da-amostra-out-of-sample-error" class="nav-link" data-scroll-target="#erro-fora-da-amostra-out-of-sample-error">Erro fora da Amostra (Out of Sample Error)</a>
+  <li><a href="#comparando-funções-preditoras" id="toc-comparando-funções-preditoras" class="nav-link active" data-scroll-target="#comparando-funções-preditoras">Comparando Funções Preditoras</a>
   <ul class="collapse">
-  <li><a href="#algumas-ideias-chave" id="toc-algumas-ideias-chave" class="nav-link" data-scroll-target="#algumas-ideias-chave">Algumas ideias-chave</a></li>
+  <li><a href="#exemplo-de-comparação-de-regressores" id="toc-exemplo-de-comparação-de-regressores" class="nav-link" data-scroll-target="#exemplo-de-comparação-de-regressores">Exemplo de Comparação de Regressores</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -276,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></h1>
 </div>
 
 
@@ -291,158 +291,196 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Este é um dos conceitos mais fundamentais com os quais lidamos na aprendizagem de máquina e previsão. Temos dois tipos de erros amostrais: o erro dentro da amostra (in sample error) e o erro fora da amostra (out of sample error).</p>
-<section id="erro-dentro-da-amostra-in-sample-error" class="level1">
-<h1>Erro dentro da Amostra (In Sample Error)</h1>
-<p>A taxa de erro dentro da amostra refere-se ao erro calculado no mesmo conjunto de dados utilizado para treinar o modelo preditivo. Na literatura, isso é frequentemente denominado como “erro de resubstituição”. Em outras palavras, essa taxa de erro mede o quanto algoritmo de previsão se ajusta exatamente aos mesmos dados utilizados para o treinamento do modelo. No entanto, quando o modelo é aplicado a um novo conjunto de dados, é esperado que essa precisão diminua.</p>
-</section>
-<section id="erro-fora-da-amostra-out-of-sample-error" class="level1">
-<h1>Erro fora da Amostra (Out of Sample Error)</h1>
-<p>É a taxa de erro que você recebe em um novo conjunto de dados. Na literatura às vezes é chamado de erro de generalização. Uma vez que coletamos uma amostra de dados e construímos um modelo para ela, podemos querer testá-lo em uma nova amostra, por exemplo uma amostra coletada em um horário diferente ou em um local diferente. Daí podemos analisar o quão bem o algoritmo executará a predição nesse novo conjunto de dados.</p>
-<section id="algumas-ideias-chave" class="level2">
-<h2 class="anchored" data-anchor-id="algumas-ideias-chave">Algumas ideias-chave</h2>
-<ol type="1">
-<li><p>Quase sempre o erro fora da amostra é o que interessa.</p></li>
-<li><p>Erro dentro da amostra é menor que o erro fora da amostra.</p></li>
-<li><p>Um erro frequente é ajustar muito o algoritmo aos dados que temos. Em outras palavras, criar um modelo sobreajustado (também chamado de overfitting(*)).</p></li>
-</ol>
-<p>(*) Overfitting é um termo usado na estatística para descrever quando um modelo estatístico se ajusta muito bem a um conjunto de dados anteriormente observado e, como consequência, se mostra ineficaz para prever novos resultados.</p>
-<p>Vejamos um exemplo de erro dentro da amostra vs erro fora da amostra:</p>
+<section id="comparando-funções-preditoras" class="level1">
+<h1>Comparando Funções Preditoras</h1>
+<p>Como já foi dito em capítulos anteriores, existem diversas formas de comparar preditores. Nesse capítulo, vamos estudar um meio de fazer isso e ver mais detalhadamente as medidas de comparação presentes no Python.</p>
+<section id="exemplo-de-comparação-de-regressores" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-de-comparação-de-regressores">Exemplo de Comparação de Regressores</h2>
+<p>Vamos usar a base de dados faithful.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># importando a base utilizando o pacote pandas</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">spam.csv"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>spam[<span class="st">"type_code"</span>] <span class="op">=</span> np.where(spam[<span class="st">"type"</span>] <span class="op">==</span> <span class="st">"spam"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vamos selecionar um amostra de tamanho dez da base</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">151</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>amostra_spam <span class="op">=</span> resample(spam, n_samples<span class="op">=</span><span class="dv">10</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># criando gráfico de dispersão para a média de letras maiúsculas</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 322</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-2-output-1.png" width="577" height="450"></p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">AvaliandoFuncoesPreditoras</span><span class="ch">\\</span><span class="st">faithful.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>base.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 272 entries, 0 to 271
+Data columns (total 2 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   eruptions  272 non-null    float64
+ 1   waiting    272 non-null    int64  
+dtypes: float64(1), int64(1)
+memory usage: 4.4 KB</code></pre>
 </div>
 </div>
-<p>Podemos notar que, em geral, as mensagens classificadas como spam possuem uma frequência maior de letras maiúsculas do que as mensagens classificadas como não spam. Com base nisso queremos construir um preditor, onde podemos classificar e-mails como spam se a frequência de letras maiúsculas for maior que uma determida constante, e não spam caso contrário.</p>
-<p>Veja que se separarmos os dados pela frequência de letras maiúsculas maior que 2,5 e classificarmos o que está acima como spam e abaixo como não spam, ainda teríamos duas observações que não são spam acima da linha.</p>
+<p>Note que a base apresenta apenas duas variáveis: <strong>eruptions</strong>, que contém uma amostra correspondente ao tempo, em minutos, que o gêiser Old Faithful permanece em erupção; e <strong>waiting</strong>, que contém uma amostra correspondente ao tempo, em minutos, até a próxima erupção. Vamos tentar prever a variável <strong>waiting</strong> por meio da variável <strong>eruptions</strong>. Note ainda que a variável de interesse é quantitativa contínua, portanto, queremos construir um regressor.</p>
+<p>Vamos treinar nosso modelo utilizando 2 métodos separadamente: <strong>Linear Model</strong> e <strong>k-Nearest Neighbor</strong>. Para fazer a comparação, vamos escolher uma semente e assim tornar a comparação mais “justa”. Além disso, estamos usando toda a base de dados pra treinar o medelo, pois estamos apenas avaliando o melhor modelo.</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando um gráfico de dispersão para a média de letras maiúsculas</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.hlines(y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>], xmin<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">0</span>], xmax<span class="op">=</span>[<span class="dv">15</span>, <span class="dv">15</span>])</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-3-output-1.png" width="577" height="450"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_sobreajustado(x):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where((x <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (x <span class="op">&lt;=</span> <span class="dv">2</span>), <span class="st">'spam'</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                        np.where((x <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (x <span class="op">&gt;</span> <span class="dv">2</span>), <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(predicao)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, RepeatedKFold</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaliando o modelo sobreajustado</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> modelo_sobreajustado(amostra_spam[<span class="st">'capitalAve'</span>])</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>confusion_matrix(resultado, amostra_spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([[0, 5],
-       [5, 0]], dtype=int64)</code></pre>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">AvaliandoFuncoesPreditoras</span><span class="ch">\\</span><span class="st">faithful.csv"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> base[[<span class="st">"eruptions"</span>]]  <span class="co"># Variável preditora (features)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> base[<span class="st">"waiting"</span>]    <span class="co"># Variável alvo (target)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuração da Validação Cruzada</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> RepeatedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, n_repeats<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">133</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Definição dos Modelos</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>modelos <span class="op">=</span> {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'rl'</span>: LinearRegression(),      <span class="co"># Regressão Linear</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'kn'</span>: KNeighborsRegressor()    <span class="co"># K-Nearest Neighbors Regressor</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Nomes mais amigáveis para exibição dos modelos</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>nomes_exibicao_modelos <span class="op">=</span> {</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'rl'</span>: <span class="st">'LM'</span>,  <span class="co"># Linear Model</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'kn'</span>: <span class="st">'KNN'</span>  <span class="co"># K-Nearest Neighbors</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Definição das Métricas de Avaliação</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>scorings <span class="op">=</span> {</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">'MAE'</span>: <span class="st">'neg_mean_absolute_error'</span>,        <span class="co"># Erro Absoluto Médio</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RMSE'</span>: <span class="st">'neg_root_mean_squared_error'</span>,   <span class="co"># Raiz do Erro Quadrático Médio</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Rsquared'</span>: <span class="st">'r2'</span>                               <span class="co"># Coeficiente de Determinação R²</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Nomes mais amigáveis para exibição das métricas</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>nomes_exibicao_metricas <span class="op">=</span> {</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">'mae'</span>: <span class="st">'MAE'</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">'rmse'</span>: <span class="st">'RMSE'</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">'r2'</span>: <span class="st">'Rsquared'</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Dicionário que armazena as métricas de cada modelo</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>todos_os_scores <span class="op">=</span> {}</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chave_metrica, nome_scoring_sklearn <span class="kw">in</span> scorings.items():</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    scores_para_metrica_atual <span class="op">=</span> {}</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> chave_modelo, objeto_modelo <span class="kw">in</span> modelos.items():</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        scores_cv_brutos <span class="op">=</span> cross_val_score(objeto_modelo, X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span>nome_scoring_sklearn)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        <span class="co"># o python considera o maior valor mellhor, portanto usamos as métricas com sinal invertido e assim obtemos o menor valor</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nome_scoring_sklearn.startswith(<span class="st">"neg_"</span>):</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            scores_processados <span class="op">=</span> <span class="op">-</span>scores_cv_brutos</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            scores_processados <span class="op">=</span> scores_cv_brutos</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        scores_para_metrica_atual[chave_modelo] <span class="op">=</span> scores_processados <span class="co"># atrelando os resultados de uma métrica a um modelo</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    todos_os_scores[chave_metrica] <span class="op">=</span> scores_para_metrica_atual <span class="co"># envelopando os valores dos modelos dentro da respectiva métrica</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprime informações gerais</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>nomes_modelos_usados <span class="op">=</span> [nomes_exibicao_modelos.get(k, k) <span class="cf">for</span> k <span class="kw">in</span> modelos.keys()]</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Models: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(nomes_modelos_usados)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of resamples: </span><span class="sc">{</span>cv<span class="sc">.</span>get_n_splits(X, y)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="co"># Linha separadora inicial</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Itera sobre o dicionário de cada métrica</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chave_metrica, scores_dos_modelos <span class="kw">in</span> todos_os_scores.items():</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    nome_display_metrica <span class="op">=</span> nomes_exibicao_metricas.get(chave_metrica, chave_metrica)</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>nome_display_metrica<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>) <span class="co"># Ex: MAE, RMSE, Rsquared</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    linhas_do_dataframe <span class="op">=</span> []</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    indices_do_dataframe <span class="op">=</span> []</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># iterando sobre o dicionário dos modelos que contém o array de resultados de cada métrica</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> chave_modelo, array_de_scores <span class="kw">in</span> scores_dos_modelos.items():</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>        estatisticas <span class="op">=</span> {</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Min.'</span>: np.<span class="bu">min</span>(array_de_scores),</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>            <span class="st">'1st Qu.'</span>: np.percentile(array_de_scores, <span class="dv">25</span>),</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Median'</span>: np.median(array_de_scores),</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Mean'</span>: np.mean(array_de_scores),</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">'3rd Qu.'</span>: np.percentile(array_de_scores, <span class="dv">75</span>),</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Max.'</span>: np.<span class="bu">max</span>(array_de_scores),</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NA's"</span>: <span class="bu">int</span>(np.<span class="bu">sum</span>(np.isnan(array_de_scores)))</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        linhas_do_dataframe.append(estatisticas)</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>        indices_do_dataframe.append(nomes_exibicao_modelos.get(chave_modelo, chave_modelo))</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    df_da_metrica <span class="op">=</span> pd.DataFrame(linhas_do_dataframe, index<span class="op">=</span>indices_do_dataframe)</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df_da_metrica.to_string(header<span class="op">=</span><span class="va">True</span>, index<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="co"># Linha separadora entre métricas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Models: LM, KNN
+Number of resamples: 30
+------------------------------
+
+MAE
+
+         Min.   1st Qu.    Median      Mean   3rd Qu.      Max.  NA's
+LM   3.792011  4.420689  4.783234  4.806344  5.191995  6.483631     0
+KNN  3.250000  4.693452  5.118519  5.056464  5.427778  6.014815     0
+
+
+RMSE
+
+         Min.   1st Qu.    Median      Mean   3rd Qu.      Max.  NA's
+LM   4.885094  5.343497  5.789113  5.890330  6.440191  7.303826     0
+KNN  4.199830  5.772231  6.369425  6.203436  6.608013  7.444212     0
+
+
+Rsquared
+
+         Min.  1st Qu.    Median      Mean   3rd Qu.      Max.  NA's
+LM   0.569317  0.78651  0.803728  0.797480  0.836703  0.877684     0
+KNN  0.621583  0.75235  0.789425  0.776107  0.802968  0.888682     0
+
+</code></pre>
 </div>
 </div>
-<p>Note que obtivemos uma precisão perfeita nessa amostra, como já era esperado. Nesse caso, o erro dentro da amostra é de 0%. Mas será que esse modelo é o mais eficiente em outros dados também?</p>
-<p>Vamos usar essa segunda regra para criarmos um modelo mais geral:</p>
-<ul>
-<li><p>letras maiúsculas &gt; 2,4 ⇒ spam;</p></li>
-<li><p>letras maiúsculas &lt;= 2,4 ⇒ não spam.</p></li>
-</ul>
+<p>Repare que foi calculada três diferentes medidas: “MAE”, “RMSE”, e “Rsquared”. Nesse caso, queremos o modelo que possua MAE e RMSE baixo e $ R^2$ alto. Para vizualizar melhor, podemos construir um boxplot comparativo da seguinte forma:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lista para armazenar os dicionários</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>valores_metricas <span class="op">=</span> []</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> metrica, modelo_scoring <span class="kw">in</span> todos_os_scores.items():</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> modelo, array_resultados_metrica <span class="kw">in</span> modelo_scoring.items():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># percorre a lista com os valores de cada métrica e adiciona ao dicionário</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> score <span class="kw">in</span> array_resultados_metrica:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            valores_metricas.append({</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"modelo"</span>: nomes_exibicao_modelos.get(modelo, modelo),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"metrica"</span>: nomes_exibicao_metricas.get(metrica, metrica),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">"scoring"</span>: score</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>valores_metricas_df <span class="op">=</span> pd.DataFrame(valores_metricas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>amostra_spam[<span class="st">'capitalAve'</span>],</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>[cores[label] <span class="cf">for</span> label <span class="kw">in</span> amostra_spam[<span class="st">'type_code'</span>]])</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.hlines(y <span class="op">=</span> [<span class="fl">2.4</span>], xmin<span class="op">=</span>[<span class="dv">0</span>], xmax<span class="op">=</span>[<span class="dv">10</span>])</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Letras Maiúsculas em spam (vermelho) e em ham (preto)'</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quantidade de Letras Maiúsculas'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequência'</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sn</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>metricas <span class="op">=</span> valores_metricas_df[<span class="st">"metrica"</span>].unique()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> metrica <span class="kw">in</span> metricas:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> valores_metricas_df[valores_metricas_df[<span class="st">"metrica"</span>] <span class="op">==</span> metrica]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    sn.boxplot(data<span class="op">=</span>subset, x<span class="op">=</span><span class="st">"modelo"</span>, y<span class="op">=</span><span class="st">"scoring"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Boxplot - </span><span class="sc">{</span>metrica<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Modelo"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Score"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="ErrosAmostrais_files/figure-html/cell-5-output-1.png" width="577" height="450"></p>
+<p><img src="AvaliandoFuncoesPreditoras_files/figure-html/cell-5-output-1.png" width="566" height="374"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="AvaliandoFuncoesPreditoras_files/figure-html/cell-5-output-2.png" width="566" height="374"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="AvaliandoFuncoesPreditoras_files/figure-html/cell-5-output-3.png" width="566" height="374"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_geral(x):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where(x <span class="op">&gt;=</span> <span class="dv">0</span>, <span class="st">'spam'</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        np.where(x <span class="op">&lt;</span> <span class="dv">0</span>, <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predicao</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaliando o modelo sobreajustado</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>resultado_geral <span class="op">=</span> modelo_geral(amostra_spam[<span class="st">'capitalAve'</span>])</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>confusion_matrix(resultado_geral, amostra_spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>array([[0, 0],
-       [5, 5]], dtype=int64)</code></pre>
-</div>
-</div>
-<p>Observe que dessa forma temos um erro dentro da amostra de 20%. Vamos agora aplicar esses dois modelos para toda a base de dados:</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando o modelo na base toda e criando a tabela</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>array([[1183, 1493],
-       [1605,  320]], dtype=int64)</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_geral(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>array([[   0,    0],
-       [2788, 1813]], dtype=int64)</code></pre>
-</div>
-</div>
-<p>Olhando para a precisão de nossos modelos:</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_geral(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>1813</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>1503</code></pre>
-</div>
-</div>
-<p>Observe que utilizando o modelo sobreajustado obtivemos um erro fora da amostra de 40,77%, enquanto que com o modelo geral esse erro foi de 27,95%. Note que se queremos construir um modelo que melhor representa qualquer amostra que pegarmos, um modelo não sobreajustado possuirá uma precisão maior.</p>
+<p>Os boxplots revelam que o modelo linear apresenta a uma mediana ruim nas três métricas comparativas, com os dados mais dispersos, especialmente no <span class="math inline">\(R^2\)</span>, indicando alta variabilidade. Em contrapartida, o KNN mostra uma concentração maior dos dados no RMSE e no <span class="math inline">\(R^2\)</span>.</p>
 
 
 </section>
@@ -799,14 +837,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./predicao.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Predição</span></span>
+      <a href="./CrossValidation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AvaliandoPreditores.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
