@@ -1,4 +1,4 @@
-#clonar o repositorio python
+#clonar o repositorio r.
 git clone https://github.com/CienciaDeDadosUFF/python.github.io.git
 
 #verificar status dos arquivos
@@ -15,10 +15,17 @@ git add .
 #Realizar o commit comentado
 git commit -m "Comentários aqui"
 
+#Para atualizar seu branch teste local:
+git pull origin teste
+
+#Para enviar suas alterações para o teste:
+git push origin teste
+
+#atualizar arquivos locais
+git pull 
+
 #enviar commit para github
 git push
 
-#atualizar os arquivos locais
-git pull 
-
-
+#Para mudar para o branch teste (nosso branch de trabalho):
+git checkout teste
