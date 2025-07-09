@@ -28,11 +28,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 Como exposto no caderno de criação e avaliação de preditores, existem diversos métodos de aprendizado de máquina que podemos usar para construir um preditor. Então como saber qual método é melhor? Quais hiperparâmetros usar? Um jeito de resolver essas questões é utilizar a validação cruzada.
 
-MEXER NA PRIMEIRA FRASE, FALAR QUE ISSO É PRA REDUZIR VIES DE SELEÇÃO DE AMOSTRA
-
-RETIRAR PRIMEIRAS PESSOAS.
-
-A validação cruzada consiste em simular diferentes cenários de treino/teste afim de reduzir o viés amostral do desempenho de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.
+A validação cruzada consiste em simular diferentes cenários de treino/teste afim de reduzir o viés da seleção amostral de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.
 
 Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Falaremos sobre os 3 aqui nesse caderno.
 
@@ -48,15 +44,13 @@ YSpam = Spam["type"]
 
 # Reamostragem
 
-MELHORAR ESSA PRIMEIRA FRASE.
+Reamostragem é um processo estatístico que consiste em reorganizar ou reutilizar os dados já coletados com o objetivo de analisar a variabilidade dos resultados e avaliar a confiabilidade das conclusões obtidas. Em vez de buscar novos dados no mundo real, a reamostragem trabalha apenas com a amostra original, extraindo dela diferentes combinações de dados por meio de sorteios aleatórios. Isso permite simular diversas situações possíveis e observar como as medidas estatísticas se comportam diante dessas variações. Assim, a reamostragem ajuda a entender melhor o quanto os resultados podem mudar devido ao acaso.
 
-Reamostragem é rearrumar os dados. Reamostragem serve para diminuir o viés da separação Treino X Teste de um modelo ao criar várias separações em paralelo. Quando treinamos um modelo com uma base de dados separada em treino e teste sem reamostragem a análise do modelo será verdadeira apenas para aquela separação treino e teste. O preditor pode ser muito bom para aqueles casos teste específico, em uma outra separação ele se provaria menos eficaz possivelmente. Pode haver uma grande discrepancia entre o desempenho nos dados teste e para novos dados quando criamos um modelo com baixa capacidade de generalização, que pode ser acusado com a reamostragem.
+Reamostragem serve para diminuir o viés da separação Treino X Teste de um modelo ao criar várias separações em paralelo. Quando treinamos um modelo com uma base de dados separada em treino e teste sem reamostragem a análise do modelo será verdadeira apenas para aquela separação treino e teste. O preditor pode ser muito bom para aqueles casos teste específico, em uma outra separação ele se provaria menos eficaz possivelmente. Pode haver uma grande discrepancia entre o desempenho nos dados teste e para novos dados quando criamos um modelo com baixa capacidade de generalização, que pode ser acusado com a reamostragem.
 
 Reamostragem é usada durante o ajuste de hiperparâmetros e a seleção de modelos, por reduzir o viés da separação Treino X Teste.
 
-MELHORAR ESSA PARTE
-
-Apresentaremos 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Daremos uma definição e exemplo de código de cada um para depois entrar em como utilizar na validação cruzada.
+Apresentaremos 3 métodos de reamostragem: K-fold, Repeated K-fold e Bootstrap. Seguiremos com uma definição e exemplo de código de cada um para depois entrar no mérito de como utilizar na validação cruzada.
 
 ## K-fold
 
@@ -336,9 +330,9 @@ BootstrapSpam = resample(XSpam, YSpam, n_samples=n_samples, random_state=11, rep
 -   `replace` se True, permitirá reposição de amostras, se False, não. É essa variável em True que implementa o método Bootstrap. Se False e n_samples maior que número de amostras originais, um erro será gerado.
 -   `stratify` recebe a variável resposta ou None. Se for None, não será feito estratificação e portanto, não haverá garantia da manutenção da proporção da variável resposta.
 
-O stratify vai contra o príncipio do Bootstrap. Ele envieza o sorteio para preservar a proporção entre as classes da variável resposta. Outro problema de usar o stratify é que com ele aquelas fórmulas de estimativa da presença de um valor específico ser selecionado e a estimativa da proporção OOB não funcionarão mais, já que a independência dos sorteios é quebrada. É importante falar sobre ele porque é um bom recurso para se ter se quisermos muito manter a proporção. Daqui para frente não usarei ele para o Bootstrap.
+O stratify vai contra o príncipio do Bootstrap. Ele envieza o sorteio para preservar a proporção entre as classes da variável resposta. Outro problema de usar o stratify é que com ele aquelas fórmulas de estimativa da presença de um valor específico ser selecionado e a estimativa da proporção OOB não funcionarão mais, já que a independência dos sorteios é quebrada. É importante falar sobre ele porque é um bom recurso para se ter se quisermos muito manter a proporção. Daqui para frente não usaremos o stratify para o Bootstrap.
 
-Calculei o n_samples fora da função para ter uma visualização melhor, mas poderia ter sido feito diretamente na hora de chamar a função resample.
+O cálculo do n_samples está fora da função para ter uma visualização melhor, mas poderia ter sido feito diretamente na hora de chamar a função resample.
 
 A função gerou uma lista com dois vetores dentro: \[vetorVariaveisExplicativas, vetorVariavelResposta\] para utilizarmos posteriormente. A função resample() faz o embaralhamento dos dados automaticamente por padrão.
 
@@ -373,7 +367,7 @@ def RepeatedResample(X, Y, n_samples=None, random_state=None, replace=True, stra
 RepeatedBootstrapSpam = RepeatedResample(XSpam, YSpam, n_samples=n_samples, random_state=11, replace=True, n_repeats=5)
 ```
 
-Criei a função com a possibilidade de manter ou não a estratificação original, mas como dito anteriormente, não usaremos daqui pra frente.
+A função foi criada com a possibilidade de manter ou não a estratificação original, mas como dito anteriormente, não usaremos esse recurso daqui pra frente.
 
 Vamos agora verificar se a relação treino/teste está próxima de 70/30 como originalmente planejado. Vamos checar a estratificação de cada reamostragem também.
 
@@ -446,11 +440,11 @@ Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada 
 
 1)  Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo, é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.
 
-2)  Reamostragem serve para aproximar o desempeho nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.
+2)  Reamostragem serve para aproximar o desempenho do modelo nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.
 
-3)  Depende. Falaremos mais sobre isso também.
+3)  Cada algoritmo de aprendizado de máquina e cada problema tem sua preferência. A seleção de qual reamostragem usar para ter uma melhor análise para determinado problema usando um determinado algoritmo de aprendizado de máquina é um processo ad-hoc, isto é, para cada situação uma solução específica, logo, quase sempre será um chute. Ainda sim, por conta das características de cada método de aprendizado de máquina podemos inferir provaveis situações de melhor uso de um em relação ao outro. O random forest, por exemplo, usa o bootstrap por padrão em sua implementação. O tempo que cada um gasta é algo a ser considerado também. K-Fold é o mais rápido, seguido do Bootstrap e por último o repeated k-fold.
 
-4)  Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante. Além disso, pensando em custo computacional pode não ser a melhor ideia.
+4)  Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante, não irá melhorar significativamente o processo de criação de um modelo. Além disso, pensando em custo computacional pode não ser a melhor ideia. Portanto, usar mais de um método de reamostragem para a validação cruzada é contra produtivo.
 
 ## Criando e comparando preditores com os métodos de reamostragem.
 
@@ -478,7 +472,7 @@ print("Desvio padrão:", resultadoVC.std())
 -   `cv`: recebe o objeto gerado por uma função K-Fold ou repeated K-Fold.
 -   `scoring`: recebe uma métrica, padrão accuracy, pesquisar na documentação do scikit-learn outras métricas possíveis
 
-Coloquei 3 prints após executar a função: o primeiro para mostrar a acurácia individual de cada modelo gerado por cada fold, o segundo e o terceiro para mostrar a média e o desvio padrão dos folds respectivamente. Podemos tirar algumas conclusões a respeito do RandomForestClassifier() para o problema dos spams, média de acurácia bem alta e desvio padrão bem baixo, é provavelmente um bom algoritmo para o problema dos spams, em todos os folds superior a regressão logística que fizemos no caderno Criação e Avaliação de Preditores.
+3 prints são realizados após executar a função: o primeiro para mostrar a acurácia individual de cada modelo gerado por cada fold, o segundo e o terceiro para mostrar a média e o desvio padrão dos folds respectivamente. Podemos tirar algumas conclusões a respeito do RandomForestClassifier() para o problema dos spams, média de acurácia bem alta e desvio padrão bem baixo, é provavelmente um bom algoritmo para o problema dos spams, em todos os folds superior a regressão logística que fizemos no caderno Criação e Avaliação de Preditores.
 
 Essa função tem alguns problemas:
 
@@ -491,14 +485,6 @@ Essa função tem alguns problemas:
 -   Geramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos
 
 No geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.
-
-## Quando usar uma reamostragem invés da outra?
-
-Respondendo melhor aquela pergunta que você fez antes e que dissemos que iriámos falar mais depois:
-
-Cada algoritmo de aprendizado de máquina e cada problema tem sua preferência. Selecionar qual reamostragem usar para ter uma melhor análise para determinado problema usando um determinado algoritmo de aprendizado de máquina é ad-hoc, quase sempre será um chute. Ainda sim, por conta das características de cada método de aprendizado de máquina podemos inferir provaveis situações de melhor uso de um em relação ao outro.
-
-O tempo que cada um gasta é algo a ser considerado também. K-Fold é o mais rápido. Bootstrap podem ser mais rápido que o repeated K-Fold dependendo de como é feito.
 
 # Ajuste de Hiperparâmetros
 
