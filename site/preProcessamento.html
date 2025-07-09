@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introdução a Aprendizado de Máquina – APRENDIZADO DE MÁQUINA COM PYTHON</title>
+<title>Pré-Processamento – APRENDIZADO DE MÁQUINA COM PYTHON</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./predicao.html" rel="next">
-<link href="./EstatisticaNaoParametrica.html" rel="prev">
+<link href="./AvaliandoFuncoesPreditoras.html" rel="next">
+<link href="./CrossValidation.html" rel="prev">
 <link href="./uff-brasao.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -245,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introducaoML.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preProcessamento.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pré-Processamento</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -353,7 +388,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introducaoML.html" class="sidebar-item-text sidebar-link active">
+  <a href="./introducaoML.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></span></a>
   </div>
 </li>
@@ -383,7 +418,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preProcessamento.html" class="sidebar-item-text sidebar-link">
+  <a href="./preProcessamento.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pré-Processamento</span></span></a>
   </div>
 </li>
@@ -403,19 +438,55 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Navegação</h2>
    
   <ul>
-  <li><a href="#o-que-é-o-aprendizado-de-máquina" id="toc-o-que-é-o-aprendizado-de-máquina" class="nav-link active" data-scroll-target="#o-que-é-o-aprendizado-de-máquina">O que é o aprendizado de máquina?</a></li>
-  <li><a href="#para-que-serve" id="toc-para-que-serve" class="nav-link" data-scroll-target="#para-que-serve">Para que serve?</a>
+  <li><a href="#imports" id="toc-imports" class="nav-link active" data-scroll-target="#imports">Imports</a></li>
+  <li><a href="#o-que-é-pré-processamento" id="toc-o-que-é-pré-processamento" class="nav-link" data-scroll-target="#o-que-é-pré-processamento">O que é Pré-Processamento?</a></li>
+  <li><a href="#análise-das-bases" id="toc-análise-das-bases" class="nav-link" data-scroll-target="#análise-das-bases">Análise das bases</a></li>
+  <li><a href="#tratamento-de-dados-faltantes" id="toc-tratamento-de-dados-faltantes" class="nav-link" data-scroll-target="#tratamento-de-dados-faltantes">Tratamento de dados faltantes</a>
   <ul class="collapse">
-  <li><a href="#classificação" id="toc-classificação" class="nav-link" data-scroll-target="#classificação">Classificação:</a></li>
-  <li><a href="#regressão" id="toc-regressão" class="nav-link" data-scroll-target="#regressão">Regressão:</a></li>
-  <li><a href="#clusterização" id="toc-clusterização" class="nav-link" data-scroll-target="#clusterização">Clusterização:</a></li>
-  <li><a href="#detecção-de-anomalia" id="toc-detecção-de-anomalia" class="nav-link" data-scroll-target="#detecção-de-anomalia">Detecção de anomalia:</a></li>
+  <li><a href="#remoção" id="toc-remoção" class="nav-link" data-scroll-target="#remoção">Remoção</a>
+  <ul class="collapse">
+  <li><a href="#amostras" id="toc-amostras" class="nav-link" data-scroll-target="#amostras">Amostras</a></li>
+  <li><a href="#variáveis" id="toc-variáveis" class="nav-link" data-scroll-target="#variáveis">Variáveis</a></li>
   </ul></li>
-  <li><a href="#tipos-de-aprendizado-de-máquina" id="toc-tipos-de-aprendizado-de-máquina" class="nav-link" data-scroll-target="#tipos-de-aprendizado-de-máquina">Tipos de Aprendizado de Máquina</a>
+  <li><a href="#imputação" id="toc-imputação" class="nav-link" data-scroll-target="#imputação">Imputação</a>
   <ul class="collapse">
-  <li><a href="#aprendizado-supervisionado" id="toc-aprendizado-supervisionado" class="nav-link" data-scroll-target="#aprendizado-supervisionado">Aprendizado supervisionado</a></li>
-  <li><a href="#aprendizado-não-supervisionado" id="toc-aprendizado-não-supervisionado" class="nav-link" data-scroll-target="#aprendizado-não-supervisionado">Aprendizado não supervisionado</a></li>
-  <li><a href="#aprendizado-por-reforço" id="toc-aprendizado-por-reforço" class="nav-link" data-scroll-target="#aprendizado-por-reforço">Aprendizado por reforço</a></li>
+  <li><a href="#valores-padrões-média-mediana-moda" id="toc-valores-padrões-média-mediana-moda" class="nav-link" data-scroll-target="#valores-padrões-média-mediana-moda">valores padrões (média, mediana, moda)</a></li>
+  <li><a href="#imputação-por-propagação" id="toc-imputação-por-propagação" class="nav-link" data-scroll-target="#imputação-por-propagação">Imputação por propagação</a></li>
+  <li><a href="#por-aprendizado-de-máquina" id="toc-por-aprendizado-de-máquina" class="nav-link" data-scroll-target="#por-aprendizado-de-máquina">Por aprendizado de máquina</a></li>
+  </ul></li>
+  <li><a href="#dados-incompletos" id="toc-dados-incompletos" class="nav-link" data-scroll-target="#dados-incompletos">Dados incompletos</a></li>
+  </ul></li>
+  <li><a href="#transformação-de-variáveis" id="toc-transformação-de-variáveis" class="nav-link" data-scroll-target="#transformação-de-variáveis">Transformação de variáveis</a>
+  <ul class="collapse">
+  <li><a href="#padronização" id="toc-padronização" class="nav-link" data-scroll-target="#padronização">Padronização</a></li>
+  <li><a href="#normalização" id="toc-normalização" class="nav-link" data-scroll-target="#normalização">Normalização</a></li>
+  <li><a href="#transformação-logarítimica" id="toc-transformação-logarítimica" class="nav-link" data-scroll-target="#transformação-logarítimica">Transformação logarítimica</a></li>
+  <li><a href="#lematização" id="toc-lematização" class="nav-link" data-scroll-target="#lematização">Lematização</a></li>
+  <li><a href="#vetorização-de-texto" id="toc-vetorização-de-texto" class="nav-link" data-scroll-target="#vetorização-de-texto">Vetorização de texto</a></li>
+  </ul></li>
+  <li><a href="#criação-de-variáveis-auxiliares" id="toc-criação-de-variáveis-auxiliares" class="nav-link" data-scroll-target="#criação-de-variáveis-auxiliares">Criação de variáveis auxiliares</a>
+  <ul class="collapse">
+  <li><a href="#quantitativas" id="toc-quantitativas" class="nav-link" data-scroll-target="#quantitativas">quantitativas</a></li>
+  <li><a href="#qualitativas" id="toc-qualitativas" class="nav-link" data-scroll-target="#qualitativas">qualitativas</a></li>
+  <li><a href="#em-preditores-textuais" id="toc-em-preditores-textuais" class="nav-link" data-scroll-target="#em-preditores-textuais">Em preditores textuais</a></li>
+  </ul></li>
+  <li><a href="#codificação-de-variáveis" id="toc-codificação-de-variáveis" class="nav-link" data-scroll-target="#codificação-de-variáveis">Codificação de variáveis</a>
+  <ul class="collapse">
+  <li><a href="#variável-dummy-e-one-hot-encoding" id="toc-variável-dummy-e-one-hot-encoding" class="nav-link" data-scroll-target="#variável-dummy-e-one-hot-encoding">Variável dummy e one-hot encoding</a></li>
+  <li><a href="#discretização" id="toc-discretização" class="nav-link" data-scroll-target="#discretização">Discretização</a></li>
+  </ul></li>
+  <li><a href="#seleção-de-atributos" id="toc-seleção-de-atributos" class="nav-link" data-scroll-target="#seleção-de-atributos">Seleção de atributos</a>
+  <ul class="collapse">
+  <li><a href="#lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem" id="toc-lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem" class="nav-link" data-scroll-target="#lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem">Lógica de bom senso (para evitar correlações espúrias passarem)</a></li>
+  <li><a href="#nearzerovar" id="toc-nearzerovar" class="nav-link" data-scroll-target="#nearzerovar">NearZeroVar</a></li>
+  </ul></li>
+  <li><a href="#redução-de-dimensionalidade" id="toc-redução-de-dimensionalidade" class="nav-link" data-scroll-target="#redução-de-dimensionalidade">Redução de dimensionalidade</a>
+  <ul class="collapse">
+  <li><a href="#pca-que-não-é-reduzir-variaveis" id="toc-pca-que-não-é-reduzir-variaveis" class="nav-link" data-scroll-target="#pca-que-não-é-reduzir-variaveis">PCA (QUE NÃO É REDUZIR VARIAVEIS)</a></li>
+  </ul></li>
+  <li><a href="#rebalanceamento" id="toc-rebalanceamento" class="nav-link" data-scroll-target="#rebalanceamento">Rebalanceamento</a>
+  <ul class="collapse">
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -426,7 +497,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Introdução a Aprendizado de Máquina</span></h1>
+<h1 class="title"><span class="chapter-title">Pré-Processamento</span></h1>
 </div>
 
 
@@ -443,64 +514,175 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="o-que-é-o-aprendizado-de-máquina" class="level1">
-<h1>O que é o aprendizado de máquina?</h1>
-<p>Ja ouvimos em diversos lugares esse termo ser utilizado, em todas as áreas do conhecimento. Seu uso é tão abrangente que parece ser um tipo de oráculo. Existe outro termo, que geralmente aparece junto com aprendizado de máquina e que parece por vezes se tratar de sinônimo: Inteligência Artificial. Vamos entender o que é cada um.</p>
-<p>Inteligência Artificial é um campo mais amplo que engloba aprendizado de máquina, é a simulação da inteligência humana por máquinas. Ela não se restringe a aprendizado de máquinas, existem modelos de IA que não são baseados em aprendizado de máquina e sim regras lógicas, campo esse chamado de inteligência artificial simbolista, enquanto aprendizado de máquina se enquadra na inteligencia artificial conexionista.</p>
-<p>Simbolismo baseia-se na ideia de que o raciocínio humano pode ser representado por símbolos e regras explícitas de manipulação lógica. Nesse paradigma, o conhecimento é modelado de forma clara e interpretável, por meio de regras do tipo “se… então…”, expressões lógicas e estruturas simbólicas. Os sistemas simbólicos são ótimos para tarefas que envolvem lógica, planejamento e resolução de problemas estruturados, como jogos de tabuleiro. No entanto, eles têm dificuldade em lidar com incertezas, ambiguidade e informações sensoriais complexas, como imagens ou fala.</p>
-<p>Conexionismo é uma abordagem da inteligência artificial e da cognição que propõe que o conhecimento e o pensamento surgem da interação entre muitas unidades simples interconectadas. Em vez de representar o conhecimento como regras lógicas ou símbolos explícitos (como no simbolismo), o conexionismo defende que ele é distribuído em um sistema, e que o comportamento inteligente emerge dos padrões de ativação e das conexões entre essas unidades. Nesse modelo, não há uma regra explícita dizendo o que fazer; o sistema aprende ajustando as forças das conexões entre unidades com base na experiência. A inteligência, portanto, não vem de raciocinar com símbolos, mas de reconhecer padrões e se adaptar com a prática.</p>
-<p>Em 1959, Arthur Samuel definiu o aprendizado de máquina como o “campo de estudo que dá aos computadores a habilidade de aprender sem serem explicitamente programados”. Ou seja, é um método de análise de dados que automatiza a construção de modelos analíticos. É baseado na ideia de que sistemas podem aprender com dados, identificar padrões e tomar decisões com o mínimo de intervenção humana.</p>
-<p>A importância desse aprendizado se deve principalmente ao fato de que atualmente tem surgido cada vez mais a necessidade de manipulações de grandes volumes e variedades de dados disponíveis.</p>
+<section id="imports" class="level1">
+<h1>Imports</h1>
+<p>Segue abaixo os módulos que usaremos nesse caderno:</p>
+<div id="5f35688e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="para-que-serve" class="level1">
-<h1>Para que serve?</h1>
-<p>Com o aprendizado de máquina é possível produzir, rápida e automaticamente, modelos capazes de analisar dados maiores e mais complexos, e entregar resultados mais rápidos e precisos – mesmo em grande escala.</p>
-<p>Aprendizado de máquina possui 4 tarefas principais:</p>
-<section id="classificação" class="level2">
-<h2 class="anchored" data-anchor-id="classificação">Classificação:</h2>
-<p>Atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas.</p>
-<p>ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.</p>
+<section id="o-que-é-pré-processamento" class="level1">
+<h1>O que é Pré-Processamento?</h1>
+<p>Pré-processamento é a etapa do desenvolvimento de modelos que consiste em preparar os dados brutos para que eles possam ser utilizados de forma eficiente e correta por algoritmos de aprendizado de máquina ou estatística.</p>
+<p>Em termos simples, é como organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até esse caderno as bases dados utilizadas são bases que já passaram por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam.</p>
+<p>Pré-processamento tem duas etapas, uma anterior a divisão dos dados, que será realizada sempre que o modelo for utilizado, e uma posterior que será usada para o treinamento apenas.</p>
+<p>Nesse caderno usaremos bases mais rústicas: QUAL BASES USAR (idealmente uma apenas com variáveis quantitativas, outra textual, uma misturada como a stroke do kaggle)</p>
 </section>
-<section id="regressão" class="level2">
-<h2 class="anchored" data-anchor-id="regressão">Regressão:</h2>
-<p>Atribuir um valor numérico a uma amostra dado as suas características.</p>
-<p>ex: Prever a temperatura de um dia baseado nas condições atmosféricas.</p>
+<section id="análise-das-bases" class="level1">
+<h1>Análise das bases</h1>
+<p>ANÁLISE DAS BASES</p>
+<p>A ORDEM DAS COISAS (PRA POR EM OUTRO CADERNO)</p>
+<p>Criação de preditores:</p>
+<ol type="1">
+<li><p>Obtenção dos dados O primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.</p></li>
+<li><p>1° etapa de pré-processamento Consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.</p></li>
+<li><p>Divisão dos dados Os dados são separados em conjuntos de treino, teste e validação, cada um com uma função específica no processo de modelagem.</p></li>
+<li><p>2° etapa de pré-processamento Algumas transformações feitas em cima do conjunto treino e situacionalmente no conjunto teste que não podem ser feitas com o conjunto validação.</p></li>
+<li><p>Validação cruzada Reamostragem, seleção de modelo, ajuste de hiperparâmetros.</p></li>
+<li><p>Treinamento do modelo O modelo é treinado.</p></li>
+<li><p>Avaliação do modelo Métricas finais de performance sobre o conjunto validação.</p></li>
+</ol>
+<p>Uso de preditores: 1. Carregando os dados Inserir dados novos em um programa que de acesso ao preditor criado</p>
+<ol start="2" type="1">
+<li><p>1° etapa de pré-processamento Nesse programa realizar o mesmo pré-processamento realizado na primeira etapa antes da divisão dos dados</p></li>
+<li><p>Obter a predição Inserir os dados novos pré-processados no modelo</p></li>
+<li><p>Análise Podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisa ser feita nesse programa.</p></li>
+</ol>
+<p>Os cadernos foram criados aparentemente fora de ordem para produzirmos preditores desde o início e assim entendermos a real necessidade do porque utilizar técnicas de pré-processamento. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.</p>
+<p>FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA-&gt;SOLUÇÃO, O MÉTODO-&gt;PORQUE FUNCIONA-&gt;COMO FAZER-&gt;CONSIDERAÇÕES</p>
 </section>
-<section id="clusterização" class="level2">
-<h2 class="anchored" data-anchor-id="clusterização">Clusterização:</h2>
-<p>Agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida.</p>
-<p>ex: Segmentação de clientes em marketing.</p>
+<section id="tratamento-de-dados-faltantes" class="level1">
+<h1>Tratamento de dados faltantes</h1>
+<section id="remoção" class="level2">
+<h2 class="anchored" data-anchor-id="remoção">Remoção</h2>
+<section id="amostras" class="level3">
+<h3 class="anchored" data-anchor-id="amostras">Amostras</h3>
 </section>
-<section id="detecção-de-anomalia" class="level2">
-<h2 class="anchored" data-anchor-id="detecção-de-anomalia">Detecção de anomalia:</h2>
-<p>Identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados.</p>
-<p>ex: Detecção de fraudes em transações financeiras.</p>
+<section id="variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="variáveis">Variáveis</h3>
 </section>
 </section>
-<section id="tipos-de-aprendizado-de-máquina" class="level1">
-<h1>Tipos de Aprendizado de Máquina</h1>
-<p>Aprendizado de máquinas pode ser feito de 3 formas distintas:</p>
-<section id="aprendizado-supervisionado" class="level2">
-<h2 class="anchored" data-anchor-id="aprendizado-supervisionado">Aprendizado supervisionado</h2>
-<p>O modelo aprende a partir de dados rotulados, ou seja, cada exemplo de treinamento já vem com a resposta correta (rótulo). O objetivo é criar um modelo capaz de aferir uma classificação ou prever um valor numérico a outros dados do mesmo tipo e que ainda não foram rotulados apenas com suas caracteristicas representadas nos dados pelas variáveis explicativas. Método de construção de aprendizado de máquina comumente utilizado para classificação e regressão. Será o principal foco dos próximos cadernos. Segue alguns exemplos:</p>
-<ul>
-<li><p>Exemplo 1: Queremos estimar o preço de venda de uma casa baseado na sua localidade, tamanho e data de construção baseando-se no preço de venda real de casas que possuam esses mesmos dados coletados recentemente.</p></li>
-<li><p>Exemplo 2: Classificar flores em três espécies diferentes com base em medidas das pétalas e sépalas, com flores com essas medidas e previamente rotuladas para realizar o treinamento.</p></li>
-</ul>
+<section id="imputação" class="level2">
+<h2 class="anchored" data-anchor-id="imputação">Imputação</h2>
+<section id="valores-padrões-média-mediana-moda" class="level3">
+<h3 class="anchored" data-anchor-id="valores-padrões-média-mediana-moda">valores padrões (média, mediana, moda)</h3>
 </section>
-<section id="aprendizado-não-supervisionado" class="level2">
-<h2 class="anchored" data-anchor-id="aprendizado-não-supervisionado">Aprendizado não supervisionado</h2>
-<p>Na aprendizagem não supervisionada, temos um conjunto de dados não rotulados e queremos de alguma forma agrupá-los por um certo padrão ou estruturas escondidas nos dados. Comumente utilizado para clusterização e detecção de anomalias. Falaremos um pouco sobre mas não será um ponto focal nos próximos cadernos. Segue alguns exemplos:</p>
-<ul>
-<li><p>Exemplo 1: Uma plataforma de transmissão de música recebe centenas de músicas novas diferentes todos os dias. Podemos atribuir um gênero musical a elas baseado nas características sonoras.</p></li>
-<li><p>Exemplo 2: Em uma rede social milhões de tentativas de login são feitas todos os dias. Porém existem dentre esses alguns acessos que podem ter sido feito por hackers invés do dono legítimo da conta. Podemos evitar que isso aconteça baseado no padrão de acesso de cada usuário e como isso destoa em relação a nova tentativa de acesso.</p></li>
-</ul>
+<section id="imputação-por-propagação" class="level3">
+<h3 class="anchored" data-anchor-id="imputação-por-propagação">Imputação por propagação</h3>
 </section>
-<section id="aprendizado-por-reforço" class="level2">
-<h2 class="anchored" data-anchor-id="aprendizado-por-reforço">Aprendizado por reforço</h2>
-<p>O modelo aprende a tomar decisões através de interações com um ambiente, recebendo recompensas ou punições conforme as ações executadas. O objetivo é aprender uma política que maximize a recompensa acumulada. Utilizada para aperfeiçoar a capacidade da IA de um jogo e para robótica. Não falaremos sobre isso nos próximos cadernos.</p>
+<section id="por-aprendizado-de-máquina" class="level3">
+<h3 class="anchored" data-anchor-id="por-aprendizado-de-máquina">Por aprendizado de máquina</h3>
+<section id="knn-impute-falar-só-disso-mas-que-é-um-assunto-maior" class="level4">
+<h4 class="anchored" data-anchor-id="knn-impute-falar-só-disso-mas-que-é-um-assunto-maior">KNN Impute (falar só disso mas que é um assunto maior)</h4>
+</section>
+</section>
+</section>
+<section id="dados-incompletos" class="level2">
+<h2 class="anchored" data-anchor-id="dados-incompletos">Dados incompletos</h2>
+</section>
+</section>
+<section id="transformação-de-variáveis" class="level1">
+<h1>Transformação de variáveis</h1>
+<section id="padronização" class="level2">
+<h2 class="anchored" data-anchor-id="padronização">Padronização</h2>
+</section>
+<section id="normalização" class="level2">
+<h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
+</section>
+<section id="transformação-logarítimica" class="level2">
+<h2 class="anchored" data-anchor-id="transformação-logarítimica">Transformação logarítimica</h2>
+</section>
+<section id="lematização" class="level2">
+<h2 class="anchored" data-anchor-id="lematização">Lematização</h2>
+</section>
+<section id="vetorização-de-texto" class="level2">
+<h2 class="anchored" data-anchor-id="vetorização-de-texto">Vetorização de texto</h2>
+</section>
+</section>
+<section id="criação-de-variáveis-auxiliares" class="level1">
+<h1>Criação de variáveis auxiliares</h1>
+<section id="quantitativas" class="level2">
+<h2 class="anchored" data-anchor-id="quantitativas">quantitativas</h2>
+</section>
+<section id="qualitativas" class="level2">
+<h2 class="anchored" data-anchor-id="qualitativas">qualitativas</h2>
+</section>
+<section id="em-preditores-textuais" class="level2">
+<h2 class="anchored" data-anchor-id="em-preditores-textuais">Em preditores textuais</h2>
+</section>
+</section>
+<section id="codificação-de-variáveis" class="level1">
+<h1>Codificação de variáveis</h1>
+<section id="variável-dummy-e-one-hot-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="variável-dummy-e-one-hot-encoding">Variável dummy e one-hot encoding</h2>
+</section>
+<section id="discretização" class="level2">
+<h2 class="anchored" data-anchor-id="discretização">Discretização</h2>
+</section>
+</section>
+<section id="seleção-de-atributos" class="level1">
+<h1>Seleção de atributos</h1>
+<section id="lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem" class="level2">
+<h2 class="anchored" data-anchor-id="lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem">Lógica de bom senso (para evitar correlações espúrias passarem)</h2>
+</section>
+<section id="nearzerovar" class="level2">
+<h2 class="anchored" data-anchor-id="nearzerovar">NearZeroVar</h2>
+</section>
+</section>
+<section id="redução-de-dimensionalidade" class="level1">
+<h1>Redução de dimensionalidade</h1>
+<section id="pca-que-não-é-reduzir-variaveis" class="level2">
+<h2 class="anchored" data-anchor-id="pca-que-não-é-reduzir-variaveis">PCA (QUE NÃO É REDUZIR VARIAVEIS)</h2>
+</section>
+</section>
+<section id="rebalanceamento" class="level1">
+<h1>Rebalanceamento</h1>
+<p>O que é, quando fazer, enviezar de propósito quando. ## Under sampling ## Over sampling</p>
+<section id="referencias" class="level3">
+<h3 class="anchored" data-anchor-id="referencias">Referencias</h3>
+<section id="pln" class="level4">
+<h4 class="anchored" data-anchor-id="pln">PLN</h4>
+<p>“Speech and Language Processing” — Daniel Jurafsky &amp; James H. Martin</p>
+<p>Um dos livros mais influentes em PLN (Processamento de Linguagem Natural).</p>
+<p>Vetorização de texto (TF-IDF, BoW, embeddings): “Introduction to Information Retrieval” – Manning, Raghavan, Schütze</p>
+<p>Capítulo 6: TF-IDF Capítulo 2: Indexação e representação vetorial</p>
+<p>“Speech and Language Processing” – Jurafsky &amp; Martin</p>
+<p>Capítulos 3 e 4: Modelos de linguagem e representação vetorial de texto.</p>
+<p>Capítulos sobre vetorização, TF-IDF, bag-of-words, embeddings, etc.</p>
+</section>
+<section id="transformações-não-pln" class="level4">
+<h4 class="anchored" data-anchor-id="transformações-não-pln">Transformações não PLN</h4>
+<ol start="2" type="1">
+<li>Transformação de variáveis (padronização, normalização, log, etc.): “The Elements of Statistical Learning” – Hastie, Tibshirani &amp; Friedman</li>
+</ol>
+<p>Apresenta a importância da escala das variáveis para diferentes algoritmos.</p>
+<p>Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html</p>
+<p>Explica e implementa:</p>
+<p>StandardScaler (padronização)</p>
+<p>MinMaxScaler (normalização)</p>
+<p>PowerTransformer, FunctionTransformer (transformações log, Box-Cox etc.)</p>
+</section>
+<section id="categorização" class="level4">
+<h4 class="anchored" data-anchor-id="categorização">categorização</h4>
+<ol start="3" type="1">
+<li>Codificação de variáveis categóricas (one-hot, dummies, label encoding): “An Introduction to Statistical Learning” (ISL) – Gareth James et al.</li>
+</ol>
+<p>Explica variáveis dummy e sua relação com regressão.</p>
+<p>“Data Mining: Concepts and Techniques” – Jiawei Han, Micheline Kamber, Jian Pei</p>
+<p>Capítulo sobre pré-processamento de dados, incluindo discretização.</p>
+<p>Explica técnicas manuais e automáticas de discretização e seus usos.</p>
+<p>Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features</p>
+<p>Fala de OneHotEncoder, OrdinalEncoder, etc.</p>
+</section>
+<section id="imputação-1" class="level4">
+<h4 class="anchored" data-anchor-id="imputação-1">Imputação</h4>
+<p>Fontes para estudo: “Flexible Imputation of Missing Data” – Stef van Buuren (livro referência sobre imputação múltipla e model-based imputation)</p>
+<p>Scikit-learn docs: IterativeImputer</p>
+<p>Artigos sobre Multiple Imputation e model-based methods em estatística e ciência de dados.</p>
 
 
+</section>
 </section>
 </section>
 
@@ -919,13 +1101,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./EstatisticaNaoParametrica.html" class="pagination-link" aria-label="Estatística Não Paramétrica">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estatística Não Paramétrica</span></span>
+      <a href="./CrossValidation.html" class="pagination-link" aria-label="Validação Cruzada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./predicao.html" class="pagination-link" aria-label="Predição">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Predição</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./AvaliandoFuncoesPreditoras.html" class="pagination-link" aria-label="Avaliando Funções Preditoras">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -2,6 +2,9 @@ project:
   type: book
   output-dir: site
 
+execute:
+  cache: true
+
 book:
   title: "APRENDIZADO DE MÁQUINA COM PYTHON"
   reader-mode: true
@@ -33,7 +36,7 @@ book:
     - "ErrosAmostrais.qmd"
     - "AvaliandoPreditores.qmd"
     - "CrossValidation.qmd"
-    - "preProcessamento"
+    - "preProcessamento.qmd"
     - "AvaliandoFuncoesPreditoras.qmd"
     
 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>APRENDIZADO DE MÁQUINA COM PYTHON - Criação e Avaliação de Preditores</title>
+<title>Criação e Avaliação de Preditores – APRENDIZADO DE MÁQUINA COM PYTHON</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,7 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -57,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -67,24 +68,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./CrossValidation.html" rel="next">
 <link href="./ErrosAmostrais.html" rel="prev">
 <link href="./uff-brasao.jpg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-b9e11ad5a37ead2aabff839d95ae3857.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,33 +101,221 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = true;
+    const darkModeDefault = authorPrefersDark;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AvaliandoPreditores.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AvaliandoPreditores.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -128,31 +324,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">APRENDIZADO DE MÁQUINA COM PYTHON</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/CienciaDeDadosUFF/python.github.io" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./APRENDIZADO-DE-MÁQUINA-COM-PYTHON.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/CienciaDeDadosUFF/python.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./APRENDIZADO-DE-MÁQUINA-COM-PYTHON.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -254,14 +450,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./preProcessamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pré-Processamento</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./AvaliandoFuncoesPreditoras.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Avaliando Funções Preditoras</span></span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -302,14 +504,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Criação e Avaliação de Preditores</span></h1>
+<h1 class="title"><span class="chapter-title">Criação e Avaliação de Preditores</span></h1>
 </div>
 
 
@@ -322,13 +525,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>O pacote scikit-learn é um pacote muito útil para o machine learning pois entrega muitas ferramentas que simplificam a criação de modelos preditivos. A função train_test_split exposta em capítulos anteriores é um exemplo. A construção de preditores feitos usando esse pacote será o foco desse capítulo.</p>
 <section id="imports" class="level1">
 <h1>Imports</h1>
 <p>Segue abaixo o código da importação dos módulos que usaremos nesse caderno:</p>
-<div class="cell" data-execution_count="1">
+<div id="88698914" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -350,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="analisando-a-base-spam" class="level2">
 <h2 class="anchored" data-anchor-id="analisando-a-base-spam">Analisando a base spam</h2>
 <p>Vamos analisar a base spam.</p>
-<div class="cell" data-execution_count="2">
+<div id="1f3dfab5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#trocar essa url pelo caminho da base spam de vocês.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">spam.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(spam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -418,7 +623,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="separação-treino-e-teste" class="level2">
 <h2 class="anchored" data-anchor-id="separação-treino-e-teste">Separação treino e teste</h2>
 <p>Para fazer a separação das amostras em treino e teste vamos primeiramente particionar a base de dados com a função <code>train_test_split()</code>. Ela divide a base mantendo a proporção das classes de classificação, nesse caso, spam e nonspam, mantendo a proporção da base original. Isso evita que ao acaso possa sair da separação uma base para treino muito diferente da original, que afeta severamente a qualidade do modelo.</p>
-<div class="cell" data-execution_count="3">
+<div id="27882f62" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando a coluna de rótulo das demais</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>XSpam <span class="op">=</span> spam.loc[:, spam.columns <span class="op">!=</span> <span class="st">"type"</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>YSpam <span class="op">=</span> spam[<span class="st">"type"</span>]</span>
@@ -435,15 +640,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-classificador.">Seleção de algoritmo de aprendizado de máquina para o classificador.</h2>
 <p>Dado que já foi feito a separação das amostras treino e teste, o próximo passo é realizarmos o treinamento. Para isso é preciso escolher um dos algoritmos para ser utilizado. O scikit-learn suporta uma infinidade de diferentes modelos que podemos escolher.</p>
 <p>Uma lista com todos os algoritmos implementados no pacote scikit-learn pode ser obtida com o seguinte comando:</p>
-<div class="cell" data-execution_count="4">
+<div id="f2d997dd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators())</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># para filtrar os algoritmos por seu tipo </span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators(type_filter<span class="op">=</span><span class="st">'classifier'</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('AdditiveChi2Sampler', &lt;class 'sklearn.kernel_approximation.AdditiveChi2Sampler'&gt;), ('AffinityPropagation', &lt;class 'sklearn.cluster._affinity_propagation.AffinityPropagation'&gt;), ('AgglomerativeClustering', &lt;class 'sklearn.cluster._agglomerative.AgglomerativeClustering'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianGaussianMixture', &lt;class 'sklearn.mixture._bayesian_mixture.BayesianGaussianMixture'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('BernoulliRBM', &lt;class 'sklearn.neural_network._rbm.BernoulliRBM'&gt;), ('Binarizer', &lt;class 'sklearn.preprocessing._data.Binarizer'&gt;), ('Birch', &lt;class 'sklearn.cluster._birch.Birch'&gt;), ('BisectingKMeans', &lt;class 'sklearn.cluster._bisect_k_means.BisectingKMeans'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ColumnTransformer', &lt;class 'sklearn.compose._column_transformer.ColumnTransformer'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('CountVectorizer', &lt;class 'sklearn.feature_extraction.text.CountVectorizer'&gt;), ('DBSCAN', &lt;class 'sklearn.cluster._dbscan.DBSCAN'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DictVectorizer', &lt;class 'sklearn.feature_extraction._dict_vectorizer.DictVectorizer'&gt;), ('DictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.DictionaryLearning'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('EllipticEnvelope', &lt;class 'sklearn.covariance._elliptic_envelope.EllipticEnvelope'&gt;), ('EmpiricalCovariance', &lt;class 'sklearn.covariance._empirical_covariance.EmpiricalCovariance'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('FactorAnalysis', &lt;class 'sklearn.decomposition._factor_analysis.FactorAnalysis'&gt;), ('FastICA', &lt;class 'sklearn.decomposition._fastica.FastICA'&gt;), ('FeatureAgglomeration', &lt;class 'sklearn.cluster._agglomerative.FeatureAgglomeration'&gt;), ('FeatureHasher', &lt;class 'sklearn.feature_extraction._hash.FeatureHasher'&gt;), ('FeatureUnion', &lt;class 'sklearn.pipeline.FeatureUnion'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('FunctionTransformer', &lt;class 'sklearn.preprocessing._function_transformer.FunctionTransformer'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianMixture', &lt;class 'sklearn.mixture._gaussian_mixture.GaussianMixture'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GaussianRandomProjection', &lt;class 'sklearn.random_projection.GaussianRandomProjection'&gt;), ('GenericUnivariateSelect', &lt;class 'sklearn.feature_selection._univariate_selection.GenericUnivariateSelect'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('GraphicalLasso', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLasso'&gt;), ('GraphicalLassoCV', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLassoCV'&gt;), ('GridSearchCV', &lt;class 'sklearn.model_selection._search.GridSearchCV'&gt;), ('HDBSCAN', &lt;class 'sklearn.cluster._hdbscan.hdbscan.HDBSCAN'&gt;), ('HashingVectorizer', &lt;class 'sklearn.feature_extraction.text.HashingVectorizer'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IncrementalPCA', &lt;class 'sklearn.decomposition._incremental_pca.IncrementalPCA'&gt;), ('IsolationForest', &lt;class 'sklearn.ensemble._iforest.IsolationForest'&gt;), ('Isomap', &lt;class 'sklearn.manifold._isomap.Isomap'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KBinsDiscretizer', &lt;class 'sklearn.preprocessing._discretization.KBinsDiscretizer'&gt;), ('KMeans', &lt;class 'sklearn.cluster._kmeans.KMeans'&gt;), ('KNNImputer', &lt;class 'sklearn.impute._knn.KNNImputer'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.KNeighborsTransformer'&gt;), ('KernelCenterer', &lt;class 'sklearn.preprocessing._data.KernelCenterer'&gt;), ('KernelDensity', &lt;class 'sklearn.neighbors._kde.KernelDensity'&gt;), ('KernelPCA', &lt;class 'sklearn.decomposition._kernel_pca.KernelPCA'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('LabelBinarizer', &lt;class 'sklearn.preprocessing._label.LabelBinarizer'&gt;), ('LabelEncoder', &lt;class 'sklearn.preprocessing._label.LabelEncoder'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LatentDirichletAllocation', &lt;class 'sklearn.decomposition._lda.LatentDirichletAllocation'&gt;), ('LedoitWolf', &lt;class 'sklearn.covariance._shrunk_covariance.LedoitWolf'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('LocalOutlierFactor', &lt;class 'sklearn.neighbors._lof.LocalOutlierFactor'&gt;), ('LocallyLinearEmbedding', &lt;class 'sklearn.manifold._locally_linear.LocallyLinearEmbedding'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MDS', &lt;class 'sklearn.manifold._mds.MDS'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MaxAbsScaler', &lt;class 'sklearn.preprocessing._data.MaxAbsScaler'&gt;), ('MeanShift', &lt;class 'sklearn.cluster._mean_shift.MeanShift'&gt;), ('MinCovDet', &lt;class 'sklearn.covariance._robust_covariance.MinCovDet'&gt;), ('MinMaxScaler', &lt;class 'sklearn.preprocessing._data.MinMaxScaler'&gt;), ('MiniBatchDictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.MiniBatchDictionaryLearning'&gt;), ('MiniBatchKMeans', &lt;class 'sklearn.cluster._kmeans.MiniBatchKMeans'&gt;), ('MiniBatchNMF', &lt;class 'sklearn.decomposition._nmf.MiniBatchNMF'&gt;), ('MiniBatchSparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.MiniBatchSparsePCA'&gt;), ('MissingIndicator', &lt;class 'sklearn.impute._base.MissingIndicator'&gt;), ('MultiLabelBinarizer', &lt;class 'sklearn.preprocessing._label.MultiLabelBinarizer'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NMF', &lt;class 'sklearn.decomposition._nmf.NMF'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NearestNeighbors', &lt;class 'sklearn.neighbors._unsupervised.NearestNeighbors'&gt;), ('NeighborhoodComponentsAnalysis', &lt;class 'sklearn.neighbors._nca.NeighborhoodComponentsAnalysis'&gt;), ('Normalizer', &lt;class 'sklearn.preprocessing._data.Normalizer'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('Nystroem', &lt;class 'sklearn.kernel_approximation.Nystroem'&gt;), ('OAS', &lt;class 'sklearn.covariance._shrunk_covariance.OAS'&gt;), ('OPTICS', &lt;class 'sklearn.cluster._optics.OPTICS'&gt;), ('OneClassSVM', &lt;class 'sklearn.svm._classes.OneClassSVM'&gt;), ('OneHotEncoder', &lt;class 'sklearn.preprocessing._encoders.OneHotEncoder'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OrdinalEncoder', &lt;class 'sklearn.preprocessing._encoders.OrdinalEncoder'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PCA', &lt;class 'sklearn.decomposition._pca.PCA'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PLSSVD', &lt;class 'sklearn.cross_decomposition._pls.PLSSVD'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PatchExtractor', &lt;class 'sklearn.feature_extraction.image.PatchExtractor'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('Pipeline', &lt;class 'sklearn.pipeline.Pipeline'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('PolynomialCountSketch', &lt;class 'sklearn.kernel_approximation.PolynomialCountSketch'&gt;), ('PolynomialFeatures', &lt;class 'sklearn.preprocessing._polynomial.PolynomialFeatures'&gt;), ('PowerTransformer', &lt;class 'sklearn.preprocessing._data.PowerTransformer'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('QuantileTransformer', &lt;class 'sklearn.preprocessing._data.QuantileTransformer'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RBFSampler', &lt;class 'sklearn.kernel_approximation.RBFSampler'&gt;), ('RFE', &lt;class 'sklearn.feature_selection._rfe.RFE'&gt;), ('RFECV', &lt;class 'sklearn.feature_selection._rfe.RFECV'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RadiusNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.RadiusNeighborsTransformer'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RandomTreesEmbedding', &lt;class 'sklearn.ensemble._forest.RandomTreesEmbedding'&gt;), ('RandomizedSearchCV', &lt;class 'sklearn.model_selection._search.RandomizedSearchCV'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('RobustScaler', &lt;class 'sklearn.preprocessing._data.RobustScaler'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SGDOneClassSVM', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDOneClassSVM'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('SelectFdr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFdr'&gt;), ('SelectFpr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFpr'&gt;), ('SelectFromModel', &lt;class 'sklearn.feature_selection._from_model.SelectFromModel'&gt;), ('SelectFwe', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFwe'&gt;), ('SelectKBest', &lt;class 'sklearn.feature_selection._univariate_selection.SelectKBest'&gt;), ('SelectPercentile', &lt;class 'sklearn.feature_selection._univariate_selection.SelectPercentile'&gt;), ('SelfTrainingClassifier', &lt;class 'sklearn.semi_supervised._self_training.SelfTrainingClassifier'&gt;), ('SequentialFeatureSelector', &lt;class 'sklearn.feature_selection._sequential.SequentialFeatureSelector'&gt;), ('ShrunkCovariance', &lt;class 'sklearn.covariance._shrunk_covariance.ShrunkCovariance'&gt;), ('SimpleImputer', &lt;class 'sklearn.impute._base.SimpleImputer'&gt;), ('SkewedChi2Sampler', &lt;class 'sklearn.kernel_approximation.SkewedChi2Sampler'&gt;), ('SparseCoder', &lt;class 'sklearn.decomposition._dict_learning.SparseCoder'&gt;), ('SparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.SparsePCA'&gt;), ('SparseRandomProjection', &lt;class 'sklearn.random_projection.SparseRandomProjection'&gt;), ('SpectralBiclustering', &lt;class 'sklearn.cluster._bicluster.SpectralBiclustering'&gt;), ('SpectralClustering', &lt;class 'sklearn.cluster._spectral.SpectralClustering'&gt;), ('SpectralCoclustering', &lt;class 'sklearn.cluster._bicluster.SpectralCoclustering'&gt;), ('SpectralEmbedding', &lt;class 'sklearn.manifold._spectral_embedding.SpectralEmbedding'&gt;), ('SplineTransformer', &lt;class 'sklearn.preprocessing._polynomial.SplineTransformer'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('StandardScaler', &lt;class 'sklearn.preprocessing._data.StandardScaler'&gt;), ('TSNE', &lt;class 'sklearn.manifold._t_sne.TSNE'&gt;), ('TargetEncoder', &lt;class 'sklearn.preprocessing._target_encoder.TargetEncoder'&gt;), ('TfidfTransformer', &lt;class 'sklearn.feature_extraction.text.TfidfTransformer'&gt;), ('TfidfVectorizer', &lt;class 'sklearn.feature_extraction.text.TfidfVectorizer'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TruncatedSVD', &lt;class 'sklearn.decomposition._truncated_svd.TruncatedSVD'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VarianceThreshold', &lt;class 'sklearn.feature_selection._variance_threshold.VarianceThreshold'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]
-[('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;)]</code></pre>
+<pre><code>[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('AdditiveChi2Sampler', &lt;class 'sklearn.kernel_approximation.AdditiveChi2Sampler'&gt;), ('AffinityPropagation', &lt;class 'sklearn.cluster._affinity_propagation.AffinityPropagation'&gt;), ('AgglomerativeClustering', &lt;class 'sklearn.cluster._agglomerative.AgglomerativeClustering'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianGaussianMixture', &lt;class 'sklearn.mixture._bayesian_mixture.BayesianGaussianMixture'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('BernoulliRBM', &lt;class 'sklearn.neural_network._rbm.BernoulliRBM'&gt;), ('Binarizer', &lt;class 'sklearn.preprocessing._data.Binarizer'&gt;), ('Birch', &lt;class 'sklearn.cluster._birch.Birch'&gt;), ('BisectingKMeans', &lt;class 'sklearn.cluster._bisect_k_means.BisectingKMeans'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ColumnTransformer', &lt;class 'sklearn.compose._column_transformer.ColumnTransformer'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('CountVectorizer', &lt;class 'sklearn.feature_extraction.text.CountVectorizer'&gt;), ('DBSCAN', &lt;class 'sklearn.cluster._dbscan.DBSCAN'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DictVectorizer', &lt;class 'sklearn.feature_extraction._dict_vectorizer.DictVectorizer'&gt;), ('DictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.DictionaryLearning'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('EllipticEnvelope', &lt;class 'sklearn.covariance._elliptic_envelope.EllipticEnvelope'&gt;), ('EmpiricalCovariance', &lt;class 'sklearn.covariance._empirical_covariance.EmpiricalCovariance'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('FactorAnalysis', &lt;class 'sklearn.decomposition._factor_analysis.FactorAnalysis'&gt;), ('FastICA', &lt;class 'sklearn.decomposition._fastica.FastICA'&gt;), ('FeatureAgglomeration', &lt;class 'sklearn.cluster._agglomerative.FeatureAgglomeration'&gt;), ('FeatureHasher', &lt;class 'sklearn.feature_extraction._hash.FeatureHasher'&gt;), ('FeatureUnion', &lt;class 'sklearn.pipeline.FeatureUnion'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('FrozenEstimator', &lt;class 'sklearn.frozen._frozen.FrozenEstimator'&gt;), ('FunctionTransformer', &lt;class 'sklearn.preprocessing._function_transformer.FunctionTransformer'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianMixture', &lt;class 'sklearn.mixture._gaussian_mixture.GaussianMixture'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GaussianRandomProjection', &lt;class 'sklearn.random_projection.GaussianRandomProjection'&gt;), ('GenericUnivariateSelect', &lt;class 'sklearn.feature_selection._univariate_selection.GenericUnivariateSelect'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('GraphicalLasso', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLasso'&gt;), ('GraphicalLassoCV', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLassoCV'&gt;), ('GridSearchCV', &lt;class 'sklearn.model_selection._search.GridSearchCV'&gt;), ('HDBSCAN', &lt;class 'sklearn.cluster._hdbscan.hdbscan.HDBSCAN'&gt;), ('HashingVectorizer', &lt;class 'sklearn.feature_extraction.text.HashingVectorizer'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IncrementalPCA', &lt;class 'sklearn.decomposition._incremental_pca.IncrementalPCA'&gt;), ('IsolationForest', &lt;class 'sklearn.ensemble._iforest.IsolationForest'&gt;), ('Isomap', &lt;class 'sklearn.manifold._isomap.Isomap'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KBinsDiscretizer', &lt;class 'sklearn.preprocessing._discretization.KBinsDiscretizer'&gt;), ('KMeans', &lt;class 'sklearn.cluster._kmeans.KMeans'&gt;), ('KNNImputer', &lt;class 'sklearn.impute._knn.KNNImputer'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.KNeighborsTransformer'&gt;), ('KernelCenterer', &lt;class 'sklearn.preprocessing._data.KernelCenterer'&gt;), ('KernelDensity', &lt;class 'sklearn.neighbors._kde.KernelDensity'&gt;), ('KernelPCA', &lt;class 'sklearn.decomposition._kernel_pca.KernelPCA'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('LabelBinarizer', &lt;class 'sklearn.preprocessing._label.LabelBinarizer'&gt;), ('LabelEncoder', &lt;class 'sklearn.preprocessing._label.LabelEncoder'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LatentDirichletAllocation', &lt;class 'sklearn.decomposition._lda.LatentDirichletAllocation'&gt;), ('LedoitWolf', &lt;class 'sklearn.covariance._shrunk_covariance.LedoitWolf'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('LocalOutlierFactor', &lt;class 'sklearn.neighbors._lof.LocalOutlierFactor'&gt;), ('LocallyLinearEmbedding', &lt;class 'sklearn.manifold._locally_linear.LocallyLinearEmbedding'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MDS', &lt;class 'sklearn.manifold._mds.MDS'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MaxAbsScaler', &lt;class 'sklearn.preprocessing._data.MaxAbsScaler'&gt;), ('MeanShift', &lt;class 'sklearn.cluster._mean_shift.MeanShift'&gt;), ('MinCovDet', &lt;class 'sklearn.covariance._robust_covariance.MinCovDet'&gt;), ('MinMaxScaler', &lt;class 'sklearn.preprocessing._data.MinMaxScaler'&gt;), ('MiniBatchDictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.MiniBatchDictionaryLearning'&gt;), ('MiniBatchKMeans', &lt;class 'sklearn.cluster._kmeans.MiniBatchKMeans'&gt;), ('MiniBatchNMF', &lt;class 'sklearn.decomposition._nmf.MiniBatchNMF'&gt;), ('MiniBatchSparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.MiniBatchSparsePCA'&gt;), ('MissingIndicator', &lt;class 'sklearn.impute._base.MissingIndicator'&gt;), ('MultiLabelBinarizer', &lt;class 'sklearn.preprocessing._label.MultiLabelBinarizer'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NMF', &lt;class 'sklearn.decomposition._nmf.NMF'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NearestNeighbors', &lt;class 'sklearn.neighbors._unsupervised.NearestNeighbors'&gt;), ('NeighborhoodComponentsAnalysis', &lt;class 'sklearn.neighbors._nca.NeighborhoodComponentsAnalysis'&gt;), ('Normalizer', &lt;class 'sklearn.preprocessing._data.Normalizer'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('Nystroem', &lt;class 'sklearn.kernel_approximation.Nystroem'&gt;), ('OAS', &lt;class 'sklearn.covariance._shrunk_covariance.OAS'&gt;), ('OPTICS', &lt;class 'sklearn.cluster._optics.OPTICS'&gt;), ('OneClassSVM', &lt;class 'sklearn.svm._classes.OneClassSVM'&gt;), ('OneHotEncoder', &lt;class 'sklearn.preprocessing._encoders.OneHotEncoder'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OrdinalEncoder', &lt;class 'sklearn.preprocessing._encoders.OrdinalEncoder'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PCA', &lt;class 'sklearn.decomposition._pca.PCA'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PLSSVD', &lt;class 'sklearn.cross_decomposition._pls.PLSSVD'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PatchExtractor', &lt;class 'sklearn.feature_extraction.image.PatchExtractor'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('Pipeline', &lt;class 'sklearn.pipeline.Pipeline'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('PolynomialCountSketch', &lt;class 'sklearn.kernel_approximation.PolynomialCountSketch'&gt;), ('PolynomialFeatures', &lt;class 'sklearn.preprocessing._polynomial.PolynomialFeatures'&gt;), ('PowerTransformer', &lt;class 'sklearn.preprocessing._data.PowerTransformer'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('QuantileTransformer', &lt;class 'sklearn.preprocessing._data.QuantileTransformer'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RBFSampler', &lt;class 'sklearn.kernel_approximation.RBFSampler'&gt;), ('RFE', &lt;class 'sklearn.feature_selection._rfe.RFE'&gt;), ('RFECV', &lt;class 'sklearn.feature_selection._rfe.RFECV'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RadiusNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.RadiusNeighborsTransformer'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RandomTreesEmbedding', &lt;class 'sklearn.ensemble._forest.RandomTreesEmbedding'&gt;), ('RandomizedSearchCV', &lt;class 'sklearn.model_selection._search.RandomizedSearchCV'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('RobustScaler', &lt;class 'sklearn.preprocessing._data.RobustScaler'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SGDOneClassSVM', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDOneClassSVM'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('SelectFdr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFdr'&gt;), ('SelectFpr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFpr'&gt;), ('SelectFromModel', &lt;class 'sklearn.feature_selection._from_model.SelectFromModel'&gt;), ('SelectFwe', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFwe'&gt;), ('SelectKBest', &lt;class 'sklearn.feature_selection._univariate_selection.SelectKBest'&gt;), ('SelectPercentile', &lt;class 'sklearn.feature_selection._univariate_selection.SelectPercentile'&gt;), ('SelfTrainingClassifier', &lt;class 'sklearn.semi_supervised._self_training.SelfTrainingClassifier'&gt;), ('SequentialFeatureSelector', &lt;class 'sklearn.feature_selection._sequential.SequentialFeatureSelector'&gt;), ('ShrunkCovariance', &lt;class 'sklearn.covariance._shrunk_covariance.ShrunkCovariance'&gt;), ('SimpleImputer', &lt;class 'sklearn.impute._base.SimpleImputer'&gt;), ('SkewedChi2Sampler', &lt;class 'sklearn.kernel_approximation.SkewedChi2Sampler'&gt;), ('SparseCoder', &lt;class 'sklearn.decomposition._dict_learning.SparseCoder'&gt;), ('SparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.SparsePCA'&gt;), ('SparseRandomProjection', &lt;class 'sklearn.random_projection.SparseRandomProjection'&gt;), ('SpectralBiclustering', &lt;class 'sklearn.cluster._bicluster.SpectralBiclustering'&gt;), ('SpectralClustering', &lt;class 'sklearn.cluster._spectral.SpectralClustering'&gt;), ('SpectralCoclustering', &lt;class 'sklearn.cluster._bicluster.SpectralCoclustering'&gt;), ('SpectralEmbedding', &lt;class 'sklearn.manifold._spectral_embedding.SpectralEmbedding'&gt;), ('SplineTransformer', &lt;class 'sklearn.preprocessing._polynomial.SplineTransformer'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('StandardScaler', &lt;class 'sklearn.preprocessing._data.StandardScaler'&gt;), ('TSNE', &lt;class 'sklearn.manifold._t_sne.TSNE'&gt;), ('TargetEncoder', &lt;class 'sklearn.preprocessing._target_encoder.TargetEncoder'&gt;), ('TfidfTransformer', &lt;class 'sklearn.feature_extraction.text.TfidfTransformer'&gt;), ('TfidfVectorizer', &lt;class 'sklearn.feature_extraction.text.TfidfVectorizer'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TruncatedSVD', &lt;class 'sklearn.decomposition._truncated_svd.TruncatedSVD'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VarianceThreshold', &lt;class 'sklearn.feature_selection._variance_threshold.VarianceThreshold'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]
+[('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('SelfTrainingClassifier', &lt;class 'sklearn.semi_supervised._self_training.SelfTrainingClassifier'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;)]</code></pre>
 </div>
 </div>
 <p><code>type_filter</code> pode receber: - “regressor” para regressores - “classifier” para classificadores - “cluster” para agrupadores - “transformer” para transformadores - “outlier_detector” para detectores de anomalia</p>
@@ -455,13 +660,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="criação-e-treino-do-classificador" class="level2">
 <h2 class="anchored" data-anchor-id="criação-e-treino-do-classificador">Criação e treino do classificador</h2>
 <p>Agora vamos criar o nosso classificador. Para isso vamos usar a função <code>LogisticRegression()</code> para instanciá-lo e o método <code>.fit()</code> para treiná-lo.</p>
-<div class="cell" data-execution_count="5">
+<div id="25d5a902" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>modelSpam <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">3000</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>modelSpam.fit(x_trainSpam, y_trainSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: black;
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -606,12 +812,21 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-1 label.sk-toggleable__label {
   cursor: pointer;
-  display: block;
+  display: flex;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-1 label.sk-toggleable__label-arrow:before {
@@ -629,9 +844,7 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-1 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
+  display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -657,9 +870,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
 
 #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -764,7 +977,8 @@ a:visited.sk-estimator-doc-link {
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 1ex;
+  margin-left: 0.5em;
+  text-align: center;
   /* unfitted */
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
   color: var(--sklearn-color-unfitted-level-1);
@@ -863,7 +1077,200 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</a></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression(max_iter=3000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=3000)</pre></div> </div></div></div></div>
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression(max_iter=3000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">penalty&nbsp;</td>
+<td class="value">'l2'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">dual&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">tol&nbsp;</td>
+<td class="value">0.0001</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">C&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">fit_intercept&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">intercept_scaling&nbsp;</td>
+<td class="value">1</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">class_weight&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">solver&nbsp;</td>
+<td class="value">'lbfgs'</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">max_iter&nbsp;</td>
+<td class="value">3000</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">multi_class&nbsp;</td>
+<td class="value">'deprecated'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">warm_start&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">l1_ratio&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
 </div>
 </div>
 <p>A função <code>LogisticRegression</code> que cria o modelo de regressão logística possui diversos parâmetros que possuem valores padrão. Alterei apenas o <code>max_iter</code> para 3000 porque o padrão de 100 não é suficiente para o modelo convergir na base de dados utilizada. Falaremos mais detalhadamente sobre como cada algoritmo funciona nos próximos cadernos.</p>
@@ -871,7 +1278,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="utilização-do-classificador" class="level2">
 <h2 class="anchored" data-anchor-id="utilização-do-classificador">Utilização do classificador</h2>
 <p>Uma vez que ajustamos o classificador podemos aplicá-lo na amostra teste, para estimarmos sua qualidade. Para isso utilizamos o método <code>.predict()</code>. Dentro do método passamos a base de dados gostaríamos de realizar a predição, nesse caso a base teste.</p>
-<div class="cell" data-execution_count="6">
+<div id="3a14ee7e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>y_predSpam <span class="op">=</span> modelSpam.predict(x_testSpam)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_predSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -890,7 +1297,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Com as devidas classificações a matriz de confusão fica da seguinte forma:</p>
 <p><img src="Cadernos Grupo Python/Criação e Avaliação de Preditores/matrizDeConfusaoVazia.png" class="img-fluid"></p>
 <p>Dentro da função passamos as predições que obtemos pelo modelo ajustado e as reais classificações dos e-mails do conjunto teste.</p>
-<div class="cell" data-execution_count="7">
+<div id="3fb9951b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cmSpam <span class="op">=</span> confusion_matrix(y_testSpam, y_predSpam)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cmSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -899,7 +1306,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p>O que acharam da matriz confusão? Alguns números numa matriz do Python não é a melhor apresentação. Para deixar mais apresentável podemos fazer um gráfico:</p>
-<div class="cell" data-execution_count="8">
+<div id="32ac029d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">4</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cmSpam, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, xticklabels<span class="op">=</span>[<span class="st">"nonspam"</span>, <span class="st">"spam"</span>], yticklabels<span class="op">=</span>[<span class="st">"nonspam"</span>, <span class="st">"spam"</span>], cbar<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Predito'</span>)</span>
@@ -907,7 +1314,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Matriz de Confusão'</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="AvaliandoPreditores_files/figure-html/cell-9-output-1.png" width="506" height="376"></p>
+<div>
+<figure class="figure">
+<p><img src="AvaliandoPreditores_files/figure-html/cell-9-output-1.png" width="506" height="376" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Só o gráfico com números em valor absoluto não é o suficiente para avaliar o modelo. Podemos a partir desses números usar algumas métricas, muitas existem que podemos usar a partir desses valores. Falaremos mais sobre sensibilidade, especificidade e acurácia.</p>
@@ -939,7 +1350,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="análise-do-resultado-final-do-classificador-de-spam">Análise do resultado final do classificador de Spam</h3>
 <p>Faremos a análise do resultado final do classificador da base Spam com as funções prontas do scikit-learn para o cálculo da sensibilidade, especificidade e acurácia.</p>
 <p>A função <code>classification_report()</code> entrega todas essas métricas e mais algumas. Por suportar classificadores com mais de duas classes, ele usa a coluna recall. Sensibilidade é o recall da classe positiva e especificidade é o recall da negativa.</p>
-<div class="cell" data-execution_count="9">
+<div id="e5b52372" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_testSpam, y_predSpam))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
@@ -962,7 +1373,7 @@ weighted avg       0.92      0.92      0.92      1841
 <p>Agora vamos utilizar a base de dados faithful para tentar prever o tempo de espera (waiting) entre uma erupção e outra de um gêiser dado a duração das erupções (eruption).</p>
 <section id="analisando-a-base-faithful" class="level2">
 <h2 class="anchored" data-anchor-id="analisando-a-base-faithful">Analisando a base faithful</h2>
-<div class="cell" data-execution_count="10">
+<div id="9695cc3b" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>faithfulDF <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">faithful.csv"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(faithfulDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -992,7 +1403,7 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="separação-treino-e-teste-1" class="level2">
 <h2 class="anchored" data-anchor-id="separação-treino-e-teste-1">Separação treino e teste</h2>
 <p>Faremos identicamente a como fizemos para o classificador da base spam.</p>
-<div class="cell" data-execution_count="11">
+<div id="2d46b7ab" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando a coluna de rótulo das demais</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>XFaithful <span class="op">=</span> faithfulDF.loc[:, faithfulDF.columns <span class="op">!=</span> <span class="st">"waiting"</span>]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>YFaithful <span class="op">=</span> faithfulDF[<span class="st">"waiting"</span>]</span>
@@ -1004,17 +1415,15 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-modelo." class="level2">
 <h2 class="anchored" data-anchor-id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-modelo.">Seleção de algoritmo de aprendizado de máquina para o modelo.</h2>
 <p>Para a seleção do algoritmo de aprendizado de máquina que usaremos podemos consultar novamente a lista do scikit-learn, agora para regressores.</p>
-<div class="cell" data-execution_count="12">
+<div id="8891851e" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators())</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># para filtrar os algoritmos por seu tipo </span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators(type_filter<span class="op">=</span><span class="st">'regressor'</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('AdditiveChi2Sampler', &lt;class 'sklearn.kernel_approximation.AdditiveChi2Sampler'&gt;), ('AffinityPropagation', &lt;class 'sklearn.cluster._affinity_propagation.AffinityPropagation'&gt;), ('AgglomerativeClustering', &lt;class 'sklearn.cluster._agglomerative.AgglomerativeClustering'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianGaussianMixture', &lt;class 'sklearn.mixture._bayesian_mixture.BayesianGaussianMixture'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('BernoulliRBM', &lt;class 'sklearn.neural_network._rbm.BernoulliRBM'&gt;), ('Binarizer', &lt;class 'sklearn.preprocessing._data.Binarizer'&gt;), ('Birch', &lt;class 'sklearn.cluster._birch.Birch'&gt;), ('BisectingKMeans', &lt;class 'sklearn.cluster._bisect_k_means.BisectingKMeans'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ColumnTransformer', &lt;class 'sklearn.compose._column_transformer.ColumnTransformer'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('CountVectorizer', &lt;class 'sklearn.feature_extraction.text.CountVectorizer'&gt;), ('DBSCAN', &lt;class 'sklearn.cluster._dbscan.DBSCAN'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DictVectorizer', &lt;class 'sklearn.feature_extraction._dict_vectorizer.DictVectorizer'&gt;), ('DictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.DictionaryLearning'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('EllipticEnvelope', &lt;class 'sklearn.covariance._elliptic_envelope.EllipticEnvelope'&gt;), ('EmpiricalCovariance', &lt;class 'sklearn.covariance._empirical_covariance.EmpiricalCovariance'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('FactorAnalysis', &lt;class 'sklearn.decomposition._factor_analysis.FactorAnalysis'&gt;), ('FastICA', &lt;class 'sklearn.decomposition._fastica.FastICA'&gt;), ('FeatureAgglomeration', &lt;class 'sklearn.cluster._agglomerative.FeatureAgglomeration'&gt;), ('FeatureHasher', &lt;class 'sklearn.feature_extraction._hash.FeatureHasher'&gt;), ('FeatureUnion', &lt;class 'sklearn.pipeline.FeatureUnion'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('FunctionTransformer', &lt;class 'sklearn.preprocessing._function_transformer.FunctionTransformer'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianMixture', &lt;class 'sklearn.mixture._gaussian_mixture.GaussianMixture'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GaussianRandomProjection', &lt;class 'sklearn.random_projection.GaussianRandomProjection'&gt;), ('GenericUnivariateSelect', &lt;class 'sklearn.feature_selection._univariate_selection.GenericUnivariateSelect'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('GraphicalLasso', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLasso'&gt;), ('GraphicalLassoCV', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLassoCV'&gt;), ('GridSearchCV', &lt;class 'sklearn.model_selection._search.GridSearchCV'&gt;), ('HDBSCAN', &lt;class 'sklearn.cluster._hdbscan.hdbscan.HDBSCAN'&gt;), ('HashingVectorizer', &lt;class 'sklearn.feature_extraction.text.HashingVectorizer'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IncrementalPCA', &lt;class 'sklearn.decomposition._incremental_pca.IncrementalPCA'&gt;), ('IsolationForest', &lt;class 'sklearn.ensemble._iforest.IsolationForest'&gt;), ('Isomap', &lt;class 'sklearn.manifold._isomap.Isomap'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KBinsDiscretizer', &lt;class 'sklearn.preprocessing._discretization.KBinsDiscretizer'&gt;), ('KMeans', &lt;class 'sklearn.cluster._kmeans.KMeans'&gt;), ('KNNImputer', &lt;class 'sklearn.impute._knn.KNNImputer'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.KNeighborsTransformer'&gt;), ('KernelCenterer', &lt;class 'sklearn.preprocessing._data.KernelCenterer'&gt;), ('KernelDensity', &lt;class 'sklearn.neighbors._kde.KernelDensity'&gt;), ('KernelPCA', &lt;class 'sklearn.decomposition._kernel_pca.KernelPCA'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('LabelBinarizer', &lt;class 'sklearn.preprocessing._label.LabelBinarizer'&gt;), ('LabelEncoder', &lt;class 'sklearn.preprocessing._label.LabelEncoder'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LatentDirichletAllocation', &lt;class 'sklearn.decomposition._lda.LatentDirichletAllocation'&gt;), ('LedoitWolf', &lt;class 'sklearn.covariance._shrunk_covariance.LedoitWolf'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('LocalOutlierFactor', &lt;class 'sklearn.neighbors._lof.LocalOutlierFactor'&gt;), ('LocallyLinearEmbedding', &lt;class 'sklearn.manifold._locally_linear.LocallyLinearEmbedding'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MDS', &lt;class 'sklearn.manifold._mds.MDS'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MaxAbsScaler', &lt;class 'sklearn.preprocessing._data.MaxAbsScaler'&gt;), ('MeanShift', &lt;class 'sklearn.cluster._mean_shift.MeanShift'&gt;), ('MinCovDet', &lt;class 'sklearn.covariance._robust_covariance.MinCovDet'&gt;), ('MinMaxScaler', &lt;class 'sklearn.preprocessing._data.MinMaxScaler'&gt;), ('MiniBatchDictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.MiniBatchDictionaryLearning'&gt;), ('MiniBatchKMeans', &lt;class 'sklearn.cluster._kmeans.MiniBatchKMeans'&gt;), ('MiniBatchNMF', &lt;class 'sklearn.decomposition._nmf.MiniBatchNMF'&gt;), ('MiniBatchSparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.MiniBatchSparsePCA'&gt;), ('MissingIndicator', &lt;class 'sklearn.impute._base.MissingIndicator'&gt;), ('MultiLabelBinarizer', &lt;class 'sklearn.preprocessing._label.MultiLabelBinarizer'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NMF', &lt;class 'sklearn.decomposition._nmf.NMF'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NearestNeighbors', &lt;class 'sklearn.neighbors._unsupervised.NearestNeighbors'&gt;), ('NeighborhoodComponentsAnalysis', &lt;class 'sklearn.neighbors._nca.NeighborhoodComponentsAnalysis'&gt;), ('Normalizer', &lt;class 'sklearn.preprocessing._data.Normalizer'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('Nystroem', &lt;class 'sklearn.kernel_approximation.Nystroem'&gt;), ('OAS', &lt;class 'sklearn.covariance._shrunk_covariance.OAS'&gt;), ('OPTICS', &lt;class 'sklearn.cluster._optics.OPTICS'&gt;), ('OneClassSVM', &lt;class 'sklearn.svm._classes.OneClassSVM'&gt;), ('OneHotEncoder', &lt;class 'sklearn.preprocessing._encoders.OneHotEncoder'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OrdinalEncoder', &lt;class 'sklearn.preprocessing._encoders.OrdinalEncoder'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PCA', &lt;class 'sklearn.decomposition._pca.PCA'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PLSSVD', &lt;class 'sklearn.cross_decomposition._pls.PLSSVD'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PatchExtractor', &lt;class 'sklearn.feature_extraction.image.PatchExtractor'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('Pipeline', &lt;class 'sklearn.pipeline.Pipeline'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('PolynomialCountSketch', &lt;class 'sklearn.kernel_approximation.PolynomialCountSketch'&gt;), ('PolynomialFeatures', &lt;class 'sklearn.preprocessing._polynomial.PolynomialFeatures'&gt;), ('PowerTransformer', &lt;class 'sklearn.preprocessing._data.PowerTransformer'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('QuantileTransformer', &lt;class 'sklearn.preprocessing._data.QuantileTransformer'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RBFSampler', &lt;class 'sklearn.kernel_approximation.RBFSampler'&gt;), ('RFE', &lt;class 'sklearn.feature_selection._rfe.RFE'&gt;), ('RFECV', &lt;class 'sklearn.feature_selection._rfe.RFECV'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RadiusNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.RadiusNeighborsTransformer'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RandomTreesEmbedding', &lt;class 'sklearn.ensemble._forest.RandomTreesEmbedding'&gt;), ('RandomizedSearchCV', &lt;class 'sklearn.model_selection._search.RandomizedSearchCV'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('RobustScaler', &lt;class 'sklearn.preprocessing._data.RobustScaler'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SGDOneClassSVM', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDOneClassSVM'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('SelectFdr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFdr'&gt;), ('SelectFpr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFpr'&gt;), ('SelectFromModel', &lt;class 'sklearn.feature_selection._from_model.SelectFromModel'&gt;), ('SelectFwe', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFwe'&gt;), ('SelectKBest', &lt;class 'sklearn.feature_selection._univariate_selection.SelectKBest'&gt;), ('SelectPercentile', &lt;class 'sklearn.feature_selection._univariate_selection.SelectPercentile'&gt;), ('SelfTrainingClassifier', &lt;class 'sklearn.semi_supervised._self_training.SelfTrainingClassifier'&gt;), ('SequentialFeatureSelector', &lt;class 'sklearn.feature_selection._sequential.SequentialFeatureSelector'&gt;), ('ShrunkCovariance', &lt;class 'sklearn.covariance._shrunk_covariance.ShrunkCovariance'&gt;), ('SimpleImputer', &lt;class 'sklearn.impute._base.SimpleImputer'&gt;), ('SkewedChi2Sampler', &lt;class 'sklearn.kernel_approximation.SkewedChi2Sampler'&gt;), ('SparseCoder', &lt;class 'sklearn.decomposition._dict_learning.SparseCoder'&gt;), ('SparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.SparsePCA'&gt;), ('SparseRandomProjection', &lt;class 'sklearn.random_projection.SparseRandomProjection'&gt;), ('SpectralBiclustering', &lt;class 'sklearn.cluster._bicluster.SpectralBiclustering'&gt;), ('SpectralClustering', &lt;class 'sklearn.cluster._spectral.SpectralClustering'&gt;), ('SpectralCoclustering', &lt;class 'sklearn.cluster._bicluster.SpectralCoclustering'&gt;), ('SpectralEmbedding', &lt;class 'sklearn.manifold._spectral_embedding.SpectralEmbedding'&gt;), ('SplineTransformer', &lt;class 'sklearn.preprocessing._polynomial.SplineTransformer'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('StandardScaler', &lt;class 'sklearn.preprocessing._data.StandardScaler'&gt;), ('TSNE', &lt;class 'sklearn.manifold._t_sne.TSNE'&gt;), ('TargetEncoder', &lt;class 'sklearn.preprocessing._target_encoder.TargetEncoder'&gt;), ('TfidfTransformer', &lt;class 'sklearn.feature_extraction.text.TfidfTransformer'&gt;), ('TfidfVectorizer', &lt;class 'sklearn.feature_extraction.text.TfidfVectorizer'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TruncatedSVD', &lt;class 'sklearn.decomposition._truncated_svd.TruncatedSVD'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VarianceThreshold', &lt;class 'sklearn.feature_selection._variance_threshold.VarianceThreshold'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]</code></pre>
+<pre><code>[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostClassifier', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostClassifier'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('AdditiveChi2Sampler', &lt;class 'sklearn.kernel_approximation.AdditiveChi2Sampler'&gt;), ('AffinityPropagation', &lt;class 'sklearn.cluster._affinity_propagation.AffinityPropagation'&gt;), ('AgglomerativeClustering', &lt;class 'sklearn.cluster._agglomerative.AgglomerativeClustering'&gt;), ('BaggingClassifier', &lt;class 'sklearn.ensemble._bagging.BaggingClassifier'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianGaussianMixture', &lt;class 'sklearn.mixture._bayesian_mixture.BayesianGaussianMixture'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('BernoulliNB', &lt;class 'sklearn.naive_bayes.BernoulliNB'&gt;), ('BernoulliRBM', &lt;class 'sklearn.neural_network._rbm.BernoulliRBM'&gt;), ('Binarizer', &lt;class 'sklearn.preprocessing._data.Binarizer'&gt;), ('Birch', &lt;class 'sklearn.cluster._birch.Birch'&gt;), ('BisectingKMeans', &lt;class 'sklearn.cluster._bisect_k_means.BisectingKMeans'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('CalibratedClassifierCV', &lt;class 'sklearn.calibration.CalibratedClassifierCV'&gt;), ('CategoricalNB', &lt;class 'sklearn.naive_bayes.CategoricalNB'&gt;), ('ClassifierChain', &lt;class 'sklearn.multioutput.ClassifierChain'&gt;), ('ColumnTransformer', &lt;class 'sklearn.compose._column_transformer.ColumnTransformer'&gt;), ('ComplementNB', &lt;class 'sklearn.naive_bayes.ComplementNB'&gt;), ('CountVectorizer', &lt;class 'sklearn.feature_extraction.text.CountVectorizer'&gt;), ('DBSCAN', &lt;class 'sklearn.cluster._dbscan.DBSCAN'&gt;), ('DecisionTreeClassifier', &lt;class 'sklearn.tree._classes.DecisionTreeClassifier'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DictVectorizer', &lt;class 'sklearn.feature_extraction._dict_vectorizer.DictVectorizer'&gt;), ('DictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.DictionaryLearning'&gt;), ('DummyClassifier', &lt;class 'sklearn.dummy.DummyClassifier'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('EllipticEnvelope', &lt;class 'sklearn.covariance._elliptic_envelope.EllipticEnvelope'&gt;), ('EmpiricalCovariance', &lt;class 'sklearn.covariance._empirical_covariance.EmpiricalCovariance'&gt;), ('ExtraTreeClassifier', &lt;class 'sklearn.tree._classes.ExtraTreeClassifier'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesClassifier', &lt;class 'sklearn.ensemble._forest.ExtraTreesClassifier'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('FactorAnalysis', &lt;class 'sklearn.decomposition._factor_analysis.FactorAnalysis'&gt;), ('FastICA', &lt;class 'sklearn.decomposition._fastica.FastICA'&gt;), ('FeatureAgglomeration', &lt;class 'sklearn.cluster._agglomerative.FeatureAgglomeration'&gt;), ('FeatureHasher', &lt;class 'sklearn.feature_extraction._hash.FeatureHasher'&gt;), ('FeatureUnion', &lt;class 'sklearn.pipeline.FeatureUnion'&gt;), ('FixedThresholdClassifier', &lt;class 'sklearn.model_selection._classification_threshold.FixedThresholdClassifier'&gt;), ('FrozenEstimator', &lt;class 'sklearn.frozen._frozen.FrozenEstimator'&gt;), ('FunctionTransformer', &lt;class 'sklearn.preprocessing._function_transformer.FunctionTransformer'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianMixture', &lt;class 'sklearn.mixture._gaussian_mixture.GaussianMixture'&gt;), ('GaussianNB', &lt;class 'sklearn.naive_bayes.GaussianNB'&gt;), ('GaussianProcessClassifier', &lt;class 'sklearn.gaussian_process._gpc.GaussianProcessClassifier'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GaussianRandomProjection', &lt;class 'sklearn.random_projection.GaussianRandomProjection'&gt;), ('GenericUnivariateSelect', &lt;class 'sklearn.feature_selection._univariate_selection.GenericUnivariateSelect'&gt;), ('GradientBoostingClassifier', &lt;class 'sklearn.ensemble._gb.GradientBoostingClassifier'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('GraphicalLasso', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLasso'&gt;), ('GraphicalLassoCV', &lt;class 'sklearn.covariance._graph_lasso.GraphicalLassoCV'&gt;), ('GridSearchCV', &lt;class 'sklearn.model_selection._search.GridSearchCV'&gt;), ('HDBSCAN', &lt;class 'sklearn.cluster._hdbscan.hdbscan.HDBSCAN'&gt;), ('HashingVectorizer', &lt;class 'sklearn.feature_extraction.text.HashingVectorizer'&gt;), ('HistGradientBoostingClassifier', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingClassifier'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IncrementalPCA', &lt;class 'sklearn.decomposition._incremental_pca.IncrementalPCA'&gt;), ('IsolationForest', &lt;class 'sklearn.ensemble._iforest.IsolationForest'&gt;), ('Isomap', &lt;class 'sklearn.manifold._isomap.Isomap'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KBinsDiscretizer', &lt;class 'sklearn.preprocessing._discretization.KBinsDiscretizer'&gt;), ('KMeans', &lt;class 'sklearn.cluster._kmeans.KMeans'&gt;), ('KNNImputer', &lt;class 'sklearn.impute._knn.KNNImputer'&gt;), ('KNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.KNeighborsClassifier'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.KNeighborsTransformer'&gt;), ('KernelCenterer', &lt;class 'sklearn.preprocessing._data.KernelCenterer'&gt;), ('KernelDensity', &lt;class 'sklearn.neighbors._kde.KernelDensity'&gt;), ('KernelPCA', &lt;class 'sklearn.decomposition._kernel_pca.KernelPCA'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('LabelBinarizer', &lt;class 'sklearn.preprocessing._label.LabelBinarizer'&gt;), ('LabelEncoder', &lt;class 'sklearn.preprocessing._label.LabelEncoder'&gt;), ('LabelPropagation', &lt;class 'sklearn.semi_supervised._label_propagation.LabelPropagation'&gt;), ('LabelSpreading', &lt;class 'sklearn.semi_supervised._label_propagation.LabelSpreading'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LatentDirichletAllocation', &lt;class 'sklearn.decomposition._lda.LatentDirichletAllocation'&gt;), ('LedoitWolf', &lt;class 'sklearn.covariance._shrunk_covariance.LedoitWolf'&gt;), ('LinearDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.LinearDiscriminantAnalysis'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVC', &lt;class 'sklearn.svm._classes.LinearSVC'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('LocalOutlierFactor', &lt;class 'sklearn.neighbors._lof.LocalOutlierFactor'&gt;), ('LocallyLinearEmbedding', &lt;class 'sklearn.manifold._locally_linear.LocallyLinearEmbedding'&gt;), ('LogisticRegression', &lt;class 'sklearn.linear_model._logistic.LogisticRegression'&gt;), ('LogisticRegressionCV', &lt;class 'sklearn.linear_model._logistic.LogisticRegressionCV'&gt;), ('MDS', &lt;class 'sklearn.manifold._mds.MDS'&gt;), ('MLPClassifier', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MaxAbsScaler', &lt;class 'sklearn.preprocessing._data.MaxAbsScaler'&gt;), ('MeanShift', &lt;class 'sklearn.cluster._mean_shift.MeanShift'&gt;), ('MinCovDet', &lt;class 'sklearn.covariance._robust_covariance.MinCovDet'&gt;), ('MinMaxScaler', &lt;class 'sklearn.preprocessing._data.MinMaxScaler'&gt;), ('MiniBatchDictionaryLearning', &lt;class 'sklearn.decomposition._dict_learning.MiniBatchDictionaryLearning'&gt;), ('MiniBatchKMeans', &lt;class 'sklearn.cluster._kmeans.MiniBatchKMeans'&gt;), ('MiniBatchNMF', &lt;class 'sklearn.decomposition._nmf.MiniBatchNMF'&gt;), ('MiniBatchSparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.MiniBatchSparsePCA'&gt;), ('MissingIndicator', &lt;class 'sklearn.impute._base.MissingIndicator'&gt;), ('MultiLabelBinarizer', &lt;class 'sklearn.preprocessing._label.MultiLabelBinarizer'&gt;), ('MultiOutputClassifier', &lt;class 'sklearn.multioutput.MultiOutputClassifier'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('MultinomialNB', &lt;class 'sklearn.naive_bayes.MultinomialNB'&gt;), ('NMF', &lt;class 'sklearn.decomposition._nmf.NMF'&gt;), ('NearestCentroid', &lt;class 'sklearn.neighbors._nearest_centroid.NearestCentroid'&gt;), ('NearestNeighbors', &lt;class 'sklearn.neighbors._unsupervised.NearestNeighbors'&gt;), ('NeighborhoodComponentsAnalysis', &lt;class 'sklearn.neighbors._nca.NeighborhoodComponentsAnalysis'&gt;), ('Normalizer', &lt;class 'sklearn.preprocessing._data.Normalizer'&gt;), ('NuSVC', &lt;class 'sklearn.svm._classes.NuSVC'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('Nystroem', &lt;class 'sklearn.kernel_approximation.Nystroem'&gt;), ('OAS', &lt;class 'sklearn.covariance._shrunk_covariance.OAS'&gt;), ('OPTICS', &lt;class 'sklearn.cluster._optics.OPTICS'&gt;), ('OneClassSVM', &lt;class 'sklearn.svm._classes.OneClassSVM'&gt;), ('OneHotEncoder', &lt;class 'sklearn.preprocessing._encoders.OneHotEncoder'&gt;), ('OneVsOneClassifier', &lt;class 'sklearn.multiclass.OneVsOneClassifier'&gt;), ('OneVsRestClassifier', &lt;class 'sklearn.multiclass.OneVsRestClassifier'&gt;), ('OrdinalEncoder', &lt;class 'sklearn.preprocessing._encoders.OrdinalEncoder'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('OutputCodeClassifier', &lt;class 'sklearn.multiclass.OutputCodeClassifier'&gt;), ('PCA', &lt;class 'sklearn.decomposition._pca.PCA'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PLSSVD', &lt;class 'sklearn.cross_decomposition._pls.PLSSVD'&gt;), ('PassiveAggressiveClassifier', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveClassifier'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PatchExtractor', &lt;class 'sklearn.feature_extraction.image.PatchExtractor'&gt;), ('Perceptron', &lt;class 'sklearn.linear_model._perceptron.Perceptron'&gt;), ('Pipeline', &lt;class 'sklearn.pipeline.Pipeline'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('PolynomialCountSketch', &lt;class 'sklearn.kernel_approximation.PolynomialCountSketch'&gt;), ('PolynomialFeatures', &lt;class 'sklearn.preprocessing._polynomial.PolynomialFeatures'&gt;), ('PowerTransformer', &lt;class 'sklearn.preprocessing._data.PowerTransformer'&gt;), ('QuadraticDiscriminantAnalysis', &lt;class 'sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('QuantileTransformer', &lt;class 'sklearn.preprocessing._data.QuantileTransformer'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RBFSampler', &lt;class 'sklearn.kernel_approximation.RBFSampler'&gt;), ('RFE', &lt;class 'sklearn.feature_selection._rfe.RFE'&gt;), ('RFECV', &lt;class 'sklearn.feature_selection._rfe.RFECV'&gt;), ('RadiusNeighborsClassifier', &lt;class 'sklearn.neighbors._classification.RadiusNeighborsClassifier'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RadiusNeighborsTransformer', &lt;class 'sklearn.neighbors._graph.RadiusNeighborsTransformer'&gt;), ('RandomForestClassifier', &lt;class 'sklearn.ensemble._forest.RandomForestClassifier'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RandomTreesEmbedding', &lt;class 'sklearn.ensemble._forest.RandomTreesEmbedding'&gt;), ('RandomizedSearchCV', &lt;class 'sklearn.model_selection._search.RandomizedSearchCV'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('RidgeClassifier', &lt;class 'sklearn.linear_model._ridge.RidgeClassifier'&gt;), ('RidgeClassifierCV', &lt;class 'sklearn.linear_model._ridge.RidgeClassifierCV'&gt;), ('RobustScaler', &lt;class 'sklearn.preprocessing._data.RobustScaler'&gt;), ('SGDClassifier', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDClassifier'&gt;), ('SGDOneClassSVM', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDOneClassSVM'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVC', &lt;class 'sklearn.svm._classes.SVC'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('SelectFdr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFdr'&gt;), ('SelectFpr', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFpr'&gt;), ('SelectFromModel', &lt;class 'sklearn.feature_selection._from_model.SelectFromModel'&gt;), ('SelectFwe', &lt;class 'sklearn.feature_selection._univariate_selection.SelectFwe'&gt;), ('SelectKBest', &lt;class 'sklearn.feature_selection._univariate_selection.SelectKBest'&gt;), ('SelectPercentile', &lt;class 'sklearn.feature_selection._univariate_selection.SelectPercentile'&gt;), ('SelfTrainingClassifier', &lt;class 'sklearn.semi_supervised._self_training.SelfTrainingClassifier'&gt;), ('SequentialFeatureSelector', &lt;class 'sklearn.feature_selection._sequential.SequentialFeatureSelector'&gt;), ('ShrunkCovariance', &lt;class 'sklearn.covariance._shrunk_covariance.ShrunkCovariance'&gt;), ('SimpleImputer', &lt;class 'sklearn.impute._base.SimpleImputer'&gt;), ('SkewedChi2Sampler', &lt;class 'sklearn.kernel_approximation.SkewedChi2Sampler'&gt;), ('SparseCoder', &lt;class 'sklearn.decomposition._dict_learning.SparseCoder'&gt;), ('SparsePCA', &lt;class 'sklearn.decomposition._sparse_pca.SparsePCA'&gt;), ('SparseRandomProjection', &lt;class 'sklearn.random_projection.SparseRandomProjection'&gt;), ('SpectralBiclustering', &lt;class 'sklearn.cluster._bicluster.SpectralBiclustering'&gt;), ('SpectralClustering', &lt;class 'sklearn.cluster._spectral.SpectralClustering'&gt;), ('SpectralCoclustering', &lt;class 'sklearn.cluster._bicluster.SpectralCoclustering'&gt;), ('SpectralEmbedding', &lt;class 'sklearn.manifold._spectral_embedding.SpectralEmbedding'&gt;), ('SplineTransformer', &lt;class 'sklearn.preprocessing._polynomial.SplineTransformer'&gt;), ('StackingClassifier', &lt;class 'sklearn.ensemble._stacking.StackingClassifier'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('StandardScaler', &lt;class 'sklearn.preprocessing._data.StandardScaler'&gt;), ('TSNE', &lt;class 'sklearn.manifold._t_sne.TSNE'&gt;), ('TargetEncoder', &lt;class 'sklearn.preprocessing._target_encoder.TargetEncoder'&gt;), ('TfidfTransformer', &lt;class 'sklearn.feature_extraction.text.TfidfTransformer'&gt;), ('TfidfVectorizer', &lt;class 'sklearn.feature_extraction.text.TfidfVectorizer'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TruncatedSVD', &lt;class 'sklearn.decomposition._truncated_svd.TruncatedSVD'&gt;), ('TunedThresholdClassifierCV', &lt;class 'sklearn.model_selection._classification_threshold.TunedThresholdClassifierCV'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VarianceThreshold', &lt;class 'sklearn.feature_selection._variance_threshold.VarianceThreshold'&gt;), ('VotingClassifier', &lt;class 'sklearn.ensemble._voting.VotingClassifier'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]
+[('ARDRegression', &lt;class 'sklearn.linear_model._bayes.ARDRegression'&gt;), ('AdaBoostRegressor', &lt;class 'sklearn.ensemble._weight_boosting.AdaBoostRegressor'&gt;), ('BaggingRegressor', &lt;class 'sklearn.ensemble._bagging.BaggingRegressor'&gt;), ('BayesianRidge', &lt;class 'sklearn.linear_model._bayes.BayesianRidge'&gt;), ('CCA', &lt;class 'sklearn.cross_decomposition._pls.CCA'&gt;), ('DecisionTreeRegressor', &lt;class 'sklearn.tree._classes.DecisionTreeRegressor'&gt;), ('DummyRegressor', &lt;class 'sklearn.dummy.DummyRegressor'&gt;), ('ElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNet'&gt;), ('ElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.ElasticNetCV'&gt;), ('ExtraTreeRegressor', &lt;class 'sklearn.tree._classes.ExtraTreeRegressor'&gt;), ('ExtraTreesRegressor', &lt;class 'sklearn.ensemble._forest.ExtraTreesRegressor'&gt;), ('GammaRegressor', &lt;class 'sklearn.linear_model._glm.glm.GammaRegressor'&gt;), ('GaussianProcessRegressor', &lt;class 'sklearn.gaussian_process._gpr.GaussianProcessRegressor'&gt;), ('GradientBoostingRegressor', &lt;class 'sklearn.ensemble._gb.GradientBoostingRegressor'&gt;), ('HistGradientBoostingRegressor', &lt;class 'sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor'&gt;), ('HuberRegressor', &lt;class 'sklearn.linear_model._huber.HuberRegressor'&gt;), ('IsotonicRegression', &lt;class 'sklearn.isotonic.IsotonicRegression'&gt;), ('KNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.KNeighborsRegressor'&gt;), ('KernelRidge', &lt;class 'sklearn.kernel_ridge.KernelRidge'&gt;), ('Lars', &lt;class 'sklearn.linear_model._least_angle.Lars'&gt;), ('LarsCV', &lt;class 'sklearn.linear_model._least_angle.LarsCV'&gt;), ('Lasso', &lt;class 'sklearn.linear_model._coordinate_descent.Lasso'&gt;), ('LassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.LassoCV'&gt;), ('LassoLars', &lt;class 'sklearn.linear_model._least_angle.LassoLars'&gt;), ('LassoLarsCV', &lt;class 'sklearn.linear_model._least_angle.LassoLarsCV'&gt;), ('LassoLarsIC', &lt;class 'sklearn.linear_model._least_angle.LassoLarsIC'&gt;), ('LinearRegression', &lt;class 'sklearn.linear_model._base.LinearRegression'&gt;), ('LinearSVR', &lt;class 'sklearn.svm._classes.LinearSVR'&gt;), ('MLPRegressor', &lt;class 'sklearn.neural_network._multilayer_perceptron.MLPRegressor'&gt;), ('MultiOutputRegressor', &lt;class 'sklearn.multioutput.MultiOutputRegressor'&gt;), ('MultiTaskElasticNet', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNet'&gt;), ('MultiTaskElasticNetCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskElasticNetCV'&gt;), ('MultiTaskLasso', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLasso'&gt;), ('MultiTaskLassoCV', &lt;class 'sklearn.linear_model._coordinate_descent.MultiTaskLassoCV'&gt;), ('NuSVR', &lt;class 'sklearn.svm._classes.NuSVR'&gt;), ('OrthogonalMatchingPursuit', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuit'&gt;), ('OrthogonalMatchingPursuitCV', &lt;class 'sklearn.linear_model._omp.OrthogonalMatchingPursuitCV'&gt;), ('PLSCanonical', &lt;class 'sklearn.cross_decomposition._pls.PLSCanonical'&gt;), ('PLSRegression', &lt;class 'sklearn.cross_decomposition._pls.PLSRegression'&gt;), ('PassiveAggressiveRegressor', &lt;class 'sklearn.linear_model._passive_aggressive.PassiveAggressiveRegressor'&gt;), ('PoissonRegressor', &lt;class 'sklearn.linear_model._glm.glm.PoissonRegressor'&gt;), ('QuantileRegressor', &lt;class 'sklearn.linear_model._quantile.QuantileRegressor'&gt;), ('RANSACRegressor', &lt;class 'sklearn.linear_model._ransac.RANSACRegressor'&gt;), ('RadiusNeighborsRegressor', &lt;class 'sklearn.neighbors._regression.RadiusNeighborsRegressor'&gt;), ('RandomForestRegressor', &lt;class 'sklearn.ensemble._forest.RandomForestRegressor'&gt;), ('RegressorChain', &lt;class 'sklearn.multioutput.RegressorChain'&gt;), ('Ridge', &lt;class 'sklearn.linear_model._ridge.Ridge'&gt;), ('RidgeCV', &lt;class 'sklearn.linear_model._ridge.RidgeCV'&gt;), ('SGDRegressor', &lt;class 'sklearn.linear_model._stochastic_gradient.SGDRegressor'&gt;), ('SVR', &lt;class 'sklearn.svm._classes.SVR'&gt;), ('StackingRegressor', &lt;class 'sklearn.ensemble._stacking.StackingRegressor'&gt;), ('TheilSenRegressor', &lt;class 'sklearn.linear_model._theil_sen.TheilSenRegressor'&gt;), ('TransformedTargetRegressor', &lt;class 'sklearn.compose._target.TransformedTargetRegressor'&gt;), ('TweedieRegressor', &lt;class 'sklearn.linear_model._glm.glm.TweedieRegressor'&gt;), ('VotingRegressor', &lt;class 'sklearn.ensemble._voting.VotingRegressor'&gt;)]</code></pre>
 </div>
 </div>
 <p>Usaremos o LinearRegression, usado quando queremos estimar a relação entre duas variáveis contínuas. É um dos modelos de aprendizado de máquina mais simples e rápidos. Falaremos mais sobre o funcionamento dele em próximos cadernos.</p>
@@ -1022,13 +1431,14 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="criação-e-treino-do-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="criação-e-treino-do-regressor">Criação e treino do regressor</h2>
 <p>Agora vamos criar o nosso regressor. Para isso vamos usar a função <code>LinearRegression()</code> para instanciá-lo e o método <code>.fit()</code> para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: <code>from sklearn.linear_model import LinearRegression</code></p>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>modelFaithful <span class="op">=</span> LinearRegression()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>modelFaithful.fit(x_trainFaithful, y_trainFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="971bd932" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>modelFaithful <span class="op">=</span> LinearRegression()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>modelFaithful.fit(x_trainFaithful, y_trainFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: black;
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -1173,12 +1583,21 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-2 label.sk-toggleable__label {
   cursor: pointer;
-  display: block;
+  display: flex;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-2 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-2 label.sk-toggleable__label-arrow:before {
@@ -1196,9 +1615,7 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-2 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
+  display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -1224,9 +1641,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
 
 #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1331,7 +1748,8 @@ a:visited.sk-estimator-doc-link {
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 1ex;
+  margin-left: 0.5em;
+  text-align: center;
   /* unfitted */
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
   color: var(--sklearn-color-unfitted-level-1);
@@ -1430,16 +1848,159 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</a></style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;LinearRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LinearRegression()</pre></div> </div></div></div></div>
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">fit_intercept&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">copy_X&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">tol&nbsp;</td>
+<td class="value">1e-06</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">positive&nbsp;</td>
+<td class="value">False</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
 </div>
 </div>
 </section>
 <section id="utilização-do-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="utilização-do-regressor">Utilização do regressor</h2>
 <p>A utilização do regressor é a mesma do classificador. Basta passar pelo método predict o conjunto de dados que queremos usar para prever a variável resposta. Como queremos testar o modelo, usaremos o conjunto teste que haviámos separado.</p>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>y_predFaithful <span class="op">=</span> modelFaithful.predict(x_testFaithful)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_predFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9e098bf9" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y_predFaithful <span class="op">=</span> modelFaithful.predict(x_testFaithful)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_predFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[77.01894052 86.86457141 54.052711   77.53713162 81.34065429 73.39160283
  72.0132145  54.052711   52.84014382 81.85884539 79.95190215 77.01894052
@@ -1509,15 +2070,15 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="análise-do-resultado-final-do-regressor-de-faithful">Análise do resultado final do regressor de Faithful</h3>
 <p>Faremos a análise do resultado final do regressor da base Faithful com as funções prontas do scikit-learn para o cálculo do MAE, MSE e <span class="math inline">\(R^2\)</span>.</p>
 <p>As funções são <code>mean_absolute_error</code>, <code>mean_squared_error</code>, <code>r2_score</code> respectivamente.</p>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#MAE</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAE: </span><span class="sc">{</span>mean_absolute_error(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#MSE</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MSE: </span><span class="sc">{</span>mean_squared_error(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Squared</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R ao quadrado: </span><span class="sc">{</span>r2_score(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="848458bc" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#MAE</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAE: </span><span class="sc">{</span>mean_absolute_error(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#MSE</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MSE: </span><span class="sc">{</span>mean_squared_error(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Squared</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R ao quadrado: </span><span class="sc">{</span>r2_score(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MAE: 4.656047512563938
 MSE: 35.3906300883027
@@ -1534,361 +2095,425 @@ R ao quadrado: 0.8332386607649062</code></pre>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
       return false;
     }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'alternate';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-    }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
         }
-      }
-      return codeEl.innerText;
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
     }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
       });
     }
-  }
-});
-</script>
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ErrosAmostrais.html" class="pagination-link">
+      <a href="./ErrosAmostrais.html" class="pagination-link" aria-label="Erros Amostrais">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Erros Amostrais</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./CrossValidation.html" class="pagination-link">
+      <a href="./CrossValidation.html" class="pagination-link" aria-label="Validação Cruzada">
         <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Validação Cruzada</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1896,15 +2521,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Orientação: Douglas Rodrigues (UFF) e Karina Yaginuma (UFF). <br> Equipe atual: Gabriel Caetano, Guilherme Ceacero, Claudionor Ferreira e Fenício Porto.</div>   
+    <div class="nav-footer-left">
+<p>Orientação: Douglas Rodrigues (UFF) e Karina Yaginuma (UFF). <br> Equipe atual: Gabriel Caetano, Guilherme Ceacero, Claudionor Ferreira e Fenício Porto.</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
