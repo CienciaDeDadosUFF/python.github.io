@@ -1,0 +1,186 @@
+---
+title:  "Pré-Processamento"
+format:
+  html:
+    code-fold: false
+toc: true
+toc-title: Navegação
+number-sections: false
+jupyter: python3
+---
+
+# Imports
+
+Segue abaixo os módulos que usaremos nesse caderno:
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+# O que é Pré-Processamento?
+
+Pré-processamento é a etapa do desenvolvimento de modelos que consiste em preparar os dados brutos para que eles possam ser utilizados de forma eficiente e correta por algoritmos de aprendizado de máquina ou estatística.
+
+Em termos simples, é como organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até esse caderno as bases dados utilizadas são bases que já passaram por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam. 
+
+Pré-processamento tem duas etapas, uma anterior a divisão dos dados, que será realizada sempre que o modelo for utilizado, e uma posterior que será usada para o treinamento apenas.
+
+Nesse caderno usaremos bases mais rústicas: QUAL BASES USAR (idealmente uma apenas com variáveis quantitativas, outra textual, uma misturada como a stroke do kaggle)
+
+# Análise das bases
+ANÁLISE DAS BASES
+
+
+
+A ORDEM DAS COISAS (PRA POR EM OUTRO CADERNO)
+
+Criação de preditores:
+
+1. Obtenção dos dados
+O primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.
+
+2. 1° etapa de pré-processamento
+Consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.
+
+3. Divisão dos dados
+Os dados são separados em conjuntos de treino, teste e validação, cada um com uma função específica no processo de modelagem.
+
+4. 2° etapa de pré-processamento
+Algumas transformações feitas em cima do conjunto treino e situacionalmente no conjunto teste que não podem ser feitas com o conjunto validação.
+
+4. Validação cruzada
+Reamostragem, seleção de modelo, ajuste de hiperparâmetros.
+
+5. Treinamento do modelo
+O modelo é treinado.
+
+6. Avaliação do modelo
+Métricas finais de performance sobre o conjunto validação.
+
+Uso de preditores:
+1. Carregando os dados
+Inserir dados novos em um programa que de acesso ao preditor criado
+
+2. 1° etapa de pré-processamento
+Nesse programa realizar o mesmo pré-processamento realizado na primeira etapa antes da divisão dos dados
+
+3. Obter a predição
+Inserir os dados novos pré-processados no modelo
+
+4. Análise
+Podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisa ser feita nesse programa. 
+
+Os cadernos foram criados aparentemente fora de ordem para produzirmos preditores desde o início e assim entendermos a real necessidade do porque utilizar técnicas de pré-processamento. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.
+
+FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA->SOLUÇÃO, O MÉTODO->PORQUE FUNCIONA->COMO FAZER->CONSIDERAÇÕES
+
+# Tratamento de dados faltantes
+## Remoção
+### Amostras
+### Variáveis
+## Imputação
+### valores padrões (média, mediana, moda)
+### Imputação por propagação
+### Por aprendizado de máquina
+#### KNN Impute (falar só disso mas que é um assunto maior)
+## Dados incompletos
+
+# Transformação de variáveis
+## Padronização 
+## Normalização
+## Transformação logarítimica
+## Lematização
+## Vetorização de texto
+
+# Criação de variáveis auxiliares
+## quantitativas
+## qualitativas
+## Em preditores textuais
+
+
+# Codificação de variáveis
+## Variável dummy e one-hot encoding
+## Discretização
+
+# Seleção de atributos
+## Lógica de bom senso (para evitar correlações espúrias passarem)
+## NearZeroVar
+
+# Redução de dimensionalidade
+## PCA (QUE NÃO É REDUZIR VARIAVEIS)
+
+
+
+# Rebalanceamento
+O que é, quando fazer, enviezar de propósito quando.
+## Under sampling
+## Over sampling
+
+
+
+
+
+
+
+
+
+### Referencias
+#### PLN
+"Speech and Language Processing" — Daniel Jurafsky & James H. Martin
+
+Um dos livros mais influentes em PLN (Processamento de Linguagem Natural).
+
+Vetorização de texto (TF-IDF, BoW, embeddings):
+"Introduction to Information Retrieval" – Manning, Raghavan, Schütze
+
+Capítulo 6: TF-IDF
+Capítulo 2: Indexação e representação vetorial
+
+"Speech and Language Processing" – Jurafsky & Martin
+
+Capítulos 3 e 4: Modelos de linguagem e representação vetorial de texto.
+
+Capítulos sobre vetorização, TF-IDF, bag-of-words, embeddings, etc.
+
+#### Transformações não PLN
+ 2. Transformação de variáveis (padronização, normalização, log, etc.):
+"The Elements of Statistical Learning" – Hastie, Tibshirani & Friedman
+
+Apresenta a importância da escala das variáveis para diferentes algoritmos.
+
+Scikit-learn documentation – seção preprocessing:
+https://scikit-learn.org/stable/modules/preprocessing.html
+
+Explica e implementa:
+
+StandardScaler (padronização)
+
+MinMaxScaler (normalização)
+
+PowerTransformer, FunctionTransformer (transformações log, Box-Cox etc.)
+
+#### categorização
+3. Codificação de variáveis categóricas (one-hot, dummies, label encoding):
+"An Introduction to Statistical Learning" (ISL) – Gareth James et al.
+
+Explica variáveis dummy e sua relação com regressão.
+
+"Data Mining: Concepts and Techniques" – Jiawei Han, Micheline Kamber, Jian Pei
+
+Capítulo sobre pré-processamento de dados, incluindo discretização.
+
+Explica técnicas manuais e automáticas de discretização e seus usos.
+
+Scikit-learn documentation – seção preprocessing:
+https://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features
+
+Fala de OneHotEncoder, OrdinalEncoder, etc.
+
+#### Imputação 
+
+Fontes para estudo:
+"Flexible Imputation of Missing Data" – Stef van Buuren (livro referência sobre imputação múltipla e model-based imputation)
+
+Scikit-learn docs: IterativeImputer
+
+Artigos sobre Multiple Imputation e model-based methods em estatística e ciência de dados.
