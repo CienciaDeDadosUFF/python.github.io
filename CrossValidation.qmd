@@ -30,7 +30,7 @@ Como exposto no caderno de criação e avaliação de preditores, existem divers
 
 A validação cruzada consiste em simular diferentes cenários de treino/teste afim de reduzir o viés da seleção amostral de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.
 
-Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Apresentaremos sobre os 3 aqui nesse caderno.
+Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Apresentaremos os 3 aqui nesse caderno.
 
 Utilizaremos a base Spam ao longo do caderno.
 
