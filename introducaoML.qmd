@@ -29,29 +29,13 @@ Com o aprendizado de máquina é possível produzir, rápida e automaticamente, 
 
 Aprendizado de máquina possui 4 tarefas principais:
 
-## Classificação:
+* Classificação: atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas. ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.
 
-Atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas.
+* Regressão: atribuir um valor numérico a uma amostra dado as suas características. ex: Prever a temperatura de um dia baseado nas condições atmosféricas.
 
-ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.
+* Clusterização: agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida. ex: Segmentação de clientes em marketing.
 
-## Regressão:
-
-Atribuir um valor numérico a uma amostra dado as suas características.
-
-ex: Prever a temperatura de um dia baseado nas condições atmosféricas.
-
-## Clusterização:
-
-Agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida.
-
-ex: Segmentação de clientes em marketing.
-
-## Detecção de anomalia:
-
-Identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados.
-
-ex: Detecção de fraudes em transações financeiras.
+* Detecção de anomalia: identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados. ex: Detecção de fraudes em transações financeiras.
 
 # Tipos de Aprendizado de Máquina
 
@@ -76,3 +60,37 @@ Na aprendizagem não supervisionada, temos um conjunto de dados não rotulados e
 ## Aprendizado por reforço
 
 O modelo aprende a tomar decisões através de interações com um ambiente, recebendo recompensas ou punições conforme as ações executadas. O objetivo é aprender uma política que maximize a recompensa acumulada. Utilizada para aperfeiçoar a capacidade da IA de um jogo e para robótica. Não falaremos sobre isso nos próximos cadernos.
+
+# Passo a passo para criação de preditores
+
+Segue abaixo o passo a passo para a criação e uso de um preditor que serão explorados nos cadernos seguintes:
+
+Criação de preditores:
+
+1. Obtenção dos dados: o primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.
+
+2. Análise dos dados: entender o que cada variável explicativa significa e salvar a estrutura de cada variável categórica
+
+3. Divisão dos dados: os dados são separados em conjuntos de treino e validação, cada um com uma função específica no processo de modelagem.
+
+4. Primeira etapa de pré-processamento: consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.
+
+5. Segunda etapa de pré-processamento: alguns procedimentos feitos em cima do conjunto treino que não podem ser feitas com o conjunto validação.
+
+6. Validação cruzada: reamostragem, seleção de modelo, ajuste de hiperparâmetros.
+
+7. Treinamento do modelo: o modelo é treinado.
+
+8. Avaliação do modelo: métricas finais de performance sobre o conjunto validação.
+
+Uso de preditores: 
+
+1. Carregamento dos dados: inserir dados novos em um programa que de acesso ao preditor criado
+
+2. Pré-processamento: nesse programa realizar o mesmo pré-processamento realizado na primeira etapa de pré-processamento dos dados porém mantendo a estrutura criada no modelo
+
+3. Obter a predição: inserir os dados novos pré-processados no modelo
+
+4. Análise: podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisaria ser feita nesse programa.
+
+Os cadernos estão dispostos, aparentemente fora de ordem, para produzirmos preditores desde o início e assim entendermos a real necessidade do porque dessas etapas. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos, algorítimos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.

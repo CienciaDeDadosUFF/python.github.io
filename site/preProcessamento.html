@@ -440,7 +440,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#imports" id="toc-imports" class="nav-link active" data-scroll-target="#imports">Imports</a></li>
   <li><a href="#o-que-é-pré-processamento" id="toc-o-que-é-pré-processamento" class="nav-link" data-scroll-target="#o-que-é-pré-processamento">O que é Pré-Processamento?</a></li>
-  <li><a href="#análise-das-bases" id="toc-análise-das-bases" class="nav-link" data-scroll-target="#análise-das-bases">Análise das bases</a></li>
+  <li><a href="#análise-da-base" id="toc-análise-da-base" class="nav-link" data-scroll-target="#análise-da-base">Análise da base</a></li>
+  <li><a href="#diretrizes-gerais-do-pré-processamento" id="toc-diretrizes-gerais-do-pré-processamento" class="nav-link" data-scroll-target="#diretrizes-gerais-do-pré-processamento">Diretrizes gerais do pré-processamento</a></li>
   <li><a href="#tratamento-de-dados-faltantes" id="toc-tratamento-de-dados-faltantes" class="nav-link" data-scroll-target="#tratamento-de-dados-faltantes">Tratamento de dados faltantes</a>
   <ul class="collapse">
   <li><a href="#remoção" id="toc-remoção" class="nav-link" data-scroll-target="#remoção">Remoção</a>
@@ -456,35 +457,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#dados-incompletos" id="toc-dados-incompletos" class="nav-link" data-scroll-target="#dados-incompletos">Dados incompletos</a></li>
   </ul></li>
-  <li><a href="#transformação-de-variáveis" id="toc-transformação-de-variáveis" class="nav-link" data-scroll-target="#transformação-de-variáveis">Transformação de variáveis</a>
-  <ul class="collapse">
-  <li><a href="#padronização" id="toc-padronização" class="nav-link" data-scroll-target="#padronização">Padronização</a></li>
-  <li><a href="#normalização" id="toc-normalização" class="nav-link" data-scroll-target="#normalização">Normalização</a></li>
-  <li><a href="#transformação-logarítimica" id="toc-transformação-logarítimica" class="nav-link" data-scroll-target="#transformação-logarítimica">Transformação logarítimica</a></li>
-  <li><a href="#lematização" id="toc-lematização" class="nav-link" data-scroll-target="#lematização">Lematização</a></li>
-  <li><a href="#vetorização-de-texto" id="toc-vetorização-de-texto" class="nav-link" data-scroll-target="#vetorização-de-texto">Vetorização de texto</a></li>
-  </ul></li>
-  <li><a href="#criação-de-variáveis-auxiliares" id="toc-criação-de-variáveis-auxiliares" class="nav-link" data-scroll-target="#criação-de-variáveis-auxiliares">Criação de variáveis auxiliares</a>
-  <ul class="collapse">
-  <li><a href="#quantitativas" id="toc-quantitativas" class="nav-link" data-scroll-target="#quantitativas">quantitativas</a></li>
-  <li><a href="#qualitativas" id="toc-qualitativas" class="nav-link" data-scroll-target="#qualitativas">qualitativas</a></li>
-  <li><a href="#em-preditores-textuais" id="toc-em-preditores-textuais" class="nav-link" data-scroll-target="#em-preditores-textuais">Em preditores textuais</a></li>
-  </ul></li>
   <li><a href="#codificação-de-variáveis" id="toc-codificação-de-variáveis" class="nav-link" data-scroll-target="#codificação-de-variáveis">Codificação de variáveis</a>
   <ul class="collapse">
   <li><a href="#variável-dummy-e-one-hot-encoding" id="toc-variável-dummy-e-one-hot-encoding" class="nav-link" data-scroll-target="#variável-dummy-e-one-hot-encoding">Variável dummy e one-hot encoding</a></li>
   <li><a href="#discretização" id="toc-discretização" class="nav-link" data-scroll-target="#discretização">Discretização</a></li>
   </ul></li>
+  <li><a href="#rebalanceamento" id="toc-rebalanceamento" class="nav-link" data-scroll-target="#rebalanceamento">Rebalanceamento</a></li>
   <li><a href="#seleção-de-atributos" id="toc-seleção-de-atributos" class="nav-link" data-scroll-target="#seleção-de-atributos">Seleção de atributos</a>
   <ul class="collapse">
   <li><a href="#lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem" id="toc-lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem" class="nav-link" data-scroll-target="#lógica-de-bom-senso-para-evitar-correlações-espúrias-passarem">Lógica de bom senso (para evitar correlações espúrias passarem)</a></li>
   <li><a href="#nearzerovar" id="toc-nearzerovar" class="nav-link" data-scroll-target="#nearzerovar">NearZeroVar</a></li>
   </ul></li>
+  <li><a href="#transformação-de-variáveis" id="toc-transformação-de-variáveis" class="nav-link" data-scroll-target="#transformação-de-variáveis">Transformação de variáveis</a>
+  <ul class="collapse">
+  <li><a href="#padronização" id="toc-padronização" class="nav-link" data-scroll-target="#padronização">Padronização</a></li>
+  <li><a href="#normalização" id="toc-normalização" class="nav-link" data-scroll-target="#normalização">Normalização</a></li>
+  </ul></li>
   <li><a href="#redução-de-dimensionalidade" id="toc-redução-de-dimensionalidade" class="nav-link" data-scroll-target="#redução-de-dimensionalidade">Redução de dimensionalidade</a>
   <ul class="collapse">
   <li><a href="#pca-que-não-é-reduzir-variaveis" id="toc-pca-que-não-é-reduzir-variaveis" class="nav-link" data-scroll-target="#pca-que-não-é-reduzir-variaveis">PCA (QUE NÃO É REDUZIR VARIAVEIS)</a></li>
   </ul></li>
-  <li><a href="#rebalanceamento" id="toc-rebalanceamento" class="nav-link" data-scroll-target="#rebalanceamento">Rebalanceamento</a>
+  <li><a href="#resumo" id="toc-resumo" class="nav-link" data-scroll-target="#resumo">Resumo</a>
   <ul class="collapse">
   <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
   </ul></li>
@@ -517,43 +510,186 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="imports" class="level1">
 <h1>Imports</h1>
 <p>Segue abaixo os módulos que usaremos nesse caderno:</p>
-<div id="5f35688e" class="cell" data-execution_count="1">
+<div id="c8194573" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="o-que-é-pré-processamento" class="level1">
 <h1>O que é Pré-Processamento?</h1>
 <p>Pré-processamento é a etapa do desenvolvimento de modelos que consiste em preparar os dados brutos para que eles possam ser utilizados de forma eficiente e correta por algoritmos de aprendizado de máquina ou estatística.</p>
 <p>Em termos simples, é como organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até esse caderno as bases dados utilizadas são bases que já passaram por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam.</p>
-<p>Pré-processamento tem duas etapas, uma anterior a divisão dos dados, que será realizada sempre que o modelo for utilizado, e uma posterior que será usada para o treinamento apenas.</p>
-<p>Nesse caderno usaremos bases mais rústicas: QUAL BASES USAR (idealmente uma apenas com variáveis quantitativas, outra textual, uma misturada como a stroke do kaggle)</p>
+<p>Pré-processamento tem duas etapas, uma logo depois da divisão dos dados, que será realizada também sempre que o preditor for utilizado, e uma posterior que será para o treinamento apenas.</p>
+<p>Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao apresentar os diferentes métodos ficará explicito todas essas questões.</p>
 </section>
-<section id="análise-das-bases" class="level1">
-<h1>Análise das bases</h1>
-<p>ANÁLISE DAS BASES</p>
-<p>A ORDEM DAS COISAS (PRA POR EM OUTRO CADERNO)</p>
-<p>Criação de preditores:</p>
-<ol type="1">
-<li><p>Obtenção dos dados O primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.</p></li>
-<li><p>1° etapa de pré-processamento Consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.</p></li>
-<li><p>Divisão dos dados Os dados são separados em conjuntos de treino, teste e validação, cada um com uma função específica no processo de modelagem.</p></li>
-<li><p>2° etapa de pré-processamento Algumas transformações feitas em cima do conjunto treino e situacionalmente no conjunto teste que não podem ser feitas com o conjunto validação.</p></li>
-<li><p>Validação cruzada Reamostragem, seleção de modelo, ajuste de hiperparâmetros.</p></li>
-<li><p>Treinamento do modelo O modelo é treinado.</p></li>
-<li><p>Avaliação do modelo Métricas finais de performance sobre o conjunto validação.</p></li>
-</ol>
-<p>Uso de preditores: 1. Carregando os dados Inserir dados novos em um programa que de acesso ao preditor criado</p>
-<ol start="2" type="1">
-<li><p>1° etapa de pré-processamento Nesse programa realizar o mesmo pré-processamento realizado na primeira etapa antes da divisão dos dados</p></li>
-<li><p>Obter a predição Inserir os dados novos pré-processados no modelo</p></li>
-<li><p>Análise Podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisa ser feita nesse programa.</p></li>
-</ol>
-<p>Os cadernos foram criados aparentemente fora de ordem para produzirmos preditores desde o início e assim entendermos a real necessidade do porque utilizar técnicas de pré-processamento. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.</p>
-<p>FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA-&gt;SOLUÇÃO, O MÉTODO-&gt;PORQUE FUNCIONA-&gt;COMO FAZER-&gt;CONSIDERAÇÕES</p>
+<section id="análise-da-base" class="level1">
+<h1>Análise da base</h1>
+<p>Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.</p>
+<p>Segundo a Organização Mundial da Saúde (OMS), o AVC é a segunda principal causa de morte no mundo, sendo responsável por aproximadamente 11% do total de mortes.</p>
+<p>Este conjunto de dados é usado para prever a probabilidade de um paciente sofrer um AVC com base em parâmetros de entrada como sexo, idade, diversas doenças e tabagismo. Cada linha dos dados fornece informações relevantes sobre o paciente.</p>
+<div id="2b78626e" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#trocar essa url pelo caminho da base Stroke Prediction Dataset de vocês.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stroke <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Pré-Processamento</span><span class="ch">\\</span><span class="st">healthcare-dataset-stroke-data.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stroke)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         id  gender   age  hypertension  heart_disease ever_married  \
+0      9046    Male  67.0             0              1          Yes   
+1     51676  Female  61.0             0              0          Yes   
+2     31112    Male  80.0             0              1          Yes   
+3     60182  Female  49.0             0              0          Yes   
+4      1665  Female  79.0             1              0          Yes   
+...     ...     ...   ...           ...            ...          ...   
+5105  18234  Female  80.0             1              0          Yes   
+5106  44873  Female  81.0             0              0          Yes   
+5107  19723  Female  35.0             0              0          Yes   
+5108  37544    Male  51.0             0              0          Yes   
+5109  44679  Female  44.0             0              0          Yes   
+
+          work_type Residence_type  avg_glucose_level   bmi   smoking_status  \
+0           Private          Urban             228.69  36.6  formerly smoked   
+1     Self-employed          Rural             202.21   NaN     never smoked   
+2           Private          Rural             105.92  32.5     never smoked   
+3           Private          Urban             171.23  34.4           smokes   
+4     Self-employed          Rural             174.12  24.0     never smoked   
+...             ...            ...                ...   ...              ...   
+5105        Private          Urban              83.75   NaN     never smoked   
+5106  Self-employed          Urban             125.20  40.0     never smoked   
+5107  Self-employed          Rural              82.99  30.6     never smoked   
+5108        Private          Rural             166.29  25.6  formerly smoked   
+5109       Govt_job          Urban              85.28  26.2          Unknown   
+
+      stroke  
+0          1  
+1          1  
+2          1  
+3          1  
+4          1  
+...      ...  
+5105       0  
+5106       0  
+5107       0  
+5108       0  
+5109       0  
+
+[5110 rows x 12 columns]</code></pre>
+</div>
+</div>
+<p>São 5110 amostras com 11 variáveis explicativas e uma variável resposta. Segue abaixo a descrição de cada uma:</p>
+<ul>
+<li><p>id: Número inteiro que serve como identificador único de cada paciente</p></li>
+<li><p>gender: Male, Female ou Other, é o gênero do paciente.</p></li>
+<li><p>age: Idade do paciente</p></li>
+<li><p>hypertension: 0 se o paciente não tem hipertensão e 1 se tiver.</p></li>
+<li><p>heart_disease: 0 se o paciente não tem alguma doença cardíaca e 1 se tiver.</p></li>
+<li><p>ever_married: No ou Yes, Não ou Sim se o paciente já foi ou é casado.</p></li>
+<li><p>work_type: children, Govt_job, Never_worked, Private ou Self-employed, categoria de trabalho do paciente.</p></li>
+<li><p>Residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano</p></li>
+<li><p>avg_glucose_level: Nível médio de glicose no sangue, em float.</p></li>
+<li><p>bmi: Índice de massa corporal (IMC), em float.</p></li>
+<li><p>smoking_status: formerly smoked, never smoked, smokes ou Unknown, status de fumante do paciente.</p></li>
+<li><p>stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.</p></li>
+</ul>
+</section>
+<section id="diretrizes-gerais-do-pré-processamento" class="level1">
+<h1>Diretrizes gerais do pré-processamento</h1>
+<p>Nossa base possui variáveis textuais e categóricas, o que é um problema para as implementações do scikit-learn: os algoritmos de aprendizado de máquina exigem que os dados estejam com algum nível de pré-processamento para poder executar. Precisamos tratar essas condições antes de poder criar o preditor, o tratamento é feito pela codificação para variáveis que serão aceitas pelo scikit-learn. Sem essa etapa a base stroke, caso inserida dentro de uma função de aprendizado de máquina do scikit-learn, apenas retornará um erro.</p>
+<p>Dependendo do módulo que for utilizado ou da linguagem de programação, pode haver uma flexibilidade maior, dados que não são aceitos pelo scikit-learn serão aceitos e vice-versa, um programador precisa conhecer as limitações de cada módulo que utiliza.</p>
+<p>Em geral o que precisamos nos atentar, em uma primeira análise para o scikit-learn, é a presença dos seguintes tipos de dados:</p>
+<ul>
+<li>Dados textuais</li>
+<li>Dados faltantes</li>
+<li>Variáveis categóricas</li>
+<li>Dados do tipo data</li>
+</ul>
+<p>Todas esses tipos de dados necessitam de pré-processamento para rodar em qualquer função do scikit-learn</p>
+<p>Idealmente realizaremos o pré-processamento antes da separação em k-fold. Se por alguma razão já temos os dados separados de antemão por reamostragem, será necessário realizar o pré-processamento em cada um dos grupos antes de inserir nos modelos, que pode ser feito com laços for.</p>
+<p>O pré-processamento necessariamente precisa ser feito após a separação do conjunto validação para evitar vazamento de informação dos dados novos que usaremos para testar o modelo no final, da mesma maneira que uma amostra externa não poderia influenciar na construção do modelo.</p>
+<p><em>Então como fica o pré-processamento do conjunto validação? Não faremos? Precisamos tratar os dados faltantes e converter variáveis textuais nela também certo?</em></p>
+<p>Sim, precisamos fazer o pré-processamento no conjunto validação também, porém, durante o pré-processamento criaremos médias, desvios padrões entre outras variáveis que não podem ser influenciadas pelos dados externos.</p>
+<p><em>Mas como que o pré-processamento da base validação será feito então?</em></p>
+<p>Depois de criar as métricas no pré-processamento do conjunto treino, utilizaremos estas para realizar a transformação do que tiver que ser transformado no conjunto validação ou dados externos.</p>
+<p>Faremos uma separação em treino e teste que utilizaremos na implementação de todos os métodos com reamostragem por k-fold para propositalmente testá-los em sequência com as mesmas respectivas amostras para evitar o viés de seleção. Será utilizado o algoritmo random-forest para a confecção dos preditores.</p>
+<p>Um passo importante antes da separação do conjunto validação é salvar as possíveis classes de todas as variáveis categóricas:</p>
+<div id="929d8fef" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>colunasCategoricas <span class="op">=</span> <span class="bu">list</span>(stroke.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>, <span class="st">'category'</span>]).columns)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando possíveis classes de todas as variáveis categóricas</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>classesColCateg <span class="op">=</span> []</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Exibindo as diferentes classes presentes em uma coluna com variável categórica</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>coluna<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">list</span>(stroke[coluna].unique())<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  classesColCateg.append(<span class="bu">list</span>(stroke[coluna].unique()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>gender: ['Male', 'Female', 'Other']
+ever_married: ['Yes', 'No']
+work_type: ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked']
+Residence_type: ['Urban', 'Rural']
+smoking_status: ['formerly smoked', 'never smoked', 'smokes', 'Unknown']</code></pre>
+</div>
+</div>
+<p>Sem este passo podemos ter problemas com a codificação de variáveis.</p>
+<p>Nesse caso, vazamento de informações não é uma preocupação porque o modelo final só poderá aceitar amostras novas com o formato que foi treinado, o que inclui as classes possíveis de uma variável categórica. Portanto, precisamos utilizar todos os dados que possuímos a nossa disposização, mesmo que eventualmente uma das classes só esteje no conjunto validação, o pré-processamento precisa ter ciência de sua existência ao menos para poder criar colunas no processo de codificação de variáveis.</p>
+<p>Caso uma classe nova seja adicionada a uma das variáveis e, quisermos manter o modelo anterior, teremos que substituir ela por NA para realizar o tratamento de NA posteriormente. Podemos também simplesmente treinar um novo modelo para aceitar a classe nova, com o pré-processamento adaptado para a novidade.</p>
+<p>Segue abaixo a separação do conjunto validação, com 10% das amostras originais.</p>
+<div id="ad9d6fbd" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold, x_strokeValidacao, y_strokeKfold, y_strokeValidacao <span class="op">=</span> train_test_split(stroke.drop(columns<span class="op">=</span>[<span class="st">'stroke'</span>]), stroke[<span class="st">'stroke'</span>], test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Segue abaixo uma função para testar o preditor com reamostragem por kfold pelas métricas de acurácia, sensibilidade e especificidade (a mesma função do capítulo de reamostragem do caderno de validação cruzada):</p>
+<div id="2a9226cb" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># criação de uma lista para reutilização do generator </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  kfBase <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span>n_splits, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>random_state).split(XBase, YBase)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  kfBaseLista <span class="op">=</span> <span class="bu">list</span>(kfBase)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  foldsBase <span class="op">=</span> []</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> K, (train, test) <span class="kw">in</span> <span class="bu">enumerate</span>(kfBaseLista, <span class="dv">1</span>):</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Não guarda K porque não precisa, é o índice da lista mais 1.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    foldsBase.append([<span class="bu">list</span>(train), <span class="bu">list</span>(test)])</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("K:", K, "train:", len(train), "test:", len(test))</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Criando os modelos individuais de cada fold</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  modelosIndividuais <span class="op">=</span> []</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> fold <span class="kw">in</span> foldsBase:</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    modelosIndividuais.append(funcaoAlgoritmo(random_state<span class="op">=</span>random_state).fit(XBase.iloc[fold[<span class="dv">0</span>]], YBase.iloc[fold[<span class="dv">0</span>]]))</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Testando os modelos individuais de cada fold</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  acuraciaModelos <span class="op">=</span> []</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  sensibilidadeModelos <span class="op">=</span> []</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  especificidadeModelos <span class="op">=</span> []</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(modelosIndividuais)):</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    Y_predBase <span class="op">=</span> modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][<span class="dv">1</span>]])</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    vn, fp, fn, vp <span class="op">=</span> confusion_matrix(YBase.iloc[foldsBase[i][<span class="dv">1</span>]], Y_predBase).ravel()</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    acuraciaModelos.append(acuracia)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    sensibilidadeModelos.append(sensibilidade)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    especificidadeModelos.append(especificidade)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Printando o compilado de métricas</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da acurácia: </span><span class="sc">{</span>(<span class="bu">sum</span>(acuraciaModelos)<span class="op">/</span><span class="bu">len</span>(acuraciaModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da acurácia: </span><span class="sc">{</span>np<span class="sc">.</span>std(acuraciaModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da sensibilidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(sensibilidadeModelos)<span class="op">/</span><span class="bu">len</span>(sensibilidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da sensibilidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(sensibilidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da especificidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(especificidadeModelos)<span class="op">/</span><span class="bu">len</span>(especificidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da especificidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(especificidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Essa função será utilizada para testar o modelo assim que passarmos pelas etapas iniciais obrigatórias de pré-processamento mencionadas. É uma simples função de validação cruzada.</p>
 </section>
 <section id="tratamento-de-dados-faltantes" class="level1">
 <h1>Tratamento de dados faltantes</h1>
+<div id="45141f80" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df['B'].isna().sum()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="remoção" class="level2">
 <h2 class="anchored" data-anchor-id="remoção">Remoção</h2>
 <section id="amostras" class="level3">
@@ -582,36 +718,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="dados-incompletos">Dados incompletos</h2>
 </section>
 </section>
-<section id="transformação-de-variáveis" class="level1">
-<h1>Transformação de variáveis</h1>
-<section id="padronização" class="level2">
-<h2 class="anchored" data-anchor-id="padronização">Padronização</h2>
-</section>
-<section id="normalização" class="level2">
-<h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
-</section>
-<section id="transformação-logarítimica" class="level2">
-<h2 class="anchored" data-anchor-id="transformação-logarítimica">Transformação logarítimica</h2>
-</section>
-<section id="lematização" class="level2">
-<h2 class="anchored" data-anchor-id="lematização">Lematização</h2>
-</section>
-<section id="vetorização-de-texto" class="level2">
-<h2 class="anchored" data-anchor-id="vetorização-de-texto">Vetorização de texto</h2>
-</section>
-</section>
-<section id="criação-de-variáveis-auxiliares" class="level1">
-<h1>Criação de variáveis auxiliares</h1>
-<section id="quantitativas" class="level2">
-<h2 class="anchored" data-anchor-id="quantitativas">quantitativas</h2>
-</section>
-<section id="qualitativas" class="level2">
-<h2 class="anchored" data-anchor-id="qualitativas">qualitativas</h2>
-</section>
-<section id="em-preditores-textuais" class="level2">
-<h2 class="anchored" data-anchor-id="em-preditores-textuais">Em preditores textuais</h2>
-</section>
-</section>
 <section id="codificação-de-variáveis" class="level1">
 <h1>Codificação de variáveis</h1>
 <section id="variável-dummy-e-one-hot-encoding" class="level2">
@@ -620,6 +726,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="discretização" class="level2">
 <h2 class="anchored" data-anchor-id="discretização">Discretização</h2>
 </section>
+</section>
+<section id="rebalanceamento" class="level1">
+<h1>Rebalanceamento</h1>
+<p>O que é, quando fazer, enviezar de propósito quando. ## Under sampling</p>
+<p>Um outro pré-processamento que teremos que fazer mesmo nesse preditor inicial é o rebalanceamento da variável explicativa.</p>
+<p>Observe que há 4861 pacientes que não tiveram AVC e 249 pacientes que tiveram AVC:</p>
+<div id="fe8390b2" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stroke[<span class="st">'stroke'</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stroke
+0    4861
+1     249
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>O modelo que faríamos iria classificar todos os pacientes como sem AVC porque assim traria uma acurácia maior, como não queremos isso vamos usar uma base balanceada, 50% - 50%, faremos isso com undersampling, implementado pela classe RandomUnderSampler do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno. Note que não faremos esse procedimento para o conjunto validação.</p>
+<div id="b95107f3" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando o undersampling</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldBalanceado, y_strokeKfoldBalanceado <span class="op">=</span> RandomUnderSampler(random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfold.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stroke
+0    4376
+1     223
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke é 1, após separação do conjunto validação, estão na nova separação junto com 223 amostras em que stroke é 0. ## Over sampling</p>
 </section>
 <section id="seleção-de-atributos" class="level1">
 <h1>Seleção de atributos</h1>
@@ -630,59 +764,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="nearzerovar">NearZeroVar</h2>
 </section>
 </section>
+<section id="transformação-de-variáveis" class="level1">
+<h1>Transformação de variáveis</h1>
+<section id="padronização" class="level2">
+<h2 class="anchored" data-anchor-id="padronização">Padronização</h2>
+</section>
+<section id="normalização" class="level2">
+<h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
+</section>
+</section>
 <section id="redução-de-dimensionalidade" class="level1">
 <h1>Redução de dimensionalidade</h1>
 <section id="pca-que-não-é-reduzir-variaveis" class="level2">
 <h2 class="anchored" data-anchor-id="pca-que-não-é-reduzir-variaveis">PCA (QUE NÃO É REDUZIR VARIAVEIS)</h2>
 </section>
 </section>
-<section id="rebalanceamento" class="level1">
-<h1>Rebalanceamento</h1>
-<p>O que é, quando fazer, enviezar de propósito quando. ## Under sampling ## Over sampling</p>
+<section id="resumo" class="level1">
+<h1>Resumo</h1>
 <section id="referencias" class="level3">
 <h3 class="anchored" data-anchor-id="referencias">Referencias</h3>
-<section id="pln" class="level4">
-<h4 class="anchored" data-anchor-id="pln">PLN</h4>
-<p>“Speech and Language Processing” — Daniel Jurafsky &amp; James H. Martin</p>
-<p>Um dos livros mais influentes em PLN (Processamento de Linguagem Natural).</p>
-<p>Vetorização de texto (TF-IDF, BoW, embeddings): “Introduction to Information Retrieval” – Manning, Raghavan, Schütze</p>
-<p>Capítulo 6: TF-IDF Capítulo 2: Indexação e representação vetorial</p>
-<p>“Speech and Language Processing” – Jurafsky &amp; Martin</p>
-<p>Capítulos 3 e 4: Modelos de linguagem e representação vetorial de texto.</p>
-<p>Capítulos sobre vetorização, TF-IDF, bag-of-words, embeddings, etc.</p>
-</section>
-<section id="transformações-não-pln" class="level4">
-<h4 class="anchored" data-anchor-id="transformações-não-pln">Transformações não PLN</h4>
-<ol start="2" type="1">
-<li>Transformação de variáveis (padronização, normalização, log, etc.): “The Elements of Statistical Learning” – Hastie, Tibshirani &amp; Friedman</li>
-</ol>
-<p>Apresenta a importância da escala das variáveis para diferentes algoritmos.</p>
-<p>Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html</p>
-<p>Explica e implementa:</p>
-<p>StandardScaler (padronização)</p>
-<p>MinMaxScaler (normalização)</p>
-<p>PowerTransformer, FunctionTransformer (transformações log, Box-Cox etc.)</p>
-</section>
-<section id="categorização" class="level4">
-<h4 class="anchored" data-anchor-id="categorização">categorização</h4>
-<ol start="3" type="1">
-<li>Codificação de variáveis categóricas (one-hot, dummies, label encoding): “An Introduction to Statistical Learning” (ISL) – Gareth James et al.</li>
-</ol>
-<p>Explica variáveis dummy e sua relação com regressão.</p>
-<p>“Data Mining: Concepts and Techniques” – Jiawei Han, Micheline Kamber, Jian Pei</p>
-<p>Capítulo sobre pré-processamento de dados, incluindo discretização.</p>
-<p>Explica técnicas manuais e automáticas de discretização e seus usos.</p>
-<p>Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features</p>
-<p>Fala de OneHotEncoder, OrdinalEncoder, etc.</p>
-</section>
-<section id="imputação-1" class="level4">
-<h4 class="anchored" data-anchor-id="imputação-1">Imputação</h4>
-<p>Fontes para estudo: “Flexible Imputation of Missing Data” – Stef van Buuren (livro referência sobre imputação múltipla e model-based imputation)</p>
-<p>Scikit-learn docs: IterativeImputer</p>
-<p>Artigos sobre Multiple Imputation e model-based methods em estatística e ciência de dados.</p>
+<p>Dados faltantes: Python for Data Analysis</p>
 
 
-</section>
 </section>
 </section>
 

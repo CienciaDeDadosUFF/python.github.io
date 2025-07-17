@@ -720,46 +720,6 @@
     ]
   },
   {
-    "objectID": "introducaoML.html#classificação",
-    "href": "introducaoML.html#classificação",
-    "title": "Introdução a Aprendizado de Máquina",
-    "section": "Classificação:",
-    "text": "Classificação:\nAtribuir uma amostra a uma classe, baseado em classes pré-estabelecidas.\nex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
-    ]
-  },
-  {
-    "objectID": "introducaoML.html#regressão",
-    "href": "introducaoML.html#regressão",
-    "title": "Introdução a Aprendizado de Máquina",
-    "section": "Regressão:",
-    "text": "Regressão:\nAtribuir um valor numérico a uma amostra dado as suas características.\nex: Prever a temperatura de um dia baseado nas condições atmosféricas.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
-    ]
-  },
-  {
-    "objectID": "introducaoML.html#clusterização",
-    "href": "introducaoML.html#clusterização",
-    "title": "Introdução a Aprendizado de Máquina",
-    "section": "Clusterização:",
-    "text": "Clusterização:\nAgrupar dados por suas características sem que eles possuam uma classe pré-estabelecida.\nex: Segmentação de clientes em marketing.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
-    ]
-  },
-  {
-    "objectID": "introducaoML.html#detecção-de-anomalia",
-    "href": "introducaoML.html#detecção-de-anomalia",
-    "title": "Introdução a Aprendizado de Máquina",
-    "section": "Detecção de anomalia:",
-    "text": "Detecção de anomalia:\nIdentificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados.\nex: Detecção de fraudes em transações financeiras.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
-    ]
-  },
-  {
     "objectID": "introducaoML.html#aprendizado-supervisionado",
     "href": "introducaoML.html#aprendizado-supervisionado",
     "title": "Introdução a Aprendizado de Máquina",
@@ -864,7 +824,7 @@
     "href": "AvaliandoPreditores.html#criação-e-treino-do-classificador",
     "title": "Criação e Avaliação de Preditores",
     "section": "Criação e treino do classificador",
-    "text": "Criação e treino do classificador\nAgora vamos criar o nosso classificador. Para isso vamos usar a função LogisticRegression() para instanciá-lo e o método .fit() para treiná-lo.\n\nmodelSpam = LogisticRegression(max_iter=3000)\nmodelSpam.fit(x_trainSpam, y_trainSpam)\n\nLogisticRegression(max_iter=3000)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LogisticRegression?Documentation for LogisticRegressioniFitted\n        \n            \n                Parameters\n                \n\n\n\n\npenalty \n'l2'\n\n\n\ndual \nFalse\n\n\n\ntol \n0.0001\n\n\n\nC \n1.0\n\n\n\nfit_intercept \nTrue\n\n\n\nintercept_scaling \n1\n\n\n\nclass_weight \nNone\n\n\n\nrandom_state \nNone\n\n\n\nsolver \n'lbfgs'\n\n\n\nmax_iter \n3000\n\n\n\nmulti_class \n'deprecated'\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nl1_ratio \nNone\n\n\n\n\n            \n        \n    \n\n\nA função LogisticRegression que cria o modelo de regressão logística possui diversos parâmetros que possuem valores padrão. Alterei apenas o max_iter para 3000 porque o padrão de 100 não é suficiente para o modelo convergir na base de dados utilizada. Falaremos mais detalhadamente sobre como cada algoritmo funciona nos próximos cadernos.",
+    "text": "Criação e treino do classificador\nAgora vamos criar o nosso classificador. Para isso vamos usar a função LogisticRegression() para instanciá-lo e o método .fit() para treiná-lo.\n\nmodelSpam = LogisticRegression(max_iter=3000)\nmodelSpam.fit(x_trainSpam, y_trainSpam)\n\nLogisticRegression(max_iter=3000)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LogisticRegression?Documentation for LogisticRegressioniFittedLogisticRegression(max_iter=3000) \n\n\nA função LogisticRegression que cria o modelo de regressão logística possui diversos parâmetros que possuem valores padrão. Alterei apenas o max_iter para 3000 porque o padrão de 100 não é suficiente para o modelo convergir na base de dados utilizada. Falaremos mais detalhadamente sobre como cada algoritmo funciona nos próximos cadernos.",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Criação e Avaliação de Preditores</span>"
     ]
@@ -924,7 +884,7 @@
     "href": "AvaliandoPreditores.html#criação-e-treino-do-regressor",
     "title": "Criação e Avaliação de Preditores",
     "section": "Criação e treino do regressor",
-    "text": "Criação e treino do regressor\nAgora vamos criar o nosso regressor. Para isso vamos usar a função LinearRegression() para instanciá-lo e o método .fit() para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: from sklearn.linear_model import LinearRegression\n\nmodelFaithful = LinearRegression()\nmodelFaithful.fit(x_trainFaithful, y_trainFaithful)\n\nLinearRegression()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LinearRegression?Documentation for LinearRegressioniFitted\n        \n            \n                Parameters\n                \n\n\n\n\nfit_intercept \nTrue\n\n\n\ncopy_X \nTrue\n\n\n\ntol \n1e-06\n\n\n\nn_jobs \nNone\n\n\n\npositive \nFalse",
+    "text": "Criação e treino do regressor\nAgora vamos criar o nosso regressor. Para isso vamos usar a função LinearRegression() para instanciá-lo e o método .fit() para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: from sklearn.linear_model import LinearRegression\n\nmodelFaithful = LinearRegression()\nmodelFaithful.fit(x_trainFaithful, y_trainFaithful)\n\nLinearRegression()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LinearRegression?Documentation for LinearRegressioniFittedLinearRegression()",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Criação e Avaliação de Preditores</span>"
     ]
@@ -954,7 +914,7 @@
     "href": "CrossValidation.html",
     "title": "Validação Cruzada",
     "section": "",
-    "text": "Imports\nSegue abaixo o código da importação dos módulos que usaremos nesse caderno:\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import StratifiedKFold\nfrom sklearn.model_selection import RepeatedStratifiedKFold\nfrom sklearn.utils import resample\nfrom sklearn.model_selection import cross_val_score\nfrom sklearn.ensemble import RandomForestClassifier",
+    "text": "Imports\nSegue abaixo o código da importação dos módulos que usaremos nesse caderno:\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.model_selection import StratifiedKFold\nfrom sklearn.model_selection import RepeatedStratifiedKFold\nfrom sklearn.utils import resample\nfrom sklearn.model_selection import cross_val_score\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import confusion_matrix",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validação Cruzada</span>"
     ]
@@ -1004,7 +964,7 @@
     "href": "CrossValidation.html#criando-e-comparando-preditores-com-os-métodos-de-reamostragem.",
     "title": "Validação Cruzada",
     "section": "Criando e comparando preditores com os métodos de reamostragem.",
-    "text": "Criando e comparando preditores com os métodos de reamostragem.\nComo respondido anteriormente, o processo de criação de preditores é parecida entre os diferentes métodos de reamostragem.\nEm ambientes diferentes do scikit-learn, como no pacote caret do R, o processo de criação de preditores a partir de uma reamostragem é o mesmo, porque no caret tanto a seleção de algoritmo como a reamostragem é um argumento da função que treina o modelo, simplificando o trabalho.\nAqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida.\nPorque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado de máquinas a ser contornado.\nFeito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: cross_val_score().\n\nkfSpam = StratifiedKFold(n_splits=10, shuffle=True, random_state=11)\n#podemos usar a função com o repeated k-fold também\n#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)\nresultadoVC = cross_val_score(RandomForestClassifier(), XSpam, YSpam, cv=kfSpam, scoring=\"accuracy\") \nprint(resultadoVC)\nprint(\"Média:\", resultadoVC.mean())\nprint(\"Desvio padrão:\", resultadoVC.std())\n\n[0.94793926 0.94782609 0.96304348 0.95869565 0.95434783 0.93695652\n 0.9673913  0.97173913 0.96086957 0.95434783]\nMédia: 0.9563156653777234\nDesvio padrão: 0.009782520906264084\n\n\n\nestimator (primeiro argumento posicional): recebe a função que gera o preditor que queremos usar.\n\ncv: recebe o objeto gerado por uma função K-Fold ou repeated K-Fold.\nscoring: recebe uma métrica, padrão accuracy, pesquisar na documentação do scikit-learn outras métricas possíveis\n\n3 prints são realizados após executar a função: o primeiro para mostrar a acurácia individual de cada modelo gerado por cada fold, o segundo e o terceiro para mostrar a média e o desvio padrão dos folds respectivamente. Podemos tirar algumas conclusões a respeito do RandomForestClassifier() para o problema dos spams, média de acurácia bem alta e desvio padrão bem baixo, é provavelmente um bom algoritmo para o problema dos spams, em todos os folds superior a regressão logística que fizemos no caderno Criação e Avaliação de Preditores.\nEssa função tem alguns problemas:\n\nSó funciona para objetos gerados por funções de K-Fold, não aceita outras reamostragens como Bootstrap.\nPra cada métrica que queremos ver precisamos rodar ela novamente. O scikit-learn possui a função cross_validate() que supostamente deveria funcionar parecido mas que permite uma lista de métricas, porém, tanto na função cross_validate() quanto na cross_val_score() quando colocamos recall a função retorna um erro.\nNão podemos definir um random_state para o modelo que entra, logo não conseguiremos reproduzir um resultado.\nGeramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos\n\nNo geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.",
+    "text": "Criando e comparando preditores com os métodos de reamostragem.\nComo respondido anteriormente, o processo de criação de preditores é parecida entre os diferentes métodos de reamostragem.\nEm ambientes diferentes do scikit-learn, como no pacote caret do R, o processo de criação de preditores a partir de uma reamostragem é o mesmo, porque no caret tanto a seleção de algoritmo como a reamostragem é um argumento da função que treina o modelo, simplificando o trabalho.\nAqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida.\nPorque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado de máquinas a ser contornado.\nFeito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: cross_val_score().\n\nkfSpam = StratifiedKFold(n_splits=10, shuffle=True, random_state=11)\n#podemos usar a função com o repeated k-fold também\n#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)\nresultadoVC = cross_val_score(RandomForestClassifier(), XSpam, YSpam, cv=kfSpam, scoring=\"accuracy\") \nprint(resultadoVC)\nprint(\"Média:\", resultadoVC.mean())\nprint(\"Desvio padrão:\", resultadoVC.std())\n\n[0.94793926 0.94565217 0.96521739 0.95434783 0.95217391 0.93913043\n 0.96956522 0.96521739 0.96521739 0.95      ]\nMédia: 0.955446100160332\nDesvio padrão: 0.009725388551571932\n\n\n\nestimator (primeiro argumento posicional): recebe a função que gera o preditor que queremos usar.\n\ncv: recebe o objeto gerado por uma função K-Fold ou repeated K-Fold.\nscoring: recebe uma métrica, padrão accuracy, pesquisar na documentação do scikit-learn outras métricas possíveis\n\n3 prints são realizados após executar a função: o primeiro para mostrar a acurácia individual de cada modelo gerado por cada fold, o segundo e o terceiro para mostrar a média e o desvio padrão dos folds respectivamente. Podemos tirar algumas conclusões a respeito do RandomForestClassifier() para o problema dos spams, média de acurácia bem alta e desvio padrão bem baixo, é provavelmente um bom algoritmo para o problema dos spams, em todos os folds superior a regressão logística que fizemos no caderno Criação e Avaliação de Preditores.\nEssa função tem alguns problemas:\n\nSó funciona para objetos gerados por funções de K-Fold, não aceita outras reamostragens como Bootstrap.\nPra cada métrica que queremos ver precisamos rodar ela novamente. O scikit-learn possui a função cross_validate() que supostamente deveria funcionar parecido mas que permite uma lista de métricas, porém, tanto na função cross_validate() quanto na cross_val_score() quando colocamos recall a função retorna um erro.\nNão podemos definir um random_state para o modelo que entra, logo não conseguiremos reproduzir um resultado.\nGeramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos\n\nNo geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.\nSegue abaixo uma função criada para exibir acurácia, sensibilidade e especificidade de um modelo recebendo o número de folds para a reamostragem por k-fold, o random_state e a função de implementação de algoritmo de aprendizado de máquina:\n\ndef testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):\n  \"\"\"Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido\"\"\"\n  # criação de uma lista para reutilização do generator \n  kfBase = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state).split(XBase, YBase)\n  kfBaseLista = list(kfBase)\n  \n  # Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  \n  foldsBase = []\n  for K, (train, test) in enumerate(kfBaseLista, 1):\n    # Não guarda K porque não precisa, é o índice da lista mais 1.\n    foldsBase.append([list(train), list(test)])\n    #print(\"K:\", K, \"train:\", len(train), \"test:\", len(test))\n  \n  # Criando os modelos individuais de cada fold\n  modelosIndividuais = []\n  for fold in foldsBase:\n    modelosIndividuais.append(funcaoAlgoritmo(random_state=random_state).fit(XBase.iloc[fold[0]], YBase.iloc[fold[0]]))\n\n  # Testando os modelos individuais de cada fold\n  acuraciaModelos = []\n  sensibilidadeModelos = []\n  especificidadeModelos = []\n  for i in range(len(modelosIndividuais)):\n    Y_predBase = modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][1]])\n    vn, fp, fn, vp = confusion_matrix(YBase.iloc[foldsBase[i][1]], Y_predBase).ravel()\n    acuracia = (vp + vn) / (vp + vn + fp + fn)\n    sensibilidade = vp / (vp + fn)\n    especificidade = vn / (vn + fp)\n    acuraciaModelos.append(acuracia)\n    sensibilidadeModelos.append(sensibilidade)\n    especificidadeModelos.append(especificidade)\n  \n  # Printando o compilado de métricas\n  print(f\"Média da acurácia: {(sum(acuraciaModelos)/len(acuraciaModelos)*100):.1f}%\")\n  print(f\"Desvio padrão populacional da acurácia: {np.std(acuraciaModelos, ddof=0):.3f}\\n\")\n  print(f\"Média da sensibilidade: {(sum(sensibilidadeModelos)/len(sensibilidadeModelos)*100):.1f}%\")\n  print(f\"Desvio padrão populacional da sensibilidade: {np.std(sensibilidadeModelos, ddof=0):.3f}\\n\")\n  print(f\"Média da especificidade: {(sum(especificidadeModelos)/len(especificidadeModelos)*100):.1f}%\")\n  print(f\"Desvio padrão populacional da especificidade: {np.std(especificidadeModelos, ddof=0):.3f}\\n\")\n\nE agora utilizando-a para a base Spam com 5 folds e com o RandomForestClassifier:\n\ntesteMetricasKFold(XSpam, YSpam, n_splits=5, random_state=11, funcaoAlgoritmo=RandomForestClassifier)\n\nMédia da acurácia: 95.1%\nDesvio padrão populacional da acurácia: 0.010\n\nMédia da sensibilidade: 92.4%\nDesvio padrão populacional da sensibilidade: 0.014\n\nMédia da especificidade: 96.8%\nDesvio padrão populacional da especificidade: 0.008",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validação Cruzada</span>"
     ]
@@ -1014,7 +974,7 @@
     "href": "preProcessamento.html",
     "title": "Pré-Processamento",
     "section": "",
-    "text": "Imports\nSegue abaixo os módulos que usaremos nesse caderno:\nimport pandas as pd\nimport numpy as np",
+    "text": "Imports\nSegue abaixo os módulos que usaremos nesse caderno:\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.model_selection import StratifiedKFold\nfrom imblearn.under_sampling import RandomUnderSampler\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import confusion_matrix",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
     ]
@@ -1045,86 +1005,6 @@
     "title": "Pré-Processamento",
     "section": "Dados incompletos",
     "text": "Dados incompletos",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#padronização",
-    "href": "preProcessamento.html#padronização",
-    "title": "Pré-Processamento",
-    "section": "Padronização",
-    "text": "Padronização",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#normalização",
-    "href": "preProcessamento.html#normalização",
-    "title": "Pré-Processamento",
-    "section": "Normalização",
-    "text": "Normalização",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#transformação-logarítimica",
-    "href": "preProcessamento.html#transformação-logarítimica",
-    "title": "Pré-Processamento",
-    "section": "Transformação logarítimica",
-    "text": "Transformação logarítimica",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#lematização",
-    "href": "preProcessamento.html#lematização",
-    "title": "Pré-Processamento",
-    "section": "Lematização",
-    "text": "Lematização",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#vetorização-de-texto",
-    "href": "preProcessamento.html#vetorização-de-texto",
-    "title": "Pré-Processamento",
-    "section": "Vetorização de texto",
-    "text": "Vetorização de texto",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#quantitativas",
-    "href": "preProcessamento.html#quantitativas",
-    "title": "Pré-Processamento",
-    "section": "quantitativas",
-    "text": "quantitativas",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#qualitativas",
-    "href": "preProcessamento.html#qualitativas",
-    "title": "Pré-Processamento",
-    "section": "qualitativas",
-    "text": "qualitativas",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
-    ]
-  },
-  {
-    "objectID": "preProcessamento.html#em-preditores-textuais",
-    "href": "preProcessamento.html#em-preditores-textuais",
-    "title": "Pré-Processamento",
-    "section": "Em preditores textuais",
-    "text": "Em preditores textuais",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
     ]
@@ -1165,6 +1045,26 @@
     "title": "Pré-Processamento",
     "section": "NearZeroVar",
     "text": "NearZeroVar",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "preProcessamento.html#padronização",
+    "href": "preProcessamento.html#padronização",
+    "title": "Pré-Processamento",
+    "section": "Padronização",
+    "text": "Padronização",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "preProcessamento.html#normalização",
+    "href": "preProcessamento.html#normalização",
+    "title": "Pré-Processamento",
+    "section": "Normalização",
+    "text": "Normalização",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pré-Processamento</span>"
     ]

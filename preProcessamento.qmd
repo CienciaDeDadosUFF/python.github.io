@@ -16,6 +16,11 @@ Segue abaixo os módulos que usaremos nesse caderno:
 ```{python}
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold
+from imblearn.under_sampling import RandomUnderSampler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
 ```
 
 # O que é Pré-Processamento?
@@ -24,45 +29,159 @@ Pré-processamento é a etapa do desenvolvimento de modelos que consiste em prep
 
 Em termos simples, é como organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até esse caderno as bases dados utilizadas são bases que já passaram por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam.
 
-Pré-processamento tem duas etapas, uma anterior a divisão dos dados, que será realizada sempre que o modelo for utilizado, e uma posterior que será usada para o treinamento apenas.
+Pré-processamento tem duas etapas, uma logo depois da divisão dos dados, que será realizada também sempre que o preditor for utilizado, e uma posterior que será para o treinamento apenas.
 
-Nesse caderno usaremos bases mais rústicas: QUAL BASES USAR (idealmente uma apenas com variáveis quantitativas, outra textual, uma misturada como a stroke do kaggle)
+Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao apresentar os diferentes métodos ficará explicito todas essas questões.
 
-# Análise das bases
+# Análise da base
+Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos. 
 
-ANÁLISE DAS BASES
+Segundo a Organização Mundial da Saúde (OMS), o AVC é a segunda principal causa de morte no mundo, sendo responsável por aproximadamente 11% do total de mortes.
 
-A ORDEM DAS COISAS (PRA POR EM OUTRO CADERNO)
+Este conjunto de dados é usado para prever a probabilidade de um paciente sofrer um AVC com base em parâmetros de entrada como sexo, idade, diversas doenças e tabagismo. Cada linha dos dados fornece informações relevantes sobre o paciente.
 
-Criação de preditores:
+```{python}
+#trocar essa url pelo caminho da base Stroke Prediction Dataset de vocês.
+stroke = pd.read_csv("Cadernos Grupo Python\\Pré-Processamento\\healthcare-dataset-stroke-data.csv")
+print(stroke)
+```
 
-1.  Obtenção dos dados O primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.
+São 5110 amostras com 11 variáveis explicativas e uma variável resposta. Segue abaixo a descrição de cada uma:
 
-2.  1° etapa de pré-processamento Consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.
+* id: Número inteiro que serve como identificador único de cada paciente
 
-3.  Divisão dos dados Os dados são separados em conjuntos de treino, teste e validação, cada um com uma função específica no processo de modelagem.
+* gender: Male, Female ou Other, é o gênero do paciente.
 
-4.  2° etapa de pré-processamento Algumas transformações feitas em cima do conjunto treino e situacionalmente no conjunto teste que não podem ser feitas com o conjunto validação.
+* age: Idade do paciente
 
-5.  Validação cruzada Reamostragem, seleção de modelo, ajuste de hiperparâmetros.
+* hypertension: 0 se o paciente não tem hipertensão e 1 se tiver.
 
-6.  Treinamento do modelo O modelo é treinado.
+* heart_disease: 0 se o paciente não tem alguma doença cardíaca e 1 se tiver.
 
-7.  Avaliação do modelo Métricas finais de performance sobre o conjunto validação.
+* ever_married: No ou Yes, Não ou Sim se o paciente já foi ou é casado.
 
-Uso de preditores: 1. Carregando os dados Inserir dados novos em um programa que de acesso ao preditor criado
+* work_type: children, Govt_job, Never_worked, Private ou Self-employed, categoria de trabalho do paciente.
 
-2.  1° etapa de pré-processamento Nesse programa realizar o mesmo pré-processamento realizado na primeira etapa antes da divisão dos dados
+* Residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano
 
-3.  Obter a predição Inserir os dados novos pré-processados no modelo
+* avg_glucose_level: Nível médio de glicose no sangue, em float.
 
-4.  Análise Podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisa ser feita nesse programa.
+* bmi: Índice de massa corporal (IMC), em float.
 
-Os cadernos foram criados aparentemente fora de ordem para produzirmos preditores desde o início e assim entendermos a real necessidade do porque utilizar técnicas de pré-processamento. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.
+* smoking_status: formerly smoked, never smoked, smokes ou Unknown, status de fumante do paciente.
 
-FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA-\>SOLUÇÃO, O MÉTODO-\>PORQUE FUNCIONA-\>COMO FAZER-\>CONSIDERAÇÕES
+* stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.
+
+# Diretrizes gerais do pré-processamento
+
+Nossa base possui variáveis textuais e categóricas, o que é um problema para as implementações do scikit-learn: os algoritmos de aprendizado de máquina exigem que os dados estejam com algum nível de pré-processamento para poder executar. Precisamos tratar essas condições antes de poder criar o preditor, o tratamento é feito pela codificação para variáveis que serão aceitas pelo scikit-learn. Sem essa etapa a base stroke, caso inserida dentro de uma função de aprendizado de máquina do scikit-learn, apenas retornará um erro.
+
+Dependendo do módulo que for utilizado ou da linguagem de programação, pode haver uma flexibilidade maior, dados que não são aceitos pelo scikit-learn serão aceitos e vice-versa, um programador precisa conhecer as limitações de cada módulo que utiliza. 
+
+Em geral o que precisamos nos atentar, em uma primeira análise para o scikit-learn, é a presença dos seguintes tipos de dados:
+
+* Dados textuais
+* Dados faltantes
+* Variáveis categóricas
+* Dados do tipo data
+
+Todas esses tipos de dados necessitam de pré-processamento para rodar em qualquer função do scikit-learn
+
+Idealmente realizaremos o pré-processamento antes da separação em k-fold. Se por alguma razão já temos os dados separados de antemão por reamostragem, será necessário realizar o pré-processamento em cada um dos grupos antes de inserir nos modelos, que pode ser feito com laços for. 
+
+O pré-processamento necessariamente precisa ser feito após a separação do conjunto validação para evitar vazamento de informação dos dados novos que usaremos para testar o modelo no final, da mesma maneira que uma amostra externa não poderia influenciar na construção do modelo.
+
+*Então como fica o pré-processamento do conjunto validação? Não faremos? Precisamos tratar os dados faltantes e converter variáveis textuais nela também certo?*
+
+Sim, precisamos fazer o pré-processamento no conjunto validação também, porém, durante o pré-processamento criaremos médias, desvios padrões entre outras variáveis que não podem ser influenciadas pelos dados externos. 
+
+*Mas como que o pré-processamento da base validação será feito então?* 
+
+Depois de criar as métricas no pré-processamento do conjunto treino, utilizaremos estas para realizar a transformação do que tiver que ser transformado no conjunto validação ou dados externos.
+
+Faremos uma separação em treino e teste que utilizaremos na implementação de todos os métodos com reamostragem por k-fold para propositalmente testá-los em sequência com as mesmas respectivas amostras para evitar o viés de seleção. Será utilizado o algoritmo random-forest para a confecção dos preditores.
+
+Um passo importante antes da separação do conjunto validação é salvar as possíveis classes de todas as variáveis categóricas:
+
+```{python}
+# Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)
+colunasCategoricas = list(stroke.select_dtypes(include=['object', 'category']).columns)
+
+
+# Salvando possíveis classes de todas as variáveis categóricas
+classesColCateg = []
+for coluna in colunasCategoricas:
+  #Exibindo as diferentes classes presentes em uma coluna com variável categórica
+  print(f"{coluna}: {list(stroke[coluna].unique())}")
+  classesColCateg.append(list(stroke[coluna].unique()))
+```
+
+Sem este passo podemos ter problemas com a codificação de variáveis. 
+
+Nesse caso, vazamento de informações não é uma preocupação porque o modelo final só poderá aceitar amostras novas com o formato que foi treinado, o que inclui as classes possíveis de uma variável categórica. Portanto, precisamos utilizar todos os dados que possuímos a nossa disposização, mesmo que eventualmente uma das classes só esteje no conjunto validação, o pré-processamento precisa ter ciência de sua existência ao menos para poder criar colunas no processo de codificação de variáveis.
+
+Caso uma classe nova seja adicionada a uma das variáveis e, quisermos manter o modelo anterior, teremos que substituir ela por NA para realizar o tratamento de NA posteriormente. Podemos também simplesmente treinar um novo modelo para aceitar a classe nova, com o pré-processamento adaptado para a novidade.
+
+Segue abaixo a separação do conjunto validação, com 10% das amostras originais.
+
+```{python}
+x_strokeKfold, x_strokeValidacao, y_strokeKfold, y_strokeValidacao = train_test_split(stroke.drop(columns=['stroke']), stroke['stroke'], test_size=0.1, random_state=11)
+```
+
+Segue abaixo uma função para testar o preditor com reamostragem por kfold pelas métricas de acurácia, sensibilidade e especificidade (a mesma função do capítulo de reamostragem do caderno de validação cruzada):
+
+```{python}
+def testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):
+  """Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""
+  # criação de uma lista para reutilização do generator 
+  kfBase = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state).split(XBase, YBase)
+  kfBaseLista = list(kfBase)
+  
+  # Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  
+  foldsBase = []
+  for K, (train, test) in enumerate(kfBaseLista, 1):
+    # Não guarda K porque não precisa, é o índice da lista mais 1.
+    foldsBase.append([list(train), list(test)])
+    #print("K:", K, "train:", len(train), "test:", len(test))
+  
+  # Criando os modelos individuais de cada fold
+  modelosIndividuais = []
+  for fold in foldsBase:
+    modelosIndividuais.append(funcaoAlgoritmo(random_state=random_state).fit(XBase.iloc[fold[0]], YBase.iloc[fold[0]]))
+
+  # Testando os modelos individuais de cada fold
+  acuraciaModelos = []
+  sensibilidadeModelos = []
+  especificidadeModelos = []
+  for i in range(len(modelosIndividuais)):
+    Y_predBase = modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][1]])
+    vn, fp, fn, vp = confusion_matrix(YBase.iloc[foldsBase[i][1]], Y_predBase).ravel()
+    acuracia = (vp + vn) / (vp + vn + fp + fn)
+    sensibilidade = vp / (vp + fn)
+    especificidade = vn / (vn + fp)
+    acuraciaModelos.append(acuracia)
+    sensibilidadeModelos.append(sensibilidade)
+    especificidadeModelos.append(especificidade)
+  
+  # Printando o compilado de métricas
+  print(f"Média da acurácia: {(sum(acuraciaModelos)/len(acuraciaModelos)*100):.1f}%")
+  print(f"Desvio padrão populacional da acurácia: {np.std(acuraciaModelos, ddof=0):.3f}\n")
+  print(f"Média da sensibilidade: {(sum(sensibilidadeModelos)/len(sensibilidadeModelos)*100):.1f}%")
+  print(f"Desvio padrão populacional da sensibilidade: {np.std(sensibilidadeModelos, ddof=0):.3f}\n")
+  print(f"Média da especificidade: {(sum(especificidadeModelos)/len(especificidadeModelos)*100):.1f}%")
+  print(f"Desvio padrão populacional da especificidade: {np.std(especificidadeModelos, ddof=0):.3f}\n")
+```
+
+Essa função será utilizada para testar o modelo assim que passarmos pelas etapas iniciais obrigatórias de pré-processamento mencionadas. É uma simples função de validação cruzada.
 
 # Tratamento de dados faltantes
+
+
+```{python}
+#df['B'].isna().sum()
+```
+
+
 
 ## Remoção
 
@@ -82,25 +201,6 @@ FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA-\>SOLUÇÃO, O MÉTODO-\>PORQU
 
 ## Dados incompletos
 
-# Transformação de variáveis
-
-## Padronização
-
-## Normalização
-
-## Transformação logarítimica
-
-## Lematização
-
-## Vetorização de texto
-
-# Criação de variáveis auxiliares
-
-## quantitativas
-
-## qualitativas
-
-## Em preditores textuais
 
 # Codificação de variáveis
 
@@ -108,74 +208,61 @@ FAZER CADA EXPLICAÇÃO COM A ESTRUTURA: PROBLEMA-\>SOLUÇÃO, O MÉTODO-\>PORQU
 
 ## Discretização
 
+
+
+
+
+# Rebalanceamento
+
+O que é, quando fazer, enviezar de propósito quando. 
+## Under sampling 
+
+Um outro pré-processamento que teremos que fazer mesmo nesse preditor inicial é o rebalanceamento da variável explicativa.
+
+Observe que há 4861 pacientes que não tiveram AVC e 249 pacientes que tiveram AVC:
+```{python}
+print(stroke['stroke'].value_counts())
+```
+
+O modelo que faríamos iria classificar todos os pacientes como sem AVC porque assim traria uma acurácia maior, como não queremos isso vamos usar uma base balanceada, 50% - 50%, faremos isso com undersampling, implementado pela classe RandomUnderSampler do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno. Note que não faremos esse procedimento para o conjunto validação.
+
+```{python}
+# Aplicando o undersampling
+x_strokeKfoldBalanceado, y_strokeKfoldBalanceado = RandomUnderSampler(random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
+print(y_strokeKfold.value_counts())
+```
+
+Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke é 1, após separação do conjunto validação, estão na nova separação junto com 223 amostras em que stroke é 0.
+## Over sampling
+
+
+
+
 # Seleção de atributos
 
 ## Lógica de bom senso (para evitar correlações espúrias passarem)
 
 ## NearZeroVar
 
+
+
+
+
+# Transformação de variáveis
+
+## Padronização
+
+## Normalização
+
+
+
+
 # Redução de dimensionalidade
 
 ## PCA (QUE NÃO É REDUZIR VARIAVEIS)
 
-# Rebalanceamento
-
-O que é, quando fazer, enviezar de propósito quando. \## Under sampling \## Over sampling
+# Resumo
 
 ### Referencias
 
-#### PLN
-
-"Speech and Language Processing" — Daniel Jurafsky & James H. Martin
-
-Um dos livros mais influentes em PLN (Processamento de Linguagem Natural).
-
-Vetorização de texto (TF-IDF, BoW, embeddings): "Introduction to Information Retrieval" – Manning, Raghavan, Schütze
-
-Capítulo 6: TF-IDF Capítulo 2: Indexação e representação vetorial
-
-"Speech and Language Processing" – Jurafsky & Martin
-
-Capítulos 3 e 4: Modelos de linguagem e representação vetorial de texto.
-
-Capítulos sobre vetorização, TF-IDF, bag-of-words, embeddings, etc.
-
-#### Transformações não PLN
-
-2.  Transformação de variáveis (padronização, normalização, log, etc.): "The Elements of Statistical Learning" – Hastie, Tibshirani & Friedman
-
-Apresenta a importância da escala das variáveis para diferentes algoritmos.
-
-Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html
-
-Explica e implementa:
-
-StandardScaler (padronização)
-
-MinMaxScaler (normalização)
-
-PowerTransformer, FunctionTransformer (transformações log, Box-Cox etc.)
-
-#### categorização
-
-3.  Codificação de variáveis categóricas (one-hot, dummies, label encoding): "An Introduction to Statistical Learning" (ISL) – Gareth James et al.
-
-Explica variáveis dummy e sua relação com regressão.
-
-"Data Mining: Concepts and Techniques" – Jiawei Han, Micheline Kamber, Jian Pei
-
-Capítulo sobre pré-processamento de dados, incluindo discretização.
-
-Explica técnicas manuais e automáticas de discretização e seus usos.
-
-Scikit-learn documentation – seção preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features
-
-Fala de OneHotEncoder, OrdinalEncoder, etc.
-
-#### Imputação
-
-Fontes para estudo: "Flexible Imputation of Missing Data" – Stef van Buuren (livro referência sobre imputação múltipla e model-based imputation)
-
-Scikit-learn docs: IterativeImputer
-
-Artigos sobre Multiple Imputation e model-based methods em estatística e ciência de dados.
+Dados faltantes: Python for Data Analysis

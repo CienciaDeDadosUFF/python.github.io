@@ -404,19 +404,14 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#o-que-é-o-aprendizado-de-máquina" id="toc-o-que-é-o-aprendizado-de-máquina" class="nav-link active" data-scroll-target="#o-que-é-o-aprendizado-de-máquina">O que é o aprendizado de máquina?</a></li>
-  <li><a href="#para-que-serve" id="toc-para-que-serve" class="nav-link" data-scroll-target="#para-que-serve">Para que serve?</a>
-  <ul class="collapse">
-  <li><a href="#classificação" id="toc-classificação" class="nav-link" data-scroll-target="#classificação">Classificação:</a></li>
-  <li><a href="#regressão" id="toc-regressão" class="nav-link" data-scroll-target="#regressão">Regressão:</a></li>
-  <li><a href="#clusterização" id="toc-clusterização" class="nav-link" data-scroll-target="#clusterização">Clusterização:</a></li>
-  <li><a href="#detecção-de-anomalia" id="toc-detecção-de-anomalia" class="nav-link" data-scroll-target="#detecção-de-anomalia">Detecção de anomalia:</a></li>
-  </ul></li>
+  <li><a href="#para-que-serve" id="toc-para-que-serve" class="nav-link" data-scroll-target="#para-que-serve">Para que serve?</a></li>
   <li><a href="#tipos-de-aprendizado-de-máquina" id="toc-tipos-de-aprendizado-de-máquina" class="nav-link" data-scroll-target="#tipos-de-aprendizado-de-máquina">Tipos de Aprendizado de Máquina</a>
   <ul class="collapse">
   <li><a href="#aprendizado-supervisionado" id="toc-aprendizado-supervisionado" class="nav-link" data-scroll-target="#aprendizado-supervisionado">Aprendizado supervisionado</a></li>
   <li><a href="#aprendizado-não-supervisionado" id="toc-aprendizado-não-supervisionado" class="nav-link" data-scroll-target="#aprendizado-não-supervisionado">Aprendizado não supervisionado</a></li>
   <li><a href="#aprendizado-por-reforço" id="toc-aprendizado-por-reforço" class="nav-link" data-scroll-target="#aprendizado-por-reforço">Aprendizado por reforço</a></li>
   </ul></li>
+  <li><a href="#passo-a-passo-para-criação-de-preditores" id="toc-passo-a-passo-para-criação-de-preditores" class="nav-link" data-scroll-target="#passo-a-passo-para-criação-de-preditores">Passo a passo para criação de preditores</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/CienciaDeDadosUFF/python.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -456,26 +451,12 @@ ul.task-list li input[type="checkbox"] {
 <h1>Para que serve?</h1>
 <p>Com o aprendizado de máquina é possível produzir, rápida e automaticamente, modelos capazes de analisar dados maiores e mais complexos, e entregar resultados mais rápidos e precisos – mesmo em grande escala.</p>
 <p>Aprendizado de máquina possui 4 tarefas principais:</p>
-<section id="classificação" class="level2">
-<h2 class="anchored" data-anchor-id="classificação">Classificação:</h2>
-<p>Atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas.</p>
-<p>ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.</p>
-</section>
-<section id="regressão" class="level2">
-<h2 class="anchored" data-anchor-id="regressão">Regressão:</h2>
-<p>Atribuir um valor numérico a uma amostra dado as suas características.</p>
-<p>ex: Prever a temperatura de um dia baseado nas condições atmosféricas.</p>
-</section>
-<section id="clusterização" class="level2">
-<h2 class="anchored" data-anchor-id="clusterização">Clusterização:</h2>
-<p>Agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida.</p>
-<p>ex: Segmentação de clientes em marketing.</p>
-</section>
-<section id="detecção-de-anomalia" class="level2">
-<h2 class="anchored" data-anchor-id="detecção-de-anomalia">Detecção de anomalia:</h2>
-<p>Identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados.</p>
-<p>ex: Detecção de fraudes em transações financeiras.</p>
-</section>
+<ul>
+<li><p>Classificação: atribuir uma amostra a uma classe, baseado em classes pré-estabelecidas. ex: Dado o conteúdo de um e-mail dizer se ele é um spam ou um e-mail normal.</p></li>
+<li><p>Regressão: atribuir um valor numérico a uma amostra dado as suas características. ex: Prever a temperatura de um dia baseado nas condições atmosféricas.</p></li>
+<li><p>Clusterização: agrupar dados por suas características sem que eles possuam uma classe pré-estabelecida. ex: Segmentação de clientes em marketing.</p></li>
+<li><p>Detecção de anomalia: identificar padrões ou amostras que se desviam significativamente do comportamento esperado nos dados. ex: Detecção de fraudes em transações financeiras.</p></li>
+</ul>
 </section>
 <section id="tipos-de-aprendizado-de-máquina" class="level1">
 <h1>Tipos de Aprendizado de Máquina</h1>
@@ -499,9 +480,32 @@ ul.task-list li input[type="checkbox"] {
 <section id="aprendizado-por-reforço" class="level2">
 <h2 class="anchored" data-anchor-id="aprendizado-por-reforço">Aprendizado por reforço</h2>
 <p>O modelo aprende a tomar decisões através de interações com um ambiente, recebendo recompensas ou punições conforme as ações executadas. O objetivo é aprender uma política que maximize a recompensa acumulada. Utilizada para aperfeiçoar a capacidade da IA de um jogo e para robótica. Não falaremos sobre isso nos próximos cadernos.</p>
-
-
 </section>
+</section>
+<section id="passo-a-passo-para-criação-de-preditores" class="level1">
+<h1>Passo a passo para criação de preditores</h1>
+<p>Segue abaixo o passo a passo para a criação e uso de um preditor que serão explorados nos cadernos seguintes:</p>
+<p>Criação de preditores:</p>
+<ol type="1">
+<li><p>Obtenção dos dados: o primeiro passo é coletar ou acessar os dados que serão utilizados para construir o modelo.</p></li>
+<li><p>Análise dos dados: entender o que cada variável explicativa significa e salvar a estrutura de cada variável categórica</p></li>
+<li><p>Divisão dos dados: os dados são separados em conjuntos de treino e validação, cada um com uma função específica no processo de modelagem.</p></li>
+<li><p>Primeira etapa de pré-processamento: consiste na limpeza, transformação e preparação dos dados para torná-los adequados ao treinamento.</p></li>
+<li><p>Segunda etapa de pré-processamento: alguns procedimentos feitos em cima do conjunto treino que não podem ser feitas com o conjunto validação.</p></li>
+<li><p>Validação cruzada: reamostragem, seleção de modelo, ajuste de hiperparâmetros.</p></li>
+<li><p>Treinamento do modelo: o modelo é treinado.</p></li>
+<li><p>Avaliação do modelo: métricas finais de performance sobre o conjunto validação.</p></li>
+</ol>
+<p>Uso de preditores:</p>
+<ol type="1">
+<li><p>Carregamento dos dados: inserir dados novos em um programa que de acesso ao preditor criado</p></li>
+<li><p>Pré-processamento: nesse programa realizar o mesmo pré-processamento realizado na primeira etapa de pré-processamento dos dados porém mantendo a estrutura criada no modelo</p></li>
+<li><p>Obter a predição: inserir os dados novos pré-processados no modelo</p></li>
+<li><p>Análise: podemos simplesmente entregar o resultado. Podemos também não retornar só os dados mas uma visualização que precisaria ser feita nesse programa.</p></li>
+</ol>
+<p>Os cadernos estão dispostos, aparentemente fora de ordem, para produzirmos preditores desde o início e assim entendermos a real necessidade do porque dessas etapas. Caso isso não fosse feito passaríamos muitos cadernos apenas com métodos, algorítimos e teoria sem criar modelos, sem por em prática nada de fato. Essa abordagem visa uma evolução gradual na qualidade dos modelos.</p>
+
+
 </section>
 
 </main> <!-- /main -->

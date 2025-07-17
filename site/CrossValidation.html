@@ -518,7 +518,7 @@ window.Quarto = {
 <section id="imports" class="level1">
 <h1>Imports</h1>
 <p>Segue abaixo o código da importação dos módulos que usaremos nesse caderno:</p>
-<div id="bb1e28d5" class="cell" data-execution_count="1">
+<div id="2a150fc5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -526,7 +526,8 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedStratifiedKFold</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="validação-cruzada" class="level1">
@@ -535,7 +536,7 @@ window.Quarto = {
 <p>A validação cruzada consiste em simular diferentes cenários de treino/teste afim de reduzir o viés da seleção amostral de um modelo. Ela nos permite comparar diferentes métodos de aprendizado de máquina e hiperparâmetros para avaliar qual funcionará melhor na prática.</p>
 <p>Validação Cruzada tem 3 pilares: reamostragem, ajuste de hiperparâmetro e seleção de modelo. Apresentaremos os 3 aqui nesse caderno.</p>
 <p>Utilizaremos a base Spam ao longo do caderno.</p>
-<div id="2266b9fa" class="cell" data-execution_count="2">
+<div id="6a0a3916" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># trocar essa url pelo caminho da base spam de vocês.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Spam <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Validação Cruzada</span><span class="ch">\\</span><span class="st">spam.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando o rótulo das demais variáveis</span></span>
@@ -562,7 +563,7 @@ window.Quarto = {
 <section id="código-de-exemplo" class="level3">
 <h3 class="anchored" data-anchor-id="código-de-exemplo">Código de exemplo</h3>
 <p>Vamos utilizar reamostragem por <code>k-fold</code> no conjunto de dados spam utilizando a implementação do scikit-learn. O scikit-learn possui algumas diferentes implementações para a reamostragem por k-folds. Usaremos a função <code>StratifiedKFold</code> porque ela faz a separação de k-folds preservando a proporção original da coluna com os rótulos.</p>
-<div id="d488b70b" class="cell" data-execution_count="3">
+<div id="9171a79d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criação dos k-folds</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kfSpam <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">11</span>).split(XSpam, YSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -574,7 +575,7 @@ window.Quarto = {
 </ul>
 <p>Logo após chamar a função <code>StratifiedKFold()</code> chamamos um método, <code>.split()</code>. Esse método é aplicado em cima do resultado do StratifiedKFold(). Ele recebe os dados da base utilizada e o rótulo para realizar a separação em k-folds. Fizemos a chamada do método desse jeito para encurtar o processo de separação em k-folds, não usaremos o resultado da função StratifiedKFold() para nada sem antes inserir os dados, assim também evitamos ter uma variável interemediária desnecessária.</p>
 <p>O resultado da função StratifeidKFold(), assim como qualquer outra implementação de k-folds no scikit-learn é um <code>generator</code>:</p>
-<div id="37c7488a" class="cell" data-execution_count="4">
+<div id="44a3d26d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tipo da variável resultado do StratifiedKFold().split()</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(kfSpam))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -638,7 +639,7 @@ len(test): 460</code></pre>
 <section id="código-de-exemplo-1" class="level3">
 <h3 class="anchored" data-anchor-id="código-de-exemplo-1">Código de exemplo</h3>
 <p>Vamos aplicar um método de treino 3 vezes em 10 folds. Para isso, utilizamos a função <code>RepeatedStratifiedKFold()</code>. Ela funciona semelhante ao <code>StratifiedKFold()</code>, porém com um argumento a mais: <code>n_repeats</code>, devemos inserir aqui o número de repetições que desejamos fazer.</p>
-<div id="efe13336" class="cell" data-execution_count="5">
+<div id="30a212c4" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>repeatedKfSpam <span class="op">=</span> RepeatedStratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, n_repeats<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">11</span>).split(XSpam, YSpam)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(<span class="bu">list</span>(repeatedKfSpam)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -750,7 +751,7 @@ len(test): 460</code></pre>
 <section id="código-de-exemplo-2" class="level3">
 <h3 class="anchored" data-anchor-id="código-de-exemplo-2">Código de exemplo</h3>
 <p>O scikitlearn possui uma implementação do Bootstrap quando usamos a função <code>resample()</code> com <code>replace = True</code>. Segue abaixo um exemplo de uso:</p>
-<div id="b79ef5e7" class="cell" data-execution_count="6">
+<div id="4c5e4184" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>propReamostragem <span class="op">=</span> <span class="fl">1.204</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="bu">int</span>(YSpam.shape[<span class="dv">0</span>]<span class="op">*</span>propReamostragem)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>BootstrapSpam <span class="op">=</span> resample(XSpam, YSpam, n_samples<span class="op">=</span>n_samples, random_state<span class="op">=</span><span class="dv">11</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span>YSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -767,7 +768,7 @@ len(test): 460</code></pre>
 <p>O cálculo do n_samples está fora da função para ter uma visualização melhor, mas poderia ter sido feito diretamente na hora de chamar a função resample.</p>
 <p>A função gerou uma lista com dois vetores dentro: [vetorVariaveisExplicativas, vetorVariavelResposta] para utilizarmos posteriormente. A função resample() faz o embaralhamento dos dados automaticamente por padrão.</p>
 <p>Segue abaixo um print do resultado da função resample, apenas do vetor da variável resposta para facilitar a visualização:</p>
-<div id="d9d4e6ce" class="cell" data-execution_count="7">
+<div id="6490c5fb" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BootstrapSpam[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1328       spam
@@ -789,7 +790,7 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>B2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>B3 <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Precisamos fazer o Bootstrap diversas vezes para melhorar o resultado da validação cruzada. O scikit-learn não possui uma função RepeatedResample() equivalente a função RepeatedStratifiedKFold() em relação a StratifiedKFold(). Podemos facilmente implementá-la usando um laço for. Segue abaixo uma implementação do RepeatedResample() e uma execução com n_repeats=5.</p>
-<div id="cb4f662b" class="cell" data-execution_count="8">
+<div id="0f5c80bf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RepeatedResample(X, Y, n_samples<span class="op">=</span><span class="va">None</span>, random_state<span class="op">=</span><span class="va">None</span>, replace<span class="op">=</span><span class="va">True</span>, stratify<span class="op">=</span><span class="va">None</span>, n_repeats<span class="op">=</span><span class="dv">1</span>):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""X, Y, n_samples=None, random_state=None, replace=True, stratify=None, n_repeats=1"""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ResultadosBootstrap <span class="op">=</span> []</span>
@@ -806,7 +807,7 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <p>A função foi criada com a possibilidade de manter ou não a estratificação original, mas como dito anteriormente, não usaremos esse recurso daqui pra frente.</p>
 <p>Vamos agora verificar se a relação treino/teste está próxima de 70/30 como originalmente planejado. Vamos checar a estratificação de cada reamostragem também.</p>
 <p>Primeiro a relação treino/teste:</p>
-<div id="b7681fc5" class="cell" data-execution_count="9">
+<div id="dc402896" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">4</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fig.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Treino X Teste Bootstrap'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
@@ -844,7 +845,7 @@ Name: type, Length: 5539, dtype: object</code></pre>
 </div>
 <p>Como podemos ver, a relação Treino X Teste em relação a base original está em torno de 70 / 30 como desejado.</p>
 <p>Agora a estratificação:</p>
-<div id="1f8b8df2" class="cell" data-execution_count="10">
+<div id="945198cd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""for i in range(len(RepeatedBootstrapSpam)):</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">    contagem = RepeatedBootstrapSpam[i][1].value_counts()</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">    plt.figure(figsize=(6, 6))</span></span>
@@ -901,7 +902,7 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <p>Aqui no scikit-learn como as funções de de treinamento de modelo e reamostragem são independentes entre si e não existe uma função central para criar todos os modelos como no caret, podem haver pequenas diferenças. Nos K-Folds um generator é produzido enquanto no Bootstrap uma lista com dois vetores numpy é produzida.</p>
 <p>Porque é desse jeito no scikit-learn? Possivelmente a implementação das funções de K-Fold e Repeated K-Fold foram feitas por um programador diferente da função resample() que usamos para o Bootstrap. Outra explicação possível é que foram feitas em tempos diferentes quando generator ou o numpy não existiam por exemplo. A razão dessa diferença em si não importa muito, mas é um problema do scikit-learn para aprendizado de máquinas a ser contornado.</p>
 <p>Feito a reamostragem por K-Fold, independente do tipo, usaremos uma função pronta do scikit-learn: <code>cross_val_score()</code>.</p>
-<div id="79d209f1" class="cell" data-execution_count="11">
+<div id="9a6ce280" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>kfSpam <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#podemos usar a função com o repeated k-fold também</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#repeatedKfSpam = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=11)</span></span>
@@ -910,10 +911,10 @@ Name: type, Length: 5539, dtype: object</code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média:"</span>, resultadoVC.mean())</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão:"</span>, resultadoVC.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[0.94793926 0.94782609 0.96304348 0.95869565 0.95434783 0.93695652
- 0.9673913  0.97173913 0.96086957 0.95434783]
-Média: 0.9563156653777234
-Desvio padrão: 0.009782520906264084</code></pre>
+<pre><code>[0.94793926 0.94565217 0.96521739 0.95434783 0.95217391 0.93913043
+ 0.96956522 0.96521739 0.96521739 0.95      ]
+Média: 0.955446100160332
+Desvio padrão: 0.009725388551571932</code></pre>
 </div>
 </div>
 <ul>
@@ -931,6 +932,63 @@ Desvio padrão: 0.009782520906264084</code></pre>
 <li><p>Geramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos</p></li>
 </ul>
 <p>No geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.</p>
+<p>Segue abaixo uma função criada para exibir acurácia, sensibilidade e especificidade de um modelo recebendo o número de folds para a reamostragem por k-fold, o random_state e a função de implementação de algoritmo de aprendizado de máquina:</p>
+<div id="e3f81897" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># criação de uma lista para reutilização do generator </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  kfBase <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span>n_splits, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>random_state).split(XBase, YBase)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  kfBaseLista <span class="op">=</span> <span class="bu">list</span>(kfBase)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  </span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  foldsBase <span class="op">=</span> []</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> K, (train, test) <span class="kw">in</span> <span class="bu">enumerate</span>(kfBaseLista, <span class="dv">1</span>):</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Não guarda K porque não precisa, é o índice da lista mais 1.</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    foldsBase.append([<span class="bu">list</span>(train), <span class="bu">list</span>(test)])</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("K:", K, "train:", len(train), "test:", len(test))</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Criando os modelos individuais de cada fold</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  modelosIndividuais <span class="op">=</span> []</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> fold <span class="kw">in</span> foldsBase:</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    modelosIndividuais.append(funcaoAlgoritmo(random_state<span class="op">=</span>random_state).fit(XBase.iloc[fold[<span class="dv">0</span>]], YBase.iloc[fold[<span class="dv">0</span>]]))</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Testando os modelos individuais de cada fold</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  acuraciaModelos <span class="op">=</span> []</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  sensibilidadeModelos <span class="op">=</span> []</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  especificidadeModelos <span class="op">=</span> []</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(modelosIndividuais)):</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    Y_predBase <span class="op">=</span> modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][<span class="dv">1</span>]])</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    vn, fp, fn, vp <span class="op">=</span> confusion_matrix(YBase.iloc[foldsBase[i][<span class="dv">1</span>]], Y_predBase).ravel()</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    acuraciaModelos.append(acuracia)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    sensibilidadeModelos.append(sensibilidade)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    especificidadeModelos.append(especificidade)</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Printando o compilado de métricas</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da acurácia: </span><span class="sc">{</span>(<span class="bu">sum</span>(acuraciaModelos)<span class="op">/</span><span class="bu">len</span>(acuraciaModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da acurácia: </span><span class="sc">{</span>np<span class="sc">.</span>std(acuraciaModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da sensibilidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(sensibilidadeModelos)<span class="op">/</span><span class="bu">len</span>(sensibilidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da sensibilidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(sensibilidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da especificidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(especificidadeModelos)<span class="op">/</span><span class="bu">len</span>(especificidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da especificidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(especificidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>E agora utilizando-a para a base Spam com 5 folds e com o <code>RandomForestClassifier</code>:</p>
+<div id="7e3723c4" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>testeMetricasKFold(XSpam, YSpam, n_splits<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">11</span>, funcaoAlgoritmo<span class="op">=</span>RandomForestClassifier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média da acurácia: 95.1%
+Desvio padrão populacional da acurácia: 0.010
+
+Média da sensibilidade: 92.4%
+Desvio padrão populacional da sensibilidade: 0.014
+
+Média da especificidade: 96.8%
+Desvio padrão populacional da especificidade: 0.008
+</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="ajuste-de-hiperparâmetros" class="level1">
