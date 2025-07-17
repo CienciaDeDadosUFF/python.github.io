@@ -13,27 +13,52 @@ execute:
 jupyter: python3
 ---
 
-![](images/clipboard-616286231.png)
+![](images/clipboard-2513748340.png)A **Estatística Não-Paramétrica** é uma abordagem de análise estatística que **não assume uma forma específica de distribuição** para os dados. Em contraste com a **Estatística Paramétrica**, que depende de **pressupostos rígidos**, como normalidade dos dados e homogeneidade de variâncias, os métodos não-paramétricos são mais **flexíveis e robustos**, sendo especialmente úteis quando os dados são **ordinais, categóricos ou provenientes de pequenas amostras**.
 
-A Estatística Não-Paramétrica é uma abordagem de análise estatística que **não assume uma forma específica de distribuição para os dados**. Em contraste com a Estatística Paramétrica, que depende de pressupostos rígidos, como normalidade dos dados e homogeneidade de variâncias, os métodos não paramétricos são mais **flexíveis** e **robustos**, especialmente úteis quando os dados são ordinais, categóricos ou em pequenas amostras.
+Enquanto a estatística paramétrica busca estimar parâmetros de distribuições conhecidas (como média e variância em uma distribuição normal), a não-paramétrica trabalha principalmente com **ordens, postos (rankings)** e **frequências**, evitando suposições rígidas e podendo ser aplicada em contextos mais amplos.
 
-Enquanto a estatística paramétrica busca **estimar parâmetros** de distribuições conhecidas (como média e variância na normal), a não-paramétrica utiliza principalmente **ordens, rankings e frequências**, evitando suposições rígidas.
+## Vantagens da Estatística Não-Paramétrica
 
-#### **Vantagens**
+-   Pode ser aplicada em situações com **dados não normais** ou quando não se conhece a distribuição populacional;
+-   Apresenta **maior robustez a outliers**;
+-   É apropriada para **pequenas amostras**, onde os testes paramétricos podem ter desempenho insatisfatório;
+-   Funciona bem com **dados ordinais e categóricos**, que não satisfazem os requisitos para análise paramétrica.
 
--   Pode ser aplicada em situações com **dados não normais** ou com **pequenas amostras**;
+## Desvantagens
 
--   **Menor sensibilidade a outliers**;
+-   Em geral, possuem **menor poder estatístico** quando os pressupostos dos testes paramétricos são atendidos;
+-   **Não fornecem estimativas de parâmetros populacionais**, como média e desvio padrão, dificultando interpretações inferenciais mais precisas;
 
--   Ideal quando **não se conhece a distribuição populacional**.
+## Quando Usar Métodos Paramétricos ou Não-Paramétricos
+
+### Métodos Paramétricos
+
+Utilize métodos paramétricos quando:
+
+-   Os dados forem **quantitativos contínuos**;
+-   Os pressupostos de alguma **distribuição conhecida** e **homogeneidade de variâncias** forem atendidos;
+-   O objetivo for estimar parâmetros populacionais ou construir intervalos de confiança com maior precisão.
+
+### Métodos Não-Paramétricos
+
+Utilize métodos não-paramétricos quando:
+
+-   Os dados forem **ordinais, categóricos** ou com **muitas assimetrias**;
+-   Os pressupostos dos testes paramétricos **não forem atendidos**, especialmente em **amostras pequenas**;
+-   Houver **outliers** que comprometam os resultados dos testes clássicos.
 
 # Importação
 
 ``` python
-import numpy as np
-import pandas as pd
-from scipy.stats import mannwhitneyu, wilcoxon, kruskal, friedmanchisquare, spearmanr # Adicionadas funções
-# from scipy.stats import chisquare, kstest # Removido se não usado ou manter se necessário
+import numpy as np  # operações matemáticas e vetoriais
+import pandas as pd  # manipulação de dados em tabelas (DataFrames)
+from scipy.stats import (
+    mannwhitneyu,       # teste para comparar dois grupos independentes (não paramétrico)
+    wilcoxon,           # teste para dois grupos pareados (não paramétrico)
+    kruskal,            # compara mais de dois grupos independentes (não paramétrico)
+    friedmanchisquare,  # compara mais de dois grupos pareados (não paramétrico)
+    spearmanr           # correlação por postos (dados ordinais ou não lineares)
+)
 ```
 
 # Teste U de Mann–Whitney
@@ -44,7 +69,7 @@ Esse teste é particularmente útil quando:
 
 -   Os dados não seguem distribuição normal;
 -   As variâncias são diferentes;
--   As variáveis são ordinais ou contínuas, mas não podem ser modeladas parametrizadamente.
+-   As variáveis são ordinais ou contínuas e não podem ser modeladas de forma paramétrica.
 
 ## Hipóteses
 
@@ -56,29 +81,106 @@ Queremos testar se duas populações independentes têm **a mesma mediana**.
 
 ## Metodologia
 
-**Passo 1:** Combine as duas amostras e ordene os valores em ordem crescente.\
-**Passo 2:** Atribua postos aos dados combinados. Em caso de empates, atribua a média dos postos.\
-**Passo 3:** Calcule a soma dos postos do grupo $X$ ($R_X$) e do grupo $Y$ ($R_Y$).\
-**Passo 4:** Calcule as estatísticas de Mann–Whitney:
+Comparar dois grupos independentes ($X$ e $Y$) quanto à tendência central, **sem assumir normalidade**.
 
--   $U_X = R_X - \dfrac{n_X(n_X + 1)}{2}$
--   $U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}$
--   $U = \min(U_X, U_Y)$
+Suponha:
 
-**Passo 5:** Compare o valor de $U$ com o valor crítico tabelado (ou use o valor-$p$ calculado).
+-   Grupo $X$: 5, 7, 9\
+-   Grupo $Y$: 1, 6, 8, 10
+
+### Passo 1: Combine e ordene os dados
+
+Combine as duas amostras:
+
+-   $X$: 5, 7, 9\
+-   $Y$: 1, 6, 8, 10
+
+Dados combinados em ordem crescente:
+
+1, 5, 6, 7, 8, 9, 10
+
+### Passo 2: Atribua os postos
+
+| Valor | Posto |
+|-------|-------|
+| 1     | 1     |
+| 5     | 2     |
+| 6     | 3     |
+| 7     | 4     |
+| 8     | 5     |
+| 9     | 6     |
+| 10    | 7     |
+
+Identificando os grupos:
+
+-   Grupo $X$: valores 5, 7, 9 → postos: 2, 4, 6\
+-   Grupo $Y$: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7
+
+### Passo 3: Calcule a soma dos postos
+
+-   Soma dos postos de $X$:\
+    $R_X = 2 + 4 + 6 = 12$
+
+-   Soma dos postos de $Y$:\
+    $R_Y = 1 + 3 + 5 + 7 = 16$
+
+### Passo 4: Calcule as estatísticas de Mann–Whitney
+
+Definições:
+
+-   $n_X = 3$: tamanho da amostra do grupo $X$\
+-   $n_Y = 4$: tamanho da amostra do grupo $Y$
+
+Cálculos:
+
+$U_X = R_X - \dfrac{n_X(n_X + 1)}{2} = 12 - \dfrac{3(3 + 1)}{2} = 12 - 6 = 6$
+
+$$U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2} = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6$$
+
+$U = \min(U_X, U_Y) = \min(6, 6) = 6$
+
+### Passo 5: Compare com o valor crítico
+
+-   O valor crítico de $U$ é obtido em **tabelas específicas**, de acordo com $n_X$, $n_Y$ e o nível de significância $\alpha$.
+
+-   Para $n_X = 3$, $n_Y = 4$ e $\alpha = 0{,}05$ (teste bicaudal), o **valor crítico tabelado** é **2**.
+
+-   Como $U = 6 > 2$, **não rejeitamos a hipótese nula**: não há evidência significativa de diferença entre os grupos.
+
+> Alternativamente, pode-se usar o **valor-p** calculado por software estatístico (como R ou Python) para tomar a decisão.
+
+## Definição das Variáveis
+
+| Símbolo | Definição                                                    |
+|---------|--------------------------------------------------------------|
+| $X$     | Grupo 1 (exemplo: tratamento)                                |
+| $Y$     | Grupo 2 (exemplo: controle)                                  |
+| $n_X$   | Tamanho da amostra do grupo $X$                              |
+| $n_Y$   | Tamanho da amostra do grupo $Y$                              |
+| $R_X$   | Soma dos postos atribuídos aos elementos do grupo $X$        |
+| $R_Y$   | Soma dos postos atribuídos aos elementos do grupo $Y$        |
+| $U_X$   | Estatística $U$ calculada para o grupo $X$                   |
+| $U_Y$   | Estatística $U$ calculada para o grupo $Y$                   |
+| $U$     | Estatística final do teste de Mann–Whitney: $\min(U_X, U_Y)$ |
 
 ------------------------------------------------------------------------
 
-## Exemplo
+## Exemplo:
 
-**Comparação entre marcas A e B de fertilizante no crescimento de plantas:**
+#### Comparação entre marcas A e B de fertilizante no crescimento de plantas
 
 Marca A ($n_1 = 6$): 78, 85, 83, 74, 88, 90\
 Marca B ($n_2 = 7$): 82, 79, 76, 81, 77, 80, 78
 
-Testar:
+**Objetivo**: Verificar se há diferença no efeito dos fertilizantes sobre o **crescimento das plantas**.
 
-$H_0: md_X = md_Y \quad \text{vs} \quad H_1: md_X \neq md_Y$
+**Variável de estudo**: **crescimento das plantas** (em alguma unidade mensurável, como altura ou biomassa).
+
+Teste:
+
+$H_0: md_X = md_Y \quad$
+
+$H_1: md_X \ne md_Y$
 
 ``` python
 # Imports já feitos na seção #Importação
@@ -109,7 +211,77 @@ Queremos testar se a mediana populacional ($md$) é igual a um valor $m_0$.
 
 ## Metodologia (Para uma amostra)
 
-**Passo 1:** Calcule as diferenças $d_i = x_i - m_0$ para cada observação $x_i$. **Passo 2:** Ignore as diferenças $d_i = 0$. **Passo 3:** Calcule os valores absolutos das diferenças não nulas, $|d_i|$. **Passo 4:** Ordene os $|d_i|$ em ordem crescente e atribua postos (ranks). Em caso de empates, use a média dos postos. **Passo 5:** Reatribua os sinais originais das diferenças $d_i$ aos postos correspondentes. **Passo 6:** Calcule a soma dos postos positivos ($W^+$) e a soma dos valores absolutos dos postos negativos ($W^-$). **Passo 7:** A estatística do teste é $W = \min(W^+, W^-)$. **Passo 8:** Compare $W$ com o valor crítico tabelado (ou use o valor-$p$).
+### Suponha a amostra:
+
+$x = [12,\ 8,\ 11,\ 7,\ 10,\ 14,\ 9]$
+
+Hipóteses: $H_0:\ m_0 = 10$
+
+$H_1:\ m_0\ne  10$
+
+### Passo 1: Calcule as diferenças $d_i = x_i - m_0$
+
+| $x_i$ | $d_i = x_i - 10$ |
+|-------|------------------|
+| 12    | 2                |
+| 8     | -2               |
+| 11    | 1                |
+| 7     | -3               |
+| 10    | 0                |
+| 14    | 4                |
+| 9     | -1               |
+
+------------------------------------------------------------------------
+
+### Passo 2: Ignore as diferenças $d_i = 0$
+
+Removemos a observação $x = 10$ (pois $d = 0$).
+
+Valores restantes:\
+$d = [2,\ -2,\ 1,\ -3,\ 4,\ -1]$
+
+### Passo 3: Calcule os valores absolutos das diferenças não nulas, $|d_i|$
+
+$|d| = [2,\ 2,\ 1,\ 3,\ 4,\ 1]$
+
+### Passo 4: Ordene os $|d_i|$ e atribua postos (com média em empates)
+
+Valores ordenados: $[1,\ 1,\ 2,\ 2,\ 3,\ 4]$
+
+| $|d_i|$ | Posto |
+|---------|-------|
+| 1       | 1.5   |
+| 1       | 1.5   |
+| 2       | 3.5   |
+| 2       | 3.5   |
+| 3       | 5     |
+| 4       | 6     |
+
+### Passo 5: Reatribua os sinais originais dos $d_i$ aos postos
+
+| $d_i$ | $|d_i|$ | Posto | Sinal aplicado |
+|-------|---------|-------|----------------|
+| 2     | 2       | +3.5  | \+             |
+| -2    | 2       | -3.5  | \-             |
+| 1     | 1       | +1.5  | \+             |
+| -3    | 3       | -5    | \-             |
+| 4     | 4       | +6    | \+             |
+| -1    | 1       | -1.5  | \-             |
+
+### Passo 6: Calcule a soma dos postos positivos ($W^+$) e negativos ($W^-$)
+
+$W^+ = 3.5 + 1.5 + 6 = 11$
+
+$W^- = 3.5 + 5 + 1.5 = 10$
+
+### Passo 7: A estatística do teste é $W = \min(W^+, W^-)$
+
+$W = \min(11,\ 10) = 10$
+
+### Passo 8: Compare $W$ com o valor crítico ou utilize o valor-$p$
+
+-   Se $W$ for menor ou igual ao valor crítico tabelado para $n = 6$ (pares válidos), rejeita-se $H_0$.
+-   Ou calcule o valor-$p$ e compare com $\alpha$.
 
 ------------------------------------------------------------------------
 
@@ -117,7 +289,7 @@ Queremos testar se a mediana populacional ($md$) é igual a um valor $m_0$.
 
 **Teste da mediana de uma amostra:**
 
-Amostra de tempos de reação (em segundos): 88, 82, 87, 68, 106, 60, 97. Queremos testar se a mediana do tempo de reação é igual a 70 segundos.
+Amostra de tempos de reação (em segundos): 95, 92, 90, 96, 94, 91, 93. Queremos testar se a mediana do tempo de reação é igual a 70 s
 
 Testar:
 
@@ -126,32 +298,44 @@ H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
 $$
 
 ``` python
-# Imports já feitos na seção #Importação
+# Objetivo: testar H0: mediana da população = m0
 
-x = np.array([88, 82, 87, 68, 106, 60, 97])
+import numpy as np
+from scipy.stats import wilcoxon
+
+# Amostra observada (ex: tempos de reação em segundos)
+x = np.array([95, 92, 90, 96, 94, 91, 93])
+
+# Mediana sob a hipótese nula
 m0 = 70
 
-# O teste de Wilcoxon em scipy.stats pode ser usado diretamente
-# passando a amostra 'x' e o valor 'm0' (ou as diferenças x - m0)
-# Nota: A implementação padrão testa se a mediana da *diferença* é zero.
-# Para testar H0: md = m0, passamos x - m0.
+# O teste de Wilcoxon avalia se a mediana das diferenças (x - m0) é zero.
+# Logo, usamos: diferencas = x - m0
 diferencas = x - m0
 
-# A função wilcoxon por padrão faz o teste bilateral (alternative='two-sided')
-stat, p_valor = wilcoxon(diferencas)
-print(f"Estatística W = {stat}, Valor-p = {p_valor:.4f}")
+# Aplicação do teste de Wilcoxon (teste bilateral por padrão)
+# A função ignora automaticamente as diferenças iguais a zero
+estatistica, p_valor = wilcoxon(diferencas)
 
-# Interpretação:
+# Resultado
+print(f"Estatística W = {estatistica}, Valor-p = {p_valor:.4f}")
+
+# Interpretação do teste com nível de significância alpha = 5%
 alpha = 0.05
 if p_valor < alpha:
     print(f"Com valor-p = {p_valor:.4f} < {alpha}, rejeitamos H0.")
-    print("Há evidência estatística para sugerir que a mediana do tempo de reação é diferente de 70 segundos.")
+    print("Há evidência estatística de que a mediana da população é diferente de 70.")
 else:
-    print(f"Com valor-p = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
-    print("Não há evidência estatística suficiente para sugerir que a mediana do tempo de reação é diferente de 70 segundos.")
+    print(f"Com valor-p = {p_valor:.4f} ≥ {alpha}, não rejeitamos H0.")
+    print("Não há evidência estatística suficiente para afirmar que a mediana difere de 70.")
 ```
 
-**Resultado no Exemplo**: Com W = 3 e valor-p = 0.0625 (calculado pela função `wilcoxon`), se usarmos $\alpha = 0.10$, rejeitaríamos $H_0$. Se usarmos $\alpha = 0.05$, não rejeitaríamos $H_0$. A interpretação depende do nível de significância escolhido.
+Com $W = 0$ e valor-$p = 0{,}0078$, temos:
+
+-   Para $\alpha = 0{,}05$: **rejeitamos** $H_0$
+
+Há **forte evidência estatística** de que a mediana do tempo de reação é diferente de 70 segundos.\
+Todos os valores da amostra estão bem acima de 70, o que levou a um p-valor bastante pequeno no teste.
 
 ### Considerações Finais
 
@@ -166,7 +350,7 @@ Este teste é apropriado quando:
 
 -   Queremos comparar três ou mais grupos independentes.
 -   Os dados não seguem uma distribuição normal dentro de cada grupo.
--   As variâncias entre os grupos não são necessariamente homogêneas (embora formas de distribuição semelhantes sejam um pressuposto implícito para interpretar a diferença como sendo nas medianas).
+-   As variâncias entre os grupos não precisam ser homogêneas, mas é importante que as distribuições tenham formas semelhantes para que a diferença observada possa ser atribuída às medianas.
 -   Os dados são pelo menos ordinais.
 
 ## Hipóteses
@@ -178,9 +362,19 @@ Queremos testar se as medianas de $k$ populações independentes são iguais.
 
 ## Metodologia
 
-**Passo 1:** Combine todas as observações dos $k$ grupos em um único conjunto de dados. Seja $N$ o número total de observações ($N = n_1 + n_2 + ... + n_k$). **Passo 2:** Ordene todas as $N$ observações em ordem crescente e atribua postos (ranks) de 1 a $N$. Em caso de empates, atribua a média dos postos que seriam ocupados. **Passo 3:** Calcule a soma dos postos para cada um dos $k$ grupos. Seja $R_i$ a soma dos postos para o grupo $i$. **Passo 4:** Calcule a estatística de teste $H$: $$
+**Passo 1:** Combine todas as observações dos $k$ grupos em um único conjunto de dados. Seja $N$ o número total de observações ($N = n_1 + n_2 + ... + n_k$).
+
+**Passo 2:** Ordene todas as $N$ observações em ordem crescente e atribua postos (ranks) de 1 a $N$. Em caso de empates, atribua a média dos postos que seriam ocupados.
+
+**Passo 3:** Calcule a soma dos postos para cada um dos $k$ grupos. Seja $R_i$ a soma dos postos para o grupo $i$.
+
+**Passo 4:** Calcule a estatística de teste $H$: $$
 H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)
-$$ Onde $n_i$ é o tamanho da amostra do grupo $i$. *(Opcional: Se houver muitos empates, uma correção para* $H$ pode ser aplicada, mas geralmente tem pouco efeito a menos que a proporção de empates seja grande). **Passo 5:** Compare a estatística $H$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $H$. **Passo 6:** Se $H$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre as medianas de pelo menos dois grupos.
+$$ Onde $n_i$ é o tamanho da amostra do grupo $i$. *(Opcional: Se houver muitos empates, uma correção para* $H$ pode ser aplicada, mas geralmente tem pouco efeito a menos que a proporção de empates seja grande).
+
+**Passo 5:** Compare a estatística $H$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $H$.
+
+**Passo 6:** Se $H$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre as medianas de pelo menos dois grupos.
 
 ------------------------------------------------------------------------
 
@@ -226,7 +420,7 @@ else:
 ### Considerações Finais
 
 -   O teste de Kruskal-Wallis é uma ferramenta robusta para comparar múltiplos grupos quando as premissas da ANOVA não são atendidas.
--   Se a hipótese nula for rejeitada, são necessários testes *post-hoc* para determinar quais pares de grupos são significativamente diferentes.
+-   Se a hipótese nula for rejeitada, são necessários testes post hoc, que são comparações adicionais entre pares de grupos, para identificar especificamente quais grupos diferem entre si de forma significativa.
 
 # Teste de Friedman
 
@@ -237,7 +431,7 @@ Este teste é uma extensão do teste de Wilcoxon para postos com sinais para mai
 -   Queremos comparar três ou mais condições/tratamentos aplicados aos mesmos sujeitos (medidas repetidas).
 -   Os dados são organizados em blocos, onde cada bloco contém um conjunto de observações relacionadas (e.g., diferentes fertilizantes aplicados em diferentes blocos de terra com características semelhantes).
 -   As suposições da ANOVA para medidas repetidas (como normalidade das diferenças e esfericidade) não são atendidas.
--   Os dados são pelo menos ordinais.
+-   Recomendado que os dados sejam ordinais
 
 ## Hipóteses
 
@@ -248,9 +442,17 @@ Queremos testar se as distribuições de $k$ tratamentos (ou condições) aplica
 
 ## Metodologia
 
-**Passo 1:** Organize os dados em uma matriz onde as linhas representam os blocos (ou sujeitos) e as colunas representam os tratamentos (ou condições). **Passo 2:** Dentro de cada bloco (linha), ordene as observações dos $k$ tratamentos em ordem crescente e atribua postos (ranks) de 1 a $k$. Em caso de empates dentro de um bloco, atribua a média dos postos. **Passo 3:** Calcule a soma dos postos para cada tratamento (coluna). Seja $R_j$ a soma dos postos para o tratamento $j$. **Passo 4:** Calcule a estatística de teste $Q$ (também referida como $\chi^2_r$ ou $F_r$): $$
+**Passo 1:** Organize os dados em uma matriz onde as linhas representam os blocos (ou sujeitos) e as colunas representam os tratamentos (ou condições).
+
+**Passo 2:** Dentro de cada bloco (linha), ordene as observações dos $k$ tratamentos em ordem crescente e atribua postos (ranks) de 1 a $k$. Em caso de empates dentro de um bloco, atribua a média dos postos.
+
+**Passo 3:** Calcule a soma dos postos para cada tratamento (coluna). Seja $R_j$ a soma dos postos para o tratamento $j$. **Passo 4:** Calcule a estatística de teste $Q$ (também referida como $\chi^2_r$ ou $F_r$): $$
 Q = \frac{12}{nk(k+1)} \sum_{j=1}^{k} R_j^2 - 3n(k+1)
-$$ Onde $n$ é o número de blocos (sujeitos) e $k$ é o número de tratamentos (condições). *(Opcional: Existem correções para empates, mas a fórmula acima é a mais comum).* **Passo 5:** Compare a estatística $Q$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $Q$. **Passo 6:** Se $Q$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre pelo menos dois tratamentos/condições.
+$$ Onde $n$ é o número de blocos (sujeitos) e $k$ é o número de tratamentos (condições). *(Opcional: Existem correções para empates, mas a fórmula acima é a mais comum).*
+
+**Passo 5:** Compare a estatística $Q$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $Q$.
+
+**Passo 6:** Se $Q$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre pelo menos dois tratamentos/condições.
 
 ------------------------------------------------------------------------
 
@@ -324,14 +526,22 @@ Queremos testar se existe uma correlação monotônica significativa entre duas 
 
 ## Metodologia
 
-**Passo 1:** Obtenha os pares de observações $(x_i, y_i)$ para as duas variáveis, com $n$ pares no total. **Passo 2:** Ordene os valores de $X$ e atribua postos $R(x_i)$ de 1 a $n$. Faça o mesmo para os valores de $Y$, atribuindo postos $R(y_i)$. Em caso de empates, atribua a média dos postos. **Passo 3:** Calcule as diferenças entre os postos para cada par: $d_i = R(x_i) - R(y_i)$. **Passo 4:** Calcule o coeficiente de correlação de Spearman $\rho$:
+**Passo 1:** Obtenha os pares de observações $(x_i, y_i)$ para as duas variáveis, com $n$ pares no total.
+
+**Passo 2:** Ordene os valores de $X$ e atribua postos $R(x_i)$ de 1 a $n$. Faça o mesmo para os valores de $Y$, atribuindo postos $R(y_i)$. Em caso de empates, atribua a média dos postos.
+
+**Passo 3:** Calcule as diferenças entre os postos para cada par: $d_i = R(x_i) - R(y_i)$.
+
+**Passo 4:** Calcule o coeficiente de correlação de Spearman $\rho$:
 
 -   Se não houver empates nos postos: $$
     \rho = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}
     $$
 -   Se houver empates (ou de forma geral, pois funciona em ambos os casos), calcule a correlação de Pearson sobre os postos $R(x_i)$ e $R(y_i)$. A função `scipy.stats.spearmanr` faz isso automaticamente.
 
-**Passo 5:** O valor de $\rho$ varia entre -1 e +1. \* $\rho = +1$ indica uma relação monotônica positiva perfeita. \* $\rho = -1$ indica uma relação monotônica negativa perfeita. \* $\rho = 0$ indica ausência de relação monotônica. **Passo 6:** Para testar a significância, compare o valor de $\rho$ com valores críticos tabelados ou, mais comumente, calcule o valor-$p$ associado. A função `scipy.stats.spearmanr` retorna o coeficiente e o valor-$p$.
+**Passo 5:** O valor de $\rho$ varia entre -1 e +1. \* $\rho = +1$ indica uma relação monotônica positiva perfeita. \* $\rho = -1$ indica uma relação monotônica negativa perfeita. \* $\rho = 0$ indica ausência de relação monotônica.
+
+**Passo 6:** Para testar a significância, compare o valor de $\rho$ com valores críticos tabelados ou, mais comumente, calcule o valor-$p$ associado. A função `scipy.stats.spearmanr` retorna o coeficiente e o valor-$p$.
 
 ------------------------------------------------------------------------
 
