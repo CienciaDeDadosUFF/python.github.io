@@ -554,7 +554,7 @@
     "href": "EstatisticaNaoParametrica.html",
     "title": "Estatística Não Paramétrica",
     "section": "",
-    "text": "Vantagens da Estatística Não-Paramétrica",
+    "text": "Vantagens da Estatística Não-Paramétrica\nA Estatística Não-Paramétrica é uma abordagem de análise estatística que não assume uma forma específica de distribuição para os dados. Em contraste com a Estatística Paramétrica, que depende de pressupostos rígidos, como normalidade dos dados e homogeneidade de variâncias, os métodos não-paramétricos são mais flexíveis e robustos, sendo especialmente úteis quando os dados são ordinais, categóricos ou provenientes de pequenas amostras.\nEnquanto a estatística paramétrica busca estimar parâmetros de distribuições conhecidas (como média e variância em uma distribuição normal), a não-paramétrica trabalha principalmente com ordens, postos (rankings) e frequências, evitando suposições rígidas e podendo ser aplicada em contextos mais amplos.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Estatística Não Paramétrica</span>"
     ]

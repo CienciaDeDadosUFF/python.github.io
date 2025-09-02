@@ -1,0 +1,257 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title:  \"Erros Amostrais\"\n",
+        "format:\n",
+        "  html:\n",
+        "    code-fold: false\n",
+        "toc: true\n",
+        "toc-title: Navegação\n",
+        "number-sections: false\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "Este é um dos conceitos mais fundamentais com os quais lidamos na aprendizagem de máquina e previsão. Temos dois tipos de erros amostrais: o erro dentro da amostra (in sample error) e o erro fora da amostra (out of sample error).\n",
+        "\n",
+        "# Erro dentro da Amostra (In Sample Error)\n",
+        "\n",
+        "A taxa de erro dentro da amostra refere-se ao erro calculado no mesmo conjunto de dados utilizado para treinar o modelo preditivo. Na literatura, isso é frequentemente denominado como “erro de resubstituição”. Em outras palavras, essa taxa de erro mede o quanto algoritmo de previsão se ajusta exatamente aos mesmos dados utilizados para o treinamento do modelo. No entanto, quando o modelo é aplicado a um novo conjunto de dados, é esperado que essa precisão diminua.\n",
+        "\n",
+        "# Erro fora da Amostra (Out of Sample Error)\n",
+        "\n",
+        "É a taxa de erro que você recebe em um novo conjunto de dados. Na literatura às vezes é chamado de erro de generalização. Uma vez que coletamos uma amostra de dados e construímos um modelo para ela, podemos querer testá-lo em uma nova amostra, por exemplo uma amostra coletada em um horário diferente ou em um local diferente. Daí podemos analisar o quão bem o algoritmo executará a predição nesse novo conjunto de dados.\n",
+        "\n",
+        "## Algumas ideias-chave\n",
+        "\n",
+        "1.  Quase sempre o erro fora da amostra é o que interessa.\n",
+        "\n",
+        "2.  Erro dentro da amostra é menor que o erro fora da amostra.\n",
+        "\n",
+        "3.  Um erro frequente é ajustar muito o algoritmo aos dados que temos. Em outras palavras, criar um modelo sobreajustado (também chamado de overfitting(\\*)).\n",
+        "\n",
+        "(\\*) Overfitting é um termo usado na estatística para descrever quando um modelo estatístico se ajusta muito bem a um conjunto de dados anteriormente observado e, como consequência, se mostra ineficaz para prever novos resultados.\n",
+        "\n",
+        "Vejamos um exemplo de erro dentro da amostra vs erro fora da amostra:"
+      ],
+      "id": "6c660c4f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from sklearn.utils import resample\n",
+        "from sklearn.metrics import confusion_matrix\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "# Seed\n",
+        "\n",
+        "\n",
+        "# importando a base utilizando o pacote pandas\n",
+        "spam = pd.read_csv(\"Cadernos Grupo Python\\\\Criação e Avaliação de Preditores\\\\spam.csv\")\n",
+        "spam[\"type_code\"] = np.where(spam[\"type\"] == \"spam\", 1, 0)\n",
+        "\n",
+        "# vamos selecionar um amostra de tamanho dez da base\n",
+        "np.random.seed(151)\n",
+        "amostra_spam = resample(spam, n_samples=10, replace=False)\n",
+        "\n",
+        "# criando gráfico de dispersão para a média de letras maiúsculas\n",
+        "cores = ['red', 'black']\n",
+        "\n",
+        "sns.scatterplot(x=range(len(amostra_spam['capitalAve'])),\n",
+        "                y=amostra_spam['capitalAve'],\n",
+        "                c=[cores[label] for label in amostra_spam['type_code']])\n",
+        "\n",
+        "plt.title('Letras Maiúsculas em spam (vermelho) e em ham (preto)')\n",
+        "plt.xlabel('Quantidade de Letras Maiúsculas')\n",
+        "plt.ylabel('Frequência')\n",
+        "plt.show()\n",
+        "\n",
+        "# 322"
+      ],
+      "id": "81bbdd36",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Podemos notar que, em geral, as mensagens classificadas como spam possuem uma frequência maior de letras maiúsculas do que as mensagens classificadas como não spam. Com base nisso queremos construir um preditor, onde podemos classificar e-mails como spam se a frequência de letras maiúsculas for maior que uma determida constante, e não spam caso contrário.\n",
+        "\n",
+        "Veja que se separarmos os dados pela frequência de letras maiúsculas maior que 2,5 e classificarmos o que está acima como spam e abaixo como não spam, ainda teríamos duas observações que não são spam acima da linha."
+      ],
+      "id": "368ff67b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Criando um gráfico de dispersão para a média de letras maiúsculas\n",
+        "cores = ['red', 'black']\n",
+        "\n",
+        "sns.scatterplot(x=range(len(amostra_spam['capitalAve'])),\n",
+        "                y=amostra_spam['capitalAve'],\n",
+        "                c=[cores[label] for label in amostra_spam['type_code']])\n",
+        "plt.hlines(y = [0, 2], xmin=[0,0], xmax=[15, 15])\n",
+        "plt.title('Letras Maiúsculas em spam (vermelho) e em ham (preto)')\n",
+        "plt.xlabel('Quantidade de Letras Maiúsculas')\n",
+        "plt.ylabel('Frequência')\n",
+        "plt.show()"
+      ],
+      "id": "0dd543a8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def modelo_sobreajustado(x):\n",
+        "    predicao = np.where((x >= 0) & (x <= 2), 'spam',\n",
+        "                        np.where((x < 0) | (x > 2), 'nonspam', 'nonspam'))\n",
+        "\n",
+        "    return(predicao)\n",
+        "\n",
+        "# Avaliando o modelo sobreajustado\n",
+        "resultado = modelo_sobreajustado(amostra_spam['capitalAve'])\n",
+        "confusion_matrix(resultado, amostra_spam['type'])"
+      ],
+      "id": "22a9086e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Note que obtivemos uma precisão perfeita nessa amostra, como já era esperado. Nesse caso, o erro dentro da amostra é de 0%. Mas será que esse modelo é o mais eficiente em outros dados também?\n",
+        "\n",
+        "Vamos usar essa segunda regra para criarmos um modelo mais geral:\n",
+        "\n",
+        "-   letras maiúsculas \\> 2,4 ⇒ spam;\n",
+        "\n",
+        "-   letras maiúsculas \\<= 2,4 ⇒ não spam."
+      ],
+      "id": "6863b738"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "cores = ['red', 'black']\n",
+        "\n",
+        "sns.scatterplot(x=range(len(amostra_spam['capitalAve'])),\n",
+        "                y=amostra_spam['capitalAve'],\n",
+        "                c=[cores[label] for label in amostra_spam['type_code']])\n",
+        "plt.hlines(y = [2.4], xmin=[0], xmax=[10])\n",
+        "plt.title('Letras Maiúsculas em spam (vermelho) e em ham (preto)')\n",
+        "plt.xlabel('Quantidade de Letras Maiúsculas')\n",
+        "plt.ylabel('Frequência')\n",
+        "plt.show()"
+      ],
+      "id": "cae3cdde",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def modelo_geral(x):\n",
+        "    predicao = np.where(x >= 0, 'spam',\n",
+        "                        np.where(x < 0, 'nonspam', 'nonspam'))\n",
+        "    \n",
+        "    return predicao\n",
+        "\n",
+        "# Avaliando o modelo sobreajustado\n",
+        "resultado_geral = modelo_geral(amostra_spam['capitalAve'])\n",
+        "confusion_matrix(resultado_geral, amostra_spam['type'])"
+      ],
+      "id": "446297d1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Observe que dessa forma temos um erro dentro da amostra de 20%. Vamos agora aplicar esses dois modelos para toda a base de dados:"
+      ],
+      "id": "9d23a7ea"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Aplicando o modelo na base toda e criando a tabela\n",
+        "confusion_matrix(modelo_sobreajustado(spam['capitalAve']), spam['type'])"
+      ],
+      "id": "63cc01c7",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "confusion_matrix(modelo_geral(spam['capitalAve']), spam['type'])"
+      ],
+      "id": "b86c73f9",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Olhando para a precisão de nossos modelos:"
+      ],
+      "id": "88fae5a2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "np.sum(modelo_geral(spam['capitalAve']) == spam['type'])"
+      ],
+      "id": "3cb3b154",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "np.sum(modelo_sobreajustado(spam['capitalAve']) == spam['type'])"
+      ],
+      "id": "9ab9e1fe",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Observe que utilizando o modelo sobreajustado obtivemos um erro fora da amostra de 40,77%, enquanto que com o modelo geral esse erro foi de 27,95%. Note que se queremos construir um modelo que melhor representa qualquer amostra que pegarmos, um modelo não sobreajustado possuirá uma precisão maior."
+      ],
+      "id": "0c2e8fdc"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\dougu\\AppData\\Local\\Programs\\Python\\Python313\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
