@@ -27,7 +27,7 @@ Enquanto a estatística paramétrica busca estimar parâmetros de distribuiçõe
 ## Desvantagens
 
 -   Em geral, possuem **menor poder estatístico** quando os pressupostos dos testes paramétricos são atendidos;
--   **Não fornecem estimativas de parâmetros populacionais**, como média e desvio padrão, dificultando interpretações inferenciais mais precisas;
+-   **Não fornecem estimativas de parâmetros populacionais**, como média e desvio padrão, dificultando interpretações inferenciais mais precisas. 
 
 ## Quando Usar Métodos Paramétricos ou Não-Paramétricos
 
@@ -48,6 +48,8 @@ Utilize métodos não-paramétricos quando:
 -   Houver **outliers** que comprometam os resultados dos testes clássicos.
 
 # Importação
+
+PACOTES UTILIZADOS????
 
 ``` python
 import numpy as np  # operações matemáticas e vetoriais
@@ -75,9 +77,13 @@ Esse teste é particularmente útil quando:
 
 Queremos testar se duas populações independentes têm **a mesma mediana**.
 
--   **Hipótese nula**: $H_0$: as distribuições de $X$ e $Y$ são iguais, ou seja, $md_X = md_Y$;
+-   **Hipótese nula**($H_0$): as distribuições de $X$ e $Y$ são iguais, ou seja, 
 
--   **Hipótese alternativa**: $H_1$: as distribuições são diferentes, ou seja, $md_X \neq md_Y$ (bilateral) ou $md_X > md_Y$ / $md_X < md_Y$ (unilateral).
+$md_X = md_Y;$
+
+-   **Hipótese alternativa**($H_1$): as distribuições são diferentes, ou seja, 
+
+$md_X \neq md_Y$  (bilateral) ou $md_X > md_Y$ ou $md_X < md_Y$ (unilaterais).
 
 ## Metodologia
 
