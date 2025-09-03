@@ -123,7 +123,7 @@ for chave_metrica, scores_dos_modelos in todos_os_scores.items():
     print("\n") # Linha separadora entre métricas
 ```
 
-Repare que foi calculada três diferentes medidas: “MAE”, “RMSE”, e “Rsquared”. Nesse caso, queremos o modelo que possua MAE e RMSE baixo e $ R^2$ alto. Para vizualizar melhor, podemos construir um boxplot comparativo da seguinte forma:
+Repare que foi calculada três diferentes medidas: “MAE”, “RMSE”, e “Rsquared”. Nesse caso, queremos o modelo que possua MAE e RMSE baixo e \$ R\^2\$ alto. Para vizualizar melhor, podemos construir um boxplot comparativo da seguinte forma:
 
 ```{python}
 # lista para armazenar os dicionários

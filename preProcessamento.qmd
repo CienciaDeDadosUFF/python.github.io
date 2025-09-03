@@ -27,14 +27,15 @@ from sklearn.metrics import confusion_matrix
 
 Pré-processamento é a etapa do desenvolvimento de modelos que consiste em preparar os dados brutos para que eles possam ser utilizados de forma eficiente e correta por algoritmos de aprendizado de máquina ou estatística.
 
-Em termos simples, é como organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até esse caderno as bases dados utilizadas são bases que já passaram por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam.
+Em termos simples: organizar, limpar e transformar os dados antes de usá-los para treinar um modelo. Essa etapa é crucial porque dados reais quase sempre vêm com problemas: valores faltantes, erros, formatos inconsistentes ou escalas muito diferentes. Se esses problemas não forem tratados, o modelo pode aprender de forma errada ou produzir resultados ruins. Até este caderno, as bases de dados utilizadas são bases que já haviam passado por etapas de pré-processamento. A base spam, por exemplo, antes do pré-processamento teria apenas a íntegra dos e-mails e talvez uma classificação em spam ou não spam.
 
 Pré-processamento tem duas etapas, uma logo depois da divisão dos dados, que será realizada também sempre que o preditor for utilizado, e uma posterior que será para o treinamento apenas.
 
-Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao apresentar os diferentes métodos ficará explicito todas essas questões.
+Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao longo da apresentação dos diferentes métodos ficará explicito todas essas questões.
 
 # Análise da base
-Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos. 
+
+Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.
 
 Segundo a Organização Mundial da Saúde (OMS), o AVC é a segunda principal causa de morte no mundo, sendo responsável por aproximadamente 11% do total de mortes.
 
@@ -48,58 +49,64 @@ print(stroke)
 
 São 5110 amostras com 11 variáveis explicativas e uma variável resposta. Segue abaixo a descrição de cada uma:
 
-* id: Número inteiro que serve como identificador único de cada paciente
+-   id: Número inteiro que serve como identificador único de cada paciente
 
-* gender: Male, Female ou Other, é o gênero do paciente.
+-   gender: Male, Female ou Other, é o gênero do paciente.
 
-* age: Idade do paciente
+-   age: Idade do paciente
 
-* hypertension: 0 se o paciente não tem hipertensão e 1 se tiver.
+-   hypertension: 0 se o paciente não tem hipertensão e 1 se tiver.
 
-* heart_disease: 0 se o paciente não tem alguma doença cardíaca e 1 se tiver.
+-   heart_disease: 0 se o paciente não tem alguma doença cardíaca e 1 se tiver.
 
-* ever_married: No ou Yes, Não ou Sim se o paciente já foi ou é casado.
+-   ever_married: No ou Yes, Não ou Sim se o paciente já foi ou é casado.
 
-* work_type: children, Govt_job, Never_worked, Private ou Self-employed, categoria de trabalho do paciente.
+-   work_type: children, Govt_job, Never_worked, Private ou Self-employed, categoria de trabalho do paciente.
 
-* Residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano
+-   Residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano
 
-* avg_glucose_level: Nível médio de glicose no sangue, em float.
+-   avg_glucose_level: Nível médio de glicose no sangue, em float.
 
-* bmi: Índice de massa corporal (IMC), em float.
+-   bmi: Índice de massa corporal (IMC), em float.
 
-* smoking_status: formerly smoked, never smoked, smokes ou Unknown, status de fumante do paciente.
+-   smoking_status: formerly smoked, never smoked, smokes ou Unknown, status de fumante do paciente.
 
-* stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.
+-   stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.
+
+Essa base é a que foi explorada em STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan, que traz uma análise profunda da base, além do uso de diferentes técnicas de aprendizado de máquina.
 
 # Diretrizes gerais do pré-processamento
 
 Nossa base possui variáveis textuais e categóricas, o que é um problema para as implementações do scikit-learn: os algoritmos de aprendizado de máquina exigem que os dados estejam com algum nível de pré-processamento para poder executar. Precisamos tratar essas condições antes de poder criar o preditor, o tratamento é feito pela codificação para variáveis que serão aceitas pelo scikit-learn. Sem essa etapa a base stroke, caso inserida dentro de uma função de aprendizado de máquina do scikit-learn, apenas retornará um erro.
 
-Dependendo do módulo que for utilizado ou da linguagem de programação, pode haver uma flexibilidade maior, dados que não são aceitos pelo scikit-learn serão aceitos e vice-versa, um programador precisa conhecer as limitações de cada módulo que utiliza. 
+Dependendo do módulo que for utilizado ou da linguagem de programação, pode haver uma flexibilidade maior, dados que não são aceitos pelo scikit-learn serão aceitos e vice-versa, um programador precisa conhecer as limitações de cada módulo que utiliza.
 
 Em geral o que precisamos nos atentar, em uma primeira análise para o scikit-learn, é a presença dos seguintes tipos de dados:
 
-* Dados textuais
-* Dados faltantes
-* Variáveis categóricas
-* Dados do tipo data
+-   Dados textuais
+-   Dados faltantes
+-   Variáveis categóricas
+-   Dados do tipo data
 
 Todas esses tipos de dados necessitam de pré-processamento para rodar em qualquer função do scikit-learn
 
-Idealmente realizaremos o pré-processamento antes da separação em k-fold. Se por alguma razão já temos os dados separados de antemão por reamostragem, será necessário realizar o pré-processamento em cada um dos grupos antes de inserir nos modelos, que pode ser feito com laços for. 
+Idealmente realizaremos o pré-processamento antes da separação em k-fold. Se por alguma razão já temos os dados separados de antemão por reamostragem, será necessário realizar o pré-processamento em cada um dos grupos antes de inserir nos modelos, que pode ser feito com laços for.
 
 O pré-processamento necessariamente precisa ser feito após a separação do conjunto validação para evitar vazamento de informação dos dados novos que usaremos para testar o modelo no final, da mesma maneira que uma amostra externa não poderia influenciar na construção do modelo.
 
-*Então como fica o pré-processamento do conjunto validação? Não faremos? Precisamos tratar os dados faltantes e converter variáveis textuais nela também certo?*
+**Então como fica o pré-processamento do conjunto validação? Não faremos? Precisamos tratar os dados faltantes e converter variáveis textuais nela também certo?**
 
-Sim, precisamos fazer o pré-processamento no conjunto validação também, porém, durante o pré-processamento criaremos médias, desvios padrões entre outras variáveis que não podem ser influenciadas pelos dados externos. 
+Sim, precisamos fazer o pré-processamento no conjunto validação também, porém, durante o pré-processamento criaremos médias, desvios padrões entre outras variáveis que não podem ser influenciadas pelos dados externos.
 
-*Mas como que o pré-processamento da base validação será feito então?* 
+**Mas como que o pré-processamento da base validação será feito então?**
 
-Depois de criar as métricas no pré-processamento do conjunto treino, utilizaremos estas para realizar a transformação do que tiver que ser transformado no conjunto validação ou dados externos.
+Depois de criar as métricas no pré-processamento do conjunto treino, utilizaremos estas para realizar a transformação do que for ser transformado no conjunto validação ou dados externos.
 
-Faremos uma separação em treino e teste que utilizaremos na implementação de todos os métodos com reamostragem por k-fold para propositalmente testá-los em sequência com as mesmas respectivas amostras para evitar o viés de seleção. Será utilizado o algoritmo random-forest para a confecção dos preditores.
+Faremos uma separação em treino e teste que utilizaremos na implementação de todos os métodos com reamostragem por k-fold para evitar o viés de seleção do processo de separação dos dados.
+
+Se por alguma razão quisermos alterar o pré-processamento ou qualquer outro aspecto da confecção do preditor devemos refazer a separação treino-teste-validação para não ocorrer o que chamamos de **treino do teste**: quando ajustamos os pré-processamentos ou a validação cruzada para gerar um resultado "melhor" no conjunto teste.
+
+Será utilizado o algoritmo random-forest para a confecção dos preditores.
 
 Um passo importante antes da separação do conjunto validação é salvar as possíveis classes de todas as variáveis categóricas:
 
@@ -116,7 +123,7 @@ for coluna in colunasCategoricas:
   classesColCateg.append(list(stroke[coluna].unique()))
 ```
 
-Sem este passo podemos ter problemas com a codificação de variáveis. 
+Sem este passo podemos ter problemas com a codificação de variáveis.
 
 Nesse caso, vazamento de informações não é uma preocupação porque o modelo final só poderá aceitar amostras novas com o formato que foi treinado, o que inclui as classes possíveis de uma variável categórica. Portanto, precisamos utilizar todos os dados que possuímos a nossa disposização, mesmo que eventualmente uma das classes só esteje no conjunto validação, o pré-processamento precisa ter ciência de sua existência ao menos para poder criar colunas no processo de codificação de variáveis.
 
@@ -176,50 +183,164 @@ Essa função será utilizada para testar o modelo assim que passarmos pelas eta
 
 # Tratamento de dados faltantes
 
+O primeiro passo da primeira etapa de pré-processamento é o tratamento de dados faltantes.
+
+O que são dados faltantes? É uma pergunta fácil de responder a princípio: sempre que um dado está como NA (*Not Available*) no dataframe ou vazio na base original. Porém esses não são os únicos dados faltantes que precisamos considerar. Muitas vezes dados são faltantes mesmo que em uma primeira análise isso não seja evidente.
+
+O primeiro passo para o tratamento de dados faltantes é a identificação mediante a contagem de dados faltantes e a análise de dados que não são faltantes mas que na prática se comportam como tal. Para isso existe a análise exploratória de dados que por simplicidade não realizamos nesse caderno porque fugiria do escopo
+
+O correto seria realizar esse estudo durante a anális exploratória dos dados, antes da separação do conjunto validação, porém, para manter o escopo do caderno e por simplicidade, isso não foi feito.
+
+Realizamos essa separação no início do caderno também para não abrir a possiblidade de interpretação deste procedimento como uma etapa do tratamento de dados faltantes ou como algo que precisa ser feito depois disso, que estaria incorreto pôs alguns métodos que falaremos aqui exigem essa separação feita de antemão.
+
+Observe a contagem dos valores da coluna `smoking_status` de stroke:
 
 ```{python}
-#df['B'].isna().sum()
+print(x_strokeKfold["smoking_status"].value_counts())
 ```
 
+1383 dos 4599 são Unknown. Concordam que essa categoria de smoking_status é na realidade um NA?
 
+Observe agora a distribuição de dados da coluna `gender` de stroke:
+
+```{python}
+print(x_strokeKfold["gender"].value_counts())
+```
+
+É um pouco controverso essa abordagem dado a politização do assunto, mas como se trata de dados para uso médico, uma pessoa de sexo outro precisa ser tratada como NA também porque a orientação de gênero do paciente não é determinante para o diagnóstico de AVC enquanto o sexo natural é.
+
+Na base stroke essas são as únicas colunas que possuem dados faltantes que não são simples NAs. Ao realizar o tratamento de dados faltantes é importante se atentar com esse tipo de valor para todas as variáveis explicativas.
+
+Vamos converter esses valores para NA para que possamos tratá-los como tal a seguir. Para isso usaremos o método `.replace` de um dataframe do pandas
+
+```{python}
+x_strokeKfold = x_strokeKfold.replace({
+    "gender": {"Other": pd.NA},          
+    "smoking_status": {"Unknown": pd.NA} 
+})
+```
+
+Quantos NAs temos agora? Para ver isso podemos usar o seguinte método:
+
+```{python}
+print(x_strokeKfold.isna().sum())
+```
+
+Além dos NAs imputados temos 184 NAs na variável bmi.
 
 ## Remoção
 
-### Amostras
+O tratamento mais simples de NA é a remoção dos dados. Ele existe sobre duas formas:
+
+### Remoção de Amostras
+
+Remoção de uma amostra inteira do conjunto de dados na presença de NAs nas variáveis explicativas.
+
+Pode ser interessante pôs qualquer tipo de tratamento de NA levará a uma perda da consistência dos dados. Porém é importante ressaltar que não podemos simplesmente remover as amostras dos dados de uso. Essa estratégia pode ser executada se garantirmos que em uso real não terão dados faltantes. Nesse caso podemos interpretar a presença dos NAs como um problema pontual dos dados do conjunto de dados usado no treinamento do modelo. Se essa abordagem for utilizada é importante garantir que o conjunto validação não possua dados faltantes também.
+
+No conjunto de dados existe uma amostra que na varíavel `gender` possui um NA que foi gerado por conta do valor "Other". Seguindo a lógica que usamos na conversão desse dado em NA, podemos defender a remoção inteira dessa amostra, justamente por ter sido problema pontual na coleta dos dados, a titúlo de tratamento de base, em uma situação real o sexo do paciente é uma informação necessária para o tratamento médico de pacientes com AVC e estará sempre disponível.
+
+Como se trata de apenas uma amostra entre as 4598 essa solução é o suficiente. Se a presença de NAs nessa coluna causada por esta razão fosse mais expressiva alguma outra estratégia seria necessária. Precisamos nesse tratamento remover as amostras com valor "Other" em `gender` do conjunto validação, que já não possuia nenhum por a caso.
+
+Para remover o NA de `gender`:
+
+```{python}
+# Como estamos removendo uma linha do dataframe precisamos resetar o índice.
+x_strokeKfold = x_strokeKfold.dropna(subset=["gender"]).reset_index(drop=True)
+```
+
+Esse código funciona para caso hajam mais NAs na coluna também.
 
 ### Variáveis
 
+Remoção de uma variável explicativa inteira caso esta possua NAs em excesso.
+
+Não queremos criar um preditor que dependa de dados com NAs em excesso. Qualquer tratamento de NA resultará em uma amostra que trará inconsistência ao modelo.
+
+No conjunto stroke, `smoking_status` possui 1/3 dos dados como dados faltantes. Podemos argumentar pela remoção dessa coluna, porém essa decisão vem com um custo analítico alto: tabagismo é uma prática que leva a diversos problemas de saúde entre eles o AVC.
+
+Remoção de amostras não será uma boa abordagem devido a magnetude da falta de desses dados, além disso, em um contexto real de uso é possível que não seja conhecido o status de fumante do paciente.
+
+Uma abordagem que podemos seguir é de criar dois modelos: um preditor de AVC que leva em conta o status de fumante do paciente para ser usado quando a informação está presente e outro que ignora a variável (mediante a exclusão da coluna dos dados) para ser usado quando o dado for faltante.
+
+Para o uso do modelo criaremos uma função que identifica a presença ou não de valor significativo em `smoking_status` usando um simples `if` para alternar entre os modelos. Uma nova separação de treino e validação teria que ser feita nesse caso, uma para ser usada no preditor com o status de fumante do paciente e outro para ser usado no preditor sem que possuam os dados que repliquem essa distinção.
+
+Após a predição, a função que cria a alternância receberá os dados, os consolidará e retornará os valores.
+
+Por simplicidade não faremos esse procedimento aqui no caderno, mas é uma abordagem interessante de se avaliar.
+
 ## Imputação
 
-### valores padrões (média, mediana, moda)
+A ideia central é substituir os NAs por outros valores que façam algum sentido no contexto dos dados com o objetivo de manter a amostra e ter a menor perda de capacidade analítica possível. Segue alguns métodos:
+
+### Valores padrões
+
+Substituição dos dados faltantes por valores padrões podem ser feitas usando a média, mediana, moda dos demais dados do conjunto treino ou ainda por um valor padrão pré-definido arbitrariamente.
+
+Essa estratégia é particularmente útil quando o dado a ser analisado carrega alguma importância porém não é um fator determinante por si só na predição do modelo.
+
+Ao realizar esse procedimento estamos reduzindo a relevância da variável específica na análise daquela amostra. Um pensamento que sumariza essa decisão é: "Seria importante que tívessemos, mas como não temos não tem problema.".
+
+Quando usar usar a moda, mediana, a média ou um valor arbitrário?
+
+Para as variáveis categóricas temos a moda ou um valor arbitrário como possibilidade. Usaremos a moda quando não tivermos uma boa razão pra por um dado arbitrário. Um especilista pode ser consultado para determinar um valor arbitrário a usar.
+
+Para variáveis contínuas podemos usar qualquer um, embora a moda não faça tanto sentido. Determinar entre usar a mediana e a média depende de uma análise da dispersão dos dados. Se entendermos que o conjunto de dados possuam amostras com valores muito destoantes, isso é, muitos *outliers*, não devemos usar a média. Definir um valor arbitrário a ser utilizado exige um entendimento profundo do dado e do assunto, que se for o caso sempre será uma boa opção.
+
+Importante é que se for optado por usar qualquer valor padrão a decisão precisa ser tomada independente do conjunto validação ou de dados novos do uso real: precisamos determinar o valor a ser usado a priori e salvá-lo no pré-processamento, sem haver redefinição dele por uso de um diferente conjunto de dados. Isso é feito para evitar vazamento de dados no caso do uso do conjunto validação e para evitar que o tratamento de NAs dos dados novos seja feito com base neles apenas, que poderia gerar um péssimo resultado.
+
+Usaremos a mediana para os dados faltantes do `bmi` e a moda para o `smoking_status` para definir valores padrões para as respectivas variáveis independentes a partir dos dados do conjunto treino.
+
+```{python}
+print(x_strokeKfold['bmi'].median())
+print(x_strokeKfold['smoking_status'].mode())
+```
+
+A mediana do bmi é 28.1 e a moda do smoking_status é never smoked logo ao realizar a substituição de dados faltantes faremos do seguinte modo:
+
+```{python}
+x_strokeKfold = x_strokeKfold.replace({
+    "bmi": {pd.NA: 28.1},          
+    "smoking_status": {pd.NA: "never smoked"} 
+})
+```
+
+Observe que os valores foram definidos manualmente, sem passar as funções novamente. Devemos comentar o código que usamos para calcular e imprimir na tela a mediana e a moda, podemos até removê-lo, só não podemos deixá-lo executando na função final de pré-processamento.
 
 ### Imputação por propagação
 
+Esse tratamento de NA consiste em preencher o valor com o seguinte ou o anterior do conjunto de dados. Isso é feito quando existe uma lógica de continuidade nas amostras do dado como em séries temporais.
+
+Dependendo do contexto podemos usar o seguinte ou o anterior. Digamos que tiramos medições a cada 10 minutos do clima de uma cidade. Em um dos momentos faltou energia justamente durante a medição e o dado não foi coletado. Faz sentido usar tanto o dado anterior quanto o seguinte. Podemos ainda tirar uma média entre os dois para que em um contexto de piora do tempo não haja uma mudança muito abrupta justamente na medição da piora.
+
+Já em um contexto de financeiro, digamos que queremos saber quanto foi o lucro de uma ação em um período porém não temos o dado do primeiro momento que foi perdido por uma razão qualquer. Para ser mais correto na análise, usando a base mais justa para cálculo, usaremos o último dado disponível.
+
+O pandas possui o método de dataframes `.fillna()` que possui os parâmetros method e limit:
+
+-   `method`: recebe qual método de imputação por propagação desejamos usar, "ffill" para buscar o dado anterior da medição faltante e "bfill" para buscar o dado seguinte da medição faltante.
+
+-   `limit`: define quantos valores consecutivos podem ser preenchidos usando a estratégia escolhida.
+
+Para a nossa base stroke esse método não tem uso pôs não se trata de uma série temporal.
+
 ### Por aprendizado de máquina
 
+
+
 #### KNN Impute (falar só disso mas que é um assunto maior)
-
-## Dados incompletos
-
 
 # Codificação de variáveis
 
 ## Variável dummy e one-hot encoding
 
-## Discretização
-
-
-
-
-
 # Rebalanceamento
 
-O que é, quando fazer, enviezar de propósito quando. 
-## Under sampling 
+O que é, quando fazer, enviezar de propósito quando. \## Under sampling
 
 Um outro pré-processamento que teremos que fazer mesmo nesse preditor inicial é o rebalanceamento da variável explicativa.
 
 Observe que há 4861 pacientes que não tiveram AVC e 249 pacientes que tiveram AVC:
+
 ```{python}
 print(stroke['stroke'].value_counts())
 ```
@@ -232,21 +353,11 @@ x_strokeKfoldBalanceado, y_strokeKfoldBalanceado = RandomUnderSampler(random_sta
 print(y_strokeKfold.value_counts())
 ```
 
-Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke é 1, após separação do conjunto validação, estão na nova separação junto com 223 amostras em que stroke é 0.
-## Over sampling
-
-
-
+Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke é 1, após separação do conjunto validação, estão na nova separação junto com 223 amostras em que stroke é 0. \## Over sampling
 
 # Seleção de atributos
 
-## Lógica de bom senso (para evitar correlações espúrias passarem)
-
 ## NearZeroVar
-
-
-
-
 
 # Transformação de variáveis
 
@@ -254,15 +365,8 @@ Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke
 
 ## Normalização
 
-
-
-
-# Redução de dimensionalidade
-
-## PCA (QUE NÃO É REDUZIR VARIAVEIS)
-
 # Resumo
 
 ### Referencias
 
-Dados faltantes: Python for Data Analysis
+Python for Data Analysis - Wes McKinney STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan
