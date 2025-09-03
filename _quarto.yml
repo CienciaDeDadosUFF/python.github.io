@@ -38,6 +38,7 @@ book:
     - "CrossValidation.qmd"
     - "preProcessamento.qmd"
     - "AvaliandoFuncoesPreditoras.qmd"
+    - "Métodos de Treino Baseados em Árvore.qmd"
     
 
 
