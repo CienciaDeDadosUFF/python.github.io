@@ -478,15 +478,7 @@ window.Quarto = {
   <li><a href="#teste-u-de-mannwhitney" id="toc-teste-u-de-mannwhitney" class="nav-link" data-scroll-target="#teste-u-de-mannwhitney">Teste U de Mann–Whitney</a>
   <ul class="collapse">
   <li><a href="#hipóteses" id="toc-hipóteses" class="nav-link" data-scroll-target="#hipóteses">Hipóteses</a></li>
-  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">Metodologia</a>
-  <ul class="collapse">
-  <li><a href="#passo-1-combine-e-ordene-os-dados" id="toc-passo-1-combine-e-ordene-os-dados" class="nav-link" data-scroll-target="#passo-1-combine-e-ordene-os-dados">Passo 1: Combine e ordene os dados</a></li>
-  <li><a href="#passo-2-atribua-os-postos" id="toc-passo-2-atribua-os-postos" class="nav-link" data-scroll-target="#passo-2-atribua-os-postos">Passo 2: Atribua os postos</a></li>
-  <li><a href="#passo-3-calcule-a-soma-dos-postos" id="toc-passo-3-calcule-a-soma-dos-postos" class="nav-link" data-scroll-target="#passo-3-calcule-a-soma-dos-postos">Passo 3: Calcule a soma dos postos</a></li>
-  <li><a href="#passo-4-calcule-as-estatísticas-de-mannwhitney" id="toc-passo-4-calcule-as-estatísticas-de-mannwhitney" class="nav-link" data-scroll-target="#passo-4-calcule-as-estatísticas-de-mannwhitney">Passo 4: Calcule as estatísticas de Mann–Whitney</a></li>
-  <li><a href="#passo-5-compare-com-o-valor-crítico" id="toc-passo-5-compare-com-o-valor-crítico" class="nav-link" data-scroll-target="#passo-5-compare-com-o-valor-crítico">Passo 5: Compare com o valor crítico</a></li>
-  </ul></li>
-  <li><a href="#definição-das-variáveis" id="toc-definição-das-variáveis" class="nav-link" data-scroll-target="#definição-das-variáveis">Definição das Variáveis</a></li>
+  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">Metodologia</a></li>
   <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo">Exemplo:</a></li>
   </ul></li>
   <li><a href="#teste-de-wilcoxon-postos-com-sinais" id="toc-teste-de-wilcoxon-postos-com-sinais" class="nav-link" data-scroll-target="#teste-de-wilcoxon-postos-com-sinais">Teste de Wilcoxon (Postos com Sinais)</a>
@@ -630,34 +622,24 @@ window.Quarto = {
 <ul>
 <li><strong>Hipótese nula</strong>(<span class="math inline">\(H_0\)</span>): as distribuições de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são iguais, ou seja,</li>
 </ul>
-<p><span class="math inline">\(md_X = md_Y;\)</span></p>
-<ul>
-<li><strong>Hipótese alternativa</strong>(<span class="math inline">\(H_1\)</span>): as distribuições são diferentes, ou seja,</li>
-</ul>
-<p><span class="math inline">\(md_X \neq md_Y\)</span> (bilateral) ou <span class="math inline">\(md_X &gt; md_Y\)</span> ou <span class="math inline">\(md_X &lt; md_Y\)</span> (unilaterais).</p>
+<p><span class="math display">\[md_X = md_Y;\]</span> - <strong>Hipótese alternativa</strong>(<span class="math inline">\(H_1\)</span>): as distribuições são diferentes, ou seja, <span class="math display">\[md_X \neq md_Y \ \text{(bilateral)} \]</span> ou <span class="math display">\[md_X &gt; md_Y  \ \text{ou} \ md_X &lt; md_Y \text{(unilaterais)}. \]</span></p>
 </section>
 <section id="metodologia" class="level2">
 <h2 class="anchored" data-anchor-id="metodologia">Metodologia</h2>
-<p>Comparar dois grupos independentes (<span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>) quanto à tendência central, <strong>sem assumir normalidade</strong>.</p>
-<p>Suponha:</p>
+<p>Queremos comparar dois amostras independentes (<span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>) quanto à tendência central, <strong>sem assumir normalidade</strong>.</p>
+<p>Por exemplo,</p>
 <ul>
-<li>Grupo <span class="math inline">\(X\)</span>: 5, 7, 9<br>
+<li>Amostra <span class="math inline">\(X\)</span>: 5, 7, 9<br>
 </li>
-<li>Grupo <span class="math inline">\(Y\)</span>: 1, 6, 8, 10</li>
+<li>Amostra <span class="math inline">\(Y\)</span>: 1, 6, 8, 10</li>
 </ul>
-<section id="passo-1-combine-e-ordene-os-dados" class="level3">
-<h3 class="anchored" data-anchor-id="passo-1-combine-e-ordene-os-dados">Passo 1: Combine e ordene os dados</h3>
-<p>Combine as duas amostras:</p>
-<ul>
-<li><span class="math inline">\(X\)</span>: 5, 7, 9<br>
-</li>
-<li><span class="math inline">\(Y\)</span>: 1, 6, 8, 10</li>
-</ul>
-<p>Dados combinados em ordem crescente:</p>
-<p>1, 5, 6, 7, 8, 9, 10</p>
+<section id="passo-1-combine-e-ordene-os-dados." class="level4">
+<h4 class="anchored" data-anchor-id="passo-1-combine-e-ordene-os-dados."><strong>Passo 1:</strong> Combine e ordene os dados.</h4>
+<p>Combine as duas amostras em ordem crescente:</p>
+<p>1, <span class="math inline">\(\textcolor{blue}{5}\)</span>, 6, <span class="math inline">\(\textcolor{blue}{7}\)</span>, 8, <span class="math inline">\(\textcolor{blue}{9}\)</span>, 10</p>
 </section>
-<section id="passo-2-atribua-os-postos" class="level3">
-<h3 class="anchored" data-anchor-id="passo-2-atribua-os-postos">Passo 2: Atribua os postos</h3>
+<section id="passo-2-atribua-os-postos-para-a-sequência-gerada-no-passo-anterior." class="level4">
+<h4 class="anchored" data-anchor-id="passo-2-atribua-os-postos-para-a-sequência-gerada-no-passo-anterior."><strong>Passo 2:</strong> Atribua os postos para a sequência gerada no passo anterior.</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -671,7 +653,7 @@ window.Quarto = {
 <td>1</td>
 </tr>
 <tr class="even">
-<td>5</td>
+<td><span class="math inline">\(\textcolor{blue}{5}\)</span></td>
 <td>2</td>
 </tr>
 <tr class="odd">
@@ -679,7 +661,7 @@ window.Quarto = {
 <td>3</td>
 </tr>
 <tr class="even">
-<td>7</td>
+<td><span class="math inline">\(\textcolor{blue}{7}\)</span></td>
 <td>4</td>
 </tr>
 <tr class="odd">
@@ -687,7 +669,7 @@ window.Quarto = {
 <td>5</td>
 </tr>
 <tr class="even">
-<td>9</td>
+<td><span class="math inline">\(\textcolor{blue}{9}\)</span></td>
 <td>6</td>
 </tr>
 <tr class="odd">
@@ -696,110 +678,59 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Identificando os grupos:</p>
+<p>Identificando as amostras:</p>
 <ul>
-<li>Grupo <span class="math inline">\(X\)</span>: valores 5, 7, 9 → postos: 2, 4, 6<br>
+<li>Amostra <span class="math inline">\(X\)</span>: valores 5, 7, 9 → postos: 2, 4, 6<br>
 </li>
-<li>Grupo <span class="math inline">\(Y\)</span>: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7</li>
+<li>Amostra <span class="math inline">\(Y\)</span>: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7</li>
 </ul>
 </section>
-<section id="passo-3-calcule-a-soma-dos-postos" class="level3">
-<h3 class="anchored" data-anchor-id="passo-3-calcule-a-soma-dos-postos">Passo 3: Calcule a soma dos postos</h3>
+<section id="passo-3-calcule-a-soma-dos-postos-para-cada-amostra." class="level4">
+<h4 class="anchored" data-anchor-id="passo-3-calcule-a-soma-dos-postos-para-cada-amostra."><strong>Passo 3:</strong> Calcule a soma dos postos para cada amostra.</h4>
+<p>Denote por <span class="math inline">\(R_X\)</span> e <span class="math inline">\(R_Y\)</span> as somas dos postos atribuídos aos elementos das amostras <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, respectivamente.</p>
 <ul>
-<li><p>Soma dos postos de <span class="math inline">\(X\)</span>:<br>
-<span class="math inline">\(R_X = 2 + 4 + 6 = 12\)</span></p></li>
-<li><p>Soma dos postos de <span class="math inline">\(Y\)</span>:<br>
-<span class="math inline">\(R_Y = 1 + 3 + 5 + 7 = 16\)</span></p></li>
-</ul>
-</section>
-<section id="passo-4-calcule-as-estatísticas-de-mannwhitney" class="level3">
-<h3 class="anchored" data-anchor-id="passo-4-calcule-as-estatísticas-de-mannwhitney">Passo 4: Calcule as estatísticas de Mann–Whitney</h3>
-<p>Definições:</p>
-<ul>
-<li><span class="math inline">\(n_X = 3\)</span>: tamanho da amostra do grupo <span class="math inline">\(X\)</span><br>
-</li>
-<li><span class="math inline">\(n_Y = 4\)</span>: tamanho da amostra do grupo <span class="math inline">\(Y\)</span></li>
-</ul>
-<p>Cálculos:</p>
-<p><span class="math inline">\(U_X = R_X - \dfrac{n_X(n_X + 1)}{2} = 12 - \dfrac{3(3 + 1)}{2} = 12 - 6 = 6\)</span></p>
-<p><span class="math display">\[U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2} = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6\]</span></p>
-<p><span class="math inline">\(U = \min(U_X, U_Y) = \min(6, 6) = 6\)</span></p>
-</section>
-<section id="passo-5-compare-com-o-valor-crítico" class="level3">
-<h3 class="anchored" data-anchor-id="passo-5-compare-com-o-valor-crítico">Passo 5: Compare com o valor crítico</h3>
-<ul>
-<li><p>O valor crítico de <span class="math inline">\(U\)</span> é obtido em <strong>tabelas específicas</strong>, de acordo com <span class="math inline">\(n_X\)</span>, <span class="math inline">\(n_Y\)</span> e o nível de significância <span class="math inline">\(\alpha\)</span>.</p></li>
-<li><p>Para <span class="math inline">\(n_X = 3\)</span>, <span class="math inline">\(n_Y = 4\)</span> e <span class="math inline">\(\alpha = 0{,}05\)</span> (teste bicaudal), o <strong>valor crítico tabelado</strong> é <strong>2</strong>.</p></li>
-<li><p>Como <span class="math inline">\(U = 6 &gt; 2\)</span>, <strong>não rejeitamos a hipótese nula</strong>: não há evidência significativa de diferença entre os grupos.</p></li>
+<li><p>Soma dos postos da amostra <span class="math inline">\(X\)</span>:<br>
+<span class="math inline">\(R_X = 2 + 4 + 6 = 12\)</span>.</p></li>
+<li><p>Soma dos postos da amostra <span class="math inline">\(Y\)</span>:<br>
+<span class="math inline">\(R_Y = 1 + 3 + 5 + 7 = 16\)</span>.</p></li>
 </ul>
 <blockquote class="blockquote">
-<p>Alternativamente, pode-se usar o <strong>valor-p</strong> calculado por software estatístico (como R ou Python) para tomar a decisão.</p>
+<p><strong>Observação:</strong> se as duas amostras possuem a mesma distribuições, esperamos que exista uma sobreposição considerável entre as duas amostras. O que implica que <span class="math inline">\(R_X\)</span> e <span class="math inline">\(R_Y\)</span> assumirão valores próximos.</p>
 </blockquote>
 </section>
+<section id="passo-4-calcule-as-estatísticas-de-mannwhitney." class="level4">
+<h4 class="anchored" data-anchor-id="passo-4-calcule-as-estatísticas-de-mannwhitney."><strong>Passo 4:</strong> Calcule as estatísticas de Mann–Whitney.</h4>
+<p>Sejam <span class="math inline">\(n_X\)</span> e <span class="math inline">\(n_Y\)</span> os tamanhos das amostras <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, respectivamente. Defina<br>
+<span class="math display">\[U = \min(U_X, U_Y),\]</span> sendo <span class="math inline">\(U_X = R_X - \dfrac{n_X(n_X + 1)}{2}\)</span> e <span class="math inline">\(U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}\)</span>.</p>
+<blockquote class="blockquote">
+<p><strong>Observação:</strong> a estatísca <span class="math inline">\(U\)</span> mede a sobreposição das duas amostras levando em consideração o tamanho de cada amostra. Valores pequenos de <span class="math inline">\(U\)</span> indicam baixa sobreposição das amostra, corroborando com a hipótese alternativa.</p>
+</blockquote>
+<p>Para o exemplo, temos que</p>
+<ul>
+<li><span class="math inline">\(n_X = 3\)</span>;</li>
+<li><span class="math inline">\(n_Y = 5\)</span>;</li>
+<li><span class="math inline">\(U_X = 12 - \dfrac{3(3 + 1)}{2} = 12 - 6 = 6\)</span>;</li>
+<li><span class="math inline">\(U_Y = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6\)</span>;</li>
+<li><span class="math inline">\(U = \min(6, 6) = 6\)</span>.</li>
+</ul>
 </section>
-<section id="definição-das-variáveis" class="level2">
-<h2 class="anchored" data-anchor-id="definição-das-variáveis">Definição das Variáveis</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 87%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Símbolo</th>
-<th>Definição</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(X\)</span></td>
-<td>Grupo 1 (exemplo: tratamento)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(Y\)</span></td>
-<td>Grupo 2 (exemplo: controle)</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(n_X\)</span></td>
-<td>Tamanho da amostra do grupo <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(n_Y\)</span></td>
-<td>Tamanho da amostra do grupo <span class="math inline">\(Y\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(R_X\)</span></td>
-<td>Soma dos postos atribuídos aos elementos do grupo <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(R_Y\)</span></td>
-<td>Soma dos postos atribuídos aos elementos do grupo <span class="math inline">\(Y\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(U_X\)</span></td>
-<td>Estatística <span class="math inline">\(U\)</span> calculada para o grupo <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(U_Y\)</span></td>
-<td>Estatística <span class="math inline">\(U\)</span> calculada para o grupo <span class="math inline">\(Y\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(U\)</span></td>
-<td>Estatística final do teste de Mann–Whitney: <span class="math inline">\(\min(U_X, U_Y)\)</span></td>
-</tr>
-</tbody>
-</table>
-<hr>
+<section id="passo-5-calcular-p-valor." class="level4">
+<h4 class="anchored" data-anchor-id="passo-5-calcular-p-valor."><strong>Passo 5:</strong> Calcular p-valor.</h4>
+<p>O <strong>p-valor</strong> pode ser calculado através do Python. E para um determinado nível de significância <span class="math inline">\(\alpha\)</span> tomar a decisão de rejeirar ou não a hipótese nula.</p>
+<ul>
+<li><p>Se p-valor <span class="math inline">\(\leq\)</span> <span class="math inline">\(\alpha\)</span>, rejeitamos a hipótese nula (<span class="math inline">\(H_0\)</span>). Ou seja, existe uma diferença significativa.</p></li>
+<li><p>Caso contrário (p-valor <span class="math inline">\(&gt;\)</span> <span class="math inline">\(\alpha\)</span>), não rejeitamos <span class="math inline">\(H_0\)</span>. Ou seja, não há evidência de diferença entre as duas amostra.</p></li>
+</ul>
+</section>
 </section>
 <section id="exemplo" class="level2">
 <h2 class="anchored" data-anchor-id="exemplo">Exemplo:</h2>
-<section id="comparação-entre-marcas-a-e-b-de-fertilizante-no-crescimento-de-plantas" class="level4">
-<h4 class="anchored" data-anchor-id="comparação-entre-marcas-a-e-b-de-fertilizante-no-crescimento-de-plantas">Comparação entre marcas A e B de fertilizante no crescimento de plantas</h4>
+<p>Comparação entre marcas A e B de fertilizante no crescimento de plantas</p>
 <p>Marca A (<span class="math inline">\(n_1 = 6\)</span>): 78, 85, 83, 74, 88, 90<br>
 Marca B (<span class="math inline">\(n_2 = 7\)</span>): 82, 79, 76, 81, 77, 80, 78</p>
 <p><strong>Objetivo</strong>: Verificar se há diferença no efeito dos fertilizantes sobre o <strong>crescimento das plantas</strong>.</p>
 <p><strong>Variável de estudo</strong>: <strong>crescimento das plantas</strong> (em alguma unidade mensurável, como altura ou biomassa).</p>
-<p>Teste:</p>
+<p><strong>Hipoteses:</strong></p>
 <p><span class="math inline">\(H_0: md_X = md_Y \quad\)</span></p>
 <p><span class="math inline">\(H_1: md_X \ne md_Y\)</span></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Imports já feitos na seção #Importação</span></span>
@@ -809,7 +740,6 @@ Marca B (<span class="math inline">\(n_2 = 7\)</span>): 82, 79, 76, 81, 77, 80, 
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>stat, p_valor <span class="op">=</span> mannwhitneyu(marca_A, marca_B, alternative<span class="op">=</span><span class="st">'two-sided'</span>) </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estatística U = </span><span class="sc">{</span>stat<span class="sc">}</span><span class="ss">, Valor-p = </span><span class="sc">{</span>p_valor<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 </section>
 </section>
 <section id="teste-de-wilcoxon-postos-com-sinais" class="level1">
@@ -1090,7 +1020,7 @@ H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)
 </ul>
 <p>Testar:</p>
 <p><span class="math inline">\(H_0: md_A = md_B = md_C \quad \text{vs} \quad H_1: \text{Pelo menos uma mediana é diferente}\)</span></p>
-<div id="c2559e77" class="cell" data-execution_count="2">
+<div id="2214f4b3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> kruskal</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>

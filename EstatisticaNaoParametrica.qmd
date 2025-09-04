@@ -79,101 +79,83 @@ Queremos testar se duas populações independentes têm **a mesma mediana**.
 
 -   **Hipótese nula**($H_0$): as distribuições de $X$ e $Y$ são iguais, ou seja, 
 
-$md_X = md_Y;$
-
+$$md_X = md_Y;$$
 -   **Hipótese alternativa**($H_1$): as distribuições são diferentes, ou seja, 
-
-$md_X \neq md_Y$  (bilateral) ou $md_X > md_Y$ ou $md_X < md_Y$ (unilaterais).
+$$md_X \neq md_Y \ \text{(bilateral)} $$ 
+ou 
+$$md_X > md_Y  \ \text{ou} \ md_X < md_Y \text{(unilaterais)}. $$
 
 ## Metodologia
 
-Comparar dois grupos independentes ($X$ e $Y$) quanto à tendência central, **sem assumir normalidade**.
+Queremos comparar dois amostras independentes ($X$ e $Y$) quanto à tendência central, **sem assumir normalidade**.
 
-Suponha:
+Por exemplo, 
 
--   Grupo $X$: 5, 7, 9\
--   Grupo $Y$: 1, 6, 8, 10
+-   Amostra $X$: 5, 7, 9\
+-   Amostra $Y$: 1, 6, 8, 10
 
-### Passo 1: Combine e ordene os dados
+#### **Passo 1:** Combine e ordene os dados. 
 
-Combine as duas amostras:
+Combine as duas amostras em ordem crescente:
 
--   $X$: 5, 7, 9\
--   $Y$: 1, 6, 8, 10
+1, $\textcolor{blue}{5}$, 6, $\textcolor{blue}{7}$, 8, $\textcolor{blue}{9}$, 10
 
-Dados combinados em ordem crescente:
-
-1, 5, 6, 7, 8, 9, 10
-
-### Passo 2: Atribua os postos
+#### **Passo 2:** Atribua os postos para a sequência gerada no passo anterior. 
 
 | Valor | Posto |
 |-------|-------|
 | 1     | 1     |
-| 5     | 2     |
+| $\textcolor{blue}{5}$     | 2     |
 | 6     | 3     |
-| 7     | 4     |
+| $\textcolor{blue}{7}$    | 4     |
 | 8     | 5     |
-| 9     | 6     |
+| $\textcolor{blue}{9}$    | 6     |
 | 10    | 7     |
 
-Identificando os grupos:
+Identificando as amostras:
 
--   Grupo $X$: valores 5, 7, 9 → postos: 2, 4, 6\
--   Grupo $Y$: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7
+-   Amostra $X$: valores 5, 7, 9 → postos: 2, 4, 6\
+-   Amostra $Y$: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7
 
-### Passo 3: Calcule a soma dos postos
+#### **Passo 3:** Calcule a soma dos postos para cada amostra. 
 
--   Soma dos postos de $X$:\
-    $R_X = 2 + 4 + 6 = 12$
+Denote por $R_X$ e $R_Y$ as somas dos postos atribuídos aos elementos das amostras $X$ e $Y$, respectivamente. 
 
--   Soma dos postos de $Y$:\
-    $R_Y = 1 + 3 + 5 + 7 = 16$
+-   Soma dos postos da amostra $X$:\
+    $R_X = 2 + 4 + 6 = 12$.
 
-### Passo 4: Calcule as estatísticas de Mann–Whitney
+-   Soma dos postos da amostra $Y$:\
+    $R_Y = 1 + 3 + 5 + 7 = 16$.
 
-Definições:
+> **Observação:** se as duas amostras possuem a mesma distribuições, esperamos que exista uma sobreposição considerável entre as duas amostras. O que implica que $R_X$ e $R_Y$ assumirão valores próximos.  
 
--   $n_X = 3$: tamanho da amostra do grupo $X$\
--   $n_Y = 4$: tamanho da amostra do grupo $Y$
+#### **Passo 4:** Calcule as estatísticas de Mann–Whitney.
 
-Cálculos:
+Sejam $n_X$ e $n_Y$ os tamanhos das amostras $X$ e $Y$, respectivamente. Defina  
+$$U = \min(U_X, U_Y),$$
+sendo $U_X = R_X - \dfrac{n_X(n_X + 1)}{2}$ e $U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}$.
 
-$U_X = R_X - \dfrac{n_X(n_X + 1)}{2} = 12 - \dfrac{3(3 + 1)}{2} = 12 - 6 = 6$
+> **Observação:** a estatísca $U$ mede a sobreposição das duas amostras levando em consideração o tamanho de cada amostra. Valores pequenos de $U$ indicam baixa sobreposição das amostra, corroborando com a hipótese alternativa. 
 
-$$U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2} = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6$$
+Para o exemplo, temos que 
 
-$U = \min(U_X, U_Y) = \min(6, 6) = 6$
+- $n_X = 3$;
+- $n_Y = 5$; 
+- $U_X = 12 - \dfrac{3(3 + 1)}{2} = 12 - 6 = 6$;
+- $U_Y = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6$;
+- $U = \min(6, 6) = 6$.
 
-### Passo 5: Compare com o valor crítico
+#### **Passo 5:** Calcular p-valor.  
 
--   O valor crítico de $U$ é obtido em **tabelas específicas**, de acordo com $n_X$, $n_Y$ e o nível de significância $\alpha$.
+O **p-valor** pode ser calculado através do Python. E para um determinado nível de significância $\alpha$ tomar a decisão de rejeirar ou não a hipótese nula.
 
--   Para $n_X = 3$, $n_Y = 4$ e $\alpha = 0{,}05$ (teste bicaudal), o **valor crítico tabelado** é **2**.
+- Se p-valor $\leq$ $\alpha$, rejeitamos a hipótese nula ($H_0$). Ou seja, existe uma diferença significativa. 
 
--   Como $U = 6 > 2$, **não rejeitamos a hipótese nula**: não há evidência significativa de diferença entre os grupos.
-
-> Alternativamente, pode-se usar o **valor-p** calculado por software estatístico (como R ou Python) para tomar a decisão.
-
-## Definição das Variáveis
-
-| Símbolo | Definição                                                    |
-|---------|--------------------------------------------------------------|
-| $X$     | Grupo 1 (exemplo: tratamento)                                |
-| $Y$     | Grupo 2 (exemplo: controle)                                  |
-| $n_X$   | Tamanho da amostra do grupo $X$                              |
-| $n_Y$   | Tamanho da amostra do grupo $Y$                              |
-| $R_X$   | Soma dos postos atribuídos aos elementos do grupo $X$        |
-| $R_Y$   | Soma dos postos atribuídos aos elementos do grupo $Y$        |
-| $U_X$   | Estatística $U$ calculada para o grupo $X$                   |
-| $U_Y$   | Estatística $U$ calculada para o grupo $Y$                   |
-| $U$     | Estatística final do teste de Mann–Whitney: $\min(U_X, U_Y)$ |
-
-------------------------------------------------------------------------
+- Caso contrário (p-valor $>$ $\alpha$), não rejeitamos $H_0$. Ou seja, não há evidência de diferença entre as duas amostra.   
 
 ## Exemplo:
 
-#### Comparação entre marcas A e B de fertilizante no crescimento de plantas
+Comparação entre marcas A e B de fertilizante no crescimento de plantas
 
 Marca A ($n_1 = 6$): 78, 85, 83, 74, 88, 90\
 Marca B ($n_2 = 7$): 82, 79, 76, 81, 77, 80, 78
@@ -182,7 +164,7 @@ Marca B ($n_2 = 7$): 82, 79, 76, 81, 77, 80, 78
 
 **Variável de estudo**: **crescimento das plantas** (em alguma unidade mensurável, como altura ou biomassa).
 
-Teste:
+**Hipoteses:**
 
 $H_0: md_X = md_Y \quad$
 
