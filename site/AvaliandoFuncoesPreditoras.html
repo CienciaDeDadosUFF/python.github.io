@@ -502,7 +502,7 @@ window.Quarto = {
 <section id="exemplo-de-comparação-de-regressores" class="level2">
 <h2 class="anchored" data-anchor-id="exemplo-de-comparação-de-regressores">Exemplo de Comparação de Regressores</h2>
 <p>Vamos usar a base de dados faithful.</p>
-<div id="06988695" class="cell" data-execution_count="2">
+<div id="8c438acc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">AvaliandoFuncoesPreditoras</span><span class="ch">\\</span><span class="st">faithful.csv"</span>)</span>
@@ -522,7 +522,7 @@ memory usage: 4.4 KB</code></pre>
 </div>
 <p>Note que a base apresenta apenas duas variáveis: <strong>eruptions</strong>, que contém uma amostra correspondente ao tempo, em minutos, que o gêiser Old Faithful permanece em erupção; e <strong>waiting</strong>, que contém uma amostra correspondente ao tempo, em minutos, até a próxima erupção. Vamos tentar prever a variável <strong>waiting</strong> por meio da variável <strong>eruptions</strong>. Note ainda que a variável de interesse é quantitativa contínua, portanto, queremos construir um regressor.</p>
 <p>Vamos treinar nosso modelo utilizando 2 métodos separadamente: <strong>Linear Model</strong> e <strong>k-Nearest Neighbor</strong>. Para fazer a comparação, vamos escolher uma semente e assim tornar a comparação mais “justa”. Além disso, estamos usando toda a base de dados pra treinar o medelo, pois estamos apenas avaliando o melhor modelo.</p>
-<div id="6fab5654" class="cell" data-execution_count="3">
+<div id="a6e42e97" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -643,7 +643,7 @@ KNN  0.621583  0.75235  0.789425  0.776107  0.802968  0.888682     0
 </div>
 </div>
 <p>Repare que foi calculada três diferentes medidas: “MAE”, “RMSE”, e “Rsquared”. Nesse caso, queremos o modelo que possua MAE e RMSE baixo e $ R^2$ alto. Para vizualizar melhor, podemos construir um boxplot comparativo da seguinte forma:</p>
-<div id="251ee3ae" class="cell" data-execution_count="4">
+<div id="54d45f82" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lista para armazenar os dicionários</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>valores_metricas <span class="op">=</span> []</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -660,7 +660,7 @@ KNN  0.621583  0.75235  0.789425  0.776107  0.802968  0.888682     0
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>valores_metricas_df <span class="op">=</span> pd.DataFrame(valores_metricas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="85d6860a" class="cell" data-execution_count="5">
+<div id="8e3a3264" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sn</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>

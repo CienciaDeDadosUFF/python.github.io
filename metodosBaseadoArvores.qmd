@@ -1,8 +1,13 @@
 ---
-title: Métodos de Treino Baseados em Árvores
+title:  "Métodos de Treino Baseados em Árvores"
+format:
+  html:
+    code-fold: false
+toc: true
+toc-title: Navegação
+number-sections: false
 jupyter: python3
 ---
-
 
 Neste capítulo, vamos estudar de forma aprofundada modelos de treinamento baseados em árvores, que são amplamente utilizados em problemas de classificação e regressão. Esses modelos são populares devido à sua simplicidade, não sendo necessário padronizar os dados, e interpretabilidade, permitindo que os usuários compreendam facilmente como as decisões são tomadas.
 
@@ -31,7 +36,6 @@ Gini(variável) = gini(nó_1) \cdot \frac{nó_1}{total} + gini(nó_2) \cdot \fra
 $$
 
 A seguir, vamos ver um exemplo prático de como construir uma árvore de decisão para um problema de classificação utilizando o índice Gini utilizando a base statlog_heart que contém dados sobre pacientes que possuem ou não doenças cardíacas.
-
 
 ```{python}
 import pandas as pd
@@ -86,10 +90,7 @@ base = base[(base['chest-pain'] == 'angina típica') |
 base.head()
 ```
 
-Nosso objetivo é prever se um indivíduo tem ou não uma doença cardíaca (variável “HeartDisease”), baseado nas outras variáveis. As variáveis explicativas são as seguintes:
-- `sex`: Sexo do paciente (0 = feminino, 1 = masculino)
-- `chest-pain`: Tipo de dor no peito (1 = angina típica, 2 = angina atípica, 3 = dor não anginosa, 4 = assintomática)
-- `thal`: Talassemia (3 = normal, 6 = defeito fixo, 7 = defeito reversível)
+Nosso objetivo é prever se um indivíduo tem ou não uma doença cardíaca (variável “HeartDisease”), baseado nas outras variáveis. As variáveis explicativas são as seguintes: - `sex`: Sexo do paciente (0 = feminino, 1 = masculino) - `chest-pain`: Tipo de dor no peito (1 = angina típica, 2 = angina atípica, 3 = dor não anginosa, 4 = assintomática) - `thal`: Talassemia (3 = normal, 6 = defeito fixo, 7 = defeito reversível)
 
 Vamos analisar a capacidade de variáveis individuais em prever a presença de doença cardíaca. Para este exemplo, focaremos em três: `sex`, `chest-pain` e `thal`, começando pela variável `sex`.
 
@@ -292,9 +293,9 @@ Após obtidos esses novos nós, o processo continua se repetindo, obtendo novos 
 
 Pergunta: quando o processo de construção de uma árvore chega ao fim? O processo de construção pode terminar por 3 fatores:
 
-   - Quando a pureza do nó é maior do que o de qualquer variável que adicionamos;
-   - Quando atingimos folhas 100% puras (índice Gini = 0);
-   - Quando o ganho ao aumentar a árvore é muito pequeno.
+-   Quando a pureza do nó é maior do que o de qualquer variável que adicionamos;
+-   Quando atingimos folhas 100% puras (índice Gini = 0);
+-   Quando o ganho ao aumentar a árvore é muito pequeno.
 
 O ganho ao aumentar a árvore pode ser resumido como um conjunto de atributos presentes na árvore que retornem o maior ganho de informações. Essa questão será melhor abordada posteriormente, juntamente com a questão de como podar as árvores (que está intimamente relacionada ao ganho) no subcapítulo XGBoost.
 
@@ -352,7 +353,7 @@ Assim, o primeiro nó será da seguinte forma:
 
 Para a resposta “sim”, prevemos que o total de vendas do produto será de 0.7, que é o resultado da média dos valores das vendas para todos os produtos cuja publicidade foi menor do que 2.4, ou seja, o valor do primeiro elemento. Para a resposta “Não”, então a folha seguinte contém o resultado da média dos valores das vendas para todos os produtos cuja publicidade foi maior do que 2.4, o qual é de 147.78.
 
-Note que, fazendo isso, teremos resíduos (diferença do valor original e do valor predito pela árvore) muito grandes. O algoritmo eleva esses resíduos ao quadrado e os soma. Esse valor é a soma dos quadrados dos resíduos considerando o nó “Publicidade para a TV < 44,95?”.
+Note que, fazendo isso, teremos resíduos (diferença do valor original e do valor predito pela árvore) muito grandes. O algoritmo eleva esses resíduos ao quadrado e os soma. Esse valor é a soma dos quadrados dos resíduos considerando o nó “Publicidade para a TV \< 44,95?”.
 
 Em seguida ele irá para o próximo separador: a média do segundo e do terceiro menores pontos.
 
@@ -367,7 +368,7 @@ sns.scatterplot(data=vendas, x='TV', y='sales')
 plt.axvline(x=66.95, color='red', linestyle='--', label='Média das duas menores vendas')
 ```
 
-Então o nó considerado será da forma “Publicidade para a TV < 66.95?”.
+Então o nó considerado será da forma “Publicidade para a TV \< 66.95?”.
 
 !["ArvReg2"](img/ArvReg2.png)
 
@@ -377,9 +378,9 @@ Então o algoritmo irá para o próximo separador e irá calcular a soma dos qua
 
 A construção dos próximos nós se dá pela mesma forma que a do nó raiz. O processo de construção da árvore termina quando:
 
-   - Atingimos um número mínimo de observações em uma folha (usualmente é utilizado 20 observações). Não continuamos a divisão após esse número mínimo pois corremos o risco de criar uma árvore sobreajustada à amostra dada;
+-   Atingimos um número mínimo de observações em uma folha (usualmente é utilizado 20 observações). Não continuamos a divisão após esse número mínimo pois corremos o risco de criar uma árvore sobreajustada à amostra dada;
 
-   - Quando o ganho ao aumentar a árvore é muito pequeno.
+-   Quando o ganho ao aumentar a árvore é muito pequeno.
 
 Agora vamos para o caso em que tenhamos mais de uma variável preditiva nos dados. Vamos considerar agora que queremos prever as vendas do produto baseado em seus orçamentos de publicidade para TV, rádio e jornal.
 
@@ -391,23 +392,23 @@ Para os próximos nós o processo de construção também é equivalente ao ante
 
 Para construir árvores de decisão de forma fácil, podemos utilizar a biblioteca Scikit-learn, que possui implementações prontas para problemas de classificação e regressão. Nesse sentido, vamos ver como construir uma árvore de decisão para dizer se uma universidade é pública ou privada, utilizando a base de dados `College`, que reune informações de 777 universidades e faculdades dos Estados Unidos, coletadas na década de 1990. A primeira coluna geralmente não tem nome (Unnamed: 0) e contém o nome da instituição. As demais são:
 
-- `Private`: Uma variável categórica (fator) que indica se a universidade é particular ('Yes') ou pública ('No').
-- `Apps`: Número de inscrições (applications) recebidas pela instituição.
-- `Accept`: Número de inscrições aceitas.
-- `Enroll`: Número de novos alunos matriculados.
-- `Top10perc`: Percentual de novos alunos que estavam entre os 10% melhores de sua turma no ensino médio.
-- `Top25perc`: Percentual de novos alunos que estavam entre os 25% melhores de sua turma no ensino médio.
-- `F.Undergrad`: Número de alunos de graduação em tempo integral (Full-time).
-- `P.Undergrad`: Número de alunos de graduação em tempo parcial (Part-time).
-- `Outstate`: Custo da mensalidade para alunos de fora do estado (em dólares). Para faculdades particulares, este valor é geralmente o mesmo para todos.
-- `Room.Board`: Custo de moradia e alimentação (em dólares).
-- `Books`: Custo estimado com livros (em dólares).
-- `Personal`: Custo pessoal estimado para o aluno (lazer, etc., em dólares).
-- `PhD`: Percentual do corpo docente que possui doutorado (Ph.D.).
-- `Terminal`: Percentual do corpo docente que possui um diploma terminal (o mais alto em sua área, que pode ser um Ph.D., MFA, etc.).
-- `S.F.Ratio`: Relação Aluno/Professor (Student/Faculty ratio). Um número menor indica turmas menores e mais professores por aluno.
-- `alumni.perc`: Percentual de ex-alunos que doam para a instituição.
-- `Grad.Rate`: Taxa de graduação (percentual de alunos que se formam).
+-   `Private`: Uma variável categórica (fator) que indica se a universidade é particular ('Yes') ou pública ('No').
+-   `Apps`: Número de inscrições (applications) recebidas pela instituição.
+-   `Accept`: Número de inscrições aceitas.
+-   `Enroll`: Número de novos alunos matriculados.
+-   `Top10perc`: Percentual de novos alunos que estavam entre os 10% melhores de sua turma no ensino médio.
+-   `Top25perc`: Percentual de novos alunos que estavam entre os 25% melhores de sua turma no ensino médio.
+-   `F.Undergrad`: Número de alunos de graduação em tempo integral (Full-time).
+-   `P.Undergrad`: Número de alunos de graduação em tempo parcial (Part-time).
+-   `Outstate`: Custo da mensalidade para alunos de fora do estado (em dólares). Para faculdades particulares, este valor é geralmente o mesmo para todos.
+-   `Room.Board`: Custo de moradia e alimentação (em dólares).
+-   `Books`: Custo estimado com livros (em dólares).
+-   `Personal`: Custo pessoal estimado para o aluno (lazer, etc., em dólares).
+-   `PhD`: Percentual do corpo docente que possui doutorado (Ph.D.).
+-   `Terminal`: Percentual do corpo docente que possui um diploma terminal (o mais alto em sua área, que pode ser um Ph.D., MFA, etc.).
+-   `S.F.Ratio`: Relação Aluno/Professor (Student/Faculty ratio). Um número menor indica turmas menores e mais professores por aluno.
+-   `alumni.perc`: Percentual de ex-alunos que doam para a instituição.
+-   `Grad.Rate`: Taxa de graduação (percentual de alunos que se formam).
 
 Vamos começar importando as bibliotecas necessárias e carregando a base de dados:
 
@@ -427,7 +428,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 Vamos treinar o modelo através da função `DecisionTreeClassifier` do Scikit-learn. Essa função permite que especifiquemos o hiperparâmetro `max_depth`, que limita a profundidade da árvore para evitar overfitting. Em seguida, treinamos o modelo com os dados de treinamento e avaliamos sua acurácia nos dados de teste.
 
-
 ```{python}
 # Treinando o modelo
 # max_depth é um hiperparâmetro que limita a profundidade da árvore para evitar overfitting
@@ -440,7 +440,6 @@ print(f"Acurácia do modelo: {accuracy:.2f}")
 ```
 
 Por fim, vamos visualizar a árvore de decisão treinada. Podemos utilizar a função `plot_tree` do Scikit-learn para isso:
-
 
 ```{python}
 # Visualizando a Árvore de Decisão
@@ -463,12 +462,7 @@ plt.show()
 
 As árvores de decisão possuem uma estrutura de fácil compreensão, o que faz com que elas sejam bastante utilizadas. Mas elas possuem uma limitação, o sobreajuste, sendo assim, não são muito eficientes com novas amostras. Para contornar isso, utilizamos as Florestas Aleatórias (Random Forests), que se utilizam de várias árvores de decisão, combinando a simplicidade das árvores com a flexibilidade de um método sem sobreajuste, o que aumenta a precisão do preditor.
 
-Dessa forma, os passos para construir uma floresta aleatória são:
-1. Selecionar aleatoriamente um subconjunto dos dados de treinamento.
-2. Sortear aleatoriamente um subconjunto de variáveis para cada árvore.
-3. Construir uma árvore de decisão com esse subconjunto e os dados selecionados.
-4. Repetir os passos 1 e 2 várias vezes para criar múltiplas árvores de decisão.
-5. Combinar as previsões de todas as árvores para obter uma previsão final.
+Dessa forma, os passos para construir uma floresta aleatória são: 1. Selecionar aleatoriamente um subconjunto dos dados de treinamento. 2. Sortear aleatoriamente um subconjunto de variáveis para cada árvore. 3. Construir uma árvore de decisão com esse subconjunto e os dados selecionados. 4. Repetir os passos 1 e 2 várias vezes para criar múltiplas árvores de decisão. 5. Combinar as previsões de todas as árvores para obter uma previsão final.
 
 Vamos construir uma floresta aleatória usando a base de dados balloons.
 
@@ -516,7 +510,7 @@ variaveis_selecionadas = random.sample(variaveis, k=2)
 variaveis_selecionadas
 ```
 
-Vamos calcular o índice Gini para cada variável e escolher a que tiver o menor valor do índice para ser a raiz da árvore. 
+Vamos calcular o índice Gini para cada variável e escolher a que tiver o menor valor do índice para ser a raiz da árvore.
 
 ```{python}
 pd.crosstab(nova_amostra['size'], nova_amostra['inflated'])
@@ -701,8 +695,8 @@ O método de treino AdaBoost se baseia na construção de uma floresta aleatóri
 
 Em geral, tocos não são muito bons em fazer classificações precisas, ou seja, eles são classificadores fracos. No entanto, o método AdaBoost os combina de forma a criar um bom aprendiz. Ele faz isso utilizando diferenciais na classificação e na construção das árvores que a floresta aleatória comum não utiliza:
 
- - Floresta Aleatória: cada árvore de decisão tem um peso igual na classificação final das amostras. Além disso, cada árvore é construída independentemente das outras.
- - AdaBoost: alguns tocos têm mais peso na classificação final do que outros, e a ordem de construção dos tocos importam. Em outras palavras, os erros que o primeito toco comete influenciam em como o segundo toco é construído, os erros que o segundo toco comete influenciam em como o terceiro toco é construído, e assim sucessivamente.
+-   Floresta Aleatória: cada árvore de decisão tem um peso igual na classificação final das amostras. Além disso, cada árvore é construída independentemente das outras.
+-   AdaBoost: alguns tocos têm mais peso na classificação final do que outros, e a ordem de construção dos tocos importam. Em outras palavras, os erros que o primeito toco comete influenciam em como o segundo toco é construído, os erros que o segundo toco comete influenciam em como o terceiro toco é construído, e assim sucessivamente.
 
 Vamos ver os detalhes práticos de como funciona o AdaBoost utilizando o banco de dados golf. Este banco possui informações sobre condições climáticas e se o indivíduo jogou golf no dia. A ideia é tentar prever se o indivíduo vai jogar golf baseado nas outras variáveis.
 
@@ -722,19 +716,19 @@ Então temos que “Outlook = Overcast” separa os dados da seguinte forma:
 
 !["AB_Overcast"](img/AB_Overcast.png)
 
-**Gini(Outlook = Overcast)** = $ \frac{4}{14} \cdot \left[1 - \left(\frac{4}{4}\right)^2 - \left(\frac{0}{4}\right)^2\right] + \frac{10}{14} \cdot \left[1 - \left(\frac{5}{10}\right)^2 - \left(\frac{5}{10}\right)^2 \right] = 0.357 $
+**Gini(Outlook = Overcast)** = \$ \frac{4}{14} \cdot \left[1 - \left(\frac{4}{4}\right)^2 - \left(\frac{0}{4}\right)^2\right] + \frac{10}{14} \cdot \left[1 - \left(\frac{5}{10}\right)^2 - \left(\frac{5}{10}\right)^2 \right] = 0.357 \$
 
 Agora vamos para a Outlook Rain:
 
 !["AB_Rain"](img/AB_Rain.png)
 
-**Gini(Outlook = Rain)** = $ \frac{5}{14} \cdot \left[1 - \left(\frac{3}{5}\right)^2 - \left(\frac{2}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{6}{9}\right)^2 - \left(\frac{3}{9}\right)^2\right] = 0.457 $
+**Gini(Outlook = Rain)** = \$ \frac{5}{14} \cdot \left[1 - \left(\frac{3}{5}\right)^2 - \left(\frac{2}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{6}{9}\right)^2 - \left(\frac{3}{9}\right)^2\right] = 0.457 \$
 
 e para Otlook Sunny:
 
 !["AB_Sunny"](img/AB_Sunny.png)
 
-**Gini(Outlook = Sunny)** = $ \frac{5}{14} \cdot \left[1 - \left(\frac{2}{5}\right)^2 - \left(\frac{3}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{7}{9}\right)^2 - \left(\frac{2}{9}\right)^2\right] = 0.393 $
+**Gini(Outlook = Sunny)** = \$ \frac{5}{14} \cdot \left[1 - \left(\frac{2}{5}\right)^2 - \left(\frac{3}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{7}{9}\right)^2 - \left(\frac{2}{9}\right)^2\right] = 0.393 \$
 
 Para a variável Humidity temos:
 
@@ -750,7 +744,7 @@ Temos que “Humidity = High” separa os dados da seguinte forma:
 
 !["AB_High"](img/AB_High.png)
 
-**Gini(Humidity = High)** = $ \frac{7}{14} \cdot \left[1 - \left(\frac{3}{7}\right)^2 - \left(\frac{4}{7}\right)^2\right] + \frac{7}{14} \cdot \left[1 - \left(\frac{6}{7}\right)^2 - \left(\frac{1}{7}\right)^2\right] = 0.367 $
+**Gini(Humidity = High)** = \$ \frac{7}{14} \cdot \left[1 - \left(\frac{3}{7}\right)^2 - \left(\frac{4}{7}\right)^2\right] + \frac{7}{14} \cdot \left[1 - \left(\frac{6}{7}\right)^2 - \left(\frac{1}{7}\right)^2\right] = 0.367 \$
 
 Por fim, para a variável Wind:
 
@@ -760,7 +754,7 @@ golf.groupby('Wind')['Play'].value_counts().sort_index()
 
 !["AB_Wind"](img/AB_Wind.png)
 
-**Gini(Wind = Strong)** = $ \frac{6}{14} \cdot \left[1 - \left(\frac{3}{6}\right)^2 - \left(\frac{3}{6}\right)^2\right] + \frac{8}{14} \cdot \left[1 - \left(\frac{6}{8}\right)^2 - \left(\frac{2}{8}\right)^2\right] = 0.429 $
+**Gini(Wind = Strong)** = \$ \frac{6}{14} \cdot \left[1 - \left(\frac{3}{6}\right)^2 - \left(\frac{3}{6}\right)^2\right] + \frac{8}{14} \cdot \left[1 - \left(\frac{6}{8}\right)^2 - \left(\frac{2}{8}\right)^2\right] = 0.429 \$
 
 Logo, os índices Gini de todas as variáveis são:
 
@@ -804,7 +798,6 @@ $$
 \text{Amount of Say} = \frac{1}{2} \cdot \log\left(\frac{1 - \frac{5}{14}}{\frac{5}{14}}\right) = 0.29 
 $$
 
-
 Agora vamos construir o próximo toco. Para isso damos um peso maior para as amostras que foram classificadas erroneamente no toco anterior. Essas amostras foram as seguintes:
 
 ```{python}
@@ -813,18 +806,15 @@ golf[(golf['Outlook'] != 'Overcast') & (golf['Play'] != 'No')]
 
 Então, para rebalancearmos os pesos das amostras classificadas de forma certa e errada, utilizamos as seguintes fórmulas:
 
-$$
-\text{Peso de Amostras Erradas} = \text{Erro Total} \cdot e^{\text{Amount of Say}} = \frac{5}{14} \cdot e^{0.29} = 0.477
+\$\$ \text{Peso de Amostras Erradas} = \text{Erro Total} \cdot e\^{\text{Amount of Say}} = \frac{5}{14} \cdot e\^{0.29} = 0.477
 
-\text{Peso de Amostras Certas} = \text{Erro Total} \cdot e^{-\text{Amount of Say}} = \frac{5}{14} \cdot e^{-0.29} = 0.267
-$$
+\text{Peso de Amostras Certas} = \text{Erro Total} \cdot e\^{-\text{Amount of Say}} = \frac{5}{14} \cdot e\^{-0.29} = 0.267 \$\$
 
 Então temos os pesos para as amostras:
 
 ![Tabela Adaboost](img/Tabela_Adaboost.png)
 
-A soma dos pesos das amostras deve ser 1, mas isso não ocorre: note que a soma resulta em 4,788. Dessa forma, precisamos reescalar os pesos. Faremos isso dividindo cada um deles por 4,788.
-Feito isso, temos uma nova tabela de pesos:
+A soma dos pesos das amostras deve ser 1, mas isso não ocorre: note que a soma resulta em 4,788. Dessa forma, precisamos reescalar os pesos. Faremos isso dividindo cada um deles por 4,788. Feito isso, temos uma nova tabela de pesos:
 
 ![Tabela Adaboost Reescalada](img/tabela_adaboost2.png)
 
@@ -864,7 +854,7 @@ Finalizada a floresta, realizamos a classificação final dos elementos somando 
 
 ### AdaBoost com o Scikit-learn
 
-A seguir, vamos ver como implementar o AdaBoost utilizando o Scikit-learn. Para isso, vamos usar a base de dados `spam`. Inicialmente, vamos separar a amostra em dados de treino e teste. 
+A seguir, vamos ver como implementar o AdaBoost utilizando o Scikit-learn. Para isso, vamos usar a base de dados `spam`. Inicialmente, vamos separar a amostra em dados de treino e teste.
 
 ```{python}
 from sklearn.model_selection import train_test_split
@@ -935,6 +925,7 @@ plt.title("Matriz de Confusão do Modelo AdaBoost")
 ```
 
 ## Gradiente Boosting
+
 O Gradiente Boosting é um método de aprendizado de máquina que combina várias árvores de decisão para criar um modelo preditivo mais robusto. Ele é uma extensão do AdaBoost, mas utiliza uma abordagem diferente para combinar as árvores. Em vez de ajustar os erros de cada árvore, o Gradiente Boosting ajusta os resíduos do modelo anterior, criando uma nova árvore que corrige os erros do modelo anterior.
 
 ### Em Regressão
@@ -1034,7 +1025,7 @@ wage.drop(columns=colunas_numericas_excluir, inplace=True)
 wage.head()
 ```
 
-Agora, criamos variáveis dummie, pois a função que aplica o gradient booting no scikit-learn não lida com dados categóricos, e dividimos os dados em treino e teste. 
+Agora, criamos variáveis dummie, pois a função que aplica o gradient booting no scikit-learn não lida com dados categóricos, e dividimos os dados em treino e teste.
 
 ```{python}
 # 2. Separar as variáveis independentes (features, X) e a variável dependente (alvo, y)
@@ -1049,15 +1040,7 @@ X_encoded = pd.get_dummies(X, drop_first=True)
 X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.3, random_state=2025)
 ```
 
-Agora vamos aplicar o gradiente boosting com a função **GradientBoostingRegressor**. Ela possui os seguintes parâmetros:
-- `n_estimators`: número de árvores a serem construídas. O padrão é 100
-- `learning_rate`: taxa de aprendizado, que deve ser um número entre 0 e 1. O padrão é 0.1
-- `max_depth`: profundidade máxima de cada árvore. O padrão é 3.
-- `loss`: função de perda a ser minimizada. O padrão é `squared_error`, que é o erro quadrático médio.
-- `random_state`: semente para o gerador de números aleatórios, que garante a reprodutibilidade dos resultados. O padrão é `None`.
-- `n_iter_no_change`: número máximo de iterações sem melhoria na função de perda. O padrão é `None`, o que significa que não há limite.
-- `validation_fraction`: fração dos dados de treinamento a serem usados para validação. O padrão é 0.1, ou seja, 10% dos dados de treinamento serão usados para validação.
-- `tol`: tolerância para a melhoria da função de perda. O padrão é 0.0001, ou seja, a função de perda deve melhorar em pelo menos 0.0001 para continuar o treinamento.
+Agora vamos aplicar o gradiente boosting com a função **GradientBoostingRegressor**. Ela possui os seguintes parâmetros: - `n_estimators`: número de árvores a serem construídas. O padrão é 100 - `learning_rate`: taxa de aprendizado, que deve ser um número entre 0 e 1. O padrão é 0.1 - `max_depth`: profundidade máxima de cada árvore. O padrão é 3. - `loss`: função de perda a ser minimizada. O padrão é `squared_error`, que é o erro quadrático médio. - `random_state`: semente para o gerador de números aleatórios, que garante a reprodutibilidade dos resultados. O padrão é `None`. - `n_iter_no_change`: número máximo de iterações sem melhoria na função de perda. O padrão é `None`, o que significa que não há limite. - `validation_fraction`: fração dos dados de treinamento a serem usados para validação. O padrão é 0.1, ou seja, 10% dos dados de treinamento serão usados para validação. - `tol`: tolerância para a melhoria da função de perda. O padrão é 0.0001, ou seja, a função de perda deve melhorar em pelo menos 0.0001 para continuar o treinamento.
 
 Como pode-se observar nos parâmetros, o modelo treinado vai escolher o número de árvores a serem construídas automaticamente, de forma que vamos obter o resultado possível com o menor número delas. Dessa forma, o parâmetro `n_estimators` serve apenas para definir um limite máximo de árvores a serem construídas.
 
@@ -1124,7 +1107,7 @@ $$
 \text{Probabilidade} = \frac{e^{log(chances)}}{1+e^{log(chances)}}
 $$
 
-Sendo assim, a Probabilidade de alguém amar $ \text{Troll} 2 = \frac{e^{log(\frac{4}{2})}}{1+e^{log{4}{2}}} = \frac{2}{3} = 0,6667$
+Sendo assim, a Probabilidade de alguém amar \$ \text{Troll} 2 = \frac{e^{log(\frac{4}{2})}}{1+e^{log{4}{2}}} = \frac{2}{3} = 0,6667\$
 
 !["Toco GBC2"](img/tocoGBC2.png)
 
@@ -1132,8 +1115,8 @@ Sendo assim, a Probabilidade de alguém amar $ \text{Troll} 2 = \frac{e^{log(\fr
 
 Vamos criar o seguinte classificador:
 
-   - Probabilidade acima de 0,5: classificamos que ama Troll 2;
-   - Probabilidade menor ou igual a 0,5: classificamos que odeia Troll 2.
+-   Probabilidade acima de 0,5: classificamos que ama Troll 2;
+-   Probabilidade menor ou igual a 0,5: classificamos que odeia Troll 2.
 
 Como a probabilidade ficou maior que 0,5 classificamos todos no treino como indivíduos que amam Troll 2.
 
@@ -1164,15 +1147,13 @@ $$
 
 Assim, da esquerda para direita, para primeira folha temos:
 
-$$
-\begin{align*}
+\$\$ \begin{align*}
 \frac{\sum \text{resíduos}}{\sum[\text{probabilidade anterior} \times (1 - \text{probabilidade anterior})]} = \frac{-0.7}{0.7 \times (0.3)} = -0.3333, \text{para a segunda} \\ \\
 
 \frac{\sum \text{resíduos}}{\sum[\text{probabilidade anterior} \times (1 - \text{probabilidade anterior})]} = \frac{0.3 - 0.7}{0.7 \times (1 - 0.7) + 0.7 \times (1 - 0.7)} = -0.9524, \text{e para a última} \\ \\
 
 \frac{\sum \text{resíduos}}{\sum[\text{probabilidade anterior} \times (1 - \text{probabilidade anterior})]} = \frac{0.3 + 0.3 + 0.3}{0.7 \times (1 - 0.7) + 0.7 \times (1 - 0.7) + 0.7 \times (1 - 0.7)} = 1.4286
-\end{align*}
-$$
+\end{align*} \$\$
 
 Por enquanto, a probabilidade anterior é a mesma para todos, mas a partir da próxima árvore isso muda.
 
@@ -1277,7 +1258,7 @@ Note que o modelo obteve uma precisão razoável de 72%
 
 ## XGBoost (Extreme Gradient Boost)
 
-O XGBoost é uma implementação otimizada do Gradiente Boosting, que utiliza técnicas avançadas de otimização para melhorar a velocidade e a eficiência do treinamento. Dessa forma, ele consegue lidar melhor com grandes volumes de dados e é mais eficiente em termos de memória. 
+O XGBoost é uma implementação otimizada do Gradiente Boosting, que utiliza técnicas avançadas de otimização para melhorar a velocidade e a eficiência do treinamento. Dessa forma, ele consegue lidar melhor com grandes volumes de dados e é mais eficiente em termos de memória.
 
 ### Em Regressão
 
@@ -1321,11 +1302,11 @@ $$
 \text{ganho} = \text{IS-folha da esquerda} + \text{IS-folha da direita} - \text{IS-raiz}
 $$
 
-Assim, o ganho da ramificação $\text{Altura} < 1,45$ é $100 + 56,25 - 5 = 151,25$. Vamos fazer esse calculo em todas as ramificações possiveis, Isto é, se temos 5 observações com diferentes alturas, vamos ter 4 ramificações possiveis: Altura<1.45, Altura<1.55, Altura<1.65 e Altura<1.75.
+Assim, o ganho da ramificação $\text{Altura} < 1,45$ é $100 + 56,25 - 5 = 151,25$. Vamos fazer esse calculo em todas as ramificações possiveis, Isto é, se temos 5 observações com diferentes alturas, vamos ter 4 ramificações possiveis: Altura\<1.45, Altura\<1.55, Altura\<1.65 e Altura\<1.75.
 
 !["xgb5"](img/xgb5.png)
 
-Podemos ver que o ganho de usar a ramificação ‘Altura<1.55’ é maior, portanto é essa que vamos usar. Agora vamos ramificar as folhas da mesma maneira e escolher as que tiverem melhor ganho.
+Podemos ver que o ganho de usar a ramificação ‘Altura\<1.55’ é maior, portanto é essa que vamos usar. Agora vamos ramificar as folhas da mesma maneira e escolher as que tiverem melhor ganho.
 
 Nesse exemplo, vamos limitar a profundidade da árvore XGB em 2. Mas o default é permitir até 6 níveis de profundidade.
 
@@ -1373,7 +1354,7 @@ O XGBoost chama a taxa de aprendizado de $\eta$ (eta) e seu valor default é 0.3
 
 !["xgb10"](img/xgb10.png)
 
-Por exemplo, se a gente pegasse a primeira observação (indivíduo com altura=1.7), seu peso predito seria $\text{predicao inicial} + \eta \cdot \text{valor de saída da árvore XGB} = 70 + 0,312 = 73,6$ que é mais perto do  seu peso real (que era 88) do que a predição anterior (que era 70). Assim, com as novas predições, os novos resíduos ficaram:
+Por exemplo, se a gente pegasse a primeira observação (indivíduo com altura=1.7), seu peso predito seria $\text{predicao inicial} + \eta \cdot \text{valor de saída da árvore XGB} = 70 + 0,312 = 73,6$ que é mais perto do seu peso real (que era 88) do que a predição anterior (que era 70). Assim, com as novas predições, os novos resíduos ficaram:
 
 ```{python}
 nova_pred = (73.6, 73.6, 66.4, 71.5, 66.4)
@@ -1409,12 +1390,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 Agora, vamos importar a função `XGBRegressor` do pacote `xgboost` e criar o modelo. A função `XGBRegressor` possui os seguintes parâmetros:
 
-- `n_estimators`: número de árvores a serem construídas. O padrão é 100.
-- `learning_rate`: taxa de aprendizado, que deve ser um número entre 0 e 1. O padrão é 0.3.
-- `max_depth`: profundidade máxima de cada árvore. O padrão é 6.
-- `min_child_weight`: peso mínimo de cada folha. O padrão é 1.
-- `subsample`: fração dos dados de treinamento a serem usados para cada árvore. O padrão é 1, ou seja, todos os dados serão usados.
-- `colsample_bytree`: fração das colunas a serem usadas para cada árvore. O padrão é 1, ou seja, todas as colunas serão usadas.
+-   `n_estimators`: número de árvores a serem construídas. O padrão é 100.
+-   `learning_rate`: taxa de aprendizado, que deve ser um número entre 0 e 1. O padrão é 0.3.
+-   `max_depth`: profundidade máxima de cada árvore. O padrão é 6.
+-   `min_child_weight`: peso mínimo de cada folha. O padrão é 1.
+-   `subsample`: fração dos dados de treinamento a serem usados para cada árvore. O padrão é 1, ou seja, todos os dados serão usados.
+-   `colsample_bytree`: fração das colunas a serem usadas para cada árvore. O padrão é 1, ou seja, todas as colunas serão usadas.
 
 entre outros parâmetros.
 
@@ -1537,8 +1518,8 @@ Note que o **Cover** é definido pelo denominador do **Índice de Similaridade**
 
 Calculando o Cover das nossas duas últimas folhas, temos que:
 
- - Cover da primeira folha: $0.5 \times (1 - 0.5) = 0.25$
- - Cover da segunda folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.5$
+-   Cover da primeira folha: $0.5 \times (1 - 0.5) = 0.25$
+-   Cover da segunda folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.5$
 
 !["xgb_5"](img/xgb_5.png)
 
@@ -1546,8 +1527,8 @@ Como o Cover de ambas as folhas são menores do que 1, o XGBoost não as permite
 
 !["xgb_6"](img/xgb_6.png)
 
- - Cover da primeira folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.75$
- - Cover da Segunda folha: $0.5 \times (1 - 0.5) = 0.25$
+-   Cover da primeira folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.75$
+-   Cover da Segunda folha: $0.5 \times (1 - 0.5) = 0.25$
 
 !["xgb_7"](img/xgb_7.png)
 
@@ -1555,7 +1536,7 @@ Como o Cover de ambas as folhas também são menores do que 1, o XGBoost também
 
 !["xgb_8"](img/xgb_8.png)
 
-Quando estamos utilizando XGBoost para regressão usamos a seguinte fórmula para o Índice de Similaridade: 
+Quando estamos utilizando XGBoost para regressão usamos a seguinte fórmula para o Índice de Similaridade:
 
 $$
 \text{IS} = \frac{(\text{resíduo})^2}{\text{Número de Resíduos} + \lambda}
@@ -1601,8 +1582,8 @@ O que as folhas retornarão após esse cálculo serão os log(chances). É preci
 
 Fazendo os cálculos da esquerda para a direita, temos que:
 
- - Para a primeira folha: $\text{log(chances)} = 0 + 0.3 \times 0.75 = 0.225$
- - Para a segunda folha: $\text{log(chances)} = 0 + 0.3 \times 0.25 = 0.075$
+-   Para a primeira folha: $\text{log(chances)} = 0 + 0.3 \times 0.75 = 0.225$
+-   Para a segunda folha: $\text{log(chances)} = 0 + 0.3 \times 0.25 = 0.075$
 
 Agora precisamos converter esses valores de log(chances) para probabilidades. A fórmula para converter log(chances) de volta para probabilidade é dada por:
 
@@ -1612,9 +1593,9 @@ $$
 
 Assim, temos que:
 
- - Para a primeira folha: $0 + 0.3 \times (-2) = -0.6$
- - Para a segunda folha: $0 + 0.3 \times 0 = 0$
- - Para a terceira folha: $0 + 0.3 \times 2 = 0.6$
+-   Para a primeira folha: $0 + 0.3 \times (-2) = -0.6$
+-   Para a segunda folha: $0 + 0.3 \times 0 = 0$
+-   Para a terceira folha: $0 + 0.3 \times 2 = 0.6$
 
 Agora para converter esses valores (que são log(chances)) para probabilidade utilizamos a seguinte fórmula:
 
@@ -1624,9 +1605,9 @@ $$
 
 Assim, temos que:
 
- - Para a primeira folha: $p = \frac{e^{-0.6}}{1 + e^{-0.6}} \approx 0.354$
- - Para a segunda folha: $p = \frac{e^{0}}{1 + e^{0}} = 0.5$
- - Para a terceira folha: $p = \frac{e^{0.6}}{1 + e^{0.6}} \approx 0.646$
+-   Para a primeira folha: $p = \frac{e^{-0.6}}{1 + e^{-0.6}} \approx 0.354$
+-   Para a segunda folha: $p = \frac{e^{0}}{1 + e^{0}} = 0.5$
+-   Para a terceira folha: $p = \frac{e^{0.6}}{1 + e^{0.6}} \approx 0.646$
 
 Assim, temos as predições da nossa árvore:
 
@@ -1746,4 +1727,3 @@ print(f"\nAcurácia do Modelo: {accuracy:.4f}")
 print("\nRelatório de Classificação:")
 print(classification_report(y_test, y_pred))      
 ```
-

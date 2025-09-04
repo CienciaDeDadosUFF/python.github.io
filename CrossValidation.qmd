@@ -439,13 +439,13 @@ Agora que vimos diferentes métodos de reamostragem, algumas perguntas podem sur
 
 Fizemos as reamostragens mas como vamos usá-las para fazer validação cruzada e criar modelos? Como que vamos criar preditores confiáveis e com boa capacidade de generalização a partir da reamostragem? Qual reamostragem devo usar? Posso usar mais de uma reamostragem?
 
-1. Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo, é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.
+1.  Validação cruzada consiste em simular diferentes cenários de treino/teste para dar uma estimativa mais realista do desempenho de um modelo, é justamente o que estamos fazendo ao treinar preditores com reamostragem. O processo de criação de preditores é parecida entre os diferentes métodos de reamostragem. Falaremos disso aqui nos próximos parágrafos.
 
-2. Reamostragem serve para aproximar o desempenho do modelo nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.
+2.  Reamostragem serve para aproximar o desempenho do modelo nos testes do desempenho em uso real, isso é, criar modelos confiáveis. Ter boa capacidade de generalização é um problema que será resolvido com ajuste de hiperparâmetro e selecionando o melhor algoritmo de aprendizado de máquinas para o problema específico.
 
-3. Cada algoritmo de aprendizado de máquina e cada problema tem sua preferência. A seleção de qual reamostragem usar para ter uma melhor análise para determinado problema usando um determinado algoritmo de aprendizado de máquina é um processo ad-hoc, isto é, para cada situação uma solução específica, logo, quase sempre será um chute. Ainda sim, por conta das características de cada método de aprendizado de máquina podemos inferir provaveis situações de melhor uso de um em relação ao outro. O random forest, por exemplo, usa o bootstrap por padrão em sua implementação. O tempo que cada um gasta é algo a ser considerado também. K-Fold é o mais rápido, seguido do Bootstrap e por último o repeated k-fold.
+3.  Cada algoritmo de aprendizado de máquina e cada problema tem sua preferência. A seleção de qual reamostragem usar para ter uma melhor análise para determinado problema usando um determinado algoritmo de aprendizado de máquina é um processo ad-hoc, isto é, para cada situação uma solução específica, logo, quase sempre será um chute. Ainda sim, por conta das características de cada método de aprendizado de máquina podemos inferir provaveis situações de melhor uso de um em relação ao outro. O random forest, por exemplo, usa o bootstrap por padrão em sua implementação. O tempo que cada um gasta é algo a ser considerado também. K-Fold é o mais rápido, seguido do Bootstrap e por último o repeated k-fold.
 
-4. Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante, não irá melhorar significativamente o processo de criação de um modelo. Além disso, pensando em custo computacional pode não ser a melhor ideia. Portanto, usar mais de um método de reamostragem para a validação cruzada é contra produtivo.
+4.  Podemos comparar os resultados entre mais de um método de reamostragem, porém é um pouco redundante, não irá melhorar significativamente o processo de criação de um modelo. Além disso, pensando em custo computacional pode não ser a melhor ideia. Portanto, usar mais de um método de reamostragem para a validação cruzada é contra produtivo.
 
 ## Criando e comparando preditores com os métodos de reamostragem.
 
@@ -477,13 +477,13 @@ print("Desvio padrão:", resultadoVC.std())
 
 Essa função tem alguns problemas:
 
-- Só funciona para objetos gerados por funções de K-Fold, não aceita outras reamostragens como Bootstrap.
+-   Só funciona para objetos gerados por funções de K-Fold, não aceita outras reamostragens como Bootstrap.
 
-- Pra cada métrica que queremos ver precisamos rodar ela novamente. O scikit-learn possui a função `cross_validate()` que supostamente deveria funcionar parecido mas que permite uma lista de métricas, porém, tanto na função cross_validate() quanto na cross_val_score() quando colocamos recall a função retorna um erro.
+-   Pra cada métrica que queremos ver precisamos rodar ela novamente. O scikit-learn possui a função `cross_validate()` que supostamente deveria funcionar parecido mas que permite uma lista de métricas, porém, tanto na função cross_validate() quanto na cross_val_score() quando colocamos recall a função retorna um erro.
 
-- Não podemos definir um random_state para o modelo que entra, logo não conseguiremos reproduzir um resultado.
+-   Não podemos definir um random_state para o modelo que entra, logo não conseguiremos reproduzir um resultado.
 
-- Geramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos
+-   Geramos os modelos sem guardá-los em variaveis, então eles são gerados apenas para criar essas métricas e serão perdidos
 
 No geral, essas funções prontas de validação cruzada sempre possuem alguma limitação, independente da linguagem ou pacote. Idealmente faremos validação cruzada criando nossas próprias funções para customizar o máximo possível. Isso exige um bom domínio de python e da teoria por trás do aprendizado de máquinas. Mas é um processo necessário para fugir dos problemas relatados a cima.
 

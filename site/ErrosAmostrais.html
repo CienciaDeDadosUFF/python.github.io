@@ -486,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>(*) Overfitting é um termo usado na estatística para descrever quando um modelo estatístico se ajusta muito bem a um conjunto de dados anteriormente observado e, como consequência, se mostra ineficaz para prever novos resultados.</p>
 <p>Vejamos um exemplo de erro dentro da amostra vs erro fora da amostra:</p>
-<div id="2121f910" class="cell" data-execution_count="2">
+<div id="cc6fe048" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -528,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Podemos notar que, em geral, as mensagens classificadas como spam possuem uma frequência maior de letras maiúsculas do que as mensagens classificadas como não spam. Com base nisso queremos construir um preditor, onde podemos classificar e-mails como spam se a frequência de letras maiúsculas for maior que uma determida constante, e não spam caso contrário.</p>
 <p>Veja que se separarmos os dados pela frequência de letras maiúsculas maior que 2,5 e classificarmos o que está acima como spam e abaixo como não spam, ainda teríamos duas observações que não são spam acima da linha.</p>
-<div id="1c60921b" class="cell" data-execution_count="3">
+<div id="901745e4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando um gráfico de dispersão para a média de letras maiúsculas</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -548,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="7c0f9935" class="cell" data-execution_count="4">
+<div id="e5e0182a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_sobreajustado(x):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where((x <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (x <span class="op">&lt;=</span> <span class="dv">2</span>), <span class="st">'spam'</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                        np.where((x <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (x <span class="op">&gt;</span> <span class="dv">2</span>), <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
@@ -569,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>letras maiúsculas &gt; 2,4 ⇒ spam;</p></li>
 <li><p>letras maiúsculas &lt;= 2,4 ⇒ não spam.</p></li>
 </ul>
-<div id="18f3538d" class="cell" data-execution_count="5">
+<div id="7ec0ebda" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cores <span class="op">=</span> [<span class="st">'red'</span>, <span class="st">'black'</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(amostra_spam[<span class="st">'capitalAve'</span>])),</span>
@@ -588,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="671fb9ff" class="cell" data-execution_count="6">
+<div id="9243c88d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modelo_geral(x):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    predicao <span class="op">=</span> np.where(x <span class="op">&gt;=</span> <span class="dv">0</span>, <span class="st">'spam'</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        np.where(x <span class="op">&lt;</span> <span class="dv">0</span>, <span class="st">'nonspam'</span>, <span class="st">'nonspam'</span>))</span>
@@ -604,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Observe que dessa forma temos um erro dentro da amostra de 20%. Vamos agora aplicar esses dois modelos para toda a base de dados:</p>
-<div id="402a1a9f" class="cell" data-execution_count="7">
+<div id="d2869b7e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicando o modelo na base toda e criando a tabela</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -612,7 +612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        [1605,  320]])</code></pre>
 </div>
 </div>
-<div id="7cbb7a35" class="cell" data-execution_count="8">
+<div id="3160f4d3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>confusion_matrix(modelo_geral(spam[<span class="st">'capitalAve'</span>]), spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([[   0,    0],
@@ -620,13 +620,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Olhando para a precisão de nossos modelos:</p>
-<div id="ff7ff7f3" class="cell" data-execution_count="9">
+<div id="51981469" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_geral(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>np.int64(1813)</code></pre>
 </div>
 </div>
-<div id="8d5743e7" class="cell" data-execution_count="10">
+<div id="f48ad13a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(modelo_sobreajustado(spam[<span class="st">'capitalAve'</span>]) <span class="op">==</span> spam[<span class="st">'type'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>np.int64(1503)</code></pre>

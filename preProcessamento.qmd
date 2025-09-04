@@ -21,6 +21,7 @@ from sklearn.model_selection import StratifiedKFold
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
+from sklearn.impute import KNNImputer
 ```
 
 # O que é Pré-Processamento?
@@ -63,7 +64,7 @@ São 5110 amostras com 11 variáveis explicativas e uma variável resposta. Segu
 
 -   work_type: children, Govt_job, Never_worked, Private ou Self-employed, categoria de trabalho do paciente.
 
--   Residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano
+-   residence_type: Rural ou Urban, se o paciente vive no meio rural ou no meio urbano
 
 -   avg_glucose_level: Nível médio de glicose no sangue, em float.
 
@@ -113,7 +114,6 @@ Um passo importante antes da separação do conjunto validação é salvar as po
 ```{python}
 # Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)
 colunasCategoricas = list(stroke.select_dtypes(include=['object', 'category']).columns)
-
 
 # Salvando possíveis classes de todas as variáveis categóricas
 classesColCateg = []
@@ -181,9 +181,13 @@ def testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):
 
 Essa função será utilizada para testar o modelo assim que passarmos pelas etapas iniciais obrigatórias de pré-processamento mencionadas. É uma simples função de validação cruzada.
 
-# Tratamento de dados faltantes
+# Seleção de atributos
 
-O primeiro passo da primeira etapa de pré-processamento é o tratamento de dados faltantes.
+O primeiro passo do pré-processamento é a seleção de atributos.
+
+## NearZeroVar
+
+# Tratamento de dados faltantes
 
 O que são dados faltantes? É uma pergunta fácil de responder a princípio: sempre que um dado está como NA (*Not Available*) no dataframe ou vazio na base original. Porém esses não são os únicos dados faltantes que precisamos considerar. Muitas vezes dados são faltantes mesmo que em uma primeira análise isso não seja evidente.
 
@@ -247,6 +251,10 @@ Para remover o NA de `gender`:
 ```{python}
 # Como estamos removendo uma linha do dataframe precisamos resetar o índice.
 x_strokeKfold = x_strokeKfold.dropna(subset=["gender"]).reset_index(drop=True)
+
+# Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.
+# para não ser um problema na codificação de variáveis.
+classesColCateg[colunasCategoricas.index("gender")].remove("Other")
 ```
 
 Esse código funciona para caso hajam mais NAs na coluna também.
@@ -296,12 +304,12 @@ print(x_strokeKfold['bmi'].median())
 print(x_strokeKfold['smoking_status'].mode())
 ```
 
-A mediana do bmi é 28.1 e a moda do smoking_status é never smoked logo ao realizar a substituição de dados faltantes faremos do seguinte modo:
+A mediana do bmi é 28.1 e a moda do smoking_status é never smoked. Utilizaremos KNN Impute, que será apresentado em breve, para tratar os NAs de bmi, enquanto, para smoking_status, a estratégia de valor padrão. Para realizar a substituição de dados faltantes faremos do seguinte modo:
 
 ```{python}
-x_strokeKfold = x_strokeKfold.replace({
-    "bmi": {pd.NA: 28.1},          
-    "smoking_status": {pd.NA: "never smoked"} 
+x_strokeKfold = x_strokeKfold.replace({       
+    "smoking_status": {pd.NA: "never smoked"} #,
+    #"bmi": {pd.NA: 28.1} 
 })
 ```
 
@@ -309,7 +317,7 @@ Observe que os valores foram definidos manualmente, sem passar as funções nova
 
 ### Imputação por propagação
 
-Esse tratamento de NA consiste em preencher o valor com o seguinte ou o anterior do conjunto de dados. Isso é feito quando existe uma lógica de continuidade nas amostras do dado como em séries temporais.
+Esse tratamento de NA consiste em preencher o valor com o seguinte ou o anterior do conjunto de dados. Isso é feito quando existe uma lógica de continuidade nas amostras do dado como em séries temporais. Não será utilizado na base stroke mas é importante ser citado.
 
 Dependendo do contexto podemos usar o seguinte ou o anterior. Digamos que tiramos medições a cada 10 minutos do clima de uma cidade. Em um dos momentos faltou energia justamente durante a medição e o dado não foi coletado. Faz sentido usar tanto o dado anterior quanto o seguinte. Podemos ainda tirar uma média entre os dois para que em um contexto de piora do tempo não haja uma mudança muito abrupta justamente na medição da piora.
 
@@ -321,43 +329,289 @@ O pandas possui o método de dataframes `.fillna()` que possui os parâmetros me
 
 -   `limit`: define quantos valores consecutivos podem ser preenchidos usando a estratégia escolhida.
 
-Para a nossa base stroke esse método não tem uso pôs não se trata de uma série temporal.
-
 ### Por aprendizado de máquina
 
+Podemos fazer o tratamento de NAs via imputação por aprendizado de máquina. A ideia central dessa estratégia é rodar um preditor para a variável explicativa faltante baseado nas demais variáveis explicativas.
 
+Podemos criar modelos de aprendizado de máquinas para prever as variáveis faltantes usando as próprias variáveis explicativas dos dados e usá-los para realizar o tratamento de NAs.
 
-#### KNN Impute (falar só disso mas que é um assunto maior)
+Apresentaremos o **KNN Imputation**, um modelo de aprendizado de máquina baseado no KNN, porém existem diversos outros algoritmos baseados nessa estratégia que não serão abordados nesse curso.
+
+#### KNN Imputation
+
+O KNN Imputation é um método que, baseado nos vizinhos mais próximos, determina valores para a variável explicativa com dados faltantes do conjunto de dados.
+
+O algoritmo é excelente para situações com poucos NAs na base de dados e em que há certa correlação entre as variáveis explicativas.
+
+Essa restrição de qualidade para o número de NAs é global para todas as variáveis do conjunto de dados: se houver NAs em demasiado em diversas colunas o substituto será pior, especialmente se a presença de NAs for alta na variável explicativa que quisermos substituir por esse método. Portanto, ele deverá ser o último método de tratamento de NA a ser utilizado ao optarmos por utilizá-lo. Em relação a correlação entre as variáveis explicativas, se não houver, o KNN Imputation será incapaz de predizer bons substitutos aos dados faltantes.
+
+Como utilizaremos o KNN Imputation no conjunto de dados stroke? A variável explicativa smoking_status possui muitos NAs, cerca de 1/3 de todas as amostras, então seu tratamento por KNN Imputation não seria uma boa abordagem. Já para a variável explicativa bmi, apenas cerca de 5% da base são NAs e, mediante a uma análise de correlação e causalidade, podemos observar que há dependencia entre variáveis explicativas com a variável bmi, logo, o KNN Imputation será capaz de produzir bons substitutos para essa variável, possivelmente melhor que um simples valor padrão.
+
+Outra característica do KNN Imputation é que a análise é feita baseada em vizinhos, então uma base de dados ordenada por uma ou outra métrica será capaz de trazer melhores substitutos.
+
+Como o KNN Imputation realiza a substituição baseada em semelhanças entre amostras vizinhas por isso ele só poderá ser utilizado para os dados de treino uma vez que não há como garantir que em uso real os dados inseridos serão o suficiente para realizar o tratamento de NA com o uso do algoritmo. Para os dados de uso real ou teste outras estratégias terão que ser utilizadas.
+
+A implementação do KNN Imputation do scikit-learn exige as variáveis já codificadas para funcionar: não serão aceitos dados categóricos. É necessário também fazer transformação de variáveis contínuas, seja por padronização, normalização ou outro método devido a alta sensíbilidade a diferenças nas escalas entre as variáveis explicativas do método. Esses pontos serão discutidos em próximos tópicos do caderno.
+
+Apresentaremos o código para a substituição por KNN Imputation aqui, porém só será de fato utilizado na base depois que fizermos a codificação e transformação das variáveis.
+
+```{python}
+# Comentado para usar depois das transformações e codificações de variáveis
+#x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)['bmi']
+```
+
+Observe que o `KNNImputer` recebe o argumento `n_neighbors`: precisamos especificar com quantos vizinhos o algoritmo usará, quanto mais vizinhos mais pesado será o processamento.
+
+Ao utilizar o KNN Imputation todos os NAs serão substituídos. Com excessão do bmi, os dados faltantes de todas as variáveis do conjunto stroke já foram tratados porém, se realizarmos algum outro tratamento posterior ao KNNImputer, precisaremos especificar a coluna como feito no código de exemplo.
 
 # Codificação de variáveis
 
-## Variável dummy e one-hot encoding
+Codificação de variáveis (ou encoding) é o processo de transformar variáveis categóricas ou textuais em valores numéricos, para que possam ser utilizadas por algoritmos de aprendizado de máquina que funcionem melhor com números. Existem diversas técnicas de codificação de variáveis. Segue abaixo uma lista:
 
-# Rebalanceamento
+-   **Ordinal Encoding**: Cada categoria de uma variável explicativa textual recebe um valor inteiro. Ideal quando existe uma ordem natural entre as classes. Exemplo: "Frio" -\> 0 ; "Morno" -\> 1; "Quente" -\> 2.
 
-O que é, quando fazer, enviezar de propósito quando. \## Under sampling
+-   **One-Hot Encoding**: Cada categoria de uma variável explicativa é substituida uma nova variável explicativa com valor binário. Será abordada com mais detalhe em breve.
 
-Um outro pré-processamento que teremos que fazer mesmo nesse preditor inicial é o rebalanceamento da variável explicativa.
+-   **Dummy Variables**: One-Hot Encoding porém com uma coluna a menos deixando uma das categorias representada implicitamente. Será abordada com mais detalhe em breve.
 
-Observe que há 4861 pacientes que não tiveram AVC e 249 pacientes que tiveram AVC:
+-   **Frequency Encoding**: Cada categoria de uma variável explicativa categórica é substituída pela sua frequência de aparição.
 
-```{python}
-print(stroke['stroke'].value_counts())
+-   **Mean Encoding**: Substitui as categorias de uma variável explicativa textual pela média das respectivas. Exemplo: Análise de crédito de uma cidade por zonas: Centro, Sul, Norte. A média da inadimplencia é respectivamente 20%, 40% e 70%. A partir dessas médias as categorias são substituídas e o modelo enxergará apenas a taxa de inadimplência da região.
+
+A seguir Dummy Variables e One-Hot encoding com mais detalhes e aplicados na base stroke.
+
+## One-Hot encoding e Dummy Variables
+
+One-Hot encoding e Dummy Variables codificam uma variável explicativa categórica em uma série de colunas binárias, uma para cada categoria (menos um no caso de Dummy Variables). A ideia central é que o algoritmo de aprendizado de máquina enxergará a presença ou não do dado qualitativos expresso na variável categórica. Ao substituir por números eles iriam interpretar os dados como gradativos quando as vezes não possuem essa natureza.
+
+No exemplo dado no Ordinal Encoding, "Frio", "Morno", "Quente" possui uma relação de ordem entre as categorias então podemos expressá-los em uma coluna só com números. Porém, muitas variáveis qualitativas não possuem essa relação.
+
+Observe os valores possíveis de `work_type` de stroke: children, Govt_job, Never_worked, Private e Self-employed; como poderiámos ordená-los logicamente por números? children 0, Never_worked 1, Private 2, Self-employed 3, Govt_job 4? Porque Govt_job é 4 e não 2? Não há ordem lógica alguma no contexto de stroke e o mesmo valerá para gender, ever_married, residence_type, smoking_status. Ao todo 5 das 11 variáveis explicativas não possuem ordem lógica: imagina a qualidade do modelo se simplesmente transformássemos em números por Ordinal Encoding?
+
+Segue abaixo como a codificação de work_type é feita por One-Hot encoding e como é feita por Dummy Variables:
+
+-   Represetação original de work_type:
+
+```{=html}
+<div class="scroll_table">
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe table-striped table-bordered table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>work_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>children</th>
+    </tr>
+    <tr>
+      <th>children</th>
+    </tr>
+    <tr>
+      <th>Govt_job</th>
+    </tr>
+    <tr>
+      <th>children</th>
+    </tr>
+    <tr>
+      <th>Never_worked</th>
+    </tr>
+    <tr>
+      <th>Private</th>
+    </tr>
+    <tr>
+      <th>Govt_job</th>
+    </tr>
+  </tbody>
+</table>
+</div>
 ```
 
-O modelo que faríamos iria classificar todos os pacientes como sem AVC porque assim traria uma acurácia maior, como não queremos isso vamos usar uma base balanceada, 50% - 50%, faremos isso com undersampling, implementado pela classe RandomUnderSampler do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno. Note que não faremos esse procedimento para o conjunto validação.
+-   Codificação por **One-Hot encoding**:
 
-```{python}
-# Aplicando o undersampling
-x_strokeKfoldBalanceado, y_strokeKfoldBalanceado = RandomUnderSampler(random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
-print(y_strokeKfold.value_counts())
+```{=html}
+<div class="scroll_table">
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe table-striped table-bordered table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>children</th>
+      <th>Never_worked</th>
+      <th>Private</th>
+      <th>Self_employed</th>
+      <th>Govt_job</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 ```
 
-Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke é 1, após separação do conjunto validação, estão na nova separação junto com 223 amostras em que stroke é 0. \## Over sampling
+-   Codificação por **Dummy Variables**:
 
-# Seleção de atributos
+```{=html}
+<div class="scroll_table">
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-## NearZeroVar
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe table-striped table-bordered table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Never_worked</th>
+      <th>Private</th>
+      <th>Self_employed</th>
+      <th>Govt_job</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+```
+
+A diferença entre One-Hot encoding e Dummy Variables fica bem explícita quando observamos a codificação de work_type: quando for `children` nenhum ficará marcado, estará implícito que é children.
+
+Observe que a ordem das categorias que os dados estão organizados e as categorias presentes não influenciam na criação das colunas. Self_employed é sempre zero porque em nenhum das 7 amostras ele aparece mas a coluna está lá do mesmo jeito. Isso ocorre porque as colunas serão criadas pela variável classesColCateg que definimos no início do caderno que contém todas as possíveis categorias de cada uma das variáveis explicativas.
+
+-   Quando usar One-Hot encoding ou Dummy Variables?
+
+A codificação por One-Hot encoding é ideal para modelos que não sofrem com multicolinearidade, como algoritmos baseados em árvores de decisão, essa codificação permite que cada categoria seja explorada livremente pelo modelo. Para modelos lineares como regressão logística a colinearidade perfeita do one-hot encoding está associada a redução de acurácia. Ao reduzir uma variável o problema da colinearidade será atenuado.
+
+Como usaremos o RandomForest, um modelo baseado em árvores, usaremos codificação por One-Hot encoding.
+
+Segue abaixo a codificação das variáveis explicativas categóricas:
+
+```{python}
+classesColCateg
+colunasCategoricas
+```
 
 # Transformação de variáveis
 
@@ -365,8 +619,114 @@ Agora a base possui 223 amostras de cada classe. Todas as amostras em que stroke
 
 ## Normalização
 
-# Resumo
+# Rebalanceamento
+
+Rebalanceamento de um conjunto de dados consiste em rebalancear as amostras da variável resposta para atender um objetivo específico. É a última etapa do pré-processamento e só pode ser realizada no conjunto de treino.
+
+Esse passo não é necessário para todos os conjuntos de dados. Ele é necessário principalmente em conjuntos de dados em que uma das classes da variável resposta é muito mais presente entre as amostras do que a outra.
+
+Como que está o balanceamento de stroke?
+
+```{python}
+print(y_strokeKfold.value_counts())
+```
+
+5% dos pacientes foram classificados como tendo AVC e 95% como não. Com esses números o modelo que seria treinado iria classificar todos os pacientes como sem AVC porque com a base extremamente desbalanceada como observamos os cálculos feitos para o ajuste interno do algoritmo de aprendizado de máquina convergiriam sempre para a classe majoritária. Não podemos permitir que essa situação ocorra por isso precisamos rebalancear a base. Não precisamos necessariamente ter os dados perfeitamente balanceados: existem situações em que a base estar levemente desbalanceada para uma das classes é benéfico para a qualidade do preditor.
+
+Existem dois principais tipos de rebalanceamento:
+
+-   **Undersampling**: Consiste em reduzir a amostragem da classe majoritária para atender a proporção desejada. Com isso perderemos muitos dados que poderiam ser utilizados para o treinamento da base porém utilizaremos apenas dados originais sem transformações associadas ao rebalanceamento.
+
+-   **Oversampling**: Consiste em aumentar a amostragem da classe minoritária para atender a proporção desejada. Isso é possível ao transformar dados existentes para expandir a quantidade de dados ou inventar novas amostras a partir de antigas.
+
+Ambos os tipos possuem vantagens e desvantagens, casos de uso melhor ou pior etc. É um assunto bem extenso. No caderno seguiremos apenas com o undersampling.
+
+O undersampling é implementado no python pela classe `RandomUnderSampler` do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno.
+
+Como seria o melhor jeito de rebalancear a base stroke? Uma possibilidade é rebalancear para ter 50% dos pacientes com AVC e 50% sem AVC, esse seria o jeito mais intuitivo de seguir. Porém, ao adotar uma estratégia de rebalanceamento precisamos entender o foco do modelo que queremos criar. Qual o foco da predição de AVC? Para uso médico existe uma necessidade que o maior número possível de pacientes com AVC sejam corretamente diagnosticados, em outras palavras, especificidade é o foco número 1 desse modelo.
+
+Podemos construir um modelo enviesado para diagnóstico de AVC e isso pode ser feito com uma base desbalanceada possuindo mais pacientes com AVC assim o modelo será treinado tendo em mente que a maioria das pessoas tem AVC resultando numa maior sensibilidade aos fatores que levam para o diagnóstico porém, não podemos também simplesmente sair classificando todos os pacientes com AVC. Precisamos gerar um modelo com acurácia e sensibilidade aceitáveis mas que maximize a especificidade. Encontrar um ponto de equilíbrio é essencial. Precisamos ainda entender o peso moral da nossa decisão de construção do modelo, afinal ao criar o viés para aumentar os diagnósticos de AVC resultará também em um aumento de diagnósticos incorretos a pacientes saudáveis.
+
+Outro ponto a se atentar é que ao rebalancear para diminuir a proporção da classe majoritária frente a minoritária no undersampling invariavelmente resultará em uma base com menos amostras que poderá gerar um modelo inferior simplesmente por ter sido treinado com menos dados. Podemos rebalancear a base mantendo a classe majoritaria levemente superior em número de amostras para utilizarmos mais dados para treinar o modelo. Isso vem com o custo de enviesarmos o modelo para a classe majoritária
+
+Vamos utilizar a validação cruzada para testar três abordagens: uma com a base perfeitamente balanceada, outra com a base tendendo levemente para diagnóstico de AVC (40% dos pacientes saudáveis e 60% doentes) e outra com um maior número de amostras ao manter um pequeno viés para a classe majoritária (60% dos pacientes saudáveis e 40% doentes) e portanto com um leve viés para diagnóstico negativo de AVC. Faremos validação cruzada para testar os modelos no próximo tópico.
+
+Segue abaixo a criação das bases rebalanceadas:
+
+```{python}
+# Base balanceada
+
+# criando a base balanceada
+x_strokeKfoldBalanceado, y_strokeKfoldBalanceado = RandomUnderSampler(sampling_strategy=0.5/0.5, random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
+
+# print do estado de balanceamento atual
+print(y_strokeKfoldBalanceado.value_counts())
+```
+
+A base balanceada possui exatamente o mesmo número de pacientes com AVC e pacientes saudáveis.
+
+A função RandomUnderSampler possui um parâmetro chamado `sampling_strategy` ele irá determinar a proporção final das amostras. Ele possui dois tipos possíveis de entrada:
+
+-   Float no intervalo (0, 1\] que dita a proporção da classe minoritária frente a majoritária. Se quisermos uma base balanceada significa que queremos que ambas as classes sejam representadas por 50% das amostras por isso 0.5/0.5 no uso da função. Podemos ainda por esse tipo de entrada deixar a base desbalanceada, ou seja, enviesada, para a classe majoritária com valores menores que 1.0.
+
+-   Dicionário com a chave sendo as classes da variável resposta e o valor associado a chave sendo o número de amostras desejadas para cada classe na base a ser rebalanceada.
+
+```{python}
+# Base enviesada para AVC
+
+# definindo o número de amostras para sampling_strategy
+nAmostrasMinoritaria = y_strokeKfold.value_counts()[1]
+
+# criando a base enviesada para AVC
+x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC = RandomUnderSampler(sampling_strategy={0: int(nAmostrasMinoritaria*0.67), 1: nAmostrasMinoritaria}, random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
+
+# print do estado de balanceamento atual
+print(y_strokeKfoldEnviesadoAVC.value_counts())
+```
+
+A base enviesada para AVC que criamos possui 223 amostras de pacientes com AVC e 149 pacientes sem AVC.
+
+Para criar a base com viés para a classe minoritária como fizemos precisamos expressar exatamente quantas amostras queremos para cada classe, o sampling_strategy recebe apenas números entre 0 e 1 ou dicionários. Como nesse caso queremos 60% da classe minoritária e 40% da majoritária seria necessário 1.5 no sampling_strategy, como a função não permite isso teremos que usar a entrada por dicionário como feito.
+
+```{python}
+# Base enviesada para sem AVC
+
+# criando a base enviesada para sem AVC
+x_strokeKfoldEnviesadoSemAVC, y_strokeKfoldEnviesadoSemAVC = RandomUnderSampler(sampling_strategy=0.4/0.6, random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
+
+# print do estado de balanceamento atual
+print(y_strokeKfoldEnviesadoSemAVC.value_counts())
+```
+
+A base enviesada para sem AVC que criamos possui 223 amostras de pacientes com AVC e 334 pacientes sem AVC.
+
+# Construção, validação cruzada e teste do modelo
+
+Com todos os pré-processamentos realizados podemos partir para a construção do classificador.
+
+## Análise dos resultados
+
+# Resumo dos códigos
+
+Ao longo do caderno foi apresentado diferentes tipos de pré-processamento numa sequência lógica focada no detalhamento das técnicas e não na construção do modelo final em si.
+
+Foi citado ainda que certos pré-processamentos possuem uma ordem para serem feitos e se são feitos sempre ou apenas no conjunto de treino. Isso tudo pode ter ficado confuso quando o foco for na cronologia do que deve ser feito de fato para criar um preditor.
+
+Aqui nessa parte final do caderno terão todos os códigos do utilizados para a construção do modelo final para classificação de AVCs da base Stroke Prediction Dataset do Kaggle separados por arquivos e com instruções de uso com os pré-processamentos própriamente ordenados e sem os prints. Ideal para entender a visão macro do desenvolvimento de modelos com o uso das diversas técnicas de pré-processamento e sem o foco de explicação do uso de cada uma.
+
+``` python
+```
 
 ### Referencias
 
-Python for Data Analysis - Wes McKinney STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan
+-   Python for Data Analysis - Wes McKinney
+
+-   STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan
+
+-   https://imbalanced-learn.org/stable/under_sampling.html (Undersampling)
+
+-   https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html (KNN Imputation)
+
+-   Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron (One-Hot encoding)
+
+-   An Introduction to Statistical Learning with Applications in R - Gereth James (Dummy Variables)

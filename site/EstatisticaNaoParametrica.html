@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,8 +74,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -578,7 +578,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="desvantagens">Desvantagens</h2>
 <ul>
 <li>Em geral, possuem <strong>menor poder estatístico</strong> quando os pressupostos dos testes paramétricos são atendidos;</li>
-<li><strong>Não fornecem estimativas de parâmetros populacionais</strong>, como média e desvio padrão, dificultando interpretações inferenciais mais precisas;</li>
+<li><strong>Não fornecem estimativas de parâmetros populacionais</strong>, como média e desvio padrão, dificultando interpretações inferenciais mais precisas.</li>
 </ul>
 </section>
 <section id="quando-usar-métodos-paramétricos-ou-não-paramétricos" class="level2">
@@ -604,6 +604,7 @@ window.Quarto = {
 </section>
 <section id="importação" class="level1">
 <h1>Importação</h1>
+<p>PACOTES UTILIZADOS????</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np  <span class="co"># operações matemáticas e vetoriais</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  <span class="co"># manipulação de dados em tabelas (DataFrames)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> (</span>
@@ -627,9 +628,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="hipóteses">Hipóteses</h2>
 <p>Queremos testar se duas populações independentes têm <strong>a mesma mediana</strong>.</p>
 <ul>
-<li><p><strong>Hipótese nula</strong>: <span class="math inline">\(H_0\)</span>: as distribuições de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são iguais, ou seja, <span class="math inline">\(md_X = md_Y\)</span>;</p></li>
-<li><p><strong>Hipótese alternativa</strong>: <span class="math inline">\(H_1\)</span>: as distribuições são diferentes, ou seja, <span class="math inline">\(md_X \neq md_Y\)</span> (bilateral) ou <span class="math inline">\(md_X &gt; md_Y\)</span> / <span class="math inline">\(md_X &lt; md_Y\)</span> (unilateral).</p></li>
+<li><strong>Hipótese nula</strong>(<span class="math inline">\(H_0\)</span>): as distribuições de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são iguais, ou seja,</li>
 </ul>
+<p><span class="math inline">\(md_X = md_Y;\)</span></p>
+<ul>
+<li><strong>Hipótese alternativa</strong>(<span class="math inline">\(H_1\)</span>): as distribuições são diferentes, ou seja,</li>
+</ul>
+<p><span class="math inline">\(md_X \neq md_Y\)</span> (bilateral) ou <span class="math inline">\(md_X &gt; md_Y\)</span> ou <span class="math inline">\(md_X &lt; md_Y\)</span> (unilaterais).</p>
 </section>
 <section id="metodologia" class="level2">
 <h2 class="anchored" data-anchor-id="metodologia">Metodologia</h2>
@@ -1085,7 +1090,7 @@ H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)
 </ul>
 <p>Testar:</p>
 <p><span class="math inline">\(H_0: md_A = md_B = md_C \quad \text{vs} \quad H_1: \text{Pelo menos uma mediana é diferente}\)</span></p>
-<div id="2737b649" class="cell" data-execution_count="1">
+<div id="c2559e77" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> kruskal</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
