@@ -47,22 +47,6 @@ Utilize métodos não-paramétricos quando:
 -   Os pressupostos dos testes paramétricos **não forem atendidos**, especialmente em **amostras pequenas**;
 -   Houver **outliers** que comprometam os resultados dos testes clássicos.
 
-# Importação
-
-PACOTES UTILIZADOS????
-
-``` python
-import numpy as np  # operações matemáticas e vetoriais
-import pandas as pd  # manipulação de dados em tabelas (DataFrames)
-from scipy.stats import (
-    mannwhitneyu,       # teste para comparar dois grupos independentes (não paramétrico)
-    wilcoxon,           # teste para dois grupos pareados (não paramétrico)
-    kruskal,            # compara mais de dois grupos independentes (não paramétrico)
-    friedmanchisquare,  # compara mais de dois grupos pareados (não paramétrico)
-    spearmanr           # correlação por postos (dados ordinais ou não lineares)
-)
-```
-
 # Teste U de Mann–Whitney
 
 O **Teste U de Mann–Whitney**, também conhecido como **teste de Wilcoxon para duas amostras independentes**, é uma alternativa **não paramétrica** ao teste t de Student. Ele permite verificar se duas amostras independentes provêm da mesma população quanto à **mediana**, **sem pressupor normalidade**.
@@ -94,13 +78,11 @@ Por exemplo,
 -   Amostra $X$: 5, 7, 9\
 -   Amostra $Y$: 1, 6, 8, 10
 
-#### **Passo 1:** Combine e ordene os dados. 
-
-Combine as duas amostras em ordem crescente:
+**Passo 1:** Combine as duas amostras em ordem crescente:
 
 1, $\textcolor{blue}{5}$, 6, $\textcolor{blue}{7}$, 8, $\textcolor{blue}{9}$, 10
 
-#### **Passo 2:** Atribua os postos para a sequência gerada no passo anterior. 
+**Passo 2:** Atribua os postos para a sequência gerada no passo anterior. 
 
 | Valor | Posto |
 |-------|-------|
@@ -117,9 +99,7 @@ Identificando as amostras:
 -   Amostra $X$: valores 5, 7, 9 → postos: 2, 4, 6\
 -   Amostra $Y$: valores 1, 6, 8, 10 → postos: 1, 3, 5, 7
 
-#### **Passo 3:** Calcule a soma dos postos para cada amostra. 
-
-Denote por $R_X$ e $R_Y$ as somas dos postos atribuídos aos elementos das amostras $X$ e $Y$, respectivamente. 
+**Passo 3:** Calcule a soma dos postos para cada amostra. Denote por $R_X$ e $R_Y$ as somas dos postos atribuídos aos elementos das amostras $X$ e $Y$, respectivamente. 
 
 -   Soma dos postos da amostra $X$:\
     $R_X = 2 + 4 + 6 = 12$.
@@ -129,9 +109,7 @@ Denote por $R_X$ e $R_Y$ as somas dos postos atribuídos aos elementos das amost
 
 > **Observação:** se as duas amostras possuem a mesma distribuições, esperamos que exista uma sobreposição considerável entre as duas amostras. O que implica que $R_X$ e $R_Y$ assumirão valores próximos.  
 
-#### **Passo 4:** Calcule as estatísticas de Mann–Whitney.
-
-Sejam $n_X$ e $n_Y$ os tamanhos das amostras $X$ e $Y$, respectivamente. Defina  
+**Passo 4:** Calcule as estatísticas de Mann–Whitney. Sejam $n_X$ e $n_Y$ os tamanhos das amostras $X$ e $Y$, respectivamente. Defina  
 $$U = \min(U_X, U_Y),$$
 sendo $U_X = R_X - \dfrac{n_X(n_X + 1)}{2}$ e $U_Y = R_Y - \dfrac{n_Y(n_Y + 1)}{2}$.
 
@@ -145,9 +123,7 @@ Para o exemplo, temos que
 - $U_Y = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6$;
 - $U = \min(6, 6) = 6$.
 
-#### **Passo 5:** Calcular p-valor.  
-
-O **p-valor** pode ser calculado através do Python. E para um determinado nível de significância $\alpha$ tomar a decisão de rejeirar ou não a hipótese nula.
+**Passo 5:** O **p-valor** pode ser calculado através do Python. E para um determinado nível de significância $\alpha$ tomar a decisão de rejeirar ou não a hipótese nula.
 
 - Se p-valor $\leq$ $\alpha$, rejeitamos a hipótese nula ($H_0$). Ou seja, existe uma diferença significativa. 
 
@@ -167,17 +143,28 @@ Marca B ($n_2 = 7$): 82, 79, 76, 81, 77, 80, 78
 **Hipoteses:**
 
 $H_0: md_X = md_Y \quad$
-
-$H_1: md_X \ne md_Y$
+vs 
+$\quad H_1: md_X \ne md_Y$
 
 ``` python
-# Imports já feitos na seção #Importação
+import numpy as np
+from scipy.stats import mannwhitneyu
 
+# Amostras
 marca_A = np.array([78, 85, 83, 74, 88, 90]) 
 marca_B = np.array([82, 79, 76, 81, 77, 80, 78])
 
+# Aplicação do teste U de Mann-Whitney
 stat, p_valor = mannwhitneyu(marca_A, marca_B, alternative='two-sided') 
-print(f"Estatística U = {stat}, Valor-p = {p_valor:.4f}")
+
+# Interpretação do teste com nível de significância alpha = 5%
+alpha = 0.05
+if p_valor < alpha:
+    print(f"Com p-valor = {p_valor:.4f} < {alpha}, rejeitamos H0.")
+    print("Há evidência estatística de que existe diferença no efeito dos fertilizantes.")
+else:
+    print(f"Com p-valor = {p_valor:.4f} ≥ {alpha}, não rejeitamos H0.")
+    print("Não há evidência estatística suficiente para afirmar de que existe diferença no efeito dos fertilizantes.")
 ```
 
 # Teste de Wilcoxon (Postos com Sinais)
@@ -195,19 +182,15 @@ Este teste é útil quando:
 Queremos testar se a mediana populacional ($md$) é igual a um valor $m_0$.
 
 -   **Hipótese nula**: $H_0: md = m_0$
--   **Hipótese alternativa**: $H_1: md \ne m_0$ (bilateral) ou $md > m_0$ / $md < m_0$ (unilateral).
+-   **Hipótese alternativa**: $H_1: md \ne m_0$ \ ou \ $md > m_0$ \ ou \ $md < m_0$.
 
 ## Metodologia (Para uma amostra)
 
-### Suponha a amostra:
+Amostra$ x = (12,\ 8,\ 11,\ 7,\ 10,\ 14,\ 9)$.
 
-$x = [12,\ 8,\ 11,\ 7,\ 10,\ 14,\ 9]$
+Hipóteses: $H_0:\ m_0 = 10$ \ vs \ $H_1:\ m_0\ne  10$.
 
-Hipóteses: $H_0:\ m_0 = 10$
-
-$H_1:\ m_0\ne  10$
-
-### Passo 1: Calcule as diferenças $d_i = x_i - m_0$
+**Passo 1:** Calcule as diferenças $d_i = x_i - m_0$.
 
 | $x_i$ | $d_i = x_i - 10$ |
 |-------|------------------|
@@ -219,22 +202,20 @@ $H_1:\ m_0\ne  10$
 | 14    | 4                |
 | 9     | -1               |
 
-------------------------------------------------------------------------
+**Passo 2:** Ignore as diferenças $d_i = 0$.
 
-### Passo 2: Ignore as diferenças $d_i = 0$
-
-Removemos a observação $x = 10$ (pois $d = 0$).
+Removemos a observação $x = 10$ ($d = 0$).
 
 Valores restantes:\
-$d = [2,\ -2,\ 1,\ -3,\ 4,\ -1]$
+$d = (2,\ -2,\ 1,\ -3,\ 4,\ -1)$.
 
-### Passo 3: Calcule os valores absolutos das diferenças não nulas, $|d_i|$
+**Passo 3:** Calcule os valores absolutos das diferenças não nulas, $|d_i|$.
 
-$|d| = [2,\ 2,\ 1,\ 3,\ 4,\ 1]$
+$|d| = (2,\ 2,\ 1,\ 3,\ 4,\ 1)$. 
 
-### Passo 4: Ordene os $|d_i|$ e atribua postos (com média em empates)
+**Passo 4:** Ordene os $|d_i|$ e atribua postos (com média em empates).
 
-Valores ordenados: $[1,\ 1,\ 2,\ 2,\ 3,\ 4]$
+Valores ordenados: $(1,\ 1,\ 2,\ 2,\ 3,\ 4)$.
 
 | $|d_i|$ | Posto |
 |---------|-------|
@@ -245,7 +226,7 @@ Valores ordenados: $[1,\ 1,\ 2,\ 2,\ 3,\ 4]$
 | 3       | 5     |
 | 4       | 6     |
 
-### Passo 5: Reatribua os sinais originais dos $d_i$ aos postos
+**Passo 5:** Reatribua os sinais originais dos $d_i$ aos postos.
 
 | $d_i$ | $|d_i|$ | Posto | Sinal aplicado |
 |-------|---------|-------|----------------|
@@ -256,20 +237,19 @@ Valores ordenados: $[1,\ 1,\ 2,\ 2,\ 3,\ 4]$
 | 4     | 4       | +6    | \+             |
 | -1    | 1       | -1.5  | \-             |
 
-### Passo 6: Calcule a soma dos postos positivos ($W^+$) e negativos ($W^-$)
+**Passo 6:** Calcule a soma dos postos positivos ($W^+$) e negativos ($W^-$). 
 
 $W^+ = 3.5 + 1.5 + 6 = 11$
 
 $W^- = 3.5 + 5 + 1.5 = 10$
 
-### Passo 7: A estatística do teste é $W = \min(W^+, W^-)$
+**Passo 7:** A estatística do teste é $W = \min(W^+, W^-)$. 
 
 $W = \min(11,\ 10) = 10$
 
-### Passo 8: Compare $W$ com o valor crítico ou utilize o valor-$p$
+> **Observação:** Se as duas amostras apresentam a mesma mediana é esperado que as somas dos posto positivos e negativos estejam próximos. Logo, $W$ muito pequeno indica que as duas amostra possuem medianas diferentes.   
 
--   Se $W$ for menor ou igual ao valor crítico tabelado para $n = 6$ (pares válidos), rejeita-se $H_0$.
--   Ou calcule o valor-$p$ e compare com $\alpha$.
+**Passo 8:** Calcule o p-valor associado a $W$.
 
 ------------------------------------------------------------------------
 
@@ -277,17 +257,15 @@ $W = \min(11,\ 10) = 10$
 
 **Teste da mediana de uma amostra:**
 
-Amostra de tempos de reação (em segundos): 95, 92, 90, 96, 94, 91, 93. Queremos testar se a mediana do tempo de reação é igual a 70 s
+Amostra de tempos de reação (em segundos): 95, 92, 90, 96, 94, 91, 93. Queremos testar se a mediana do tempo de reação é igual a 70 segundos. 
 
-Testar:
+Ou seja, queremos testar as hipóteses:
 
 $$
 H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
 $$
 
 ``` python
-# Objetivo: testar H0: mediana da população = m0
-
 import numpy as np
 from scipy.stats import wilcoxon
 
@@ -306,24 +284,24 @@ diferencas = x - m0
 estatistica, p_valor = wilcoxon(diferencas)
 
 # Resultado
-print(f"Estatística W = {estatistica}, Valor-p = {p_valor:.4f}")
+print(f"Estatística W = {estatistica}, p-valor = {p_valor:.4f}")
 
 # Interpretação do teste com nível de significância alpha = 5%
 alpha = 0.05
 if p_valor < alpha:
-    print(f"Com valor-p = {p_valor:.4f} < {alpha}, rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} < {alpha}, rejeitamos H0.")
     print("Há evidência estatística de que a mediana da população é diferente de 70.")
 else:
-    print(f"Com valor-p = {p_valor:.4f} ≥ {alpha}, não rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} ≥ {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para afirmar que a mediana difere de 70.")
 ```
 
-Com $W = 0$ e valor-$p = 0{,}0078$, temos:
+Com $W = 0$ e p-valor $= 0,0078$, temos:
 
--   Para $\alpha = 0{,}05$: **rejeitamos** $H_0$
+-   Para p-valor $\leq \alpha$: **rejeitamos** $H_0$.
 
 Há **forte evidência estatística** de que a mediana do tempo de reação é diferente de 70 segundos.\
-Todos os valores da amostra estão bem acima de 70, o que levou a um p-valor bastante pequeno no teste.
+Todos os valores da amostra estão bem acima de 70, o que levou a um p-valor pequeno no teste.
 
 ### Considerações Finais
 
@@ -345,24 +323,29 @@ Este teste é apropriado quando:
 
 Queremos testar se as medianas de $k$ populações independentes são iguais.
 
--   **Hipótese nula**: $H_0$: As medianas de todas as $k$ populações são iguais ($md_1 = md_2 = ... = md_k$).
+-   **Hipótese nula**: $H_0$: As medianas de todas as $k$ populações são iguais, ou seja, 
+$$
+md_1 = md_2 = ... = md_k.
+$$
 -   **Hipótese alternativa**: $H_1$: Pelo menos uma mediana populacional é diferente das outras.
 
 ## Metodologia
 
-**Passo 1:** Combine todas as observações dos $k$ grupos em um único conjunto de dados. Seja $N$ o número total de observações ($N = n_1 + n_2 + ... + n_k$).
+**Passo 1:** Combine todas as observações dos $k$ grupos em um único conjunto de dados. Defina $N$ o número total de observações ($N = n_1 + n_2 + ... + n_k$), onde $n_i$ é o tamanho da amostra do grupo $i$.
 
 **Passo 2:** Ordene todas as $N$ observações em ordem crescente e atribua postos (ranks) de 1 a $N$. Em caso de empates, atribua a média dos postos que seriam ocupados.
 
-**Passo 3:** Calcule a soma dos postos para cada um dos $k$ grupos. Seja $R_i$ a soma dos postos para o grupo $i$.
+**Passo 3:** Calcule a soma dos postos para cada um dos $k$ grupos. Denote por $R_i$ a soma dos postos para o grupo $i$.
 
-**Passo 4:** Calcule a estatística de teste $H$: $$
-H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)
-$$ Onde $n_i$ é o tamanho da amostra do grupo $i$. *(Opcional: Se houver muitos empates, uma correção para* $H$ pode ser aplicada, mas geralmente tem pouco efeito a menos que a proporção de empates seja grande).
+**Passo 4:** Calcule a estatística de teste $H$: 
+$$
+H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1).
+$$ 
+> **Se houver muitos empates, uma correção para** $H$ pode ser aplicada, mas geralmente tem pouco efeito a menos que a proporção de empates seja grande.
 
-**Passo 5:** Compare a estatística $H$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $H$.
+**Passo 5:** Calcule o p-valor associado a $H$.
 
-**Passo 6:** Se $H$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre as medianas de pelo menos dois grupos.
+**Passo 6:** Se o p-valor < $\alpha$, rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre as medianas de pelo menos dois grupos.
 
 ------------------------------------------------------------------------
 
@@ -376,7 +359,7 @@ Avaliamos as notas de alunos submetidos a três métodos de ensino diferentes (A
 -   Método B ($n_2 = 4$): 85, 88, 90, 81
 -   Método C ($n_3 = 4$): 70, 72, 76, 68
 
-Testar:
+Queremos testar as hipóteses:
 
 $H_0: md_A = md_B = md_C \quad \text{vs} \quad H_1: \text{Pelo menos uma mediana é diferente}$
 
@@ -403,8 +386,6 @@ else:
     print("Não há evidência estatística suficiente para sugerir uma diferença entre as notas medianas dos métodos de ensino.")
 ```
 
-**Resultado no Exemplo**: A execução do código mostrará a estatística H e o valor-p. Se o valor-p for menor que o nível de significância $\alpha$ (e.g., 0.05), concluímos que existe uma diferença significativa entre os métodos. Caso contrário, não há evidências suficientes para afirmar que os métodos produzem resultados diferentes em termos de mediana.
-
 ### Considerações Finais
 
 -   O teste de Kruskal-Wallis é uma ferramenta robusta para comparar múltiplos grupos quando as premissas da ANOVA não são atendidas.
@@ -419,7 +400,7 @@ Este teste é uma extensão do teste de Wilcoxon para postos com sinais para mai
 -   Queremos comparar três ou mais condições/tratamentos aplicados aos mesmos sujeitos (medidas repetidas).
 -   Os dados são organizados em blocos, onde cada bloco contém um conjunto de observações relacionadas (e.g., diferentes fertilizantes aplicados em diferentes blocos de terra com características semelhantes).
 -   As suposições da ANOVA para medidas repetidas (como normalidade das diferenças e esfericidade) não são atendidas.
--   Recomendado que os dados sejam ordinais
+-   Recomendado que os dados sejam ordinais.
 
 ## Hipóteses
 
@@ -434,11 +415,17 @@ Queremos testar se as distribuições de $k$ tratamentos (ou condições) aplica
 
 **Passo 2:** Dentro de cada bloco (linha), ordene as observações dos $k$ tratamentos em ordem crescente e atribua postos (ranks) de 1 a $k$. Em caso de empates dentro de um bloco, atribua a média dos postos.
 
-**Passo 3:** Calcule a soma dos postos para cada tratamento (coluna). Seja $R_j$ a soma dos postos para o tratamento $j$. **Passo 4:** Calcule a estatística de teste $Q$ (também referida como $\chi^2_r$ ou $F_r$): $$
-Q = \frac{12}{nk(k+1)} \sum_{j=1}^{k} R_j^2 - 3n(k+1)
-$$ Onde $n$ é o número de blocos (sujeitos) e $k$ é o número de tratamentos (condições). *(Opcional: Existem correções para empates, mas a fórmula acima é a mais comum).*
+**Passo 3:** Calcule a soma dos postos para cada tratamento (coluna). denote por $R_j$ a soma dos postos para o tratamento $j$.
 
-**Passo 5:** Compare a estatística $Q$ com o valor crítico da distribuição Qui-quadrado ($\chi^2$) com $k-1$ graus de liberdade, para um nível de significância $\alpha$ escolhido. Alternativamente, calcule o valor-$p$ associado a $Q$.
+**Passo 4:** Calcule a estatística de teste $Q$ (também referida como $\chi^2_r$ ou $F_r$): 
+$$
+Q = \frac{12}{nk(k+1)} \sum_{j=1}^{k} R_j^2 - 3n(k+1).
+$$ 
+Onde $n$ é o número de blocos (sujeitos) e $k$ é o número de tratamentos (condições). 
+
+> **Observação:** Existem correções para empates, mas a fórmula acima é a mais comum.
+
+**Passo 5:** Calcule o valor-$p$ associado a $Q$.
 
 **Passo 6:** Se $Q$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre pelo menos dois tratamentos/condições.
 
@@ -453,10 +440,9 @@ Doze pacientes ($n=12$) receberam três analgésicos diferentes (A, B, C) em mom
 (Dados hipotéticos para ilustração - precisaria de uma matriz 12x3)
 
 ``` python
-# Importando a função necessária
 from scipy.stats import friedmanchisquare
 
-# Dados hipotéticos (substitua pelos dados reais)
+# Dados hipotéticos
 # Cada linha é um paciente, cada coluna é um analgésico (A, B, C)
 # Exemplo com 4 pacientes para simplificar
 paciente1 = [6, 8, 7]
@@ -485,8 +471,6 @@ else:
     print("Não há evidência estatística suficiente para sugerir uma diferença na eficácia percebida entre os analgésicos.")
 ```
 
-**Resultado no Exemplo**: A execução do código com os dados reais forneceria a estatística Q e o valor-p. A interpretação seguiria a lógica descrita no código: rejeitar $H_0$ se $p < \alpha$, indicando diferença entre os tratamentos.
-
 ### Considerações Finais
 
 -   O teste de Friedman é adequado para desenhos experimentais com blocos ou medidas repetidas quando a ANOVA paramétrica não é aplicável.
@@ -494,7 +478,7 @@ else:
 
 # Correlação de Spearman ($\rho$)
 
-O Coeficiente de Correlação de Postos de Spearman, denotado por $\rho$ (rho) ou $r_s$, é uma medida não paramétrica da força e direção da associação monotônica entre duas variáveis ordinais ou contínuas. Ele avalia o quão bem a relação entre duas variáveis pode ser descrita usando uma função monotônica (uma função que é inteiramente não crescente ou inteiramente não decrescente).
+O Coeficiente de Correlação de Postos de Spearman, denotado por $\rho$ (rho), é uma medida não paramétrica da força e direção da associação monotônica entre duas variáveis ordinais ou contínuas. Ele avalia o quão bem a relação entre duas variáveis pode ser descrita usando uma função monotônica (uma função que é inteiramente não crescente ou inteiramente não decrescente).
 
 Ao contrário do coeficiente de correlação de Pearson, que mede a associação linear, Spearman não assume linearidade nem normalidade dos dados. Ele opera sobre os **postos** (ranks) dos dados.
 
@@ -525,12 +509,14 @@ Queremos testar se existe uma correlação monotônica significativa entre duas 
 -   Se não houver empates nos postos: $$
     \rho = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}
     $$
--   Se houver empates (ou de forma geral, pois funciona em ambos os casos), calcule a correlação de Pearson sobre os postos $R(x_i)$ e $R(y_i)$. A função `scipy.stats.spearmanr` faz isso automaticamente.
+-   Se houver empates (ou de forma geral, pois funciona em ambos os casos), calcule a correlação de Pearson sobre os postos $R(x_i)$ e $R(y_i)$.
 
-**Passo 5:** O valor de $\rho$ varia entre -1 e +1. \* $\rho = +1$ indica uma relação monotônica positiva perfeita. \* $\rho = -1$ indica uma relação monotônica negativa perfeita. \* $\rho = 0$ indica ausência de relação monotônica.
+**Passo 5:** O valor de $\rho$ varia entre -1 e +1. 
+-   $\rho = +1$ indica uma relação monotônica positiva perfeita. 
+-   $\rho = -1$ indica uma relação monotônica negativa perfeita. 
+-   $\rho = 0$ indica ausência de relação monotônica.
 
-**Passo 6:** Para testar a significância, compare o valor de $\rho$ com valores críticos tabelados ou, mais comumente, calcule o valor-$p$ associado. A função `scipy.stats.spearmanr` retorna o coeficiente e o valor-$p$.
-
+**Passo 6:** Calcule o p-valor associado. 
 ------------------------------------------------------------------------
 
 ## Exemplo
@@ -539,12 +525,12 @@ Queremos testar se existe uma correlação monotônica significativa entre duas 
 
 Queremos verificar se há uma associação monotônica entre o número de horas que 10 alunos estudaram ($X$) e suas notas em um exame ($Y$).
 
--   Horas ($X$): \[5, 8, 12, 4, 10, 6, 15, 7, 9, 11\]
--   Notas ($Y$): \[65, 75, 85, 60, 80, 70, 95, 72, 78, 88\]
+-   Horas ($X$): (5, 8, 12, 4, 10, 6, 15, 7, 9, 11)
+-   Notas ($Y$): (65, 75, 85, 60, 80, 70, 95, 72, 78, 88)
 
-Testar:
+Queremos testar as hipóteses:
 
-$H_0: \rho = 0 \quad \text{vs} \quad H_1: \rho \neq 0$
+$H_0: \rho = 0 \quad \text{vs} \quad H_1: \rho \neq 0$.
 
 ``` python
 # Caso o pacote scipy não esteja instalado, você pode descomentar a linha abaixo para instalá-lo.
@@ -553,10 +539,12 @@ $H_0: \rho = 0 \quad \text{vs} \quad H_1: \rho \neq 0$
 # Importando a função necessária
 from scipy.stats import spearmanr
 import numpy as np
+
+# Dados
 horas_estudo = np.array([5, 8, 12, 4, 10, 6, 15, 7, 9, 11])
 notas_exame = np.array([65, 75, 85, 60, 80, 70, 95, 72, 78, 88])
 
-# Calculando a correlação de Spearman e o valor-p
+# Calculando a correlação de Spearman e o p-valor
 # A função retorna (coeficiente, valor-p)
 coeficiente, p_valor = spearmanr(horas_estudo, notas_exame)
 
@@ -578,8 +566,6 @@ else:
     print(f"Com valor-p = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para sugerir uma correlação monotônica significativa entre horas de estudo e notas.")
 ```
-
-**Resultado no Exemplo**: O código calculará $\rho$ e o valor-p. Um $\rho$ próximo de 1 e um $p < \alpha$ indicariam uma forte associação positiva: mais horas de estudo tendem a estar associadas a notas maiores (de forma monotônica).
 
 ### Considerações Finais
 
