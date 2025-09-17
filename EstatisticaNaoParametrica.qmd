@@ -13,7 +13,7 @@ execute:
 jupyter: python3
 ---
 
-![](images/clipboard-2513748340.png)A **Estatística Não-Paramétrica** é uma abordagem de análise estatística que **não assume uma forma específica de distribuição** para os dados. Em contraste com a **Estatística Paramétrica**, que depende de **pressupostos rígidos**, como normalidade dos dados e homogeneidade de variâncias, os métodos não-paramétricos são mais **flexíveis e robustos**, sendo especialmente úteis quando os dados são **ordinais, categóricos ou provenientes de pequenas amostras**.
+![](images/elefante_cobra.png) A **Estatística Não-Paramétrica** é uma abordagem de análise estatística que **não assume uma forma específica de distribuição** para os dados. Em contraste com a **Estatística Paramétrica**, que depende de **pressupostos rígidos**, como normalidade dos dados e homogeneidade de variâncias, os métodos não-paramétricos são mais **flexíveis e robustos**, sendo especialmente úteis quando os dados são **ordinais, categóricos ou provenientes de pequenas amostras**.
 
 Enquanto a estatística paramétrica busca estimar parâmetros de distribuições conhecidas (como média e variância em uma distribuição normal), a não-paramétrica trabalha principalmente com **ordens, postos (rankings)** e **frequências**, evitando suposições rígidas e podendo ser aplicada em contextos mais amplos.
 
@@ -123,7 +123,7 @@ Para o exemplo, temos que
 - $U_Y = 16 - \dfrac{4(4 + 1)}{2} = 16 - 10 = 6$;
 - $U = \min(6, 6) = 6$.
 
-**Passo 5:** O **p-valor** pode ser calculado através do Python. E para um determinado nível de significância $\alpha$ tomar a decisão de rejeirar ou não a hipótese nula.
+**Passo 5:** O **p-valor** pode ser calculado através do Python. E para um determinado nível de significância $\alpha$ tomar a decisão de rejeitar ou não a hipótese nula.
 
 - Se p-valor $\leq$ $\alpha$, rejeitamos a hipótese nula ($H_0$). Ou seja, existe uma diferença significativa. 
 
@@ -146,7 +146,7 @@ $H_0: md_X = md_Y \quad$
 vs 
 $\quad H_1: md_X \ne md_Y$
 
-``` python
+```{python}
 import numpy as np
 from scipy.stats import mannwhitneyu
 
@@ -186,7 +186,7 @@ Queremos testar se a mediana populacional ($md$) é igual a um valor $m_0$.
 
 ## Metodologia (Para uma amostra)
 
-Amostra$ x = (12,\ 8,\ 11,\ 7,\ 10,\ 14,\ 9)$.
+Amostra $x = (12,\ 8,\ 11,\ 7,\ 10,\ 14,\ 9)$.
 
 Hipóteses: $H_0:\ m_0 = 10$ \ vs \ $H_1:\ m_0\ne  10$.
 
@@ -249,7 +249,7 @@ $W = \min(11,\ 10) = 10$
 
 > **Observação:** Se as duas amostras apresentam a mesma mediana é esperado que as somas dos posto positivos e negativos estejam próximos. Logo, $W$ muito pequeno indica que as duas amostra possuem medianas diferentes.   
 
-**Passo 8:** Calcule o p-valor associado a $W$.
+**Passo 8:** Calcule o p-valor associado a $W$. E para um determinado nível de significância tomar a decisão de rejeitar ou não a hipótese nula.
 
 ------------------------------------------------------------------------
 
@@ -265,7 +265,7 @@ $$
 H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
 $$
 
-``` python
+```{python}
 import numpy as np
 from scipy.stats import wilcoxon
 
@@ -295,13 +295,6 @@ else:
     print(f"Com p-valor = {p_valor:.4f} ≥ {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para afirmar que a mediana difere de 70.")
 ```
-
-Com $W = 0$ e p-valor $= 0,0078$, temos:
-
--   Para p-valor $\leq \alpha$: **rejeitamos** $H_0$.
-
-Há **forte evidência estatística** de que a mediana do tempo de reação é diferente de 70 segundos.\
-Todos os valores da amostra estão bem acima de 70, o que levou a um p-valor pequeno no teste.
 
 ### Considerações Finais
 
@@ -343,9 +336,8 @@ H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1).
 $$ 
 > **Se houver muitos empates, uma correção para** $H$ pode ser aplicada, mas geralmente tem pouco efeito a menos que a proporção de empates seja grande.
 
-**Passo 5:** Calcule o p-valor associado a $H$.
+**Passo 5:** Calcule o p-valor associado a $H$. E para um determinado nível de significância tomar a decisão de rejeitar ou não a hipótese nula.
 
-**Passo 6:** Se o p-valor < $\alpha$, rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre as medianas de pelo menos dois grupos.
 
 ------------------------------------------------------------------------
 
@@ -374,15 +366,15 @@ metodo_C = np.array([70, 72, 76, 68])
 
 # Teste de Kruskal-Wallis
 stat, p_valor = kruskal(metodo_A, metodo_B, metodo_C)
-print(f"Estatística H = {stat:.4f}, Valor-p = {p_valor:.4f}")
+print(f"Estatística H = {stat:.4f}, p-valor = {p_valor:.4f}")
 
 # Interpretação
 alpha = 0.05
 if p_valor < alpha:
-    print(f"Com valor-p = {p_valor:.4f} < {alpha}, rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} < {alpha}, rejeitamos H0.")
     print("Há evidência estatística para sugerir que pelo menos um método de ensino difere dos outros em termos de notas medianas.")
 else:
-    print(f"Com valor-p = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para sugerir uma diferença entre as notas medianas dos métodos de ensino.")
 ```
 
@@ -425,9 +417,7 @@ Onde $n$ é o número de blocos (sujeitos) e $k$ é o número de tratamentos (co
 
 > **Observação:** Existem correções para empates, mas a fórmula acima é a mais comum.
 
-**Passo 5:** Calcule o valor-$p$ associado a $Q$.
-
-**Passo 6:** Se $Q$ for maior que o valor crítico (ou se o valor-$p < \alpha$), rejeite $H_0$. Isso sugere que há uma diferença estatisticamente significativa entre pelo menos dois tratamentos/condições.
+**Passo 5:** Calcule o p-valor associado a $Q$. E para um determinado nível de significância tomar a decisão de rejeitar ou não a hipótese nula.
 
 ------------------------------------------------------------------------
 
@@ -439,7 +429,7 @@ Doze pacientes ($n=12$) receberam três analgésicos diferentes (A, B, C) em mom
 
 (Dados hipotéticos para ilustração - precisaria de uma matriz 12x3)
 
-``` python
+```{python}
 from scipy.stats import friedmanchisquare
 
 # Dados hipotéticos
@@ -457,17 +447,17 @@ analgesico_C = np.array([p[2] for p in [paciente1, paciente2, paciente3, pacient
 
 # Executando o teste
 stat, p_valor = friedmanchisquare(analgesico_A, analgesico_B, analgesico_C)
-print(f"Estatística Q = {stat:.4f}, Valor-p = {p_valor:.4f}")
+print(f"Estatística Q = {stat:.4f}, p-valor= {p_valor:.4f}")
 
 # Interpretação:
 alpha = 0.05
 if p_valor < alpha:
-    print(f"Com valor-p = {p_valor:.4f} < {alpha}, rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} < {alpha}, rejeitamos H0.")
     print("Há evidência estatística para sugerir que pelo menos um analgésico difere dos outros em termos de eficácia percebida.")
     # Nota: Testes post-hoc (como Nemenyi ou comparações par a par com Wilcoxon e correção) 
     # podem ser usados para identificar quais pares de analgésicos diferem.
 else:
-    print(f"Com valor-p = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para sugerir uma diferença na eficácia percebida entre os analgésicos.")
 ```
 
@@ -516,7 +506,8 @@ Queremos testar se existe uma correlação monotônica significativa entre duas 
 -   $\rho = -1$ indica uma relação monotônica negativa perfeita. 
 -   $\rho = 0$ indica ausência de relação monotônica.
 
-**Passo 6:** Calcule o p-valor associado. 
+**Passo 6:** Calcule o p-valor associado. E para um determinado nível de significância tomar a decisão de rejeitar ou não a hipótese nula.
+
 ------------------------------------------------------------------------
 
 ## Exemplo
@@ -532,7 +523,7 @@ Queremos testar as hipóteses:
 
 $H_0: \rho = 0 \quad \text{vs} \quad H_1: \rho \neq 0$.
 
-``` python
+```{python}
 # Caso o pacote scipy não esteja instalado, você pode descomentar a linha abaixo para instalá-lo.
 # !pip install scipy
 
@@ -549,12 +540,12 @@ notas_exame = np.array([65, 75, 85, 60, 80, 70, 95, 72, 78, 88])
 coeficiente, p_valor = spearmanr(horas_estudo, notas_exame)
 
 print(f"Coeficiente de Correlação de Spearman (rho) = {coeficiente:.4f}")
-print(f"Valor-p = {p_valor:.4f}")
+print(f"p-valor = {p_valor:.4f}")
 
 # Interpretação:
 alpha = 0.05
 if p_valor < alpha:
-    print(f"Com valor-p = {p_valor:.4f} < {alpha}, rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} < {alpha}, rejeitamos H0.")
     if coeficiente > 0:
         print("Há evidência estatística de uma correlação monotônica positiva significativa entre horas de estudo e notas.")
     elif coeficiente < 0:
@@ -563,7 +554,7 @@ if p_valor < alpha:
         # Caso raro onde p < alpha mas coeficiente é 0 (pode ocorrer com poucos dados e empates)
         print("Há evidência estatística de uma correlação monotônica significativa, mas o coeficiente é zero.")
 else:
-    print(f"Com valor-p = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
+    print(f"Com p-valor = {p_valor:.4f} >= {alpha}, não rejeitamos H0.")
     print("Não há evidência estatística suficiente para sugerir uma correlação monotônica significativa entre horas de estudo e notas.")
 ```
 
