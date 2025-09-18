@@ -640,10 +640,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="entendendo-melhor-o-print" class="level1">
 <h1>Entendendo melhor o print</h1>
 <p>O print é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário. Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. Print significa literalmente “imprimir”.</p>
-<p>O print imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O print por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, precisamos por <code>, end=""</code>. Agora para esse print específico uma linha não será pulada no final da execução:</p>
+<p>O print imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O print por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, precisamos por <code>, end=" "</code>. Agora para esse print específico uma linha não será pulada no final da execução:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Esse"</span>, end<span class="op">=</span><span class="st">""</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"é meu terceiro programa"</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Esse"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"é meu terceiro programa"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"em Python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -652,9 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container">
 <pre><code>Hello World
-Esse
-é meu terceiro programa
-em Python</code></pre>
+Esse é meu terceiro programa em Python</code></pre>
 </div>
 </div>
 </div>
@@ -846,9 +844,10 @@ class 'str'</code></pre>
 </section>
 <section id="float" class="level3">
 <h3 class="anchored" data-anchor-id="float">float</h3>
-<p>Abreviação de floating, que se refere a <code>floating point number</code> ou <code>número de ponto flutuante</code>. São os números racionais da matemática. O nome é uma tecnicalidade da computação referente ao padrão de representação de números racionais no sistema binário dos computadores que não pode ser feito de maneira simples como os números inteiros.</p>
+<p>É o equivalente aos números racionais da matemática.</p>
+<p>O nome <code>float</code> vem do padrão de <code>ponto flutuante</code>, uma técnica da computação para representar números com casas decimais no sistema binário. Enquanto os números inteiros têm uma tradução mais simples para o binário, as frações decimais muitas vezes resultam em sequências binárias infinitas, similar à dízima periódica. O padrão float é uma forma eficiente, mas aproximada, de lidar com isso.</p>
 <p><strong>Instanciação</strong></p>
-<p>Sempre que colocamos números com a parte decimal explicita. Diferente do português que usa vírgula, o inglês representa números decimais com pontos:</p>
+<p>Sempre que colocamos números com a parte decimal explicita, o python reconhece como um <code>float</code>. Lembramos que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>numeroRacional1 <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>numeroRacional2 <span class="op">=</span> <span class="fl">56.133000</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroRacional1)</span>
@@ -872,18 +871,18 @@ class 'float'</code></pre>
 </section>
 <section id="bool" class="level3">
 <h3 class="anchored" data-anchor-id="bool">bool</h3>
-<p>Esse aqui é um que é um pouco mais difícil de entender embora seja o mais fácil de se usar. bool é abreviação de <code>boolean</code> e não tem tradução para o português. É um tipo característico da programação e é fundamental devido ao caráter binário das representações em um computador. Sempre será False ou True, assim como no computador tudo é 0 ou 1.</p>
+<p>A classe <code>bool</code> (booleanos) representa valores lógicos binários: <em>True</em> (Verdadeiro) ou <em>False</em> (Falso). Esses valores são o resultado de operações de comparação (ex.: ==, &gt;) e lógicas (ex.: and, or), e são essenciais para estruturas condicionais que dirigem a lógica de um programa.</p>
 <p><strong>Instanciação</strong></p>
 <p>Para instanciar, podemos escrever simplesmente True ou False, sem aspas. Outra opção é fazer um teste com operadores lógicos.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>chovendo <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>calor <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>vascoEMaisCampeaoQueOFlamengo <span class="op">=</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">7</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Teste <span class="op">=</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">7</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chovendo)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(chovendo))</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(calor)</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(calor))</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vascoEMaisCampeaoQueOFlamengo)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(vascoEMaisCampeaoQueOFlamengo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Teste)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(Teste))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -899,13 +898,14 @@ type 'bool'</code></pre>
 </div>
 </div>
 </div>
-<p>Existem diversos operadores lógicos que analisam sentenças lógicas e retornam um booleano (uma tradução informal para o português). Falaremos deles assim que terminarmos os principais tipos de dados.</p>
+<p>Existem diversos operadores lógicos que analisam sentenças lógicas e retornam um booleano. Falaremos deles assim que terminarmos os principais tipos de dados.</p>
 </section>
 <section id="list" class="level3">
 <h3 class="anchored" data-anchor-id="list">list</h3>
-<p>Antes de aprender o que é uma <code>list</code>, ou em português lista, precisamos aprender o que é um vetor na computação. Vetores são usados em diversas áreas do conhecimento: matemática, física e biologia. Na escola, nas aulas de matemática e física, aprendemos que vetor tem direção, sentido e módulo. Isso não é bem uma explicação do que é um vetor e sim mais como ele se manifesta. Entender o que é um vetor é um grande desafio para todo aluno do ensino médio. Existe uma definição algébrica complicada do que é um vetor usada na matemática e na física. Nas aulas de biologia existe uma definição mais geral e fácil de entender, que podemos inclusive levar para matemática, para física e para a computação (embora não perfeitamente para esses 3). De maneira geral, vetores são aquilo que carregam alguma coisa. O mosquito aedes aegypti é o vetor da dengue. F é o vetor da física que carrega a força. Na computação, vetores carregam informações e o principal tipo de vetor no python são as listas.</p>
+<p>Antes de aprender sobre listas (<code>list</code>) em Python, é útil entender o conceito de vetor na computação. Um vetor é uma estrutura de dados que armazena uma coleção ordenada de itens do mesmo tipo, de forma eficiente. Em Python, a estrutura nativa mais similar a um vetor é o <code>array</code> (do módulo array).</p>
+<p>As listas são muito mais flexíveis: elas podem armazenar itens de tipos diferentes e são a estrutura mais comum e versátil para guardar sequências de elementos.</p>
 <p><strong>Instanciação</strong></p>
-<p>Para instanciar uma lista no python usamos colchetes. Separamos diferentes elementos com uso de vírgulas, tudo entre os colchetes:</p>
+<p>Para instanciar uma lista no python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>vetorDeNumeros <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vetorDeFrutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>vetorVazio <span class="op">=</span> [ ]</span>
@@ -930,9 +930,7 @@ class 'list'</code></pre>
 </div>
 </div>
 </div>
-<p>Cada linguagem tem sua maneira de representar um vetor. Por padrão, vetores têm tamanho fixo e um único tipo. No python vetores são flexíveis, tanto quanto a tamanho quanto a tipo, uma das razões do porque o python é uma linguagem de programação tão usada nos dias de hoje em ciência de dados e outras áreas da computação.</p>
-<p>Idealmente uma lista recebe apenas um tipo de dado: lista de números inteiros, lista de strings, etc. É mais uma convenção usada por programadores para facilitar o entendimento de um código naqueles projetos maiores que citei algumas vezes.</p>
-<p>Existem outros tipos de vetores além das listas no próprio python: <code>tuple</code>, <code>set</code>, <code>dict</code>. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais.</p>
+<p>Existem outros tipos de vetores além das listas no próprio python: <code>tuple</code>, <code>set</code>, <code>dict</code>. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais sobre isso.</p>
 <p><strong>Uso</strong></p>
 <p>Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no python).</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vetorDeFrutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
