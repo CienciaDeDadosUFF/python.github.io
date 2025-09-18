@@ -102,7 +102,7 @@ Automaticamente o Jupyter abrirá uma aba no navegador escrita Select Kernel, se
 
 ![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131012.png)
 
-Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de start o código será executado.
+Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de *run* ou *start*  (▶), o código será executado.
 
 ![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131136.png)
 
