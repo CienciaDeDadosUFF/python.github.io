@@ -102,7 +102,7 @@ Automaticamente o Jupyter abrirá uma aba no navegador escrita Select Kernel, se
 
 ![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131012.png)
 
-Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de *run* ou *start*  (▶), o código será executado.
+Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de *run* ou *start* (▶), o código será executado.
 
 ![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131136.png)
 
@@ -120,7 +120,7 @@ O print é uma das funções mais importantes do Python por ser a principal ferr
 
 O print imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O print por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, precisamos por `, end=" "`. Agora para esse print específico uma linha não será pulada no final da execução:
 
-```python
+``` python
 print("Hello World")
 print("Esse", end=" ")
 print("é meu terceiro programa", end=" ")
@@ -133,7 +133,6 @@ Hello World
 Esse é meu terceiro programa em Python
 ```
 :::
-
 
 # Variáveis
 
@@ -341,7 +340,7 @@ Note que para usar aspas duplas dentro de uma string (str) precisamos escrever a
 
 ### float
 
-É o equivalente aos números racionais da matemática. 
+É o equivalente aos números racionais da matemática.
 
 O nome `float` vem do padrão de `ponto flutuante`, uma técnica da computação para representar números com casas decimais no sistema binário. Enquanto os números inteiros têm uma tradução mais simples para o binário, as frações decimais muitas vezes resultam em sequências binárias infinitas, similar à dízima periódica. O padrão float é uma forma eficiente, mas aproximada, de lidar com isso.
 
@@ -371,7 +370,7 @@ Note que o python por padrão corta os zeros à direita por padrão, ele só man
 
 ### bool
 
-A classe `bool` (booleanos) representa valores lógicos binários: *True* (Verdadeiro) ou *False* (Falso). Esses valores são o resultado de operações de comparação (ex.: ==, >) e lógicas (ex.: and, or), e são essenciais para estruturas condicionais que dirigem a lógica de um programa.
+A classe `bool` (booleanos) representa valores lógicos binários: *True* (Verdadeiro) ou *False* (Falso). Esses valores são o resultado de operações de comparação (ex.: ==, \>) e lógicas (ex.: and, or), e são essenciais para estruturas condicionais que dirigem a lógica de um programa.
 
 **Instanciação**
 
@@ -413,25 +412,27 @@ As listas são muito mais flexíveis: elas podem armazenar itens de tipos difere
 Para instanciar uma lista no python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:
 
 ``` python
-vetorDeNumeros = [1, 2, 3, 4]
-vetorDeFrutas = ["Morango", "Pera", "Banana"]
-vetorVazio = [ ]
-print(vetorDeNumeros)
-print(type(vetorDeNumeros))
-print(vetorDeFrutas)
-print(type(vetorDeFrutas))
-print(vetorVazio)
-print(type(vetorVazio))
+Numeros = [1, 2, 3, 4]
+print(Numeros)
+print(type(Numeros))
+
+Frutas = ["Morango", "Pera", "Banana"]
+print(Frutas)
+print(type(Frutas))
+
+Mix = [1, "Morango", 2, "Pera" ]
+print(Mix)
+print(type(Mix))
 ```
 
 ::: callout
 ```         
 [1, 2, 3, 4]
-class 'list'
-["Morango", "Pera", "Banana"]
-class 'list'
-[]
-class 'list'
+<class 'list'>
+['Morango', 'Pera', 'Banana']
+<class 'list'>
+[1, 'Morango', 2, 'Pera']
+<class 'list'>
 ```
 :::
 
@@ -442,10 +443,10 @@ Existem outros tipos de vetores além das listas no próprio python: `tuple`, `s
 Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no python).
 
 ``` python
-vetorDeFrutas = ["Morango", "Pera", "Banana"]
-print(vetorDeFrutas[0])
-print(vetorDeFrutas[1])
-print(vetorDeFrutas[2])
+Frutas = ["Morango", "Pera", "Banana"]
+print(Frutas[0])
+print(Frutas[1])
+print(Frutas[2])
 ```
 
 ::: callout
@@ -456,11 +457,11 @@ Banana
 ```
 :::
 
-Se tentarmos acessar um índice que não existe na lista, digamos, queremos acessar o quarto elemento do vetorDeFrutas acarretará em um erro:
+Se tentarmos acessar um índice que não existe na lista, digamos, queremos acessar o quarto elemento da lista Frutas acarretará em um erro:
 
 ``` python
-vetorDeFrutas = ["Morango", "Pera", "Banana"]
-print(vetorDeFrutas[3])
+Frutas = ["Morango", "Pera", "Banana"]
+print(Frutas[3])
 ```
 
 ::: callout
@@ -473,17 +474,6 @@ IndexError: list index out of range
 
 Esse erro é bem frequente quando trabalhamos com listas.
 
-Entendi o que são vetores e sua principal representação no python, as listas e até como usá-las. Mas porque preciso usar? Digamos que você possui um conjunto de matrículas de alunos e um conjunto dos nomes dos alunos. Como você pode representar?
-
-`Opção 1:`
-
-nomeAluno1 = "Anderson" matriculaAluno1 = 123 nomeAluno2 = "Antonio" matriculaAluno2 = 456 nomeAluno3 = "Alexandre" matriculaAluno3 = 789
-
-`Opção 2:`
-
-listaDeNomes = \["Anderson", "Antonio", "Alexandre"\] listaDeMatriculas = \[123, 456, 789\]
-
-Não ficou mais fácil na segunda opção? Pode não parecer tão fácil assim agora, mas em breve você perceberá isso. Talvez só o uso exaustivo vai mostrar porque a segunda forma é melhor com todos é assim. É mais uma daquelas coisas na programação que quando aumenta a escala fica difícil de manter. No geral, se for usar apenas um nome no código inteiro, use uma variável simples. Se for usar mais de uma, use listas. Isso vale sempre que os dados forem informações relacionadas, nome com nome, fruta com fruta etc.
 
 **Matrizes**
 

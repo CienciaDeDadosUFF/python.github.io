@@ -906,15 +906,17 @@ type 'bool'</code></pre>
 <p>As listas são muito mais flexíveis: elas podem armazenar itens de tipos diferentes e são a estrutura mais comum e versátil para guardar sequências de elementos.</p>
 <p><strong>Instanciação</strong></p>
 <p>Para instanciar uma lista no python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>vetorDeNumeros <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vetorDeFrutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>vetorVazio <span class="op">=</span> [ ]</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeNumeros)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(vetorDeNumeros))</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeFrutas)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(vetorDeFrutas))</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorVazio)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(vetorVazio))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Numeros <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Numeros)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(Numeros))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>Frutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(Frutas))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>Mix <span class="op">=</span> [<span class="dv">1</span>, <span class="st">"Morango"</span>, <span class="dv">2</span>, <span class="st">"Pera"</span> ]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Mix)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(Mix))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -922,21 +924,21 @@ type 'bool'</code></pre>
 </div>
 <div class="callout-body-container">
 <pre><code>[1, 2, 3, 4]
-class 'list'
-["Morango", "Pera", "Banana"]
-class 'list'
-[]
-class 'list'</code></pre>
+&lt;class 'list'&gt;
+['Morango', 'Pera', 'Banana']
+&lt;class 'list'&gt;
+[1, 'Morango', 2, 'Pera']
+&lt;class 'list'&gt;</code></pre>
 </div>
 </div>
 </div>
 <p>Existem outros tipos de vetores além das listas no próprio python: <code>tuple</code>, <code>set</code>, <code>dict</code>. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais sobre isso.</p>
 <p><strong>Uso</strong></p>
 <p>Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no python).</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vetorDeFrutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeFrutas[<span class="dv">0</span>])</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeFrutas[<span class="dv">1</span>])</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeFrutas[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Frutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">0</span>])</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">1</span>])</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -949,9 +951,9 @@ Banana</code></pre>
 </div>
 </div>
 </div>
-<p>Se tentarmos acessar um índice que não existe na lista, digamos, queremos acessar o quarto elemento do vetorDeFrutas acarretará em um erro:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>vetorDeFrutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vetorDeFrutas[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se tentarmos acessar um índice que não existe na lista, digamos, queremos acessar o quarto elemento da lista Frutas acarretará em um erro:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Frutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -965,12 +967,6 @@ IndexError: list index out of range</code></pre>
 </div>
 </div>
 <p>Esse erro é bem frequente quando trabalhamos com listas.</p>
-<p>Entendi o que são vetores e sua principal representação no python, as listas e até como usá-las. Mas porque preciso usar? Digamos que você possui um conjunto de matrículas de alunos e um conjunto dos nomes dos alunos. Como você pode representar?</p>
-<p><code>Opção 1:</code></p>
-<p>nomeAluno1 = “Anderson” matriculaAluno1 = 123 nomeAluno2 = “Antonio” matriculaAluno2 = 456 nomeAluno3 = “Alexandre” matriculaAluno3 = 789</p>
-<p><code>Opção 2:</code></p>
-<p>listaDeNomes = [“Anderson”, “Antonio”, “Alexandre”] listaDeMatriculas = [123, 456, 789]</p>
-<p>Não ficou mais fácil na segunda opção? Pode não parecer tão fácil assim agora, mas em breve você perceberá isso. Talvez só o uso exaustivo vai mostrar porque a segunda forma é melhor com todos é assim. É mais uma daquelas coisas na programação que quando aumenta a escala fica difícil de manter. No geral, se for usar apenas um nome no código inteiro, use uma variável simples. Se for usar mais de uma, use listas. Isso vale sempre que os dados forem informações relacionadas, nome com nome, fruta com fruta etc.</p>
 <p><strong>Matrizes</strong></p>
 <p>Existem ainda listas de lista, as chamadas matrizes. Matrizes na álgebra podem ser entendidas como conjunto de vetores, na computação é o mesmo entendimento. Elas são particularmente interessantes quando estamos usando um conjunto grande de dados. Imagina que além da matrícula e do nome temos a idade, o curso, o período que entrou na faculdade etc. Podemos ter apenas uma lista que possui todas essas listas.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cabecalhoInformacoesAlunos <span class="op">=</span> [<span class="st">"matricula"</span>, <span class="st">"nome"</span>, <span class="st">"idade"</span>, <span class="st">"curso"</span>, <span class="st">"semestreIngresso"</span>]</span>
