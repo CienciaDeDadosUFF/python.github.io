@@ -438,21 +438,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Navegação</h2>
    
   <ul>
-  <li><a href="#conteúdos" id="toc-conteúdos" class="nav-link active" data-scroll-target="#conteúdos">Conteúdos</a></li>
-  <li><a href="#controle-de-fluxo" id="toc-controle-de-fluxo" class="nav-link" data-scroll-target="#controle-de-fluxo">Controle de fluxo</a>
+  <li><a href="#controle-de-fluxo" id="toc-controle-de-fluxo" class="nav-link active" data-scroll-target="#controle-de-fluxo">Controle de Fluxo</a>
   <ul class="collapse">
   <li><a href="#if" id="toc-if" class="nav-link" data-scroll-target="#if">if</a></li>
   <li><a href="#else" id="toc-else" class="nav-link" data-scroll-target="#else">else</a></li>
   <li><a href="#elif" id="toc-elif" class="nav-link" data-scroll-target="#elif">elif</a></li>
   </ul></li>
-  <li><a href="#estruturas-de-repetição" id="toc-estruturas-de-repetição" class="nav-link" data-scroll-target="#estruturas-de-repetição">Estruturas de repetição</a>
+  <li><a href="#estruturas-de-repetição" id="toc-estruturas-de-repetição" class="nav-link" data-scroll-target="#estruturas-de-repetição">Estruturas de Repetição</a>
   <ul class="collapse">
   <li><a href="#for" id="toc-for" class="nav-link" data-scroll-target="#for">for</a></li>
-  <li><a href="#while" id="toc-while" class="nav-link" data-scroll-target="#while">while</a>
-  <ul class="collapse">
-  <li><a href="#break-e-flags" id="toc-break-e-flags" class="nav-link" data-scroll-target="#break-e-flags">break e flags</a></li>
+  <li><a href="#while" id="toc-while" class="nav-link" data-scroll-target="#while">while</a></li>
   <li><a href="#continue" id="toc-continue" class="nav-link" data-scroll-target="#continue">continue</a></li>
-  </ul></li>
   </ul></li>
   <li><a href="#funções" id="toc-funções" class="nav-link" data-scroll-target="#funções">Funções</a></li>
   <li><a href="#orientação-a-objetos" id="toc-orientação-a-objetos" class="nav-link" data-scroll-target="#orientação-a-objetos">Orientação a objetos</a></li>
@@ -487,23 +483,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="conteúdos" class="level1">
-<h1>Conteúdos</h1>
-<ul>
-<li>Controle de Fluxo</li>
-<li>Estruturas de repetição</li>
-<li>Funções</li>
-<li>Orientação a Objetos</li>
-<li>Instalação de bibliotecas</li>
-<li>Importação de bibliotecas</li>
-</ul>
-</section>
-<section id="controle-de-fluxo" class="level1">
-<h1>Controle de fluxo</h1>
-<p>Nem sempre nosso código deve se comportar de maneira igual para todas as situações, às vezes precisamos tomar uma decisão em função de nossas operações em situações específicas e para isso podemos utilizar estruturas de condição.</p>
-<section id="if" class="level2">
-<h2 class="anchored" data-anchor-id="if">if</h2>
-<p>Quando falamos em tomar decisões, a estrutura que trabalhamos é sempre o <code>if</code>, que é uma estrutura que testa condições impostas para decidir como prosseguir em certas situações, como por exemplo checar se um número é maior, menor ou igual a outro. Testando uma condição única:</p>
+<section id="controle-de-fluxo" class="level2">
+<h2 class="anchored" data-anchor-id="controle-de-fluxo">Controle de Fluxo</h2>
+<p>Nem sempre nosso código deve se comportar de maneira igual para todas as situações, às vezes precisamos tomar uma decisão em função de nossas operações em situações específicas. Para isto podemos utilizar estruturas de condição.</p>
+<section id="if" class="level3">
+<h3 class="anchored" data-anchor-id="if">if</h3>
+<p>Quando falamos em tomar decisões, a estrutura que trabalhamos é sempre o <code>if</code>, que é uma estrutura que testa condições impostas para decidir como prosseguir em certas situações, como por exemplo verificar se um número é maior, menor ou igual a outro.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">10</span> <span class="op">&lt;</span> <span class="dv">30</span>:</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'10 é menor que 30'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
@@ -516,8 +501,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Podemos também testar múltiplas condições exigindo que todas sejam verdadeiras ou apenas uma seja, dependendo do operador usado: or ou and. Precisamos separar essas diferentes condições usando parentêsis.</p>
-<p>O operador <code>or</code>, “ou” traduzindo do inglês, faz com que a condição seja satisfeita se a primeira <strong>ou</strong> a segunda expressão (ou as duas) forem verdadeiras. Pode ser também representado pelo caractere <code>|</code></p>
+<p>Podemos também testar múltiplas condições exigindo que pelo menos uma ou todos sejam verdadeiras, dependendo do operador usado: <code>or</code> ou <code>and</code>. Neste caso, precisamos separar essas diferentes condições usando parêntesis.</p>
+<p>O operador <code>or</code> faz com que a condição seja satisfeita se a primeira <strong>ou</strong> a segunda expressão (ou as ambas) forem verdadeiras. Pode ser também representado pelo caractere <code>|</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="dv">7</span> <span class="op">&lt;</span> <span class="dv">3</span>) <span class="kw">or</span> (<span class="dv">5</span> <span class="op">&gt;</span> <span class="dv">1</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Pelo menos um é verdade'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
@@ -526,73 +511,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>Pelo menos um é verdade</code></pre>
+<p>Pelo menos um é verdade</p>
 </div>
 </div>
 </div>
-<p>Já o operador <code>and</code>, “e” traduzindo do inglês, faz com que a condição seja satisfeita se a primeira <strong>e</strong> a segunda expressão sejam verdadeiras Pode ser também representado pelo caractere <code>&amp;</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="dv">7</span> <span class="op">==</span> <span class="dv">7</span>) <span class="kw">and</span> (<span class="dv">5</span> <span class="op">&gt;</span> <span class="dv">1</span>):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Ambas expressões são verdadeiras'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Já o operador <code>and</code> faz com que a condição seja satisfeita se a primeira <strong>e</strong> a segunda expressão sejam verdadeiras. Pode ser representado também pelo caractere <code>&amp;</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="dv">7</span> <span class="op">==</span> <span class="dv">7</span>) <span class="kw">and</span> (<span class="dv">5</span> <span class="op">&gt;</span> <span class="dv">1</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Ambas expressões são verdadeiras'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>Ambas expressões são verdadeiras</code></pre>
+<p>Ambas expressões são verdadeiras</p>
 </div>
 </div>
 </div>
 </section>
-<section id="else" class="level2">
-<h2 class="anchored" data-anchor-id="else">else</h2>
+<section id="else" class="level3">
+<h3 class="anchored" data-anchor-id="else">else</h3>
 <p>Para toda situação sempre podemos incluir uma saída padrão como resposta se a condição não for satisfeita, para isso temos o <code>else</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">30</span>:</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é menor que 30'</span><span class="op">%</span>(n))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é maior ou igual a 30'</span><span class="op">%</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">30</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é menor que 30'</span><span class="op">%</span>(n))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é maior ou igual a 30'</span><span class="op">%</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>40 é menor maior ou igual a 30</code></pre>
+<p>40 é maior ou igual a 30</p>
 </div>
 </div>
 </div>
 </section>
-<section id="elif" class="level2">
-<h2 class="anchored" data-anchor-id="elif">elif</h2>
+<section id="elif" class="level3">
+<h3 class="anchored" data-anchor-id="elif">elif</h3>
 <p>Podemos também incluir mais de uma condição a ser testada, adicionando mais instâncias do if ao mesmo if com a estrutura <code>elif</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">30</span>:</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é menor que 30'</span><span class="op">%</span>(n))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> n <span class="op">&gt;</span> <span class="dv">30</span>:</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é maior que 30'</span><span class="op">%</span>(n))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é igual a 30'</span><span class="op">%</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">30</span>:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é menor que 30'</span><span class="op">%</span>(n))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> n <span class="op">&gt;</span> <span class="dv">30</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é maior que 30'</span><span class="op">%</span>(n))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">%i</span><span class="st"> é igual a 30'</span><span class="op">%</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>40 é maior que 30</code></pre>
+<p>40 é maior que 30</p>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="estruturas-de-repetição" class="level1">
-<h1>Estruturas de repetição</h1>
-<p>No python, assim como qualquer linguagem de programação, existe o que chamamos de estruturas de repetição. Elas servem para executar um mesmo comando mais de uma vez, muito útil quando trabalhando com listas.</p>
-<section id="for" class="level2">
-<h2 class="anchored" data-anchor-id="for">for</h2>
-<p>O <code>for</code> é uma estrutura de repetição que percorre um escopo de valores específicos, por exemplo se queremos printar os números de 0 até 10 podemos escrever desta forma:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> numero <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(numero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="estruturas-de-repetição" class="level2">
+<h2 class="anchored" data-anchor-id="estruturas-de-repetição">Estruturas de Repetição</h2>
+<p>No Python, assim como qualquer linguagem de programação, existe o que chamamos de estruturas de repetição. Elas servem para executar um mesmo comando mais de uma vez.</p>
+<section id="for" class="level3">
+<h3 class="anchored" data-anchor-id="for">for</h3>
+<p>O <code>for</code> é uma estrutura de repetição que percorre um escopo de valores específicos, por exemplo se queremos imprimir os números de 0 até 10 podemos escrever desta forma:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> numero <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(numero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -612,30 +597,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Note que o primeiro número impresso é o 0 como especificado e o último número o 9. A variável numero armazena o valor de cada iteração do loop, mas o for sempre para antes do último número, que seria o 10, porque o Python é uma linguagem que começa com 0 invés de 1, e descartar esse último número auxilia na hora de iterar listas, a principal razão do uso do laço for. Observe como percorrer os elementos de uma lista:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>meses <span class="op">=</span> [<span class="st">'jan'</span>, <span class="st">'fev'</span>, <span class="st">'mar'</span>, <span class="st">'abr'</span>, <span class="st">'mai'</span>, <span class="st">'jun'</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(length(meses)):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(meses[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note que o primeiro número impresso é o 0 como especificado e o último número o 9. A variável numero armazena o valor de cada iteração do <code>for</code>, mas o <code>for</code> sempre para antes do último número, que seria o 10, porque o Python é uma linguagem que começa com 0 invés de 1.</p>
+<p>Descartar esse último número auxilia na hora de iterar listas. Observe como percorrer os elementos de uma lista:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>meses <span class="op">=</span> [<span class="st">'jan'</span>, <span class="st">'fev'</span>, <span class="st">'mar'</span>, <span class="st">'abr'</span>, <span class="st">'mai'</span>, <span class="st">'jun'</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" tamanho da lista meses = </span><span class="sc">{</span><span class="bu">len</span>(meses)<span class="sc">:.0f}</span><span class="ss">"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i , meses[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>jan
-fev
-mar
-abr
-mai
-jun</code></pre>
+<pre><code>tamanho da lista meses = 6
+0 jan
+1 fev
+2 mar
+3 abr
+4 mai
+5 jun</code></pre>
 </div>
 </div>
 </div>
-<p>Por convenção, no python usamos como variável do loop o <code>i</code> se quisermos percorrer uma lista. Usar um for dentro de outro serve para percorrer uma matriz. Nesse caso usaremos <code>j</code> no segundo. Se mais uma dimensão for adicionada será <code>k</code>. Para ordens ainda maiores não existe uma convenção, porém, eu utilizo o alfabeto invés de i, j, k.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>matriz <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(length(matriz)):</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(length(matriz[i])):</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(matriz[i][j])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Por convenção, no Python usamos como variável do loop <code>i</code> se quisermos percorrer uma lista. Usar um <code>for</code> dentro de outro serve para percorrer uma matriz. Nesse caso usaremos <code>j</code> no segundo.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>matriz <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(length(matriz)):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(length(matriz[i])):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(matriz[i][j])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -654,10 +642,11 @@ jun</code></pre>
 </div>
 </div>
 </div>
-<p>Existe uma alternativa ao range de como percorrer uma lista com o for. O range cria esses índices para serem referenciados na lista. Podemos salvar os elementos direto na variável do loop como feito a seguir:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>meses <span class="op">=</span> [<span class="st">'jan'</span>, <span class="st">'fev'</span>, <span class="st">'mar'</span>, <span class="st">'abr'</span>, <span class="st">'mai'</span>, <span class="st">'jun'</span>]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mes <span class="kw">in</span> meses:</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(mes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Existe uma alternativa ao <code>range</code> de como percorrer uma lista com o <code>for</code>.</p>
+<p><code>range</code> cria esses índices para serem referenciados na lista. Podemos salvar os elementos direto na variável do loop como feito a seguir:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>meses <span class="op">=</span> [<span class="st">'jan'</span>, <span class="st">'fev'</span>, <span class="st">'mar'</span>, <span class="st">'abr'</span>, <span class="st">'mai'</span>, <span class="st">'jun'</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mes <span class="kw">in</span> meses:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(mes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -673,55 +662,44 @@ jun</code></pre>
 </div>
 </div>
 </div>
-<p>O problema de usar o loop dessa forma é que não podemos alterar a lista original já que perdemos a referência numérica dela. Existem situações que o primeiro método é preferível e situações que o segundo método é preferível.</p>
+<p>O problema de usar o loop dessa forma é que não podemos alterar a lista original já que perdemos a referência numérica dela. Existem situações que o primeiro método é preferível e outras situações em que o segundo método é preferível.</p>
 </section>
-<section id="while" class="level2">
-<h2 class="anchored" data-anchor-id="while">while</h2>
+<section id="while" class="level3">
+<h3 class="anchored" data-anchor-id="while">while</h3>
 <p>O <code>while</code> é um loop que enquanto uma condição não for satisfeita ou enquanto ela for satisfeita esse loop permanecerá ocorrendo, usado principalmente quando o número de iterações do loop não é definido por um número e sim por uma condição.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>animais <span class="op">=</span> [<span class="st">'cachorro'</span>, <span class="st">'gato'</span>, <span class="st">'rato'</span>, <span class="st">'macaco'</span>, <span class="st">'cachorro'</span>, <span class="st">'cachorro'</span>, <span class="st">'elefante'</span>, <span class="st">'leao'</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="st">'cachorro'</span> <span class="kw">in</span> animais:</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    animais.remove(<span class="st">'cachorro'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(animais)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>animais <span class="op">=</span> [<span class="st">'cachorro'</span>, <span class="st">'gato'</span>, <span class="st">'rato'</span>, <span class="st">'macaco'</span>, <span class="st">'cachorro'</span>, <span class="st">'cachorro'</span>, <span class="st">'elefante'</span>, <span class="st">'leao'</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="st">'cachorro'</span> <span class="kw">in</span> animais:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    animais.remove(<span class="st">'cachorro'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(animais)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>['gato', 'rato', 'macaco', 'elefante', 'leao']</code></pre>
+<p>[‘gato’, ‘rato’, ‘macaco’, ‘elefante’, ‘leao’]</p>
 </div>
 </div>
 </div>
 <p>Repare que <code>'cachorro'</code> foi removido mais de uma vez da lista de animais. Uma vez que não haviam mais cachorros na lista de animais, o loop do while foi finalizado.</p>
-<section id="break-e-flags" class="level3">
-<h3 class="anchored" data-anchor-id="break-e-flags">break e flags</h3>
-<p>Podemos interromper o while utilizando o <code>break</code> ou flags, como nos exemplos abaixo:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saudando pessoas até que elas queiram sair do programa com o break</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span><span class="op">+</span><span class="st">'(Entre com "quit" para sair da aplicacao)</span><span class="ch">\n\n</span><span class="st">'</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">==</span> <span class="st">'quit'</span>:</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Olá, '</span> <span class="op">+</span> resposta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<pre><code>Olá quit</code></pre>
-</div>
-</div>
-</div>
+<section id="break-e-flags" class="level4">
+<h4 class="anchored" data-anchor-id="break-e-flags">break e flags</h4>
+<p>Podemos interromper o <code>while</code> utilizando o <code>break</code> ou <code>flags</code>, como nos exemplos abaixo:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saudando pessoas até que elas queiram sair do programa com o break</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span><span class="op">+</span><span class="st">'Entre com "sair" para sair da aplicacao</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">==</span> <span class="st">'sair'</span>:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Olá!, '</span> <span class="op">+</span> resposta)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Um exemplo com flags que são variáveis booleanas que controlam o fluxo.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>continuar_execucao <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> continuar_execucao:</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span><span class="op">+</span><span class="st">'(Entre com "quit" para sair da aplicacao)</span><span class="ch">\n\n</span><span class="st">'</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">!=</span> <span class="st">'quit'</span>:</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Olá, '</span> <span class="op">+</span> resposta)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        continuar_execucao <span class="op">=</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>continuar_execucao <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> continuar_execucao:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span><span class="op">+</span><span class="st">'(Entre com "quit" para sair da aplicacao)</span><span class="ch">\n\n</span><span class="st">'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">!=</span> <span class="st">'quit'</span>:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Olá, '</span> <span class="op">+</span> resposta)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        continuar_execucao <span class="op">=</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -733,20 +711,21 @@ jun</code></pre>
 </div>
 </div>
 </section>
+</section>
 <section id="continue" class="level3">
 <h3 class="anchored" data-anchor-id="continue">continue</h3>
 <p>Também podemos dar continuidade a um ciclo com a utilização do <code>continue</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span> <span class="op">+</span> <span class="st">'(Entre com "quit" para sair da aplicacao)</span><span class="ch">\n\n</span><span class="st">'</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta <span class="op">==</span> <span class="st">''</span>:</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Digite um nome válido!'</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE O USUÁRIO APENAS PRECIONAR ENTER SEM ADICIONAR SEU NOME O CICLO REINICIARÁ E PEDIRA NOVAMENTE PARA QUE</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DIGITE SEU NOME.</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">==</span> <span class="st">'quit'</span>:</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Olá, '</span> <span class="op">+</span> resposta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    resposta <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Digite seu nome para que eu possa te dar um oi!:</span><span class="ch">\n</span><span class="st">'</span> <span class="op">+</span> <span class="st">'(Entre com "quit" para sair da aplicacao)</span><span class="ch">\n\n</span><span class="st">'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta <span class="op">==</span> <span class="st">''</span>:</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Digite um nome válido!'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE O USUÁRIO APENAS PRECIONAR ENTER SEM ADICIONAR SEU NOME O CICLO REINICIARÁ E PEDIRA NOVAMENTE PARA QUE</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DIGITE SEU NOME.</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resposta.lower() <span class="op">==</span> <span class="st">'quit'</span>:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Olá, '</span> <span class="op">+</span> resposta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -760,19 +739,18 @@ jun</code></pre>
 <p>Repare que o <code>print('Olá, ' + resposta)</code> não foi feito porque na primeira iteração o loop caiu no continue e no segundo no break porque o quit foi digitado.</p>
 </section>
 </section>
-</section>
 <section id="funções" class="level1">
 <h1>Funções</h1>
 <p>Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisamos criar uma tarefa que possa ser usada mais tarde em outro programa, para evitar repetição de código e seguir um dos princípios da programação que é a modulação utilizamos da criação de funções.</p>
 <p>Em resumo, funções são um escopo de código que pode ser chamado para realizar uma tarefa específica, podem ter ou não um tipo de retorno, possuem um título e podem ter ou não parâmetros passados para a função.</p>
-<p>Em python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado</p>
+<p>Em Python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado</p>
 <p>Os exemplos mais simples de funções podem ser vistos abaixo:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> soma(a, b): <span class="co">#definição/criação da função</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="co">#escopo da função</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>soma(<span class="dv">3</span>, <span class="dv">4</span>) <span class="co">#chamada da função</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ola_mundo():</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Olá, Mundo!'</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ola_mundo() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> soma(a, b): <span class="co">#definição/criação da função</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="co">#escopo da função</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>soma(<span class="dv">3</span>, <span class="dv">4</span>) <span class="co">#chamada da função</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ola_mundo():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Olá, Mundo!'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ola_mundo() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -784,14 +762,14 @@ jun</code></pre>
 </div>
 </div>
 <p>Exemplo de uma função com retorno de um objeto do tipo lista:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> formata_nomes(nomes):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    lista_formatada <span class="op">=</span> []</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nome <span class="kw">in</span> nomes:</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        lista_formatada.append(nome.title())     </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lista_formatada</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>lista_nao_formatada <span class="op">=</span> [<span class="st">'dAnIeL'</span>, <span class="st">'iGoR'</span>, <span class="st">'caRoLINA'</span>]</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>lista_formatada <span class="op">=</span> formata_nomes(lista_formatada)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista_formatada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> formata_nomes(nomes):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    lista_formatada <span class="op">=</span> []</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nome <span class="kw">in</span> nomes:</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        lista_formatada.append(nome.title())     </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lista_formatada</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>lista_nao_formatada <span class="op">=</span> [<span class="st">'dAnIeL'</span>, <span class="st">'iGoR'</span>, <span class="st">'caRoLINA'</span>]</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>lista_formatada <span class="op">=</span> formata_nomes(lista_formatada)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista_formatada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -805,43 +783,43 @@ jun</code></pre>
 </section>
 <section id="orientação-a-objetos" class="level1">
 <h1>Orientação a objetos</h1>
-<p>No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No python, um dos paradigmas explorados é o de orientação a objetos.</p>
+<p>No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No Python, um dos paradigmas explorados é o de orientação a objetos.</p>
 <p>Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro.</p>
 <p>Um carro possui características específicas: modelo, cor, velocidade. O carro possui ainda comportamentos: acelerar e freiar, acessíveis pelo motorista para usar quando quiser. Na programação, o carro é o objeto, a ideia do que é um carro é a classe e o motorista é o programador que usa o carro em seu programa.</p>
-<p>Traduzindo para python:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Carro():</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, modelo, cor, velocidade):</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.modelo <span class="op">=</span> modelo</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.cor <span class="op">=</span> cor</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.velocidade <span class="op">=</span> velocidade</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getModelo(<span class="va">self</span>):</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.modelo</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getCor(<span class="va">self</span>):</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.cor</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getVelocidade(<span class="va">self</span>):</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.velocidade </span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> acelerar(<span class="va">self</span>, incrementoVelocidade):</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.velocidade <span class="op">=</span> <span class="va">self</span>.velocidade <span class="op">+</span> incrementoVelocidade </span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> freiar(<span class="va">self</span>, decrementoVelocidade):</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.velocidade <span class="op">&lt;</span> decrementoVelocidade:</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.velocidade <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.velocidade <span class="op">=</span> <span class="va">self</span>.velocidade <span class="op">-</span> decrementoVelocidade </span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>meuCarro <span class="op">=</span> Carro(<span class="st">"Gol"</span>, <span class="st">"vermelho"</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>O comando class do python funciona semelhante ao def, porém define uma classe. Dentro da definição da classe, diversas “funções” foram definidas: __init__, getModelo, getCor, getVelocidade, acelerar, freiar. O nome de funções no contexto de um objeto é método. Métodos são semelhantes a funções, porém utilizam também como variáveis os atributos da classe, isso é, são os comportamentos do carro e usam as características do carro. Na definição, os métodos da classe têm os argumentos começando com o self se forem usar algum atributo do objeto, na hora de utilizar esses metodos, não se escreve o self, uma vez que o metodo que parte do objeto em questão já entende que o mesmo é o “self”.</p>
+<p>Traduzindo para Python:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Carro():</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, modelo, cor, velocidade):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.modelo <span class="op">=</span> modelo</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.cor <span class="op">=</span> cor</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.velocidade <span class="op">=</span> velocidade</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getModelo(<span class="va">self</span>):</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.modelo</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getCor(<span class="va">self</span>):</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.cor</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getVelocidade(<span class="va">self</span>):</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.velocidade </span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> acelerar(<span class="va">self</span>, incrementoVelocidade):</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.velocidade <span class="op">=</span> <span class="va">self</span>.velocidade <span class="op">+</span> incrementoVelocidade </span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> freiar(<span class="va">self</span>, decrementoVelocidade):</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.velocidade <span class="op">&lt;</span> decrementoVelocidade:</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.velocidade <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.velocidade <span class="op">=</span> <span class="va">self</span>.velocidade <span class="op">-</span> decrementoVelocidade </span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>meuCarro <span class="op">=</span> Carro(<span class="st">"Gol"</span>, <span class="st">"vermelho"</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>O comando class do Python funciona semelhante ao def, porém define uma classe. Dentro da definição da classe, diversas “funções” foram definidas: __init__, getModelo, getCor, getVelocidade, acelerar, freiar. O nome de funções no contexto de um objeto é método. Métodos são semelhantes a funções, porém utilizam também como variáveis os atributos da classe, isso é, são os comportamentos do carro e usam as características do carro. Na definição, os métodos da classe têm os argumentos começando com o self se forem usar algum atributo do objeto, na hora de utilizar esses metodos, não se escreve o self, uma vez que o metodo que parte do objeto em questão já entende que o mesmo é o “self”.</p>
 <p>O método __init__ é um método especial, ele pode ser chamado de construtor. Ele receberá como argumentos as características que julgamos necessárias para definir nosso objeto. Na linha meuCarro = Carro(“Gol”, “vermelho”, 0), o método __init__ é chamado e retorna um objeto da classe Carro de modelo “Gol”, de cor “vermelha” e velocidade 0. Sempre com o nome da classe e os argumentos do método __init__ da classe em questão (exceto o self), essa função constroi o objeto.</p>
 <p>Para usar os métodos precisa digitar a variável em que o objeto está armazenado depois .nomeDoMetodo(argumentos) como segue no exemplo abaixo:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Velocidade antes de acelerar:"</span>, meuCarro.getVelocidade()) </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>meuCarro.acelerar(<span class="dv">10</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Velocidade depois de acelerar:"</span>, meuCarro.getVelocidade())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Velocidade antes de acelerar:"</span>, meuCarro.getVelocidade()) </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>meuCarro.acelerar(<span class="dv">10</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Velocidade depois de acelerar:"</span>, meuCarro.getVelocidade())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -870,18 +848,18 @@ jun</code></pre>
 </section>
 <section id="importação" class="level1">
 <h1>Importação</h1>
-<p>Agora veremos as diferentes formas de importar módulos (os pacotes do python) para seu ambiente.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy                        <span class="co"># Importa o módulo numpy</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd                 <span class="co"># Importa o módulo pandas com um alias pd</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt     <span class="co"># Importa a classe pyplot dentro do pacote matplotlib com o alias plt</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> getcwd               <span class="co"># Importa apenas a função getcwd do módulo os</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> asctime <span class="im">as</span> data    <span class="co"># Importa a penas a função asctime com o alias data </span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statistics <span class="im">import</span> <span class="op">*</span>            <span class="co"># Importa tudo que pertence ao módulo statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Agora veremos as diferentes formas de importar módulos (os pacotes do Python) para seu ambiente.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy                        <span class="co"># Importa o módulo numpy</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd                 <span class="co"># Importa o módulo pandas com um alias pd</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt     <span class="co"># Importa a classe pyplot dentro do pacote matplotlib com o alias plt</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> getcwd               <span class="co"># Importa apenas a função getcwd do módulo os</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> asctime <span class="im">as</span> data    <span class="co"># Importa a penas a função asctime com o alias data </span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statistics <span class="im">import</span> <span class="op">*</span>            <span class="co"># Importa tudo que pertence ao módulo statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Alias é o “apelido” que o módulo terá no código, ou seja, apenas precisamos chamar o alias para referenciar o módulo</strong></p>
 <p><strong>Vejamos agora como cada forma de importação é utilizada!</strong></p>
 <p>Veja que o numpy foi importado utilizando <code>import numpy</code> dessa forma devemos sempre colocar o nome do módulo antes de utilizar os métodos e atributos que ele possui</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>numpy.random.seed(<span class="dv">60</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>numpy.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>)       <span class="co"># Cria um array aleatório de tamanho 10 com distriuição normal mu = 0, sigma = 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>numpy.random.seed(<span class="dv">60</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>numpy.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>)       <span class="co"># Cria um array aleatório de tamanho 10 com distriuição normal mu = 0, sigma = 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -893,7 +871,7 @@ jun</code></pre>
 </div>
 </div>
 <p>Já em <code>from os import getcwd</code> apenas importamos a função <code>getcwd</code> do módulo os</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>getcwd()                            <span class="co"># Retorna o diretório atual do workspace.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>getcwd()                            <span class="co"># Retorna o diretório atual do workspace.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -905,7 +883,7 @@ jun</code></pre>
 </div>
 </div>
 <p>Utilizando o comando <code>from time import asctime as data</code> importamos a função asctime do módulo time e adicionamos um <em>alias</em> data utilizando a <em>keyword</em> <code>as</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data()                              <span class="co"># Retorna a data de hoje</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>data()                              <span class="co"># Retorna a data de hoje</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -917,12 +895,12 @@ jun</code></pre>
 </div>
 </div>
 <p>Ao utilizar <code>from statistics import *</code> estamos importando todas as funções e métodos pertencentes ao módulo statistics. Não é aconselhável utilizar já que o código perde semântica.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>numpy.random.seed(<span class="dv">35</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> numpy.random.randint(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mean(numbers))</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(harmonic_mean(numbers))</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(median(numbers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>numpy.random.seed(<span class="dv">35</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> numpy.random.randint(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mean(numbers))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(harmonic_mean(numbers))</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(median(numbers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">

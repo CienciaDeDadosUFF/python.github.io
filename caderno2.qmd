@@ -9,61 +9,64 @@ number-sections: false
 jupyter: python3
 ---
 
-# Conteúdos
+## Controle de Fluxo
 
--   Controle de Fluxo
--   Estruturas de repetição
--   Funções
--   Orientação a Objetos
--   Instalação de bibliotecas
--   Importação de bibliotecas
+Nem sempre nosso código deve se comportar de maneira igual para todas as situações, às vezes precisamos tomar uma decisão em função de nossas operações em situações específicas. Para isto podemos utilizar estruturas de condição.
 
-# Controle de fluxo
+### if
 
-Nem sempre nosso código deve se comportar de maneira igual para todas as situações, às vezes precisamos tomar uma decisão em função de nossas operações em situações específicas e para isso podemos utilizar estruturas de condição.
-
-## if
-
-Quando falamos em tomar decisões, a estrutura que trabalhamos é sempre o `if`, que é uma estrutura que testa condições impostas para decidir como prosseguir em certas situações, como por exemplo checar se um número é maior, menor ou igual a outro. Testando uma condição única:
+Quando falamos em tomar decisões, a estrutura que trabalhamos é sempre o `if`, que é uma estrutura que testa condições impostas para decidir como prosseguir em certas situações, como por exemplo verificar se um número é maior, menor ou igual a outro. 
 
 ``` python
 if 10 < 30:
     print('10 é menor que 30')
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-10 é menor que 30
-:::
+print(':::{.callout}')
+if 10 < 30:
+    print('10 é menor que 30')
+    
+print(':::')
+```
 
-Podemos também testar múltiplas condições exigindo que todas sejam verdadeiras ou apenas uma seja, dependendo do operador usado: or ou and. Precisamos separar essas diferentes condições usando parentêsis.
+Podemos também testar múltiplas condições exigindo que pelo menos uma ou todos sejam verdadeiras, dependendo do operador usado: `or` ou `and`. Neste caso, precisamos separar essas diferentes condições usando parêntesis.
 
-O operador `or`, "ou" traduzindo do inglês, faz com que a condição seja satisfeita se a primeira **ou** a segunda expressão (ou as duas) forem verdadeiras. Pode ser também representado pelo caractere `|`
+O operador `or` faz com que a condição seja satisfeita se a primeira **ou** a segunda expressão (ou as ambas) forem verdadeiras. Pode ser também representado pelo caractere `|`.
 
 ``` python
 if (7 < 3) or (5 > 1):
     print('Pelo menos um é verdade')
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-```         
-Pelo menos um é verdade
+print(':::{.callout}')
+if (7 < 3) or (5 > 1):
+    print('Pelo menos um é verdade')
+print(':::')
 ```
-:::
 
-Já o operador `and`, "e" traduzindo do inglês, faz com que a condição seja satisfeita se a primeira **e** a segunda expressão sejam verdadeiras Pode ser também representado pelo caractere `&`
+Já o operador `and` faz com que a condição seja satisfeita se a primeira **e** a segunda expressão sejam verdadeiras. Pode ser representado também pelo caractere `&`.
 
 ``` python
 if (7 == 7) and (5 > 1):
     print('Ambas expressões são verdadeiras')
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-```         
-Ambas expressões são verdadeiras
+print(':::{.callout}')
+if (7 == 7) and (5 > 1):
+    print('Ambas expressões são verdadeiras')
+print(':::')
 ```
-:::
 
-## else
+### else
 
 Para toda situação sempre podemos incluir uma saída padrão como resposta se a condição não for satisfeita, para isso temos o `else`.
 
@@ -74,14 +77,20 @@ if n < 30:
 else:
     print('%i é maior ou igual a 30'%(n))
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-```         
-40 é menor maior ou igual a 30
+print(':::{.callout}')
+n = 40
+if n < 30:
+    print('%i é menor que 30'%(n))
+else:
+    print('%i é maior ou igual a 30'%(n))
+print(':::')
 ```
-:::
 
-## elif
+### elif
 
 Podemos também incluir mais de uma condição a ser testada, adicionando mais instâncias do if ao mesmo if com a estrutura `elif`.
 
@@ -94,28 +103,35 @@ elif n > 30:
 else:
     print('%i é igual a 30'%(n))
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-```         
-40 é maior que 30
+print(':::{.callout}')
+n = 40
+if n < 30:
+    print('%i é menor que 30'%(n))
+elif n > 30:
+    print('%i é maior que 30'%(n))
+else:
+    print('%i é igual a 30'%(n))
+print(':::')
 ```
-:::
 
-# Estruturas de repetição
+## Estruturas de Repetição
 
-No python, assim como qualquer linguagem de programação, existe o que chamamos de estruturas de repetição. Elas servem para executar um mesmo comando mais de uma vez, muito útil quando trabalhando com listas.
+No Python, assim como qualquer linguagem de programação, existe o que chamamos de estruturas de repetição. Elas servem para executar um mesmo comando mais de uma vez.
 
-## for
+### for
 
-O `for` é uma estrutura de repetição que percorre um escopo de valores específicos, por exemplo se queremos printar os números de 0 até 10 podemos escrever desta forma:
+O `for` é uma estrutura de repetição que percorre um escopo de valores específicos, por exemplo se queremos imprimir os números de 0 até 10 podemos escrever desta forma:
 
 ``` python
 for numero in range(0,10):
     print(numero)
 ```
-
-::: callout
-```         
+:::callout
+```
 0
 1
 2
@@ -129,26 +145,29 @@ for numero in range(0,10):
 ```
 :::
 
-Note que o primeiro número impresso é o 0 como especificado e o último número o 9. A variável numero armazena o valor de cada iteração do loop, mas o for sempre para antes do último número, que seria o 10, porque o Python é uma linguagem que começa com 0 invés de 1, e descartar esse último número auxilia na hora de iterar listas, a principal razão do uso do laço for. Observe como percorrer os elementos de uma lista:
+Note que o primeiro número impresso é o 0 como especificado e o último número o 9. A variável numero armazena o valor de cada iteração do `for`, mas o `for` sempre para antes do último número, que seria o 10, porque o Python é uma linguagem que começa com 0 invés de 1. 
+
+Descartar esse último número auxilia na hora de iterar listas. Observe como percorrer os elementos de uma lista:
 
 ``` python
 meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun']
-for i in range(length(meses)):
-    print(meses[i])
+print(f" tamanho da lista meses = {len(meses):.0f}")
+for i in range(6):
+    print(i , meses[i])
 ```
-
-::: callout
-```         
-jan
-fev
-mar
-abr
-mai
-jun
+:::callout
+```
+tamanho da lista meses = 6
+0 jan
+1 fev
+2 mar
+3 abr
+4 mai
+5 jun
 ```
 :::
 
-Por convenção, no python usamos como variável do loop o `i` se quisermos percorrer uma lista. Usar um for dentro de outro serve para percorrer uma matriz. Nesse caso usaremos `j` no segundo. Se mais uma dimensão for adicionada será `k`. Para ordens ainda maiores não existe uma convenção, porém, eu utilizo o alfabeto invés de i, j, k.
+Por convenção, no Python usamos como variável do loop `i` se quisermos percorrer uma lista. Usar um `for` dentro de outro serve para percorrer uma matriz. Nesse caso usaremos `j` no segundo. 
 
 ``` python
 matriz = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -171,7 +190,9 @@ for i in range(length(matriz)):
 ```
 :::
 
-Existe uma alternativa ao range de como percorrer uma lista com o for. O range cria esses índices para serem referenciados na lista. Podemos salvar os elementos direto na variável do loop como feito a seguir:
+Existe uma alternativa ao `range` de como percorrer uma lista com o `for`. 
+
+`range` cria esses índices para serem referenciados na lista. Podemos salvar os elementos direto na variável do loop como feito a seguir:
 
 ``` python
 meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun']
@@ -190,9 +211,9 @@ jun
 ```
 :::
 
-O problema de usar o loop dessa forma é que não podemos alterar a lista original já que perdemos a referência numérica dela. Existem situações que o primeiro método é preferível e situações que o segundo método é preferível.
+O problema de usar o loop dessa forma é que não podemos alterar a lista original já que perdemos a referência numérica dela. Existem situações que o primeiro método é preferível e outras situações em que o segundo método é preferível.
 
-## while
+### while
 
 O `while` é um loop que enquanto uma condição não for satisfeita ou enquanto ela for satisfeita esse loop permanecerá ocorrendo, usado principalmente quando o número de iterações do loop não é definido por um número e sim por uma condição.
 
@@ -202,35 +223,35 @@ while 'cachorro' in animais:
     animais.remove('cachorro')
 print(animais)
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-```         
-['gato', 'rato', 'macaco', 'elefante', 'leao']
+print(':::{.callout}')
+
+animais = ['cachorro', 'gato', 'rato', 'macaco', 'cachorro', 'cachorro', 'elefante', 'leao']
+while 'cachorro' in animais:
+    animais.remove('cachorro')
+print(animais)
+
+print(':::')
 ```
-:::
 
 Repare que `'cachorro'` foi removido mais de uma vez da lista de animais. Uma vez que não haviam mais cachorros na lista de animais, o loop do while foi finalizado.
 
-### break e flags
+#### break e flags
 
-Podemos interromper o while utilizando o `break` ou flags, como nos exemplos abaixo:
+Podemos interromper o `while` utilizando o `break` ou `flags`, como nos exemplos abaixo:
 
 ``` python
 # Saudando pessoas até que elas queiram sair do programa com o break
 while True:
-    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'(Entre com "quit" para sair da aplicacao)\n\n')
-    
-    if resposta.lower() == 'quit':
+    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'Entre com "sair" para sair da aplicacao\n')
+    if resposta.lower() == 'sair':
         break
+    print('Olá!, ' + resposta)
     # SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!
-print('Olá, ' + resposta)
 ```
-
-::: callout
-```         
-Olá quit
-```
-:::
 
 Um exemplo com flags que são variáveis booleanas que controlam o fluxo.
 
@@ -282,7 +303,7 @@ Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisa
 
 Em resumo, funções são um escopo de código que pode ser chamado para realizar uma tarefa específica, podem ter ou não um tipo de retorno, possuem um título e podem ter ou não parâmetros passados para a função.
 
-Em python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado
+Em Python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado
 
 Os exemplos mais simples de funções podem ser vistos abaixo:
 
@@ -325,13 +346,13 @@ print(lista_formatada)
 
 # Orientação a objetos
 
-No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No python, um dos paradigmas explorados é o de orientação a objetos.
+No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No Python, um dos paradigmas explorados é o de orientação a objetos.
 
 Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro.
 
 Um carro possui características específicas: modelo, cor, velocidade. O carro possui ainda comportamentos: acelerar e freiar, acessíveis pelo motorista para usar quando quiser. Na programação, o carro é o objeto, a ideia do que é um carro é a classe e o motorista é o programador que usa o carro em seu programa.
 
-Traduzindo para python:
+Traduzindo para Python:
 
 ``` python
 class Carro():
@@ -363,7 +384,7 @@ class Carro():
 meuCarro = Carro("Gol", "vermelho", 0)
 ```
 
-O comando class do python funciona semelhante ao def, porém define uma classe. Dentro da definição da classe, diversas "funções" foram definidas: \_\_init\_\_, getModelo, getCor, getVelocidade, acelerar, freiar. O nome de funções no contexto de um objeto é método. Métodos são semelhantes a funções, porém utilizam também como variáveis os atributos da classe, isso é, são os comportamentos do carro e usam as características do carro. Na definição, os métodos da classe têm os argumentos começando com o self se forem usar algum atributo do objeto, na hora de utilizar esses metodos, não se escreve o self, uma vez que o metodo que parte do objeto em questão já entende que o mesmo é o "self".
+O comando class do Python funciona semelhante ao def, porém define uma classe. Dentro da definição da classe, diversas "funções" foram definidas: \_\_init\_\_, getModelo, getCor, getVelocidade, acelerar, freiar. O nome de funções no contexto de um objeto é método. Métodos são semelhantes a funções, porém utilizam também como variáveis os atributos da classe, isso é, são os comportamentos do carro e usam as características do carro. Na definição, os métodos da classe têm os argumentos começando com o self se forem usar algum atributo do objeto, na hora de utilizar esses metodos, não se escreve o self, uma vez que o metodo que parte do objeto em questão já entende que o mesmo é o "self".
 
 O método \_\_init\_\_ é um método especial, ele pode ser chamado de construtor. Ele receberá como argumentos as características que julgamos necessárias para definir nosso objeto. Na linha meuCarro = Carro("Gol", "vermelho", 0), o método \_\_init\_\_ é chamado e retorna um objeto da classe Carro de modelo "Gol", de cor "vermelha" e velocidade 0. Sempre com o nome da classe e os argumentos do método \_\_init\_\_ da classe em questão (exceto o self), essa função constroi o objeto.
 
@@ -412,7 +433,7 @@ $ python -m pip install "nome do pacote"
 
 # Importação
 
-Agora veremos as diferentes formas de importar módulos (os pacotes do python) para seu ambiente.
+Agora veremos as diferentes formas de importar módulos (os pacotes do Python) para seu ambiente.
 
 ``` python
 import numpy                        # Importa o módulo numpy
