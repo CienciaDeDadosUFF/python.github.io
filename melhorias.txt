@@ -1,0 +1,14 @@
+#index
+melhorar list.
+repensar matrix, está meio confuso.
+explicar diferenca entre == e !=
+explicar argumentos da função round()
+entendi lhufas do .join. Não é melhor usar um exemplo melhor?
+
+#Aprofundamento em programação com python
+Em Instalação de bibliotecas, o píp está com acento.
+
+#Visualização de dados
+Carregar as bibliotecas: corrigir
+Gráfico de linha: erro em sns.lineplot(anos,...
+
