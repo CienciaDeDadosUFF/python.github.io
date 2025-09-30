@@ -15,13 +15,18 @@ Segue abaixo os módulos que usaremos nesse caderno:
 
 ```{python}
 import pandas as pd
+import pickle
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.feature_selection import mutual_info_classif
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.impute import KNNImputer
+from sklearn.linear_model import LogisticRegression
+from imblearn.over_sampling import RandomOverSampler
 ```
 
 # O que é Pré-Processamento?
@@ -34,9 +39,9 @@ Pré-processamento tem duas etapas, uma logo depois da divisão dos dados, que s
 
 Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao longo da apresentação dos diferentes métodos ficará explicito todas essas questões.
 
-# Análise da base
+# Descrição da base
 
-Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.
+Nesse caderno utilizaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.
 
 Segundo a Organização Mundial da Saúde (OMS), o AVC é a segunda principal causa de morte no mundo, sendo responsável por aproximadamente 11% do total de mortes.
 
@@ -74,7 +79,7 @@ São 5110 amostras com 11 variáveis explicativas e uma variável resposta. Segu
 
 -   stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.
 
-Essa base é a que foi explorada em STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan, que traz uma análise profunda da base, além do uso de diferentes técnicas de aprendizado de máquina.
+Esta base é a que foi explorada em STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan, que traz uma análise exploratória profunda da base, além do uso de diferentes técnicas de aprendizado de máquina para classificar os pacientes.
 
 # Diretrizes gerais do pré-processamento
 
@@ -118,9 +123,9 @@ colunasCategoricas = list(stroke.select_dtypes(include=['object', 'category']).c
 # Salvando possíveis classes de todas as variáveis categóricas
 classesColCateg = []
 for coluna in colunasCategoricas:
-  #Exibindo as diferentes classes presentes em uma coluna com variável categórica
-  print(f"{coluna}: {list(stroke[coluna].unique())}")
-  classesColCateg.append(list(stroke[coluna].unique()))
+    #Exibindo as diferentes classes presentes em uma coluna com variável categórica
+    print(f"{coluna}: {list(stroke[coluna].unique())}")
+    classesColCateg.append(list(stroke[coluna].unique()))
 ```
 
 Sem este passo podemos ter problemas com a codificação de variáveis.
@@ -139,53 +144,61 @@ Segue abaixo uma função para testar o preditor com reamostragem por kfold pela
 
 ```{python}
 def testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):
-  """Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""
-  # criação de uma lista para reutilização do generator 
-  kfBase = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state).split(XBase, YBase)
-  kfBaseLista = list(kfBase)
+    """Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""
+    # criação de uma lista para reutilização do generator 
+    kfBase = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state).split(XBase, YBase)
+    kfBaseLista = list(kfBase)
   
-  # Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  
-  foldsBase = []
-  for K, (train, test) in enumerate(kfBaseLista, 1):
-    # Não guarda K porque não precisa, é o índice da lista mais 1.
-    foldsBase.append([list(train), list(test)])
-    #print("K:", K, "train:", len(train), "test:", len(test))
+    # Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  
+    foldsBase = []
+    for K, (train, test) in enumerate(kfBaseLista, 1):
+        # Não guarda K porque não precisa, é o índice da lista mais 1.
+        foldsBase.append([list(train), list(test)])
+        #print("K:", K, "train:", len(train), "test:", len(test))
   
-  # Criando os modelos individuais de cada fold
-  modelosIndividuais = []
-  for fold in foldsBase:
-    modelosIndividuais.append(funcaoAlgoritmo(random_state=random_state).fit(XBase.iloc[fold[0]], YBase.iloc[fold[0]]))
+    # Criando os modelos individuais de cada fold
+    modelosIndividuais = []
+    for fold in foldsBase:
+        modelosIndividuais.append(funcaoAlgoritmo(random_state=random_state).fit(XBase.iloc[fold[0]], YBase.iloc[fold[0]]))
 
-  # Testando os modelos individuais de cada fold
-  acuraciaModelos = []
-  sensibilidadeModelos = []
-  especificidadeModelos = []
-  for i in range(len(modelosIndividuais)):
-    Y_predBase = modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][1]])
-    vn, fp, fn, vp = confusion_matrix(YBase.iloc[foldsBase[i][1]], Y_predBase).ravel()
-    acuracia = (vp + vn) / (vp + vn + fp + fn)
-    sensibilidade = vp / (vp + fn)
-    especificidade = vn / (vn + fp)
-    acuraciaModelos.append(acuracia)
-    sensibilidadeModelos.append(sensibilidade)
-    especificidadeModelos.append(especificidade)
+    # Testando os modelos individuais de cada fold
+    acuraciaModelos = []
+    sensibilidadeModelos = []
+    especificidadeModelos = []
+    for i in range(len(modelosIndividuais)):
+        Y_predBase = modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][1]])
+        vn, fp, fn, vp = confusion_matrix(YBase.iloc[foldsBase[i][1]], Y_predBase).ravel()
+        acuracia = (vp + vn) / (vp + vn + fp + fn)
+        sensibilidade = vp / (vp + fn)
+        especificidade = vn / (vn + fp)
+        acuraciaModelos.append(acuracia)
+        sensibilidadeModelos.append(sensibilidade)
+        especificidadeModelos.append(especificidade)
   
-  # Printando o compilado de métricas
-  print(f"Média da acurácia: {(sum(acuraciaModelos)/len(acuraciaModelos)*100):.1f}%")
-  print(f"Desvio padrão populacional da acurácia: {np.std(acuraciaModelos, ddof=0):.3f}\n")
-  print(f"Média da sensibilidade: {(sum(sensibilidadeModelos)/len(sensibilidadeModelos)*100):.1f}%")
-  print(f"Desvio padrão populacional da sensibilidade: {np.std(sensibilidadeModelos, ddof=0):.3f}\n")
-  print(f"Média da especificidade: {(sum(especificidadeModelos)/len(especificidadeModelos)*100):.1f}%")
-  print(f"Desvio padrão populacional da especificidade: {np.std(especificidadeModelos, ddof=0):.3f}\n")
+    # Printando o compilado de métricas
+    print(f"Média da acurácia: {(sum(acuraciaModelos)/len(acuraciaModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da acurácia: {np.std(acuraciaModelos, ddof=0):.3f}\n")
+    print(f"Média da sensibilidade: {(sum(sensibilidadeModelos)/len(sensibilidadeModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da sensibilidade: {np.std(sensibilidadeModelos, ddof=0):.3f}\n")
+    print(f"Média da especificidade: {(sum(especificidadeModelos)/len(especificidadeModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da especificidade: {np.std(especificidadeModelos, ddof=0):.3f}\n")
 ```
 
 Essa função será utilizada para testar o modelo assim que passarmos pelas etapas iniciais obrigatórias de pré-processamento mencionadas. É uma simples função de validação cruzada.
 
 # Seleção de atributos
 
-O primeiro passo do pré-processamento é a seleção de atributos.
+O primeiro passo do pré-processamento é a seleção de atributos. Reponder a seguinte pergunta: quais variáveis explicativas são minimamente relevantes para o problema?
 
-## NearZeroVar
+Digamos que junto dos dados de stroke houvesse um e-mail de contato do paciente, essa informação não será relevante para o treinamento do algoritmo porque o e-mail não é um fator determinístico para diagnóstico de AVC, é uma informação extra. Uma coluna que podemos remover usando essa alusão é o campo `id`, que é apenas um identificador numérico para o determinado paciente, não guarda informações para o processamento portanto deve ser removido afim de evitar qualquer tipo de correlação expúria com AVC que ele poderá trazer ao modelo. 
+
+```{python}
+x_strokeKfold = x_strokeKfold.drop('id', axis=1)
+```
+
+Esse processo de remoção da coluna id deverá ser repetido nos dados novos, isto é, tanto no conjunto validação quanto nos dados de uso real.
+
+Mas e quando as colunas que não influenciam no modelo não forem tão óbvias? Existem diversas análises que podem ser feitas durante a etapa de análise exploratória dos dados para determinar isso. O scikit-learn possui uma função chamada `mutual_info_classif()` que estima a dependência estatística (via informação mútua) entre cada variável explicativa e a variável alvo. Ela exige uma base livre de NAs e com as variáveis categóricas devidamente codificadas. Como isso ainda será ainda realizado não iremos exemplificar seu uso aqui.
 
 # Tratamento de dados faltantes
 
@@ -230,6 +243,21 @@ Quantos NAs temos agora? Para ver isso podemos usar o seguinte método:
 print(x_strokeKfold.isna().sum())
 ```
 
+Como convertemos "Other" e "Unknown" como NA precisaremos remover esses valores dos possíveis da variável classesColCateg:
+
+```{python}
+for i in range(len(classesColCateg)):
+	  try:
+		    classesColCateg[i].remove("Other")
+	  except:
+		    pass
+	  try:
+		    classesColCateg[i].remove("Unknown")
+	  except:
+		    pass
+```
+
+
 Além dos NAs imputados temos 184 NAs na variável bmi.
 
 ## Remoção
@@ -249,12 +277,21 @@ Como se trata de apenas uma amostra entre as 4598 essa solução é o suficiente
 Para remover o NA de `gender`:
 
 ```{python}
-# Como estamos removendo uma linha do dataframe precisamos resetar o índice.
-x_strokeKfold = x_strokeKfold.dropna(subset=["gender"]).reset_index(drop=True)
+# Como estamos removendo uma linha do dataframe das variáveis explicativas, precisamos fazer o mesmo com a variável resposta, depois de tudo precisamos resetar os índices.
+indices_eliminados = x_strokeKfold[x_strokeKfold["gender"].isna()].index
+x_strokeKfold = x_strokeKfold.dropna(subset=["gender"])
+y_strokeKfold = y_strokeKfold.drop(indices_eliminados)
+
+x_strokeKfold = x_strokeKfold.reset_index(drop=True)
+y_strokeKfold = y_strokeKfold.reset_index(drop=True)
 
 # Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.
 # para não ser um problema na codificação de variáveis.
-classesColCateg[colunasCategoricas.index("gender")].remove("Other")
+# Não precisa fazer se já feito anteriormente.
+try:
+	  classesColCateg[colunasCategoricas.index("gender")].remove("Other")
+except:
+	  pass
 ```
 
 Esse código funciona para caso hajam mais NAs na coluna também.
@@ -341,7 +378,7 @@ Apresentaremos o **KNN Imputation**, um modelo de aprendizado de máquina basead
 
 O KNN Imputation é um método que, baseado nos vizinhos mais próximos, determina valores para a variável explicativa com dados faltantes do conjunto de dados.
 
-O algoritmo é excelente para situações com poucos NAs na base de dados e em que há certa correlação entre as variáveis explicativas.
+O algoritmo é excelente para situações com poucos NAs na base de dados e em que há certa correlação entre as variáveis explicativas. Ele é melhor utilizado para o tratamento de dados faltantes em variáveis contínuas já que é um regressor.
 
 Essa restrição de qualidade para o número de NAs é global para todas as variáveis do conjunto de dados: se houver NAs em demasiado em diversas colunas o substituto será pior, especialmente se a presença de NAs for alta na variável explicativa que quisermos substituir por esse método. Portanto, ele deverá ser o último método de tratamento de NA a ser utilizado ao optarmos por utilizá-lo. Em relação a correlação entre as variáveis explicativas, se não houver, o KNN Imputation será incapaz de predizer bons substitutos aos dados faltantes.
 
@@ -349,20 +386,20 @@ Como utilizaremos o KNN Imputation no conjunto de dados stroke? A variável expl
 
 Outra característica do KNN Imputation é que a análise é feita baseada em vizinhos, então uma base de dados ordenada por uma ou outra métrica será capaz de trazer melhores substitutos.
 
-Como o KNN Imputation realiza a substituição baseada em semelhanças entre amostras vizinhas por isso ele só poderá ser utilizado para os dados de treino uma vez que não há como garantir que em uso real os dados inseridos serão o suficiente para realizar o tratamento de NA com o uso do algoritmo. Para os dados de uso real ou teste outras estratégias terão que ser utilizadas.
+Como o KNN Imputation realiza a substituição baseada em semelhanças entre amostras vizinhas por isso **ele só poderá ser utilizado para os dados de treino** uma vez que não há como garantir que em uso real os dados inseridos serão o suficiente para realizar o tratamento de NA com o uso do algoritmo. Para os dados de uso real ou teste outras estratégias terão que ser utilizadas. Para a base stroke será utilizado KNN Imputation para tratar os dados faltantes de `bmi`, porém para novos dados o valor padrão 28.1 para bmi será utilizado.
 
 A implementação do KNN Imputation do scikit-learn exige as variáveis já codificadas para funcionar: não serão aceitos dados categóricos. É necessário também fazer transformação de variáveis contínuas, seja por padronização, normalização ou outro método devido a alta sensíbilidade a diferenças nas escalas entre as variáveis explicativas do método. Esses pontos serão discutidos em próximos tópicos do caderno.
 
-Apresentaremos o código para a substituição por KNN Imputation aqui, porém só será de fato utilizado na base depois que fizermos a codificação e transformação das variáveis.
+Apresentaremos o código para a substituição por KNN Imputation aqui, porém só será de fato utilizado na base depois que fizermos a codificação e transformação das variáveis, na conclusão do pré-processamento.
 
 ```{python}
 # Comentado para usar depois das transformações e codificações de variáveis
-#x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)['bmi']
+#x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc('bmi')]
 ```
 
-Observe que o `KNNImputer` recebe o argumento `n_neighbors`: precisamos especificar com quantos vizinhos o algoritmo usará, quanto mais vizinhos mais pesado será o processamento.
+Observe que o `KNNImputer` recebe o argumento `n_neighbors`: precisamos especificar com quantos vizinhos o algoritmo usará, quanto mais vizinhos mais pesado será o processamento e mais dados serão considerados para a imputação.
 
-Ao utilizar o KNN Imputation todos os NAs serão substituídos. Com excessão do bmi, os dados faltantes de todas as variáveis do conjunto stroke já foram tratados porém, se realizarmos algum outro tratamento posterior ao KNNImputer, precisaremos especificar a coluna como feito no código de exemplo.
+Depois de rodar o KNNImputer o código tem a seguinte indexação: `[:, x_strokeKfold.columns.get_loc('bmi')]` isso foi realizado para salvar em x_strokeKfold apenas o resultao do KNNImputer de bmi. O resultado da função é uma lista de listas numpy com todos os valores NAs preenchidos, ao realizar essa indexação estaremos salvando apenas os valores da coluna bmi. Com excessão do bmi, os dados faltantes de todas as variáveis do conjunto stroke já foram tratadas então não havia necessidade colocar essa restrição, porém, se realizarmos algum outro tratamento de NAs posterior ao KNNImputer, precisaremos especificar a coluna como feito no código de exemplo para que dados faltantes possam ser tratados diferentemente como for desejado.
 
 # Codificação de variáveis
 
@@ -600,30 +637,210 @@ A diferença entre One-Hot encoding e Dummy Variables fica bem explícita quando
 
 Observe que a ordem das categorias que os dados estão organizados e as categorias presentes não influenciam na criação das colunas. Self_employed é sempre zero porque em nenhum das 7 amostras ele aparece mas a coluna está lá do mesmo jeito. Isso ocorre porque as colunas serão criadas pela variável classesColCateg que definimos no início do caderno que contém todas as possíveis categorias de cada uma das variáveis explicativas.
 
--   Quando usar One-Hot encoding ou Dummy Variables?
+**Quando usar One-Hot encoding ou Dummy Variables?**
 
-A codificação por One-Hot encoding é ideal para modelos que não sofrem com multicolinearidade, como algoritmos baseados em árvores de decisão, essa codificação permite que cada categoria seja explorada livremente pelo modelo. Para modelos lineares como regressão logística a colinearidade perfeita do one-hot encoding está associada a redução de acurácia. Ao reduzir uma variável o problema da colinearidade será atenuado.
+A codificação por One-Hot encoding é ideal para modelos que não sofrem com multicolinearidade, como algoritmos baseados em árvores de decisão, essa codificação permite que cada categoria seja explorada livremente pelo modelo. Para modelos lineares como regressão logística a colinearidade perfeita do one-hot encoding está associada a redução de acurácia. Ao reduzir uma variável o problema da colinearidade será atenuado e portanto Dummy Variables é a melhor escolha.
 
-Como usaremos o RandomForest, um modelo baseado em árvores, usaremos codificação por One-Hot encoding.
+Como utilizaremos o RandomForest, um modelo baseado em árvores, seguiremos com codificação por One-Hot encoding.
 
-Segue abaixo a codificação das variáveis explicativas categóricas:
+Para codificar as variáveis explicativas utilizaremos as variáveis `classesColCateg` e `colunasCategoricas` que foi criada no início do pré-processamento. Elas possuem a relação de colunas categóricas e seus possíveis valores.
+
+O scikit-learn possui uma função que cria as colunas a partir de one-hot encoding, porém ela só funcionária se os dados que forem inseridos sempre tiverem todos os valores possíveis, o que não é possível de garantir, portanto é aconselhável criar as colunas manualmente pelo pandas a partir da variável que mapeia os valores possíveis criada anteriormente.
+
+Essas variáveis que criamos precisam estar salvas no código, não podemos fazer essa coleta sempre pelo mesmo problema da função pronta do scikit-learn. Segue abaixo os valores das variáveis salvas anteriormente: 
 
 ```{python}
-classesColCateg
-colunasCategoricas
+print(colunasCategoricas)
+print(classesColCateg)
+```
+
+Para deixá-las salvas no código é simplesmente iniciá-las já com os valores salvos da análise que fizemos. Esse é o código que precisa estar no arquivo de pré-processamento, que será o mesmo para o treinamento e para realizar o pré-processamento de dados novos posteriormente:
+
+```{python}
+colunasCategoricas = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+classesColCateg = [['Male', 'Female'], ['Yes', 'No'], ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked'], ['Urban', 'Rural'], ['formerly smoked', 'never smoked', 'smokes', 'Unknown']]
+```
+
+Agora para criar as colunas novas basta adicioná-las uma a uma no dataframe:
+
+```{python}
+# Para cada coluna
+for i in range(len(colunasCategoricas)):
+	  # Para cada classe de cada coluna
+	  for j in range(len(classesColCateg[i])):
+		    #Se for Dummy Variables descomente o seguinte if e continue:
+		    #if j == 0:
+			      #continue
+		    x_strokeKfold[colunasCategoricas[i]+"_"+classesColCateg[i][j]] = (x_strokeKfold[colunasCategoricas[i]] == classesColCateg[i][j]).astype(int)
+		    print(x_strokeKfold[colunasCategoricas[i]+"_"+classesColCateg[i][j]])
+```
+
+Precisamos agora deletar as colunas originais:
+
+```{python}
+for coluna in colunasCategoricas:
+    x_strokeKfold = x_strokeKfold.drop(coluna, axis=1)
 ```
 
 # Transformação de variáveis
 
-## Padronização
+No contexto de ciência de dados e machine learning, transformação de variáveis é o processo de modificar ou converter os dados originais para que fiquem em um formato ou escala mais adequada para análise ou para um modelo de aprendizado. O objetivo principal é melhorar a performance do modelo e facilitar a interpretação dos dados.
+
+A maioria dos algoritmos de machine learning não se sai bem quando os números que representam os dados estão em escalas muito diferentes. Por exemplo, nos dados de stroke, o `bmi` (IMC) varia de 10.3 a 97.6 enquanto o `avg_glucose_level` (nível de glicose médio) varia de 55.12 a 271.74. Uma análise semelhante pode ser feita com `age`, que ocila de 0 a 82 anos. Se não fizermos nenhuma transformação, o modelo vai acabar dando mais atenção do que deveria ao avg_glucose_level em comparação com as outras variáveis numéricas. Isso é ainda mais grave quando pensamos nas variáveis booleanas que geramos a partir do One-Hot encoding anteriormente que sempre serão 0s ou 1s e por essa lógica seriam completamente ignoradas. 
+
+Para resolver isso, existem técnicas que colocam todos os atributos na mesma escala. As duas mais comuns são a normalização e a padronização. Escolher entre elas depende de um entendimento profundo do funcionamento do algoritmo de aprendizado de máquina a ser utilizado.
+
+
+## Tratamento de outliers
+
+Antes detalhar as transformações precisamos falar sobre tratamento de outliers. Digamos que por um erro de digitação a idade de um paciente foi registrada como 600 invés de 60. Se nada for feito ao realizar o pré-processamento do conjunto de treino as referências para normalização e padronização gerará resultados muito concentrados próximos ao zero e o outlier irá se destacar muito frente aos demais podendo criando outro problema de escala para o modelo que quando inserido dados novos livres de outliers a variável poderá ser ignorada na avaliação. 
+
+Para solucionar isso temos dois tratamentos possíveis: 
+
+* Remoção de outliers
+
+Na etapa de análise da base, ao identificarmos outliers gerados por possível falha de registro dos dados podemos remover o dado. Essa abordagem é interessante se conseguirmos garantir que os dados novos virão corretos e que o outlier é um caso isolado.
+
+* Transformação logarítmica
+
+Se identificarmos que a base possui outliers que não são simples erros de registro do dado podemos recorrer a transformação logarítmica. Na base Stroke Prediction Dataset do Kaggle não temos nem um caso como esse mas vamos pensar em outro caso hipotético: 
+
+Estamos trabalhando com uma base do mercado imobiliário para venda de imóveis. Na região os imóveis ocilam de preço entre 200 mil e 500 mil reais. Porém, um palácio na mesma região foi vendido por 100 milhões de reais. Conseguem enxergar o problema? Não foi um erro de digitação e sim uma possibilidade real do mundo real. 
+
+O ser humano que mais viveu na história foi a francesa Jeanne Calment que viveu até os 122 anos: a ciência vem progredindo ao longo dos anos para aumentar a expectativa de vida do ser humano mas quando será que a ciência permitirá que seres humanos voltem a viver como Matusalém, que de acordo com a Bíblia viveu até os 969 anos? O corpo humano não é capaz de sustentar pessoas com IMC e nível de glicose no sangue muito superiores aos máximos do nosso conjunto de dados também.
+
+Sempre que os valores de uma variável explicativa puder variar em ordem de grandeza a transformação logarítmica deve ser considerada. Ela nada mais é que substituir o valor pelo seu log, que comumente é utilizado na base `e`:
+
+```{python}
+# Dados
+precoImoveis = [250000, 320000, 200000, 45000, 100000000, 500000]
+tipoImoveis = ['apartamento', 'casa', 'casa', 'apartamento', 'palacio', 'casa']
+dadosImoveis = pd.DataFrame({'tipoImovel': tipoImoveis, 'precoImovel': precoImoveis})
+
+# Transformação logarítmica
+dadosImoveis['precoImovel_log'] = np.log(dadosImoveis['precoImovel'])
+
+# Scatter plot
+plt.figure(figsize=(12,5))
+
+# Scatter original
+plt.subplot(1,2,1)
+plt.scatter(dadosImoveis.index, dadosImoveis['precoImovel'], color='blue')
+plt.title('Preço Imóvel - Original')
+plt.xlabel('Índice do imóvel')
+plt.ylabel('Preço do imóvel')
+
+# Scatter logarítmico
+plt.subplot(1,2,2)
+plt.scatter(dadosImoveis.index, dadosImoveis['precoImovel_log'], color='red')
+plt.title('Preço Imóvel - Pós transformação logarítmica')
+plt.xlabel('Índice do imóvel')
+plt.ylabel('Log do preço do imóvel')
+
+plt.tight_layout()
+plt.show()
+```
+
+Observe que para os dados originais, no gráfico, para quase todos os imóveis o preço aparece próximo a zero e o palácio está no topo do gráfico destoando dos demais, enquanto no gráfico em que houve transformação logarítmica o palácio continua claramente acima dos demais porém a diferença dos demais com eles mesmos é mais visível. Para os algorítmos de aprendizado de máquina essa diferença de escala no primeiro é igualmente notável e impactante para o ajuste do modelo.  
+
+Após essa transformação inicial a normalização ou a padronização podem ser feitas na sequência como for desejado. Se realizada no conjunto de treino, a transformação logarítimica precisa também ser realizada para dados novos, seja o conjunto de validação/teste ou dados de uso real.
 
 ## Normalização
 
+A normalização Min-Max (muitas vezes chamada simplesmente de normalização) é um método bem simples de ajustar dados. A ideia é pegar cada coluna de dados (variável explicativa) e transformá-lo de modo que seus valores fiquem dentro de um intervalo definido, normalmente de 0 a 1.
+
+O processo funciona assim:
+
+1. Obtem-se o valor de cada dado.
+
+2. Subtrai o valor mínimo da coluna.
+
+3. Divide pelo intervalo total (valor máximo da coluna – valor mínimo da coluna).
+
+Com isso, o menor valor vira 0 e o maior valor vira 1, e todos os outros ficam proporcionalmente entre eles.
+
+No Scikit-Learn, existe a função `MinMaxScaler()` que faz isso automaticamente, porém, a função pronta não nos fornece os valores de mínimo e máximo que serão utilizados nos dados novos. Por isso faremos isso sempre de forma manual para salvarmos essas referências. Uma vez definido o mínimo e o máximo da coluna pelo conjunto treino, os mesmos valores terão que ser utilizados para qualquer normalização feita no futuro.
+
+Segue abaixo a normalização das variáveis explicativas contínuas da base stroke (age, bmi, avg_glucose_level):
+
+```{python}
+# Definição  dos mínimos e máximos a serem utilizados
+print("Mínimo age:", x_strokeKfold['age'].min())
+print("Máximo age:", x_strokeKfold['age'].max())
+print("Mínimo avg_glucose_level:", x_strokeKfold['avg_glucose_level'].min())
+print("Máximo avg_glucose_level:", x_strokeKfold['avg_glucose_level'].max())
+print("Mínimo bmi:", x_strokeKfold['bmi'].min())
+print("Máximo bmi:", x_strokeKfold['bmi'].max())
+```
+
+A partir desses valores de mínimo e máximo para as variáveis explicativas contínuas faremos todas as normalizações daqui para frente:
+
+```{python}
+x_strokeKfold['age'] = (x_strokeKfold['age'] - 0.08)/(82.0-0.08)
+x_strokeKfold['avg_glucose_level'] = (x_strokeKfold['avg_glucose_level'] - 55.12)/(271.74-55.12)
+x_strokeKfold['bmi'] = (x_strokeKfold['bmi'] - 10.3)/(97.6-10.3)
+```
+
+Para floresta aleatória, o algoritmo de aprendizado de máquinas que será utilizado para esse problema tanto faz se é feito normalização ou padronização. Por simplicidade, seguiremos com a normalização para a base.
+
+## Padronização
+
+A padronização, diferente da normalização, não gera um resultado em um intervalo específico, porém os resultados tem média 0 e desvio padrão 1. 
+
+Isso se da pelo seu funcionamento:
+
+1. Obtem-se o valor de cada dado.
+
+2. Subtrai-se a média de cada valor, fazendo com que os dados fiquem centrados em torno de zero
+
+3. Divide-se o resultado pelo desvio padrão, de modo que os valores padronizados passem a ter desvio padrão igual a 1. 
+
+A padronização é, no geral, considerado melhor que a normalização para lidar com outliers, porém, para variáveis com outliers que variam dos demais dados em ordem de grandeza há a necessidade de um tratamento de outliers assim como o transformação anterior.
+
+Já fizemos a normalização. Essas transformações são mutuamente exclusivas. Porém, para fins didáticos, o código abaixo é como deverá ser feito (comentado quando for feito a redefinição das variáveis)
+
+```{python}
+print("Desvio padrão populacional de age:", np.std(x_strokeKfold['age']))
+print("Média de age:", np.mean(x_strokeKfold['age']))
+print("Desvio padrão populacional de avg_glucose_level:", np.std(x_strokeKfold['avg_glucose_level']))
+print("Média de avg_glucose_level:", np.mean(x_strokeKfold['avg_glucose_level']))
+print("Desvio padrão populacional de bmi:", np.std(x_strokeKfold['bmi']))
+print("Média de age:", np.mean(x_strokeKfold['bmi']))
+```
+
+Semelhante a normalização, esses valores são os que deverão ser utilizados para qualquer padronização futura:
+
+```{python}
+#x_strokeKfold['age'] = (x_strokeKfold['age'] - 43.4)/(22.49)
+#x_strokeKfold['avg_glucose_level'] = (x_strokeKfold['avg_glucose_level'] - 106.1)/(45.1)
+#x_strokeKfold['bmi'] = (x_strokeKfold['bmi'] - 28.9)/(7.8)
+```
+
+# Conclusão do pré-processamento
+
+Com todos os pré-processamentos realizados podemos partir para a construção do classificador.
+
+Antes disso temos algumas pendências a resolver: o KNN Imputation de `bmi` ainda não foi realizado. Ele necessitava dos demais tratamentos realizados para prosseguir, portanto segue abaixo:
+
+```{python}
+x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc('bmi')]
+```
+
+Observe o resultado do pré-processamento:
+
+```{python}
+pd.set_option("display.max_columns", None)
+print(x_strokeKfold)
+```
+
+Nenhuma coluna possui dados não numéricos, e entre os numéricos, todos estão entre zero e um (quando não apenas zero e um). Esse formato final é o ideal para a maioria dos algoritmos de aprendizado de máquinas. Se os dados contínuos tivessem sido padronizados invés de normalizados seria um pouco diferente desse intervalo porém não faria muita diferença na maioria dos casos.
+
+
 # Rebalanceamento
 
-Rebalanceamento de um conjunto de dados consiste em rebalancear as amostras da variável resposta para atender um objetivo específico. É a última etapa do pré-processamento e só pode ser realizada no conjunto de treino.
+Rebalanceamento de um conjunto de dados consiste em rebalancear as amostras da variável resposta para atender um objetivo específico. É posterior ao pré-processamento e só pode ser realizada no conjunto de treino.
 
-Esse passo não é necessário para todos os conjuntos de dados. Ele é necessário principalmente em conjuntos de dados em que uma das classes da variável resposta é muito mais presente entre as amostras do que a outra.
+Esse passo não é necessário para todos os conjuntos de dados, é usado principalmente em conjuntos de dados em que uma das classes da variável resposta é muito mais presente entre as amostras do que a outra.
 
 Como que está o balanceamento de stroke?
 
@@ -643,9 +860,9 @@ Ambos os tipos possuem vantagens e desvantagens, casos de uso melhor ou pior etc
 
 O undersampling é implementado no python pela classe `RandomUnderSampler` do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno.
 
-Como seria o melhor jeito de rebalancear a base stroke? Uma possibilidade é rebalancear para ter 50% dos pacientes com AVC e 50% sem AVC, esse seria o jeito mais intuitivo de seguir. Porém, ao adotar uma estratégia de rebalanceamento precisamos entender o foco do modelo que queremos criar. Qual o foco da predição de AVC? Para uso médico existe uma necessidade que o maior número possível de pacientes com AVC sejam corretamente diagnosticados, em outras palavras, especificidade é o foco número 1 desse modelo.
+Como seria o melhor jeito de rebalancear a base stroke? Uma possibilidade é rebalancear para ter 50% dos pacientes com AVC e 50% sem AVC, esse seria o jeito mais intuitivo de seguir. Porém, ao adotar uma estratégia de rebalanceamento precisamos entender o foco do modelo que queremos criar. Qual o foco da predição de AVC? Para uso médico existe uma necessidade que o maior número possível de pacientes com AVC sejam corretamente diagnosticados, em outras palavras, sensibilidade é o foco número 1 desse modelo.
 
-Podemos construir um modelo enviesado para diagnóstico de AVC e isso pode ser feito com uma base desbalanceada possuindo mais pacientes com AVC assim o modelo será treinado tendo em mente que a maioria das pessoas tem AVC resultando numa maior sensibilidade aos fatores que levam para o diagnóstico porém, não podemos também simplesmente sair classificando todos os pacientes com AVC. Precisamos gerar um modelo com acurácia e sensibilidade aceitáveis mas que maximize a especificidade. Encontrar um ponto de equilíbrio é essencial. Precisamos ainda entender o peso moral da nossa decisão de construção do modelo, afinal ao criar o viés para aumentar os diagnósticos de AVC resultará também em um aumento de diagnósticos incorretos a pacientes saudáveis.
+Podemos construir um modelo enviesado para diagnóstico de AVC e isso pode ser feito com uma base desbalanceada possuindo mais pacientes com AVC assim o modelo será treinado tendo em mente que a maioria das pessoas tem AVC resultando numa maior especificidade aos fatores que levam para o diagnóstico porém, não podemos também simplesmente sair classificando todos os pacientes com AVC. Precisamos gerar um modelo com acurácia e especificidade aceitáveis mas que maximize a sensibilidade. Encontrar um ponto de equilíbrio é essencial. Precisamos ainda entender o peso moral da nossa decisão de construção do modelo, afinal ao criar o viés para aumentar os diagnósticos de AVC resultará também em um aumento de diagnósticos incorretos a pacientes saudáveis.
 
 Outro ponto a se atentar é que ao rebalancear para diminuir a proporção da classe majoritária frente a minoritária no undersampling invariavelmente resultará em uma base com menos amostras que poderá gerar um modelo inferior simplesmente por ter sido treinado com menos dados. Podemos rebalancear a base mantendo a classe majoritaria levemente superior em número de amostras para utilizarmos mais dados para treinar o modelo. Isso vem com o custo de enviesarmos o modelo para a classe majoritária
 
@@ -700,21 +917,325 @@ print(y_strokeKfoldEnviesadoSemAVC.value_counts())
 
 A base enviesada para sem AVC que criamos possui 223 amostras de pacientes com AVC e 334 pacientes sem AVC.
 
-# Construção, validação cruzada e teste do modelo
+# Validação cruzada
 
-Com todos os pré-processamentos realizados podemos partir para a construção do classificador.
+Construiremos 3 modelos, um para cada balanceamento criado. Ajuste de hiperparâmetro, que normalmente é realizado nessa etapa, aumentaria em muito esse número, porém, não será realizado nesse caderno por simplicidade.
 
-## Análise dos resultados
+Utilizaremos a função de validação cruzada que foi declarada no início do caderno. Segue abaixo os resultados
+
+```{python}
+#Relembrando o cabeçalho da função:
+#testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo)
+print("Resultados base balanceada:")
+testeMetricasKFold(x_strokeKfoldBalanceado, y_strokeKfoldBalanceado, n_splits=10, random_state=11, funcaoAlgoritmo=RandomForestClassifier)
+
+print("\n\nResultados base enviesada para AVC:")
+testeMetricasKFold(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC, n_splits=10, random_state=11, funcaoAlgoritmo=RandomForestClassifier)
+
+print("\n\nResultados base enviesada para sem AVC:")
+testeMetricasKFold(x_strokeKfoldEnviesadoSemAVC, y_strokeKfoldEnviesadoSemAVC, n_splits=10, random_state=11, funcaoAlgoritmo=RandomForestClassifier)
+```
+
+Observe a média da sensibilidade e da especificidade de cada versão da base sobre o `RandomForestClassifier`. 
+
+A acurácia da validação cruzada nesse caso pode ser completamente dispensada uma vez que qualquer base rebalanceada não refletirá a distribuição dos dados reais ou do conjunto validação. Usando a base enviesada para com AVC como exemplo, 67.0% dos 95.0% mais 87.5% dos 5.0% dos dados seriam classificados corretamente e, portanto, uma estimativa de acurácia mais correta seria 68.0%, as bases com mais especificidade teriam uma melhor acurácia nesse caso.
+
+O foco maior era maximizar a sensibilidade, que o paciente que tenha AVC seja corretamente diagnosticado com AVC, sem prejudicar muito as demais métricas. Esses objetivos foram melhor refletidos com a base enviesa para AVC. Portanto esta será a base utilizada para treino do modelo final.
+
+Ela obteve resultados muito melhores em sensibilidade em relação a base balanceada sem perder muita especificidade, não é uma mudança de especificidade que justifica seu uso. Em relação a base enviesada para sem AVC, 72.6% de sensibilidade é muito inferior aos 87.5% da base enviesada para AVC, que possui 67.0% de especificidade que é um mínimo aceitável, mesmo sabendo que a base enviesada para sem AVC possui uma especificidade muito maior de 79.4%. 
+
+# Modelo final
+
+O modelo final será construido utilizando a base `x_strokeKfoldEnviesadoAVC` e `y_strokeKfoldEnviesadoAVC` inteiras, diferente da validação cruzada que foi realizado separação por kfolds no processso. Depois da construção testaremos o modelo usando o conjunto de validação para obter as métricas finais.
+
+Para inserir os dados do conjunto validação no preditor precisamos realizar os pré-processamentos necessários. A melhor forma de fazer isso é a partir de uma função que realiza todos os pré-processamentos para os dados novos definida em um arquivo separado e importada para o programa principal por conta da manutenibilidade ganha em códigos modularizados. Em `Resumo dos códigos` faremos esse procedimento. Aqui estamos preocupados apenas em realizar o pré-processamento de `x_strokeValidacao`.
+
+```{python}
+# Tratamento de NAs
+x_strokeValidacao = x_strokeValidacao.drop('id', axis=1)
+x_strokeValidacao = x_strokeValidacao.replace({
+    "gender": {"Other": 'Male'},          
+    "smoking_status": {"Unknown": 'never smoked'},
+    "bmi": {pd.NA: 28.1} 
+})
+
+# One-Hot encoding (Codificação de variáveis)
+colunasCategoricas = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+classesColCateg = [['Male', 'Female'], ['Yes', 'No'], ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked'], ['Urban', 'Rural'], ['formerly smoked', 'never smoked', 'smokes', 'Unknown']]
+# Para cada coluna
+for i in range(len(colunasCategoricas)):
+	  # Para cada classe de cada coluna
+	  for j in range(len(classesColCateg[i])):
+		    #Se for Dummy Variables descomente o seguinte if e continue:
+		    #if j == 0:
+			      #continue
+		    x_strokeValidacao[colunasCategoricas[i]+"_"+classesColCateg[i][j]] = (x_strokeValidacao[colunasCategoricas[i]] == classesColCateg[i][j]).astype(int)
+for coluna in colunasCategoricas:
+    x_strokeValidacao = x_strokeValidacao.drop(coluna, axis=1)
+
+# Normalização (Transformação de variáveis)
+x_strokeValidacao['age'] = (x_strokeValidacao['age'] - 0.08)/(82.0-0.08)
+x_strokeValidacao['avg_glucose_level'] = (x_strokeValidacao['avg_glucose_level'] - 55.12)/(271.74-55.12)
+x_strokeValidacao['bmi'] = (x_strokeValidacao['bmi'] - 10.3)/(97.6-10.3)
+```
+
+Segue abaixo a construção e validação do modelo final:
+
+```{python}
+model = RandomForestClassifier(random_state=11).fit(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC)
+predicoes = model.predict(x_strokeValidacao)
+vn, fp, fn, vp = confusion_matrix(y_strokeValidacao, predicoes).ravel()
+acuracia = (vp + vn) / (vp + vn + fp + fn)
+sensibilidade = vp / (vp + fn)
+especificidade = vn / (vn + fp)
+
+print("Acurácia:", acuracia)
+print("Sensibilidade:", sensibilidade)
+print("Especificidade:", especificidade)
+```
+
+Essas são as métricas do preditor no conjunto validação. Observe que houve uma perda significativa de acurácia em relação a acurácia calculada na validação cruzada. Isso se deve a diferença de proporção das classes com e sem AVC entre o conjunto validação e o conjunto usado durante a validação cruzada, utilizado para a construção do modelo final enviesado a detectar AVCs.
+
+# Reutilização de preditores
+
+Para reutilizar o preditor criado precisamos salvá-lo em um arquivo que possa ser lido posteriormente. Para isso utilizaremos o módulo pickle (biblioteca padrão do python).
+
+Normalmente ao salvar e carregar arquivos utilizamos arquivos do tipo texto, como os arquivos .csv. Quando os dados são lidos de um .csv eles são convertidos de texto para o formato a ser utilizado pelo programa pelo próprio pandas. Para nosso preditor isso não será possível, não é trivial recuperar o tipo de um preditor a partir de um arquivo texto. Precisamos armazenar suas informações em seu tipo devido, usando pickle, que utiliza arquivos binários invés de arquivo texto.
+
+Para salvar o preditor:
+``` python
+arq = open("preditor.pkl", "wb")
+pickle.dump(model, arq)
+arq.close()    
+```
+
+Para carregar o preditor a partir de um arquivo:
+``` python
+arq = open("preditor.pkl", "rb")
+model = pickle.load(arq)
+arq.close() 
+```
+
+Utilizamos a extensão de arquivo .pkl por convensão, assim sabemos que o arquivo foi gerado a partir do pickle.
 
 # Resumo dos códigos
 
 Ao longo do caderno foi apresentado diferentes tipos de pré-processamento numa sequência lógica focada no detalhamento das técnicas e não na construção do modelo final em si.
 
-Foi citado ainda que certos pré-processamentos possuem uma ordem para serem feitos e se são feitos sempre ou apenas no conjunto de treino. Isso tudo pode ter ficado confuso quando o foco for na cronologia do que deve ser feito de fato para criar um preditor.
+Foi citado ainda que certos pré-processamentos possuem uma ordem para serem realizados e se são feitos sempre ou apenas no conjunto de treino. Isso tudo pode ter ficado confuso quando o foco for na cronologia do que deve ser feito de fato para criar um preditor.
 
-Aqui nessa parte final do caderno terão todos os códigos do utilizados para a construção do modelo final para classificação de AVCs da base Stroke Prediction Dataset do Kaggle separados por arquivos e com instruções de uso com os pré-processamentos própriamente ordenados e sem os prints. Ideal para entender a visão macro do desenvolvimento de modelos com o uso das diversas técnicas de pré-processamento e sem o foco de explicação do uso de cada uma.
+Aqui nessa parte final do caderno terão todos os códigos utilizados para a construção do modelo final para classificação de AVCs da base Stroke Prediction Dataset do Kaggle separados por arquivos e com instruções de uso com os pré-processamentos própriamente ordenados e sem os prints. Ideal para entender a visão macro do desenvolvimento de modelos com o uso das diversas técnicas de pré-processamento e sem o foco de explicação do uso de cada uma.
 
+Arquivo **construcaoPreditor.py**
 ``` python
+import pandas as pd
+import pickle
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold
+from imblearn.under_sampling import RandomUnderSampler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.impute import KNNImputer
+
+def testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):
+    """Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""
+    # criação de uma lista para reutilização do generator 
+    kfBase = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state).split(XBase, YBase)
+    kfBaseLista = list(kfBase)
+  
+    # Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  
+    foldsBase = []
+    for K, (train, test) in enumerate(kfBaseLista, 1):
+        # Não guarda K porque não precisa, é o índice da lista mais 1.
+        foldsBase.append([list(train), list(test)])
+        #print("K:", K, "train:", len(train), "test:", len(test))
+  
+    # Criando os modelos individuais de cada fold
+    modelosIndividuais = []
+    for fold in foldsBase:
+        modelosIndividuais.append(funcaoAlgoritmo(random_state=random_state).fit(XBase.iloc[fold[0]], YBase.iloc[fold[0]]))
+
+    # Testando os modelos individuais de cada fold
+    acuraciaModelos = []
+    sensibilidadeModelos = []
+    especificidadeModelos = []
+    for i in range(len(modelosIndividuais)):
+        Y_predBase = modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][1]])
+        vn, fp, fn, vp = confusion_matrix(YBase.iloc[foldsBase[i][1]], Y_predBase).ravel()
+        acuracia = (vp + vn) / (vp + vn + fp + fn)
+        sensibilidade = vp / (vp + fn)
+        especificidade = vn / (vn + fp)
+        acuraciaModelos.append(acuracia)
+        sensibilidadeModelos.append(sensibilidade)
+        especificidadeModelos.append(especificidade)
+  
+    # Printando o compilado de métricas
+    print(f"Média da acurácia: {(sum(acuraciaModelos)/len(acuraciaModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da acurácia: {np.std(acuraciaModelos, ddof=0):.3f}\n")
+    print(f"Média da sensibilidade: {(sum(sensibilidadeModelos)/len(sensibilidadeModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da sensibilidade: {np.std(sensibilidadeModelos, ddof=0):.3f}\n")
+    print(f"Média da especificidade: {(sum(especificidadeModelos)/len(especificidadeModelos)*100):.1f}%")
+    print(f"Desvio padrão populacional da especificidade: {np.std(especificidadeModelos, ddof=0):.3f}\n")
+
+
+def construcaoPreditor():
+    
+    #Se for importar a base de um arquivo:
+    #Importando as bases
+    #trocar essa url pelo caminho da base Stroke Prediction Dataset de vocês.
+    stroke = pd.read_csv("Cadernos Grupo Python\\Pré-Processamento\\healthcare-dataset-stroke-data.csv")
+    # Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)
+    colunasCategoricas = list(stroke.select_dtypes(include=['object', 'category']).columns)
+
+    #Podemos invés de importar de um arquivo configurar a função para ja receber os dados desejados, sem nem necessidade de realizar separação.
+
+    # Salvando possíveis classes de todas as variáveis categóricas
+    classesColCateg = []
+    for coluna in colunasCategoricas:
+        #Exibindo as diferentes classes presentes em uma coluna com variável categórica
+        print(f"{coluna}: {list(stroke[coluna].unique())}")
+        classesColCateg.append(list(stroke[coluna].unique()))
+    
+
+    # Separação (não necessário se configuramos a função para receber diretamente os dados a serem utilizados)
+    x_strokeKfold, x_strokeValidacao, y_strokeKfold, y_strokeValidacao = train_test_split(stroke.drop(columns=['stroke']), stroke['stroke'], test_size=0.1, random_state=11)
+
+
+    # Tratamento de NAs
+    x_strokeKfold = x_strokeKfold.drop('id', axis=1)
+    x_strokeKfold = x_strokeKfold.replace({
+        "gender": {"Other": pd.NA},          
+        "smoking_status": {"Unknown": pd.NA} 
+    })
+    for i in range(len(classesColCateg)):
+        try:
+            classesColCateg[i].remove("Other")
+        except:
+            pass
+        try:
+            classesColCateg[i].remove("Unknown")
+        except:
+            pass
+    # Como estamos removendo uma linha do dataframe das variáveis explicativas, precisamos fazer o mesmo com a variável resposta, depois de tudo precisamos resetar os índices.
+    indices_eliminados = x_strokeKfold[x_strokeKfold["gender"].isna()].index
+    x_strokeKfold = x_strokeKfold.dropna(subset=["gender"])
+    y_strokeKfold = y_strokeKfold.drop(indices_eliminados)
+    x_strokeKfold = x_strokeKfold.reset_index(drop=True)
+    y_strokeKfold = y_strokeKfold.reset_index(drop=True)
+    # Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.
+    # para não ser um problema na codificação de variáveis.
+    # Não precisa fazer se já feito anteriormente.
+    try:
+        classesColCateg[colunasCategoricas.index("gender")].remove("Other")
+    except:
+        pass
+    x_strokeKfold = x_strokeKfold.replace({       
+        "smoking_status": {pd.NA: "never smoked"} #,
+        #"bmi": {pd.NA: 28.1} 
+    })
+
+
+    # One-Hot encoding (Codificação de Variáveis)
+    colunasCategoricas = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+    classesColCateg = [['Male', 'Female'], ['Yes', 'No'], ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked'], ['Urban', 'Rural'], ['formerly smoked', 'never smoked', 'smokes', 'Unknown']]
+    #Agora para criar as colunas novas basta adicioná-las uma a uma no dataframe:
+    # Para cada coluna
+    for i in range(len(colunasCategoricas)):
+        # Para cada classe de cada coluna
+        for j in range(len(classesColCateg[i])):
+            #Se for Dummy Variables descomente o seguinte if e continue:
+            #if j == 0:
+                #continue
+            x_strokeKfold[colunasCategoricas[i]+"_"+classesColCateg[i][j]] = (x_strokeKfold[colunasCategoricas[i]] == classesColCateg[i][j]).astype(int)
+    #Precisamos agora deletar as colunas originais:
+    for coluna in colunasCategoricas:
+        x_strokeKfold = x_strokeKfold.drop(coluna, axis=1)
+
+
+    # Normalização (Transformação de variáveis)
+    # Substituir os valores pelos respectivos mínimos e máximos
+    x_strokeKfold['age'] = (x_strokeKfold['age'] - 0.08)/(82.0-0.08)
+    x_strokeKfold['avg_glucose_level'] = (x_strokeKfold['avg_glucose_level'] - 55.12)/(271.74-55.12)
+    x_strokeKfold['bmi'] = (x_strokeKfold['bmi'] - 10.3)/(97.6-10.3)
+
+
+    # KNN Imputation
+    x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc('bmi')]
+
+
+    # Rebalanceamento
+    # Base enviesada para AVC
+    # definindo o número de amostras para sampling_strategy
+    nAmostrasMinoritaria = y_strokeKfold.value_counts()[1]
+    # criando a base enviesada para AVC
+    x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC = RandomUnderSampler(sampling_strategy={0: int(nAmostrasMinoritaria*0.67), 1: nAmostrasMinoritaria}, random_state=11).fit_resample(x_strokeKfold, y_strokeKfold)
+    
+    
+    # Validação cruzada pode ser feita aqui. 
+    #testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo)
+
+    # Construção e salvamento do modelo
+    model = RandomForestClassifier(random_state=11).fit(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC)
+    arq = open("preditor.pkl", "wb")
+    pickle.dump(model, arq)
+    arq.close()  
+
+if __name__ == "__main__":
+    construcaoPreditor()
+```
+
+Arquivo **preProcessamentoDadosNovos.py**
+``` python
+import pandas as pd
+
+def preProcessamentoDadosNovos(dadosNovos):
+    # Tratamento de NAs
+    dadosNovos = dadosNovos.drop('id', axis=1)
+    dadosNovos = dadosNovos.replace({
+        "gender": {"Other": 'Male'},          
+        "smoking_status": {"Unknown": 'never smoked'},
+        "bmi": {pd.NA: 28.1} 
+    })
+
+    # One-Hot encoding (Codificação de variáveis)
+    colunasCategoricas = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+    classesColCateg = [['Male', 'Female'], ['Yes', 'No'], ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked'], ['Urban', 'Rural'], ['formerly smoked', 'never smoked', 'smokes', 'Unknown']]
+    # Para cada coluna
+    for i in range(len(colunasCategoricas)):
+        # Para cada classe de cada coluna
+        for j in range(len(classesColCateg[i])):
+                #Se for Dummy Variables descomente o seguinte if e continue:
+                #if j == 0:
+                    #continue
+                dadosNovos[colunasCategoricas[i]+"_"+classesColCateg[i][j]] = (dadosNovos[colunasCategoricas[i]] == classesColCateg[i][j]).astype(int)
+    for coluna in colunasCategoricas:
+        dadosNovos = dadosNovos.drop(coluna, axis=1)
+
+    # Normalização (Transformação de variáveis)
+    dadosNovos['age'] = (dadosNovos['age'] - 0.08)/(82.0-0.08)
+    dadosNovos['avg_glucose_level'] = (dadosNovos['avg_glucose_level'] - 55.12)/(271.74-55.12)
+    dadosNovos['bmi'] = (dadosNovos['bmi'] - 10.3)/(97.6-10.3)
+```
+A função preProcessamentoDadosNovos deverá ser utilizada importando-a no arquivo utilizarPreditor.
+
+Arquivo **utilizarPreditor.py**
+``` python
+from .preProcessamentoDadosNovos import preProcessamentoDadosNovos
+import pandas as pd
+import pickle
+
+def utilizarPreditor():
+    dadosNovos = pd.read_csv("dadosNovos.csv")
+    dadosNovosPreProcessados = preProcessamentoDadosNovos(dadosNovos)
+    arq = open("preditor.pkl", "rb")
+    model = pickle.load(arq)
+    arq.close() 
+    predicoes = model.predict(dadosNovosPreProcessados)
+    return predicoes
+
+if __name__ == "__main__":
+    utilizarPreditor()
 ```
 
 ### Referencias
@@ -727,6 +1248,8 @@ Aqui nessa parte final do caderno terão todos os códigos do utilizados para a 
 
 -   https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html (KNN Imputation)
 
--   Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron (One-Hot encoding)
+-   Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron (One-Hot encoding, Transformação de Variáveis)
 
 -   An Introduction to Statistical Learning with Applications in R - Gereth James (Dummy Variables)
+
+-	Feature Engineering for Machine Learning: Principles and Techniques for Data Scientists - Alice Zheng, Amanda Casari (Transformação Logarítmica)

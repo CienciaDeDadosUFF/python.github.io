@@ -19,11 +19,11 @@ book:
       Equipe atual: Gabriel Caetano, Guilherme Ceacero, Claudionor Ferreira e Fenício Porto.
   repo-url: https://github.com/CienciaDeDadosUFF/python.github.io
   downloads: [pdf]
-  #repo-actions: false #apenas se versão do quarto > 1.4 
+  repo-actions: false #apenas se versão do quarto > 1.4 
   
   
   chapters:
-    - index.qmd
+    - "index.qmd"
     - "caderno2.qmd"
     - "ConceitosGeraisDeEstatistica.qmd"
     - "VisualizacaoDeDados.qmd"
