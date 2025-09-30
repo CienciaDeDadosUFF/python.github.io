@@ -440,12 +440,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#imports" id="toc-imports" class="nav-link active" data-scroll-target="#imports">Imports</a></li>
   <li><a href="#o-que-é-pré-processamento" id="toc-o-que-é-pré-processamento" class="nav-link" data-scroll-target="#o-que-é-pré-processamento">O que é Pré-Processamento?</a></li>
-  <li><a href="#análise-da-base" id="toc-análise-da-base" class="nav-link" data-scroll-target="#análise-da-base">Análise da base</a></li>
+  <li><a href="#descrição-da-base" id="toc-descrição-da-base" class="nav-link" data-scroll-target="#descrição-da-base">Descrição da base</a></li>
   <li><a href="#diretrizes-gerais-do-pré-processamento" id="toc-diretrizes-gerais-do-pré-processamento" class="nav-link" data-scroll-target="#diretrizes-gerais-do-pré-processamento">Diretrizes gerais do pré-processamento</a></li>
-  <li><a href="#seleção-de-atributos" id="toc-seleção-de-atributos" class="nav-link" data-scroll-target="#seleção-de-atributos">Seleção de atributos</a>
-  <ul class="collapse">
-  <li><a href="#nearzerovar" id="toc-nearzerovar" class="nav-link" data-scroll-target="#nearzerovar">NearZeroVar</a></li>
-  </ul></li>
+  <li><a href="#seleção-de-atributos" id="toc-seleção-de-atributos" class="nav-link" data-scroll-target="#seleção-de-atributos">Seleção de atributos</a></li>
   <li><a href="#tratamento-de-dados-faltantes" id="toc-tratamento-de-dados-faltantes" class="nav-link" data-scroll-target="#tratamento-de-dados-faltantes">Tratamento de dados faltantes</a>
   <ul class="collapse">
   <li><a href="#remoção" id="toc-remoção" class="nav-link" data-scroll-target="#remoção">Remoção</a>
@@ -466,14 +463,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#transformação-de-variáveis" id="toc-transformação-de-variáveis" class="nav-link" data-scroll-target="#transformação-de-variáveis">Transformação de variáveis</a>
   <ul class="collapse">
-  <li><a href="#padronização" id="toc-padronização" class="nav-link" data-scroll-target="#padronização">Padronização</a></li>
+  <li><a href="#tratamento-de-outliers" id="toc-tratamento-de-outliers" class="nav-link" data-scroll-target="#tratamento-de-outliers">Tratamento de outliers</a></li>
   <li><a href="#normalização" id="toc-normalização" class="nav-link" data-scroll-target="#normalização">Normalização</a></li>
+  <li><a href="#padronização" id="toc-padronização" class="nav-link" data-scroll-target="#padronização">Padronização</a></li>
   </ul></li>
+  <li><a href="#conclusão-do-pré-processamento" id="toc-conclusão-do-pré-processamento" class="nav-link" data-scroll-target="#conclusão-do-pré-processamento">Conclusão do pré-processamento</a></li>
   <li><a href="#rebalanceamento" id="toc-rebalanceamento" class="nav-link" data-scroll-target="#rebalanceamento">Rebalanceamento</a></li>
-  <li><a href="#construção-validação-cruzada-e-teste-do-modelo" id="toc-construção-validação-cruzada-e-teste-do-modelo" class="nav-link" data-scroll-target="#construção-validação-cruzada-e-teste-do-modelo">Construção, validação cruzada e teste do modelo</a>
-  <ul class="collapse">
-  <li><a href="#análise-dos-resultados" id="toc-análise-dos-resultados" class="nav-link" data-scroll-target="#análise-dos-resultados">Análise dos resultados</a></li>
-  </ul></li>
+  <li><a href="#validação-cruzada" id="toc-validação-cruzada" class="nav-link" data-scroll-target="#validação-cruzada">Validação cruzada</a></li>
+  <li><a href="#modelo-final" id="toc-modelo-final" class="nav-link" data-scroll-target="#modelo-final">Modelo final</a></li>
+  <li><a href="#reutilização-de-preditores" id="toc-reutilização-de-preditores" class="nav-link" data-scroll-target="#reutilização-de-preditores">Reutilização de preditores</a></li>
   <li><a href="#resumo-dos-códigos" id="toc-resumo-dos-códigos" class="nav-link" data-scroll-target="#resumo-dos-códigos">Resumo dos códigos</a>
   <ul class="collapse">
   <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
@@ -507,15 +505,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="imports" class="level1">
 <h1>Imports</h1>
 <p>Segue abaixo os módulos que usaremos nesse caderno:</p>
-<div id="44766cd4" class="cell" data-execution_count="2">
+<div id="f72efa4c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> KNNImputer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> mutual_info_classif</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> KNNImputer</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> RandomOverSampler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="o-que-é-pré-processamento" class="level1">
@@ -525,12 +528,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Pré-processamento tem duas etapas, uma logo depois da divisão dos dados, que será realizada também sempre que o preditor for utilizado, e uma posterior que será para o treinamento apenas.</p>
 <p>Os diferentes métodos de pré-processamento podem ser exclusivos entre si, ou seja, se fizer um não pode fazer o outro e vice-versa. Há contextos em que empregar um determinado método em detrimento do outro é importante. Ao longo da apresentação dos diferentes métodos ficará explicito todas essas questões.</p>
 </section>
-<section id="análise-da-base" class="level1">
-<h1>Análise da base</h1>
-<p>Nesse caderno usaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.</p>
+<section id="descrição-da-base" class="level1">
+<h1>Descrição da base</h1>
+<p>Nesse caderno utilizaremos a base Stroke Prediction Dataset do Kaggle, uma base que contém dados com diferentes tipos de variáveis explicativas, ideal para explorar os diferentes tipos de pré-processamento que apresentaremos.</p>
 <p>Segundo a Organização Mundial da Saúde (OMS), o AVC é a segunda principal causa de morte no mundo, sendo responsável por aproximadamente 11% do total de mortes.</p>
 <p>Este conjunto de dados é usado para prever a probabilidade de um paciente sofrer um AVC com base em parâmetros de entrada como sexo, idade, diversas doenças e tabagismo. Cada linha dos dados fornece informações relevantes sobre o paciente.</p>
-<div id="9b943d25" class="cell" data-execution_count="3">
+<div id="44fa15cf" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#trocar essa url pelo caminho da base Stroke Prediction Dataset de vocês.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stroke <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Pré-Processamento</span><span class="ch">\\</span><span class="st">healthcare-dataset-stroke-data.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stroke)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -592,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>smoking_status: formerly smoked, never smoked, smokes ou Unknown, status de fumante do paciente.</p></li>
 <li><p>stroke: variável resposta, 1 se o paciente teve um AVC 0 se não.</p></li>
 </ul>
-<p>Essa base é a que foi explorada em STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan, que traz uma análise profunda da base, além do uso de diferentes técnicas de aprendizado de máquina.</p>
+<p>Esta base é a que foi explorada em STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan, que traz uma análise exploratória profunda da base, além do uso de diferentes técnicas de aprendizado de máquina para classificar os pacientes.</p>
 </section>
 <section id="diretrizes-gerais-do-pré-processamento" class="level1">
 <h1>Diretrizes gerais do pré-processamento</h1>
@@ -616,16 +619,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Se por alguma razão quisermos alterar o pré-processamento ou qualquer outro aspecto da confecção do preditor devemos refazer a separação treino-teste-validação para não ocorrer o que chamamos de <strong>treino do teste</strong>: quando ajustamos os pré-processamentos ou a validação cruzada para gerar um resultado “melhor” no conjunto teste.</p>
 <p>Será utilizado o algoritmo random-forest para a confecção dos preditores.</p>
 <p>Um passo importante antes da separação do conjunto validação é salvar as possíveis classes de todas as variáveis categóricas:</p>
-<div id="2c983ea7" class="cell" data-execution_count="4">
+<div id="932bc26b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>colunasCategoricas <span class="op">=</span> <span class="bu">list</span>(stroke.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>, <span class="st">'category'</span>]).columns)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvando possíveis classes de todas as variáveis categóricas</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>classesColCateg <span class="op">=</span> []</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Exibindo as diferentes classes presentes em uma coluna com variável categórica</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>coluna<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">list</span>(stroke[coluna].unique())<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  classesColCateg.append(<span class="bu">list</span>(stroke[coluna].unique()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Exibindo as diferentes classes presentes em uma coluna com variável categórica</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>coluna<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">list</span>(stroke[coluna].unique())<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    classesColCateg.append(<span class="bu">list</span>(stroke[coluna].unique()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>gender: ['Male', 'Female', 'Other']
 ever_married: ['Yes', 'No']
@@ -638,59 +641,62 @@ smoking_status: ['formerly smoked', 'never smoked', 'smokes', 'Unknown']</code><
 <p>Nesse caso, vazamento de informações não é uma preocupação porque o modelo final só poderá aceitar amostras novas com o formato que foi treinado, o que inclui as classes possíveis de uma variável categórica. Portanto, precisamos utilizar todos os dados que possuímos a nossa disposização, mesmo que eventualmente uma das classes só esteje no conjunto validação, o pré-processamento precisa ter ciência de sua existência ao menos para poder criar colunas no processo de codificação de variáveis.</p>
 <p>Caso uma classe nova seja adicionada a uma das variáveis e, quisermos manter o modelo anterior, teremos que substituir ela por NA para realizar o tratamento de NA posteriormente. Podemos também simplesmente treinar um novo modelo para aceitar a classe nova, com o pré-processamento adaptado para a novidade.</p>
 <p>Segue abaixo a separação do conjunto validação, com 10% das amostras originais.</p>
-<div id="8ac089b3" class="cell" data-execution_count="5">
+<div id="127f29d8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold, x_strokeValidacao, y_strokeKfold, y_strokeValidacao <span class="op">=</span> train_test_split(stroke.drop(columns<span class="op">=</span>[<span class="st">'stroke'</span>]), stroke[<span class="st">'stroke'</span>], test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Segue abaixo uma função para testar o preditor com reamostragem por kfold pelas métricas de acurácia, sensibilidade e especificidade (a mesma função do capítulo de reamostragem do caderno de validação cruzada):</p>
-<div id="0485ed92" class="cell" data-execution_count="6">
+<div id="104e1b1b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># criação de uma lista para reutilização do generator </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  kfBase <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span>n_splits, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>random_state).split(XBase, YBase)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  kfBaseLista <span class="op">=</span> <span class="bu">list</span>(kfBase)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># criação de uma lista para reutilização do generator </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    kfBase <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span>n_splits, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>random_state).split(XBase, YBase)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    kfBaseLista <span class="op">=</span> <span class="bu">list</span>(kfBase)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  foldsBase <span class="op">=</span> []</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> K, (train, test) <span class="kw">in</span> <span class="bu">enumerate</span>(kfBaseLista, <span class="dv">1</span>):</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Não guarda K porque não precisa, é o índice da lista mais 1.</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    foldsBase.append([<span class="bu">list</span>(train), <span class="bu">list</span>(test)])</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("K:", K, "train:", len(train), "test:", len(test))</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    foldsBase <span class="op">=</span> []</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> K, (train, test) <span class="kw">in</span> <span class="bu">enumerate</span>(kfBaseLista, <span class="dv">1</span>):</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Não guarda K porque não precisa, é o índice da lista mais 1.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        foldsBase.append([<span class="bu">list</span>(train), <span class="bu">list</span>(test)])</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print("K:", K, "train:", len(train), "test:", len(test))</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Criando os modelos individuais de cada fold</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  modelosIndividuais <span class="op">=</span> []</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> fold <span class="kw">in</span> foldsBase:</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    modelosIndividuais.append(funcaoAlgoritmo(random_state<span class="op">=</span>random_state).fit(XBase.iloc[fold[<span class="dv">0</span>]], YBase.iloc[fold[<span class="dv">0</span>]]))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Criando os modelos individuais de cada fold</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    modelosIndividuais <span class="op">=</span> []</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> foldsBase:</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        modelosIndividuais.append(funcaoAlgoritmo(random_state<span class="op">=</span>random_state).fit(XBase.iloc[fold[<span class="dv">0</span>]], YBase.iloc[fold[<span class="dv">0</span>]]))</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Testando os modelos individuais de cada fold</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  acuraciaModelos <span class="op">=</span> []</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  sensibilidadeModelos <span class="op">=</span> []</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  especificidadeModelos <span class="op">=</span> []</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(modelosIndividuais)):</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    Y_predBase <span class="op">=</span> modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][<span class="dv">1</span>]])</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    vn, fp, fn, vp <span class="op">=</span> confusion_matrix(YBase.iloc[foldsBase[i][<span class="dv">1</span>]], Y_predBase).ravel()</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    acuraciaModelos.append(acuracia)</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    sensibilidadeModelos.append(sensibilidade)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    especificidadeModelos.append(especificidade)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Testando os modelos individuais de cada fold</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    acuraciaModelos <span class="op">=</span> []</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    sensibilidadeModelos <span class="op">=</span> []</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    especificidadeModelos <span class="op">=</span> []</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(modelosIndividuais)):</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        Y_predBase <span class="op">=</span> modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][<span class="dv">1</span>]])</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        vn, fp, fn, vp <span class="op">=</span> confusion_matrix(YBase.iloc[foldsBase[i][<span class="dv">1</span>]], Y_predBase).ravel()</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        acuraciaModelos.append(acuracia)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        sensibilidadeModelos.append(sensibilidade)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        especificidadeModelos.append(especificidade)</span>
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Printando o compilado de métricas</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da acurácia: </span><span class="sc">{</span>(<span class="bu">sum</span>(acuraciaModelos)<span class="op">/</span><span class="bu">len</span>(acuraciaModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da acurácia: </span><span class="sc">{</span>np<span class="sc">.</span>std(acuraciaModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da sensibilidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(sensibilidadeModelos)<span class="op">/</span><span class="bu">len</span>(sensibilidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da sensibilidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(sensibilidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Média da especificidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(especificidadeModelos)<span class="op">/</span><span class="bu">len</span>(especificidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da especificidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(especificidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Printando o compilado de métricas</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da acurácia: </span><span class="sc">{</span>(<span class="bu">sum</span>(acuraciaModelos)<span class="op">/</span><span class="bu">len</span>(acuraciaModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da acurácia: </span><span class="sc">{</span>np<span class="sc">.</span>std(acuraciaModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da sensibilidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(sensibilidadeModelos)<span class="op">/</span><span class="bu">len</span>(sensibilidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da sensibilidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(sensibilidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da especificidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(especificidadeModelos)<span class="op">/</span><span class="bu">len</span>(especificidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da especificidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(especificidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Essa função será utilizada para testar o modelo assim que passarmos pelas etapas iniciais obrigatórias de pré-processamento mencionadas. É uma simples função de validação cruzada.</p>
 </section>
 <section id="seleção-de-atributos" class="level1">
 <h1>Seleção de atributos</h1>
-<p>O primeiro passo do pré-processamento é a seleção de atributos.</p>
-<section id="nearzerovar" class="level2">
-<h2 class="anchored" data-anchor-id="nearzerovar">NearZeroVar</h2>
-</section>
+<p>O primeiro passo do pré-processamento é a seleção de atributos. Reponder a seguinte pergunta: quais variáveis explicativas são minimamente relevantes para o problema?</p>
+<p>Digamos que junto dos dados de stroke houvesse um e-mail de contato do paciente, essa informação não será relevante para o treinamento do algoritmo porque o e-mail não é um fator determinístico para diagnóstico de AVC, é uma informação extra. Uma coluna que podemos remover usando essa alusão é o campo <code>id</code>, que é apenas um identificador numérico para o determinado paciente, não guarda informações para o processamento portanto deve ser removido afim de evitar qualquer tipo de correlação expúria com AVC que ele poderá trazer ao modelo.</p>
+<div id="31f310db" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.drop(<span class="st">'id'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esse processo de remoção da coluna id deverá ser repetido nos dados novos, isto é, tanto no conjunto validação quanto nos dados de uso real.</p>
+<p>Mas e quando as colunas que não influenciam no modelo não forem tão óbvias? Existem diversas análises que podem ser feitas durante a etapa de análise exploratória dos dados para determinar isso. O scikit-learn possui uma função chamada <code>mutual_info_classif()</code> que estima a dependência estatística (via informação mútua) entre cada variável explicativa e a variável alvo. Ela exige uma base livre de NAs e com as variáveis categóricas devidamente codificadas. Como isso ainda será ainda realizado não iremos exemplificar seu uso aqui.</p>
 </section>
 <section id="tratamento-de-dados-faltantes" class="level1">
 <h1>Tratamento de dados faltantes</h1>
@@ -699,8 +705,8 @@ smoking_status: ['formerly smoked', 'never smoked', 'smokes', 'Unknown']</code><
 <p>O correto seria realizar esse estudo durante a anális exploratória dos dados, antes da separação do conjunto validação, porém, para manter o escopo do caderno e por simplicidade, isso não foi feito.</p>
 <p>Realizamos essa separação no início do caderno também para não abrir a possiblidade de interpretação deste procedimento como uma etapa do tratamento de dados faltantes ou como algo que precisa ser feito depois disso, que estaria incorreto pôs alguns métodos que falaremos aqui exigem essa separação feita de antemão.</p>
 <p>Observe a contagem dos valores da coluna <code>smoking_status</code> de stroke:</p>
-<div id="ae7170f8" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">"smoking_status"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b25fdda1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">"smoking_status"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>smoking_status
 never smoked       1687
@@ -712,8 +718,8 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>1383 dos 4599 são Unknown. Concordam que essa categoria de smoking_status é na realidade um NA?</p>
 <p>Observe agora a distribuição de dados da coluna <code>gender</code> de stroke:</p>
-<div id="4fa9c941" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">"gender"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="999003a7" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">"gender"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>gender
 Female    2689
@@ -725,18 +731,17 @@ Name: count, dtype: int64</code></pre>
 <p>É um pouco controverso essa abordagem dado a politização do assunto, mas como se trata de dados para uso médico, uma pessoa de sexo outro precisa ser tratada como NA também porque a orientação de gênero do paciente não é determinante para o diagnóstico de AVC enquanto o sexo natural é.</p>
 <p>Na base stroke essas são as únicas colunas que possuem dados faltantes que não são simples NAs. Ao realizar o tratamento de dados faltantes é importante se atentar com esse tipo de valor para todas as variáveis explicativas.</p>
 <p>Vamos converter esses valores para NA para que possamos tratá-los como tal a seguir. Para isso usaremos o método <code>.replace</code> de um dataframe do pandas</p>
-<div id="5e9df10d" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gender"</span>: {<span class="st">"Other"</span>: pd.NA},          </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"smoking_status"</span>: {<span class="st">"Unknown"</span>: pd.NA} </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cfc55e93" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gender"</span>: {<span class="st">"Other"</span>: pd.NA},          </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"smoking_status"</span>: {<span class="st">"Unknown"</span>: pd.NA} </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quantos NAs temos agora? Para ver isso podemos usar o seguinte método:</p>
-<div id="41a3ab45" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b542f1d6" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>id                      0
-gender                  1
+<pre><code>gender                  1
 age                     0
 hypertension            0
 heart_disease           0
@@ -749,6 +754,18 @@ smoking_status       1383
 dtype: int64</code></pre>
 </div>
 </div>
+<p>Como convertemos “Other” e “Unknown” como NA precisaremos remover esses valores dos possíveis da variável classesColCateg:</p>
+<div id="590d2db8" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg)):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>      <span class="cf">try</span>:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            classesColCateg[i].remove(<span class="st">"Other"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">except</span>:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">try</span>:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            classesColCateg[i].remove(<span class="st">"Unknown"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">except</span>:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Além dos NAs imputados temos 184 NAs na variável bmi.</p>
 <section id="remoção" class="level2">
 <h2 class="anchored" data-anchor-id="remoção">Remoção</h2>
@@ -760,13 +777,22 @@ dtype: int64</code></pre>
 <p>No conjunto de dados existe uma amostra que na varíavel <code>gender</code> possui um NA que foi gerado por conta do valor “Other”. Seguindo a lógica que usamos na conversão desse dado em NA, podemos defender a remoção inteira dessa amostra, justamente por ter sido problema pontual na coleta dos dados, a titúlo de tratamento de base, em uma situação real o sexo do paciente é uma informação necessária para o tratamento médico de pacientes com AVC e estará sempre disponível.</p>
 <p>Como se trata de apenas uma amostra entre as 4598 essa solução é o suficiente. Se a presença de NAs nessa coluna causada por esta razão fosse mais expressiva alguma outra estratégia seria necessária. Precisamos nesse tratamento remover as amostras com valor “Other” em <code>gender</code> do conjunto validação, que já não possuia nenhum por a caso.</p>
 <p>Para remover o NA de <code>gender</code>:</p>
-<div id="6d508d69" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Como estamos removendo uma linha do dataframe precisamos resetar o índice.</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.dropna(subset<span class="op">=</span>[<span class="st">"gender"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># para não ser um problema na codificação de variáveis.</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>classesColCateg[colunasCategoricas.index(<span class="st">"gender"</span>)].remove(<span class="st">"Other"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d3863dbe" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Como estamos removendo uma linha do dataframe das variáveis explicativas, precisamos fazer o mesmo com a variável resposta, depois de tudo precisamos resetar os índices.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>indices_eliminados <span class="op">=</span> x_strokeKfold[x_strokeKfold[<span class="st">"gender"</span>].isna()].index</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.dropna(subset<span class="op">=</span>[<span class="st">"gender"</span>])</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>y_strokeKfold <span class="op">=</span> y_strokeKfold.drop(indices_eliminados)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>y_strokeKfold <span class="op">=</span> y_strokeKfold.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># para não ser um problema na codificação de variáveis.</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Não precisa fazer se já feito anteriormente.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>      classesColCateg[colunasCategoricas.index(<span class="st">"gender"</span>)].remove(<span class="st">"Other"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span>:</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esse código funciona para caso hajam mais NAs na coluna também.</p>
 </section>
@@ -795,9 +821,9 @@ dtype: int64</code></pre>
 <p>Para variáveis contínuas podemos usar qualquer um, embora a moda não faça tanto sentido. Determinar entre usar a mediana e a média depende de uma análise da dispersão dos dados. Se entendermos que o conjunto de dados possuam amostras com valores muito destoantes, isso é, muitos <em>outliers</em>, não devemos usar a média. Definir um valor arbitrário a ser utilizado exige um entendimento profundo do dado e do assunto, que se for o caso sempre será uma boa opção.</p>
 <p>Importante é que se for optado por usar qualquer valor padrão a decisão precisa ser tomada independente do conjunto validação ou de dados novos do uso real: precisamos determinar o valor a ser usado a priori e salvá-lo no pré-processamento, sem haver redefinição dele por uso de um diferente conjunto de dados. Isso é feito para evitar vazamento de dados no caso do uso do conjunto validação e para evitar que o tratamento de NAs dos dados novos seja feito com base neles apenas, que poderia gerar um péssimo resultado.</p>
 <p>Usaremos a mediana para os dados faltantes do <code>bmi</code> e a moda para o <code>smoking_status</code> para definir valores padrões para as respectivas variáveis independentes a partir dos dados do conjunto treino.</p>
-<div id="93a13aae" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">'bmi'</span>].median())</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">'smoking_status'</span>].mode())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b68d0b24" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">'bmi'</span>].median())</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold[<span class="st">'smoking_status'</span>].mode())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>28.1
 0    never smoked
@@ -805,11 +831,11 @@ Name: smoking_status, dtype: object</code></pre>
 </div>
 </div>
 <p>A mediana do bmi é 28.1 e a moda do smoking_status é never smoked. Utilizaremos KNN Impute, que será apresentado em breve, para tratar os NAs de bmi, enquanto, para smoking_status, a estratégia de valor padrão. Para realizar a substituição de dados faltantes faremos do seguinte modo:</p>
-<div id="119f656b" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({       </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"smoking_status"</span>: {pd.NA: <span class="st">"never smoked"</span>} <span class="co">#,</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"bmi": {pd.NA: 28.1} </span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9b3a3cdf" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({       </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"smoking_status"</span>: {pd.NA: <span class="st">"never smoked"</span>} <span class="co">#,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"bmi": {pd.NA: 28.1} </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Observe que os valores foram definidos manualmente, sem passar as funções novamente. Devemos comentar o código que usamos para calcular e imprimir na tela a mediana e a moda, podemos até removê-lo, só não podemos deixá-lo executando na função final de pré-processamento.</p>
 </section>
@@ -832,19 +858,19 @@ Name: smoking_status, dtype: object</code></pre>
 <section id="knn-imputation" class="level4">
 <h4 class="anchored" data-anchor-id="knn-imputation">KNN Imputation</h4>
 <p>O KNN Imputation é um método que, baseado nos vizinhos mais próximos, determina valores para a variável explicativa com dados faltantes do conjunto de dados.</p>
-<p>O algoritmo é excelente para situações com poucos NAs na base de dados e em que há certa correlação entre as variáveis explicativas.</p>
+<p>O algoritmo é excelente para situações com poucos NAs na base de dados e em que há certa correlação entre as variáveis explicativas. Ele é melhor utilizado para o tratamento de dados faltantes em variáveis contínuas já que é um regressor.</p>
 <p>Essa restrição de qualidade para o número de NAs é global para todas as variáveis do conjunto de dados: se houver NAs em demasiado em diversas colunas o substituto será pior, especialmente se a presença de NAs for alta na variável explicativa que quisermos substituir por esse método. Portanto, ele deverá ser o último método de tratamento de NA a ser utilizado ao optarmos por utilizá-lo. Em relação a correlação entre as variáveis explicativas, se não houver, o KNN Imputation será incapaz de predizer bons substitutos aos dados faltantes.</p>
 <p>Como utilizaremos o KNN Imputation no conjunto de dados stroke? A variável explicativa smoking_status possui muitos NAs, cerca de 1/3 de todas as amostras, então seu tratamento por KNN Imputation não seria uma boa abordagem. Já para a variável explicativa bmi, apenas cerca de 5% da base são NAs e, mediante a uma análise de correlação e causalidade, podemos observar que há dependencia entre variáveis explicativas com a variável bmi, logo, o KNN Imputation será capaz de produzir bons substitutos para essa variável, possivelmente melhor que um simples valor padrão.</p>
 <p>Outra característica do KNN Imputation é que a análise é feita baseada em vizinhos, então uma base de dados ordenada por uma ou outra métrica será capaz de trazer melhores substitutos.</p>
-<p>Como o KNN Imputation realiza a substituição baseada em semelhanças entre amostras vizinhas por isso ele só poderá ser utilizado para os dados de treino uma vez que não há como garantir que em uso real os dados inseridos serão o suficiente para realizar o tratamento de NA com o uso do algoritmo. Para os dados de uso real ou teste outras estratégias terão que ser utilizadas.</p>
+<p>Como o KNN Imputation realiza a substituição baseada em semelhanças entre amostras vizinhas por isso <strong>ele só poderá ser utilizado para os dados de treino</strong> uma vez que não há como garantir que em uso real os dados inseridos serão o suficiente para realizar o tratamento de NA com o uso do algoritmo. Para os dados de uso real ou teste outras estratégias terão que ser utilizadas. Para a base stroke será utilizado KNN Imputation para tratar os dados faltantes de <code>bmi</code>, porém para novos dados o valor padrão 28.1 para bmi será utilizado.</p>
 <p>A implementação do KNN Imputation do scikit-learn exige as variáveis já codificadas para funcionar: não serão aceitos dados categóricos. É necessário também fazer transformação de variáveis contínuas, seja por padronização, normalização ou outro método devido a alta sensíbilidade a diferenças nas escalas entre as variáveis explicativas do método. Esses pontos serão discutidos em próximos tópicos do caderno.</p>
-<p>Apresentaremos o código para a substituição por KNN Imputation aqui, porém só será de fato utilizado na base depois que fizermos a codificação e transformação das variáveis.</p>
-<div id="d94c5ebb" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comentado para usar depois das transformações e codificações de variáveis</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)['bmi']</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Apresentaremos o código para a substituição por KNN Imputation aqui, porém só será de fato utilizado na base depois que fizermos a codificação e transformação das variáveis, na conclusão do pré-processamento.</p>
+<div id="95d39d82" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comentado para usar depois das transformações e codificações de variáveis</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#x_strokeKfold['bmi'] = KNNImputer(n_neighbors=10).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc('bmi')]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Observe que o <code>KNNImputer</code> recebe o argumento <code>n_neighbors</code>: precisamos especificar com quantos vizinhos o algoritmo usará, quanto mais vizinhos mais pesado será o processamento.</p>
-<p>Ao utilizar o KNN Imputation todos os NAs serão substituídos. Com excessão do bmi, os dados faltantes de todas as variáveis do conjunto stroke já foram tratados porém, se realizarmos algum outro tratamento posterior ao KNNImputer, precisaremos especificar a coluna como feito no código de exemplo.</p>
+<p>Observe que o <code>KNNImputer</code> recebe o argumento <code>n_neighbors</code>: precisamos especificar com quantos vizinhos o algoritmo usará, quanto mais vizinhos mais pesado será o processamento e mais dados serão considerados para a imputação.</p>
+<p>Depois de rodar o KNNImputer o código tem a seguinte indexação: <code>[:, x_strokeKfold.columns.get_loc('bmi')]</code> isso foi realizado para salvar em x_strokeKfold apenas o resultao do KNNImputer de bmi. O resultado da função é uma lista de listas numpy com todos os valores NAs preenchidos, ao realizar essa indexação estaremos salvando apenas os valores da coluna bmi. Com excessão do bmi, os dados faltantes de todas as variáveis do conjunto stroke já foram tratadas então não havia necessidade colocar essa restrição, porém, se realizarmos algum outro tratamento de NAs posterior ao KNNImputer, precisaremos especificar a coluna como feito no código de exemplo para que dados faltantes possam ser tratados diferentemente como for desejado.</p>
 </section>
 </section>
 </section>
@@ -1038,40 +1064,475 @@ Name: smoking_status, dtype: object</code></pre>
 </div>
 <p>A diferença entre One-Hot encoding e Dummy Variables fica bem explícita quando observamos a codificação de work_type: quando for <code>children</code> nenhum ficará marcado, estará implícito que é children.</p>
 <p>Observe que a ordem das categorias que os dados estão organizados e as categorias presentes não influenciam na criação das colunas. Self_employed é sempre zero porque em nenhum das 7 amostras ele aparece mas a coluna está lá do mesmo jeito. Isso ocorre porque as colunas serão criadas pela variável classesColCateg que definimos no início do caderno que contém todas as possíveis categorias de cada uma das variáveis explicativas.</p>
-<ul>
-<li>Quando usar One-Hot encoding ou Dummy Variables?</li>
-</ul>
-<p>A codificação por One-Hot encoding é ideal para modelos que não sofrem com multicolinearidade, como algoritmos baseados em árvores de decisão, essa codificação permite que cada categoria seja explorada livremente pelo modelo. Para modelos lineares como regressão logística a colinearidade perfeita do one-hot encoding está associada a redução de acurácia. Ao reduzir uma variável o problema da colinearidade será atenuado.</p>
-<p>Como usaremos o RandomForest, um modelo baseado em árvores, usaremos codificação por One-Hot encoding.</p>
-<p>Segue abaixo a codificação das variáveis explicativas categóricas:</p>
-<div id="ea788b84" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>classesColCateg</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>colunasCategoricas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']</code></pre>
+<p><strong>Quando usar One-Hot encoding ou Dummy Variables?</strong></p>
+<p>A codificação por One-Hot encoding é ideal para modelos que não sofrem com multicolinearidade, como algoritmos baseados em árvores de decisão, essa codificação permite que cada categoria seja explorada livremente pelo modelo. Para modelos lineares como regressão logística a colinearidade perfeita do one-hot encoding está associada a redução de acurácia. Ao reduzir uma variável o problema da colinearidade será atenuado e portanto Dummy Variables é a melhor escolha.</p>
+<p>Como utilizaremos o RandomForest, um modelo baseado em árvores, seguiremos com codificação por One-Hot encoding.</p>
+<p>Para codificar as variáveis explicativas utilizaremos as variáveis <code>classesColCateg</code> e <code>colunasCategoricas</code> que foi criada no início do pré-processamento. Elas possuem a relação de colunas categóricas e seus possíveis valores.</p>
+<p>O scikit-learn possui uma função que cria as colunas a partir de one-hot encoding, porém ela só funcionária se os dados que forem inseridos sempre tiverem todos os valores possíveis, o que não é possível de garantir, portanto é aconselhável criar as colunas manualmente pelo pandas a partir da variável que mapeia os valores possíveis criada anteriormente.</p>
+<p>Essas variáveis que criamos precisam estar salvas no código, não podemos fazer essa coleta sempre pelo mesmo problema da função pronta do scikit-learn. Segue abaixo os valores das variáveis salvas anteriormente:</p>
+<div id="84a196a5" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(colunasCategoricas)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classesColCateg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+[['Male', 'Female'], ['Yes', 'No'], ['Private', 'Self-employed', 'Govt_job', 'children', 'Never_worked'], ['Urban', 'Rural'], ['formerly smoked', 'never smoked', 'smokes']]</code></pre>
 </div>
+</div>
+<p>Para deixá-las salvas no código é simplesmente iniciá-las já com os valores salvos da análise que fizemos. Esse é o código que precisa estar no arquivo de pré-processamento, que será o mesmo para o treinamento e para realizar o pré-processamento de dados novos posteriormente:</p>
+<div id="ea56abfd" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>colunasCategoricas <span class="op">=</span> [<span class="st">'gender'</span>, <span class="st">'ever_married'</span>, <span class="st">'work_type'</span>, <span class="st">'Residence_type'</span>, <span class="st">'smoking_status'</span>]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>classesColCateg <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="st">'Female'</span>], [<span class="st">'Yes'</span>, <span class="st">'No'</span>], [<span class="st">'Private'</span>, <span class="st">'Self-employed'</span>, <span class="st">'Govt_job'</span>, <span class="st">'children'</span>, <span class="st">'Never_worked'</span>], [<span class="st">'Urban'</span>, <span class="st">'Rural'</span>], [<span class="st">'formerly smoked'</span>, <span class="st">'never smoked'</span>, <span class="st">'smokes'</span>, <span class="st">'Unknown'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Agora para criar as colunas novas basta adicioná-las uma a uma no dataframe:</p>
+<div id="9d05663f" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para cada coluna</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(colunasCategoricas)):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Para cada classe de cada coluna</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg[i])):</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            <span class="co">#Se for Dummy Variables descomente o seguinte if e continue:</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>            <span class="co">#if j == 0:</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                  <span class="co">#continue</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            x_strokeKfold[colunasCategoricas[i]<span class="op">+</span><span class="st">"_"</span><span class="op">+</span>classesColCateg[i][j]] <span class="op">=</span> (x_strokeKfold[colunasCategoricas[i]] <span class="op">==</span> classesColCateg[i][j]).astype(<span class="bu">int</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(x_strokeKfold[colunasCategoricas[i]<span class="op">+</span><span class="st">"_"</span><span class="op">+</span>classesColCateg[i][j]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0       1
+1       1
+2       0
+3       1
+4       0
+       ..
+4593    1
+4594    1
+4595    0
+4596    0
+4597    1
+Name: gender_Male, Length: 4598, dtype: int64
+0       0
+1       0
+2       1
+3       0
+4       1
+       ..
+4593    0
+4594    0
+4595    1
+4596    1
+4597    0
+Name: gender_Female, Length: 4598, dtype: int64
+0       1
+1       1
+2       1
+3       1
+4       0
+       ..
+4593    1
+4594    1
+4595    1
+4596    1
+4597    1
+Name: ever_married_Yes, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       0
+4       1
+       ..
+4593    0
+4594    0
+4595    0
+4596    0
+4597    0
+Name: ever_married_No, Length: 4598, dtype: int64
+0       1
+1       0
+2       0
+3       0
+4       1
+       ..
+4593    0
+4594    1
+4595    1
+4596    1
+4597    1
+Name: work_type_Private, Length: 4598, dtype: int64
+0       0
+1       1
+2       1
+3       0
+4       0
+       ..
+4593    1
+4594    0
+4595    0
+4596    0
+4597    0
+Name: work_type_Self-employed, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       1
+4       0
+       ..
+4593    0
+4594    0
+4595    0
+4596    0
+4597    0
+Name: work_type_Govt_job, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       0
+4       0
+       ..
+4593    0
+4594    0
+4595    0
+4596    0
+4597    0
+Name: work_type_children, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       0
+4       0
+       ..
+4593    0
+4594    0
+4595    0
+4596    0
+4597    0
+Name: work_type_Never_worked, Length: 4598, dtype: int64
+0       1
+1       1
+2       1
+3       1
+4       0
+       ..
+4593    1
+4594    0
+4595    1
+4596    1
+4597    1
+Name: Residence_type_Urban, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       0
+4       1
+       ..
+4593    0
+4594    1
+4595    0
+4596    0
+4597    0
+Name: Residence_type_Rural, Length: 4598, dtype: int64
+0       1
+1       0
+2       0
+3       0
+4       0
+       ..
+4593    0
+4594    0
+4595    1
+4596    0
+4597    0
+Name: smoking_status_formerly smoked, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       1
+4       1
+       ..
+4593    0
+4594    0
+4595    0
+4596    1
+4597    1
+Name: smoking_status_never smoked, Length: 4598, dtype: int64
+0       0
+1       1
+2       1
+3       0
+4       0
+       ..
+4593    1
+4594    1
+4595    0
+4596    0
+4597    0
+Name: smoking_status_smokes, Length: 4598, dtype: int64
+0       0
+1       0
+2       0
+3       0
+4       0
+       ..
+4593    0
+4594    0
+4595    0
+4596    0
+4597    0
+Name: smoking_status_Unknown, Length: 4598, dtype: int64</code></pre>
+</div>
+</div>
+<p>Precisamos agora deletar as colunas originais:</p>
+<div id="f6a8e1b8" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.drop(coluna, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="transformação-de-variáveis" class="level1">
 <h1>Transformação de variáveis</h1>
-<section id="padronização" class="level2">
-<h2 class="anchored" data-anchor-id="padronização">Padronização</h2>
+<p>No contexto de ciência de dados e machine learning, transformação de variáveis é o processo de modificar ou converter os dados originais para que fiquem em um formato ou escala mais adequada para análise ou para um modelo de aprendizado. O objetivo principal é melhorar a performance do modelo e facilitar a interpretação dos dados.</p>
+<p>A maioria dos algoritmos de machine learning não se sai bem quando os números que representam os dados estão em escalas muito diferentes. Por exemplo, nos dados de stroke, o <code>bmi</code> (IMC) varia de 10.3 a 97.6 enquanto o <code>avg_glucose_level</code> (nível de glicose médio) varia de 55.12 a 271.74. Uma análise semelhante pode ser feita com <code>age</code>, que ocila de 0 a 82 anos. Se não fizermos nenhuma transformação, o modelo vai acabar dando mais atenção do que deveria ao avg_glucose_level em comparação com as outras variáveis numéricas. Isso é ainda mais grave quando pensamos nas variáveis booleanas que geramos a partir do One-Hot encoding anteriormente que sempre serão 0s ou 1s e por essa lógica seriam completamente ignoradas.</p>
+<p>Para resolver isso, existem técnicas que colocam todos os atributos na mesma escala. As duas mais comuns são a normalização e a padronização. Escolher entre elas depende de um entendimento profundo do funcionamento do algoritmo de aprendizado de máquina a ser utilizado.</p>
+<section id="tratamento-de-outliers" class="level2">
+<h2 class="anchored" data-anchor-id="tratamento-de-outliers">Tratamento de outliers</h2>
+<p>Antes detalhar as transformações precisamos falar sobre tratamento de outliers. Digamos que por um erro de digitação a idade de um paciente foi registrada como 600 invés de 60. Se nada for feito ao realizar o pré-processamento do conjunto de treino as referências para normalização e padronização gerará resultados muito concentrados próximos ao zero e o outlier irá se destacar muito frente aos demais podendo criando outro problema de escala para o modelo que quando inserido dados novos livres de outliers a variável poderá ser ignorada na avaliação.</p>
+<p>Para solucionar isso temos dois tratamentos possíveis:</p>
+<ul>
+<li>Remoção de outliers</li>
+</ul>
+<p>Na etapa de análise da base, ao identificarmos outliers gerados por possível falha de registro dos dados podemos remover o dado. Essa abordagem é interessante se conseguirmos garantir que os dados novos virão corretos e que o outlier é um caso isolado.</p>
+<ul>
+<li>Transformação logarítmica</li>
+</ul>
+<p>Se identificarmos que a base possui outliers que não são simples erros de registro do dado podemos recorrer a transformação logarítmica. Na base Stroke Prediction Dataset do Kaggle não temos nem um caso como esse mas vamos pensar em outro caso hipotético:</p>
+<p>Estamos trabalhando com uma base do mercado imobiliário para venda de imóveis. Na região os imóveis ocilam de preço entre 200 mil e 500 mil reais. Porém, um palácio na mesma região foi vendido por 100 milhões de reais. Conseguem enxergar o problema? Não foi um erro de digitação e sim uma possibilidade real do mundo real.</p>
+<p>O ser humano que mais viveu na história foi a francesa Jeanne Calment que viveu até os 122 anos: a ciência vem progredindo ao longo dos anos para aumentar a expectativa de vida do ser humano mas quando será que a ciência permitirá que seres humanos voltem a viver como Matusalém, que de acordo com a Bíblia viveu até os 969 anos? O corpo humano não é capaz de sustentar pessoas com IMC e nível de glicose no sangue muito superiores aos máximos do nosso conjunto de dados também.</p>
+<p>Sempre que os valores de uma variável explicativa puder variar em ordem de grandeza a transformação logarítmica deve ser considerada. Ela nada mais é que substituir o valor pelo seu log, que comumente é utilizado na base <code>e</code>:</p>
+<div id="5a0738aa" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>precoImoveis <span class="op">=</span> [<span class="dv">250000</span>, <span class="dv">320000</span>, <span class="dv">200000</span>, <span class="dv">45000</span>, <span class="dv">100000000</span>, <span class="dv">500000</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>tipoImoveis <span class="op">=</span> [<span class="st">'apartamento'</span>, <span class="st">'casa'</span>, <span class="st">'casa'</span>, <span class="st">'apartamento'</span>, <span class="st">'palacio'</span>, <span class="st">'casa'</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>dadosImoveis <span class="op">=</span> pd.DataFrame({<span class="st">'tipoImovel'</span>: tipoImoveis, <span class="st">'precoImovel'</span>: precoImoveis})</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformação logarítmica</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>dadosImoveis[<span class="st">'precoImovel_log'</span>] <span class="op">=</span> np.log(dadosImoveis[<span class="st">'precoImovel'</span>])</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter original</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>plt.scatter(dadosImoveis.index, dadosImoveis[<span class="st">'precoImovel'</span>], color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Preço Imóvel - Original'</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Índice do imóvel'</span>)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Preço do imóvel'</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter logarítmico</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>plt.scatter(dadosImoveis.index, dadosImoveis[<span class="st">'precoImovel_log'</span>], color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Preço Imóvel - Pós transformação logarítmica'</span>)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Índice do imóvel'</span>)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Log do preço do imóvel'</span>)</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="preProcessamento_files/figure-html/cell-21-output-1.png" width="1143" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observe que para os dados originais, no gráfico, para quase todos os imóveis o preço aparece próximo a zero e o palácio está no topo do gráfico destoando dos demais, enquanto no gráfico em que houve transformação logarítmica o palácio continua claramente acima dos demais porém a diferença dos demais com eles mesmos é mais visível. Para os algorítmos de aprendizado de máquina essa diferença de escala no primeiro é igualmente notável e impactante para o ajuste do modelo.</p>
+<p>Após essa transformação inicial a normalização ou a padronização podem ser feitas na sequência como for desejado. Se realizada no conjunto de treino, a transformação logarítimica precisa também ser realizada para dados novos, seja o conjunto de validação/teste ou dados de uso real.</p>
 </section>
 <section id="normalização" class="level2">
 <h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
+<p>A normalização Min-Max (muitas vezes chamada simplesmente de normalização) é um método bem simples de ajustar dados. A ideia é pegar cada coluna de dados (variável explicativa) e transformá-lo de modo que seus valores fiquem dentro de um intervalo definido, normalmente de 0 a 1.</p>
+<p>O processo funciona assim:</p>
+<ol type="1">
+<li><p>Obtem-se o valor de cada dado.</p></li>
+<li><p>Subtrai o valor mínimo da coluna.</p></li>
+<li><p>Divide pelo intervalo total (valor máximo da coluna – valor mínimo da coluna).</p></li>
+</ol>
+<p>Com isso, o menor valor vira 0 e o maior valor vira 1, e todos os outros ficam proporcionalmente entre eles.</p>
+<p>No Scikit-Learn, existe a função <code>MinMaxScaler()</code> que faz isso automaticamente, porém, a função pronta não nos fornece os valores de mínimo e máximo que serão utilizados nos dados novos. Por isso faremos isso sempre de forma manual para salvarmos essas referências. Uma vez definido o mínimo e o máximo da coluna pelo conjunto treino, os mesmos valores terão que ser utilizados para qualquer normalização feita no futuro.</p>
+<p>Segue abaixo a normalização das variáveis explicativas contínuas da base stroke (age, bmi, avg_glucose_level):</p>
+<div id="13bd5569" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definição  dos mínimos e máximos a serem utilizados</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mínimo age:"</span>, x_strokeKfold[<span class="st">'age'</span>].<span class="bu">min</span>())</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Máximo age:"</span>, x_strokeKfold[<span class="st">'age'</span>].<span class="bu">max</span>())</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mínimo avg_glucose_level:"</span>, x_strokeKfold[<span class="st">'avg_glucose_level'</span>].<span class="bu">min</span>())</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Máximo avg_glucose_level:"</span>, x_strokeKfold[<span class="st">'avg_glucose_level'</span>].<span class="bu">max</span>())</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mínimo bmi:"</span>, x_strokeKfold[<span class="st">'bmi'</span>].<span class="bu">min</span>())</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Máximo bmi:"</span>, x_strokeKfold[<span class="st">'bmi'</span>].<span class="bu">max</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mínimo age: 0.08
+Máximo age: 82.0
+Mínimo avg_glucose_level: 55.12
+Máximo avg_glucose_level: 271.74
+Mínimo bmi: 10.3
+Máximo bmi: 97.6</code></pre>
+</div>
+</div>
+<p>A partir desses valores de mínimo e máximo para as variáveis explicativas contínuas faremos todas as normalizações daqui para frente:</p>
+<div id="f1b993d2" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold[<span class="st">'age'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'age'</span>] <span class="op">-</span> <span class="fl">0.08</span>)<span class="op">/</span>(<span class="fl">82.0</span><span class="op">-</span><span class="fl">0.08</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x_strokeKfold[<span class="st">'avg_glucose_level'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'avg_glucose_level'</span>] <span class="op">-</span> <span class="fl">55.12</span>)<span class="op">/</span>(<span class="fl">271.74</span><span class="op">-</span><span class="fl">55.12</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">-</span> <span class="fl">10.3</span>)<span class="op">/</span>(<span class="fl">97.6</span><span class="op">-</span><span class="fl">10.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para floresta aleatória, o algoritmo de aprendizado de máquinas que será utilizado para esse problema tanto faz se é feito normalização ou padronização. Por simplicidade, seguiremos com a normalização para a base.</p>
 </section>
+<section id="padronização" class="level2">
+<h2 class="anchored" data-anchor-id="padronização">Padronização</h2>
+<p>A padronização, diferente da normalização, não gera um resultado em um intervalo específico, porém os resultados tem média 0 e desvio padrão 1.</p>
+<p>Isso se da pelo seu funcionamento:</p>
+<ol type="1">
+<li><p>Obtem-se o valor de cada dado.</p></li>
+<li><p>Subtrai-se a média de cada valor, fazendo com que os dados fiquem centrados em torno de zero</p></li>
+<li><p>Divide-se o resultado pelo desvio padrão, de modo que os valores padronizados passem a ter desvio padrão igual a 1.</p></li>
+</ol>
+<p>A padronização é, no geral, considerado melhor que a normalização para lidar com outliers, porém, para variáveis com outliers que variam dos demais dados em ordem de grandeza há a necessidade de um tratamento de outliers assim como o transformação anterior.</p>
+<p>Já fizemos a normalização. Essas transformações são mutuamente exclusivas. Porém, para fins didáticos, o código abaixo é como deverá ser feito (comentado quando for feito a redefinição das variáveis)</p>
+<div id="be0e6a63" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão populacional de age:"</span>, np.std(x_strokeKfold[<span class="st">'age'</span>]))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média de age:"</span>, np.mean(x_strokeKfold[<span class="st">'age'</span>]))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão populacional de avg_glucose_level:"</span>, np.std(x_strokeKfold[<span class="st">'avg_glucose_level'</span>]))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média de avg_glucose_level:"</span>, np.mean(x_strokeKfold[<span class="st">'avg_glucose_level'</span>]))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Desvio padrão populacional de bmi:"</span>, np.std(x_strokeKfold[<span class="st">'bmi'</span>]))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média de age:"</span>, np.mean(x_strokeKfold[<span class="st">'bmi'</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Desvio padrão populacional de age: 0.2745076710096592
+Média de age: 0.5288690182892019
+Desvio padrão populacional de avg_glucose_level: 0.20818373232293189
+Média de avg_glucose_level: 0.23528482535810868
+Desvio padrão populacional de bmi: 0.08981209816205521
+Média de age: 0.21331922639150344</code></pre>
+</div>
+</div>
+<p>Semelhante a normalização, esses valores são os que deverão ser utilizados para qualquer padronização futura:</p>
+<div id="0b6246fb" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x_strokeKfold['age'] = (x_strokeKfold['age'] - 43.4)/(22.49)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#x_strokeKfold['avg_glucose_level'] = (x_strokeKfold['avg_glucose_level'] - 106.1)/(45.1)</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#x_strokeKfold['bmi'] = (x_strokeKfold['bmi'] - 28.9)/(7.8)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="conclusão-do-pré-processamento" class="level1">
+<h1>Conclusão do pré-processamento</h1>
+<p>Com todos os pré-processamentos realizados podemos partir para a construção do classificador.</p>
+<p>Antes disso temos algumas pendências a resolver: o KNN Imputation de <code>bmi</code> ainda não foi realizado. Ele necessitava dos demais tratamentos realizados para prosseguir, portanto segue abaixo:</p>
+<div id="ea0d25f6" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">=</span> KNNImputer(n_neighbors<span class="op">=</span><span class="dv">10</span>).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc(<span class="st">'bmi'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Observe o resultado do pré-processamento:</p>
+<div id="0deb0024" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_columns"</span>, <span class="va">None</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_strokeKfold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           age  hypertension  heart_disease  avg_glucose_level       bmi  \
+0     0.755859             0              0           0.080233  0.139748   
+1     0.572754             0              0           0.369633  0.294387   
+2     0.877930             0              1           0.403979  0.258877   
+3     0.682617             0              0           0.310544  0.229095   
+4     0.169922             0              0           0.131290  0.261168   
+...        ...           ...            ...                ...       ...   
+4593  0.401855             0              0           0.806943  0.178694   
+4594  0.560547             1              0           0.085865  0.221191   
+4595  0.462891             0              0           0.223710  0.234822   
+4596  0.768066             0              0           0.132121  0.127148   
+4597  0.401855             0              0           0.201366  0.390607   
+
+      gender_Male  gender_Female  ever_married_Yes  ever_married_No  \
+0               1              0                 1                0   
+1               1              0                 1                0   
+2               0              1                 1                0   
+3               1              0                 1                0   
+4               0              1                 0                1   
+...           ...            ...               ...              ...   
+4593            1              0                 1                0   
+4594            1              0                 1                0   
+4595            0              1                 1                0   
+4596            0              1                 1                0   
+4597            1              0                 1                0   
+
+      work_type_Private  work_type_Self-employed  work_type_Govt_job  \
+0                     1                        0                   0   
+1                     0                        1                   0   
+2                     0                        1                   0   
+3                     0                        0                   1   
+4                     1                        0                   0   
+...                 ...                      ...                 ...   
+4593                  0                        1                   0   
+4594                  1                        0                   0   
+4595                  1                        0                   0   
+4596                  1                        0                   0   
+4597                  1                        0                   0   
+
+      work_type_children  work_type_Never_worked  Residence_type_Urban  \
+0                      0                       0                     1   
+1                      0                       0                     1   
+2                      0                       0                     1   
+3                      0                       0                     1   
+4                      0                       0                     0   
+...                  ...                     ...                   ...   
+4593                   0                       0                     1   
+4594                   0                       0                     0   
+4595                   0                       0                     1   
+4596                   0                       0                     1   
+4597                   0                       0                     1   
+
+      Residence_type_Rural  smoking_status_formerly smoked  \
+0                        0                               1   
+1                        0                               0   
+2                        0                               0   
+3                        0                               0   
+4                        1                               0   
+...                    ...                             ...   
+4593                     0                               0   
+4594                     1                               0   
+4595                     0                               1   
+4596                     0                               0   
+4597                     0                               0   
+
+      smoking_status_never smoked  smoking_status_smokes  \
+0                               0                      0   
+1                               0                      1   
+2                               0                      1   
+3                               1                      0   
+4                               1                      0   
+...                           ...                    ...   
+4593                            0                      1   
+4594                            0                      1   
+4595                            0                      0   
+4596                            1                      0   
+4597                            1                      0   
+
+      smoking_status_Unknown  
+0                          0  
+1                          0  
+2                          0  
+3                          0  
+4                          0  
+...                      ...  
+4593                       0  
+4594                       0  
+4595                       0  
+4596                       0  
+4597                       0  
+
+[4598 rows x 20 columns]</code></pre>
+</div>
+</div>
+<p>Nenhuma coluna possui dados não numéricos, e entre os numéricos, todos estão entre zero e um (quando não apenas zero e um). Esse formato final é o ideal para a maioria dos algoritmos de aprendizado de máquinas. Se os dados contínuos tivessem sido padronizados invés de normalizados seria um pouco diferente desse intervalo porém não faria muita diferença na maioria dos casos.</p>
 </section>
 <section id="rebalanceamento" class="level1">
 <h1>Rebalanceamento</h1>
-<p>Rebalanceamento de um conjunto de dados consiste em rebalancear as amostras da variável resposta para atender um objetivo específico. É a última etapa do pré-processamento e só pode ser realizada no conjunto de treino.</p>
-<p>Esse passo não é necessário para todos os conjuntos de dados. Ele é necessário principalmente em conjuntos de dados em que uma das classes da variável resposta é muito mais presente entre as amostras do que a outra.</p>
+<p>Rebalanceamento de um conjunto de dados consiste em rebalancear as amostras da variável resposta para atender um objetivo específico. É posterior ao pré-processamento e só pode ser realizada no conjunto de treino.</p>
+<p>Esse passo não é necessário para todos os conjuntos de dados, é usado principalmente em conjuntos de dados em que uma das classes da variável resposta é muito mais presente entre as amostras do que a outra.</p>
 <p>Como que está o balanceamento de stroke?</p>
-<div id="f15e4852" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfold.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="488dd78f" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfold.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stroke
-0    4376
+0    4375
 1     223
 Name: count, dtype: int64</code></pre>
 </div>
@@ -1084,19 +1545,19 @@ Name: count, dtype: int64</code></pre>
 </ul>
 <p>Ambos os tipos possuem vantagens e desvantagens, casos de uso melhor ou pior etc. É um assunto bem extenso. No caderno seguiremos apenas com o undersampling.</p>
 <p>O undersampling é implementado no python pela classe <code>RandomUnderSampler</code> do pacote imbalanced-learn. Os detalhes sobre rebalanceamento de bases serão abordados no final do caderno.</p>
-<p>Como seria o melhor jeito de rebalancear a base stroke? Uma possibilidade é rebalancear para ter 50% dos pacientes com AVC e 50% sem AVC, esse seria o jeito mais intuitivo de seguir. Porém, ao adotar uma estratégia de rebalanceamento precisamos entender o foco do modelo que queremos criar. Qual o foco da predição de AVC? Para uso médico existe uma necessidade que o maior número possível de pacientes com AVC sejam corretamente diagnosticados, em outras palavras, especificidade é o foco número 1 desse modelo.</p>
-<p>Podemos construir um modelo enviesado para diagnóstico de AVC e isso pode ser feito com uma base desbalanceada possuindo mais pacientes com AVC assim o modelo será treinado tendo em mente que a maioria das pessoas tem AVC resultando numa maior sensibilidade aos fatores que levam para o diagnóstico porém, não podemos também simplesmente sair classificando todos os pacientes com AVC. Precisamos gerar um modelo com acurácia e sensibilidade aceitáveis mas que maximize a especificidade. Encontrar um ponto de equilíbrio é essencial. Precisamos ainda entender o peso moral da nossa decisão de construção do modelo, afinal ao criar o viés para aumentar os diagnósticos de AVC resultará também em um aumento de diagnósticos incorretos a pacientes saudáveis.</p>
+<p>Como seria o melhor jeito de rebalancear a base stroke? Uma possibilidade é rebalancear para ter 50% dos pacientes com AVC e 50% sem AVC, esse seria o jeito mais intuitivo de seguir. Porém, ao adotar uma estratégia de rebalanceamento precisamos entender o foco do modelo que queremos criar. Qual o foco da predição de AVC? Para uso médico existe uma necessidade que o maior número possível de pacientes com AVC sejam corretamente diagnosticados, em outras palavras, sensibilidade é o foco número 1 desse modelo.</p>
+<p>Podemos construir um modelo enviesado para diagnóstico de AVC e isso pode ser feito com uma base desbalanceada possuindo mais pacientes com AVC assim o modelo será treinado tendo em mente que a maioria das pessoas tem AVC resultando numa maior especificidade aos fatores que levam para o diagnóstico porém, não podemos também simplesmente sair classificando todos os pacientes com AVC. Precisamos gerar um modelo com acurácia e especificidade aceitáveis mas que maximize a sensibilidade. Encontrar um ponto de equilíbrio é essencial. Precisamos ainda entender o peso moral da nossa decisão de construção do modelo, afinal ao criar o viés para aumentar os diagnósticos de AVC resultará também em um aumento de diagnósticos incorretos a pacientes saudáveis.</p>
 <p>Outro ponto a se atentar é que ao rebalancear para diminuir a proporção da classe majoritária frente a minoritária no undersampling invariavelmente resultará em uma base com menos amostras que poderá gerar um modelo inferior simplesmente por ter sido treinado com menos dados. Podemos rebalancear a base mantendo a classe majoritaria levemente superior em número de amostras para utilizarmos mais dados para treinar o modelo. Isso vem com o custo de enviesarmos o modelo para a classe majoritária</p>
 <p>Vamos utilizar a validação cruzada para testar três abordagens: uma com a base perfeitamente balanceada, outra com a base tendendo levemente para diagnóstico de AVC (40% dos pacientes saudáveis e 60% doentes) e outra com um maior número de amostras ao manter um pequeno viés para a classe majoritária (60% dos pacientes saudáveis e 40% doentes) e portanto com um leve viés para diagnóstico negativo de AVC. Faremos validação cruzada para testar os modelos no próximo tópico.</p>
 <p>Segue abaixo a criação das bases rebalanceadas:</p>
-<div id="f0a68439" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base balanceada</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base balanceada</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldBalanceado, y_strokeKfoldBalanceado <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span><span class="fl">0.5</span><span class="op">/</span><span class="fl">0.5</span>, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldBalanceado.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fd0503c6" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base balanceada</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base balanceada</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldBalanceado, y_strokeKfoldBalanceado <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span><span class="fl">0.5</span><span class="op">/</span><span class="fl">0.5</span>, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldBalanceado.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stroke
 0    223
@@ -1110,17 +1571,17 @@ Name: count, dtype: int64</code></pre>
 <li><p>Float no intervalo (0, 1] que dita a proporção da classe minoritária frente a majoritária. Se quisermos uma base balanceada significa que queremos que ambas as classes sejam representadas por 50% das amostras por isso 0.5/0.5 no uso da função. Podemos ainda por esse tipo de entrada deixar a base desbalanceada, ou seja, enviesada, para a classe majoritária com valores menores que 1.0.</p></li>
 <li><p>Dicionário com a chave sendo as classes da variável resposta e o valor associado a chave sendo o número de amostras desejadas para cada classe na base a ser rebalanceada.</p></li>
 </ul>
-<div id="fc3572f2" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base enviesada para AVC</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># definindo o número de amostras para sampling_strategy</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>nAmostrasMinoritaria <span class="op">=</span> y_strokeKfold.value_counts()[<span class="dv">1</span>]</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base enviesada para AVC</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span>{<span class="dv">0</span>: <span class="bu">int</span>(nAmostrasMinoritaria<span class="op">*</span><span class="fl">0.67</span>), <span class="dv">1</span>: nAmostrasMinoritaria}, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldEnviesadoAVC.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bce5a6b0" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base enviesada para AVC</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># definindo o número de amostras para sampling_strategy</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>nAmostrasMinoritaria <span class="op">=</span> y_strokeKfold.value_counts()[<span class="dv">1</span>]</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base enviesada para AVC</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span>{<span class="dv">0</span>: <span class="bu">int</span>(nAmostrasMinoritaria<span class="op">*</span><span class="fl">0.67</span>), <span class="dv">1</span>: nAmostrasMinoritaria}, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldEnviesadoAVC.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stroke
 1    223
@@ -1130,14 +1591,14 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>A base enviesada para AVC que criamos possui 223 amostras de pacientes com AVC e 149 pacientes sem AVC.</p>
 <p>Para criar a base com viés para a classe minoritária como fizemos precisamos expressar exatamente quantas amostras queremos para cada classe, o sampling_strategy recebe apenas números entre 0 e 1 ou dicionários. Como nesse caso queremos 60% da classe minoritária e 40% da majoritária seria necessário 1.5 no sampling_strategy, como a função não permite isso teremos que usar a entrada por dicionário como feito.</p>
-<div id="d77a2346" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base enviesada para sem AVC</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base enviesada para sem AVC</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldEnviesadoSemAVC, y_strokeKfoldEnviesadoSemAVC <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span><span class="fl">0.4</span><span class="op">/</span><span class="fl">0.6</span>, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldEnviesadoSemAVC.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3b301f7e" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base enviesada para sem AVC</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a base enviesada para sem AVC</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>x_strokeKfoldEnviesadoSemAVC, y_strokeKfoldEnviesadoSemAVC <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span><span class="fl">0.4</span><span class="op">/</span><span class="fl">0.6</span>, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print do estado de balanceamento atual</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_strokeKfoldEnviesadoSemAVC.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stroke
 0    334
@@ -1147,19 +1608,337 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>A base enviesada para sem AVC que criamos possui 223 amostras de pacientes com AVC e 334 pacientes sem AVC.</p>
 </section>
-<section id="construção-validação-cruzada-e-teste-do-modelo" class="level1">
-<h1>Construção, validação cruzada e teste do modelo</h1>
-<p>Com todos os pré-processamentos realizados podemos partir para a construção do classificador.</p>
-<section id="análise-dos-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="análise-dos-resultados">Análise dos resultados</h2>
+<section id="validação-cruzada" class="level1">
+<h1>Validação cruzada</h1>
+<p>Construiremos 3 modelos, um para cada balanceamento criado. Ajuste de hiperparâmetro, que normalmente é realizado nessa etapa, aumentaria em muito esse número, porém, não será realizado nesse caderno por simplicidade.</p>
+<p>Utilizaremos a função de validação cruzada que foi declarada no início do caderno. Segue abaixo os resultados</p>
+<div id="3245c985" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Relembrando o cabeçalho da função:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co">#testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo)</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Resultados base balanceada:"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>testeMetricasKFold(x_strokeKfoldBalanceado, y_strokeKfoldBalanceado, n_splits<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">11</span>, funcaoAlgoritmo<span class="op">=</span>RandomForestClassifier)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n\n</span><span class="st">Resultados base enviesada para AVC:"</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>testeMetricasKFold(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC, n_splits<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">11</span>, funcaoAlgoritmo<span class="op">=</span>RandomForestClassifier)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n\n</span><span class="st">Resultados base enviesada para sem AVC:"</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>testeMetricasKFold(x_strokeKfoldEnviesadoSemAVC, y_strokeKfoldEnviesadoSemAVC, n_splits<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">11</span>, funcaoAlgoritmo<span class="op">=</span>RandomForestClassifier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Resultados base balanceada:
+Média da acurácia: 74.5%
+Desvio padrão populacional da acurácia: 0.071
+
+Média da sensibilidade: 78.5%
+Desvio padrão populacional da sensibilidade: 0.055
+
+Média da especificidade: 70.4%
+Desvio padrão populacional da especificidade: 0.099
+
+
+
+Resultados base enviesada para AVC:
+Média da acurácia: 79.3%
+Desvio padrão populacional da acurácia: 0.072
+
+Média da sensibilidade: 87.5%
+Desvio padrão populacional da sensibilidade: 0.072
+
+Média da especificidade: 67.0%
+Desvio padrão populacional da especificidade: 0.119
+
+
+
+Resultados base enviesada para sem AVC:
+Média da acurácia: 76.7%
+Desvio padrão populacional da acurácia: 0.041
+
+Média da sensibilidade: 72.6%
+Desvio padrão populacional da sensibilidade: 0.068
+
+Média da especificidade: 79.4%
+Desvio padrão populacional da especificidade: 0.055
+</code></pre>
+</div>
+</div>
+<p>Observe a média da sensibilidade e da especificidade de cada versão da base sobre o <code>RandomForestClassifier</code>.</p>
+<p>A acurácia da validação cruzada nesse caso pode ser completamente dispensada uma vez que qualquer base rebalanceada não refletirá a distribuição dos dados reais ou do conjunto validação. Usando a base enviesada para com AVC como exemplo, 67.0% dos 95.0% mais 87.5% dos 5.0% dos dados seriam classificados corretamente e, portanto, uma estimativa de acurácia mais correta seria 68.0%, as bases com mais especificidade teriam uma melhor acurácia nesse caso.</p>
+<p>O foco maior era maximizar a sensibilidade, que o paciente que tenha AVC seja corretamente diagnosticado com AVC, sem prejudicar muito as demais métricas. Esses objetivos foram melhor refletidos com a base enviesa para AVC. Portanto esta será a base utilizada para treino do modelo final.</p>
+<p>Ela obteve resultados muito melhores em sensibilidade em relação a base balanceada sem perder muita especificidade, não é uma mudança de especificidade que justifica seu uso. Em relação a base enviesada para sem AVC, 72.6% de sensibilidade é muito inferior aos 87.5% da base enviesada para AVC, que possui 67.0% de especificidade que é um mínimo aceitável, mesmo sabendo que a base enviesada para sem AVC possui uma especificidade muito maior de 79.4%.</p>
 </section>
+<section id="modelo-final" class="level1">
+<h1>Modelo final</h1>
+<p>O modelo final será construido utilizando a base <code>x_strokeKfoldEnviesadoAVC</code> e <code>y_strokeKfoldEnviesadoAVC</code> inteiras, diferente da validação cruzada que foi realizado separação por kfolds no processso. Depois da construção testaremos o modelo usando o conjunto de validação para obter as métricas finais.</p>
+<p>Para inserir os dados do conjunto validação no preditor precisamos realizar os pré-processamentos necessários. A melhor forma de fazer isso é a partir de uma função que realiza todos os pré-processamentos para os dados novos definida em um arquivo separado e importada para o programa principal por conta da manutenibilidade ganha em códigos modularizados. Em <code>Resumo dos códigos</code> faremos esse procedimento. Aqui estamos preocupados apenas em realizar o pré-processamento de <code>x_strokeValidacao</code>.</p>
+<div id="92194762" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratamento de NAs</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>x_strokeValidacao <span class="op">=</span> x_strokeValidacao.drop(<span class="st">'id'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>x_strokeValidacao <span class="op">=</span> x_strokeValidacao.replace({</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gender"</span>: {<span class="st">"Other"</span>: <span class="st">'Male'</span>},          </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"smoking_status"</span>: {<span class="st">"Unknown"</span>: <span class="st">'never smoked'</span>},</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bmi"</span>: {pd.NA: <span class="fl">28.1</span>} </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="co"># One-Hot encoding (Codificação de variáveis)</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>colunasCategoricas <span class="op">=</span> [<span class="st">'gender'</span>, <span class="st">'ever_married'</span>, <span class="st">'work_type'</span>, <span class="st">'Residence_type'</span>, <span class="st">'smoking_status'</span>]</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>classesColCateg <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="st">'Female'</span>], [<span class="st">'Yes'</span>, <span class="st">'No'</span>], [<span class="st">'Private'</span>, <span class="st">'Self-employed'</span>, <span class="st">'Govt_job'</span>, <span class="st">'children'</span>, <span class="st">'Never_worked'</span>], [<span class="st">'Urban'</span>, <span class="st">'Rural'</span>], [<span class="st">'formerly smoked'</span>, <span class="st">'never smoked'</span>, <span class="st">'smokes'</span>, <span class="st">'Unknown'</span>]]</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Para cada coluna</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(colunasCategoricas)):</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Para cada classe de cada coluna</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg[i])):</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>            <span class="co">#Se for Dummy Variables descomente o seguinte if e continue:</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>            <span class="co">#if j == 0:</span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>                  <span class="co">#continue</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>            x_strokeValidacao[colunasCategoricas[i]<span class="op">+</span><span class="st">"_"</span><span class="op">+</span>classesColCateg[i][j]] <span class="op">=</span> (x_strokeValidacao[colunasCategoricas[i]] <span class="op">==</span> classesColCateg[i][j]).astype(<span class="bu">int</span>)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    x_strokeValidacao <span class="op">=</span> x_strokeValidacao.drop(coluna, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalização (Transformação de variáveis)</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>x_strokeValidacao[<span class="st">'age'</span>] <span class="op">=</span> (x_strokeValidacao[<span class="st">'age'</span>] <span class="op">-</span> <span class="fl">0.08</span>)<span class="op">/</span>(<span class="fl">82.0</span><span class="op">-</span><span class="fl">0.08</span>)</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>x_strokeValidacao[<span class="st">'avg_glucose_level'</span>] <span class="op">=</span> (x_strokeValidacao[<span class="st">'avg_glucose_level'</span>] <span class="op">-</span> <span class="fl">55.12</span>)<span class="op">/</span>(<span class="fl">271.74</span><span class="op">-</span><span class="fl">55.12</span>)</span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>x_strokeValidacao[<span class="st">'bmi'</span>] <span class="op">=</span> (x_strokeValidacao[<span class="st">'bmi'</span>] <span class="op">-</span> <span class="fl">10.3</span>)<span class="op">/</span>(<span class="fl">97.6</span><span class="op">-</span><span class="fl">10.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Segue abaixo a construção e validação do modelo final:</p>
+<div id="5900f704" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">11</span>).fit(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>predicoes <span class="op">=</span> model.predict(x_strokeValidacao)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>vn, fp, fn, vp <span class="op">=</span> confusion_matrix(y_strokeValidacao, predicoes).ravel()</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Acurácia:"</span>, acuracia)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sensibilidade:"</span>, sensibilidade)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Especificidade:"</span>, especificidade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Acurácia: 0.6594911937377691
+Sensibilidade: 0.9230769230769231
+Especificidade: 0.6453608247422681</code></pre>
+</div>
+</div>
+<p>Essas são as métricas do preditor no conjunto validação. Observe que houve uma perda significativa de acurácia em relação a acurácia calculada na validação cruzada. Isso se deve a diferença de proporção das classes com e sem AVC entre o conjunto validação e o conjunto usado durante a validação cruzada, utilizado para a construção do modelo final enviesado a detectar AVCs.</p>
+</section>
+<section id="reutilização-de-preditores" class="level1">
+<h1>Reutilização de preditores</h1>
+<p>Para reutilizar o preditor criado precisamos salvá-lo em um arquivo que possa ser lido posteriormente. Para isso utilizaremos o módulo pickle (biblioteca padrão do python).</p>
+<p>Normalmente ao salvar e carregar arquivos utilizamos arquivos do tipo texto, como os arquivos .csv. Quando os dados são lidos de um .csv eles são convertidos de texto para o formato a ser utilizado pelo programa pelo próprio pandas. Para nosso preditor isso não será possível, não é trivial recuperar o tipo de um preditor a partir de um arquivo texto. Precisamos armazenar suas informações em seu tipo devido, usando pickle, que utiliza arquivos binários invés de arquivo texto.</p>
+<p>Para salvar o preditor:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>arq <span class="op">=</span> <span class="bu">open</span>(<span class="st">"preditor.pkl"</span>, <span class="st">"wb"</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>pickle.dump(model, arq)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>arq.close()    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para carregar o preditor a partir de um arquivo:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>arq <span class="op">=</span> <span class="bu">open</span>(<span class="st">"preditor.pkl"</span>, <span class="st">"rb"</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> pickle.load(arq)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>arq.close() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Utilizamos a extensão de arquivo .pkl por convensão, assim sabemos que o arquivo foi gerado a partir do pickle.</p>
 </section>
 <section id="resumo-dos-códigos" class="level1">
 <h1>Resumo dos códigos</h1>
 <p>Ao longo do caderno foi apresentado diferentes tipos de pré-processamento numa sequência lógica focada no detalhamento das técnicas e não na construção do modelo final em si.</p>
-<p>Foi citado ainda que certos pré-processamentos possuem uma ordem para serem feitos e se são feitos sempre ou apenas no conjunto de treino. Isso tudo pode ter ficado confuso quando o foco for na cronologia do que deve ser feito de fato para criar um preditor.</p>
-<p>Aqui nessa parte final do caderno terão todos os códigos do utilizados para a construção do modelo final para classificação de AVCs da base Stroke Prediction Dataset do Kaggle separados por arquivos e com instruções de uso com os pré-processamentos própriamente ordenados e sem os prints. Ideal para entender a visão macro do desenvolvimento de modelos com o uso das diversas técnicas de pré-processamento e sem o foco de explicação do uso de cada uma.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Foi citado ainda que certos pré-processamentos possuem uma ordem para serem realizados e se são feitos sempre ou apenas no conjunto de treino. Isso tudo pode ter ficado confuso quando o foco for na cronologia do que deve ser feito de fato para criar um preditor.</p>
+<p>Aqui nessa parte final do caderno terão todos os códigos utilizados para a construção do modelo final para classificação de AVCs da base Stroke Prediction Dataset do Kaggle separados por arquivos e com instruções de uso com os pré-processamentos própriamente ordenados e sem os prints. Ideal para entender a visão macro do desenvolvimento de modelos com o uso das diversas técnicas de pré-processamento e sem o foco de explicação do uso de cada uma.</p>
+<p>Arquivo <strong>construcaoPreditor.py</strong></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> KNNImputer</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo):</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Função para testar acurácia, sensibilidade e especificidade de uma dada base passando por reamostragem por k-fold usando o algoritmo inserido"""</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># criação de uma lista para reutilização do generator </span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    kfBase <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span>n_splits, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>random_state).split(XBase, YBase)</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    kfBaseLista <span class="op">=</span> <span class="bu">list</span>(kfBase)</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Salvando apenas os índices dos folds em listas [[[treino], [teste]], [[treino], [teste]], ...]  </span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>    foldsBase <span class="op">=</span> []</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> K, (train, test) <span class="kw">in</span> <span class="bu">enumerate</span>(kfBaseLista, <span class="dv">1</span>):</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Não guarda K porque não precisa, é o índice da lista mais 1.</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>        foldsBase.append([<span class="bu">list</span>(train), <span class="bu">list</span>(test)])</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print("K:", K, "train:", len(train), "test:", len(test))</span></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Criando os modelos individuais de cada fold</span></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>    modelosIndividuais <span class="op">=</span> []</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> foldsBase:</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>        modelosIndividuais.append(funcaoAlgoritmo(random_state<span class="op">=</span>random_state).fit(XBase.iloc[fold[<span class="dv">0</span>]], YBase.iloc[fold[<span class="dv">0</span>]]))</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Testando os modelos individuais de cada fold</span></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>    acuraciaModelos <span class="op">=</span> []</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>    sensibilidadeModelos <span class="op">=</span> []</span>
+<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a>    especificidadeModelos <span class="op">=</span> []</span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(modelosIndividuais)):</span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>        Y_predBase <span class="op">=</span> modelosIndividuais[i].predict(XBase.iloc[foldsBase[i][<span class="dv">1</span>]])</span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>        vn, fp, fn, vp <span class="op">=</span> confusion_matrix(YBase.iloc[foldsBase[i][<span class="dv">1</span>]], Y_predBase).ravel()</span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>        acuracia <span class="op">=</span> (vp <span class="op">+</span> vn) <span class="op">/</span> (vp <span class="op">+</span> vn <span class="op">+</span> fp <span class="op">+</span> fn)</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a>        sensibilidade <span class="op">=</span> vp <span class="op">/</span> (vp <span class="op">+</span> fn)</span>
+<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a>        especificidade <span class="op">=</span> vn <span class="op">/</span> (vn <span class="op">+</span> fp)</span>
+<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a>        acuraciaModelos.append(acuracia)</span>
+<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a>        sensibilidadeModelos.append(sensibilidade)</span>
+<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a>        especificidadeModelos.append(especificidade)</span>
+<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Printando o compilado de métricas</span></span>
+<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da acurácia: </span><span class="sc">{</span>(<span class="bu">sum</span>(acuraciaModelos)<span class="op">/</span><span class="bu">len</span>(acuraciaModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da acurácia: </span><span class="sc">{</span>np<span class="sc">.</span>std(acuraciaModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da sensibilidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(sensibilidadeModelos)<span class="op">/</span><span class="bu">len</span>(sensibilidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da sensibilidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(sensibilidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Média da especificidade: </span><span class="sc">{</span>(<span class="bu">sum</span>(especificidadeModelos)<span class="op">/</span><span class="bu">len</span>(especificidadeModelos)<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desvio padrão populacional da especificidade: </span><span class="sc">{</span>np<span class="sc">.</span>std(especificidadeModelos, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construcaoPreditor():</span>
+<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Se for importar a base de um arquivo:</span></span>
+<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Importando as bases</span></span>
+<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a>    <span class="co">#trocar essa url pelo caminho da base Stroke Prediction Dataset de vocês.</span></span>
+<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a>    stroke <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Pré-Processamento</span><span class="ch">\\</span><span class="st">healthcare-dataset-stroke-data.csv"</span>)</span>
+<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Identificar as colunas com variável categórica (variáveis categóricas podem aparecer como object)</span></span>
+<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a>    colunasCategoricas <span class="op">=</span> <span class="bu">list</span>(stroke.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>, <span class="st">'category'</span>]).columns)</span>
+<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Podemos invés de importar de um arquivo configurar a função para ja receber os dados desejados, sem nem necessidade de realizar separação.</span></span>
+<span id="cb53-62"><a href="#cb53-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-63"><a href="#cb53-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Salvando possíveis classes de todas as variáveis categóricas</span></span>
+<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a>    classesColCateg <span class="op">=</span> []</span>
+<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Exibindo as diferentes classes presentes em uma coluna com variável categórica</span></span>
+<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>coluna<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">list</span>(stroke[coluna].unique())<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a>        classesColCateg.append(<span class="bu">list</span>(stroke[coluna].unique()))</span>
+<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Separação (não necessário se configuramos a função para receber diretamente os dados a serem utilizados)</span></span>
+<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold, x_strokeValidacao, y_strokeKfold, y_strokeValidacao <span class="op">=</span> train_test_split(stroke.drop(columns<span class="op">=</span>[<span class="st">'stroke'</span>]), stroke[<span class="st">'stroke'</span>], test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-75"><a href="#cb53-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tratamento de NAs</span></span>
+<span id="cb53-76"><a href="#cb53-76" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.drop(<span class="st">'id'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb53-77"><a href="#cb53-77" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({</span>
+<span id="cb53-78"><a href="#cb53-78" aria-hidden="true" tabindex="-1"></a>        <span class="st">"gender"</span>: {<span class="st">"Other"</span>: pd.NA},          </span>
+<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a>        <span class="st">"smoking_status"</span>: {<span class="st">"Unknown"</span>: pd.NA} </span>
+<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg)):</span>
+<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a>            classesColCateg[i].remove(<span class="st">"Other"</span>)</span>
+<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>:</span>
+<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a>            classesColCateg[i].remove(<span class="st">"Unknown"</span>)</span>
+<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>:</span>
+<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb53-90"><a href="#cb53-90" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Como estamos removendo uma linha do dataframe das variáveis explicativas, precisamos fazer o mesmo com a variável resposta, depois de tudo precisamos resetar os índices.</span></span>
+<span id="cb53-91"><a href="#cb53-91" aria-hidden="true" tabindex="-1"></a>    indices_eliminados <span class="op">=</span> x_strokeKfold[x_strokeKfold[<span class="st">"gender"</span>].isna()].index</span>
+<span id="cb53-92"><a href="#cb53-92" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.dropna(subset<span class="op">=</span>[<span class="st">"gender"</span>])</span>
+<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a>    y_strokeKfold <span class="op">=</span> y_strokeKfold.drop(indices_eliminados)</span>
+<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a>    y_strokeKfold <span class="op">=</span> y_strokeKfold.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Como retiramos a única amostra Other de gender, precisamos tirar "Other" da lista de categorias de gender.</span></span>
+<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a>    <span class="co"># para não ser um problema na codificação de variáveis.</span></span>
+<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Não precisa fazer se já feito anteriormente.</span></span>
+<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb53-100"><a href="#cb53-100" aria-hidden="true" tabindex="-1"></a>        classesColCateg[colunasCategoricas.index(<span class="st">"gender"</span>)].remove(<span class="st">"Other"</span>)</span>
+<span id="cb53-101"><a href="#cb53-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb53-103"><a href="#cb53-103" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold <span class="op">=</span> x_strokeKfold.replace({       </span>
+<span id="cb53-104"><a href="#cb53-104" aria-hidden="true" tabindex="-1"></a>        <span class="st">"smoking_status"</span>: {pd.NA: <span class="st">"never smoked"</span>} <span class="co">#,</span></span>
+<span id="cb53-105"><a href="#cb53-105" aria-hidden="true" tabindex="-1"></a>        <span class="co">#"bmi": {pd.NA: 28.1} </span></span>
+<span id="cb53-106"><a href="#cb53-106" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-109"><a href="#cb53-109" aria-hidden="true" tabindex="-1"></a>    <span class="co"># One-Hot encoding (Codificação de Variáveis)</span></span>
+<span id="cb53-110"><a href="#cb53-110" aria-hidden="true" tabindex="-1"></a>    colunasCategoricas <span class="op">=</span> [<span class="st">'gender'</span>, <span class="st">'ever_married'</span>, <span class="st">'work_type'</span>, <span class="st">'Residence_type'</span>, <span class="st">'smoking_status'</span>]</span>
+<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a>    classesColCateg <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="st">'Female'</span>], [<span class="st">'Yes'</span>, <span class="st">'No'</span>], [<span class="st">'Private'</span>, <span class="st">'Self-employed'</span>, <span class="st">'Govt_job'</span>, <span class="st">'children'</span>, <span class="st">'Never_worked'</span>], [<span class="st">'Urban'</span>, <span class="st">'Rural'</span>], [<span class="st">'formerly smoked'</span>, <span class="st">'never smoked'</span>, <span class="st">'smokes'</span>, <span class="st">'Unknown'</span>]]</span>
+<span id="cb53-112"><a href="#cb53-112" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Agora para criar as colunas novas basta adicioná-las uma a uma no dataframe:</span></span>
+<span id="cb53-113"><a href="#cb53-113" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Para cada coluna</span></span>
+<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(colunasCategoricas)):</span>
+<span id="cb53-115"><a href="#cb53-115" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Para cada classe de cada coluna</span></span>
+<span id="cb53-116"><a href="#cb53-116" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg[i])):</span>
+<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a>            <span class="co">#Se for Dummy Variables descomente o seguinte if e continue:</span></span>
+<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a>            <span class="co">#if j == 0:</span></span>
+<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a>                <span class="co">#continue</span></span>
+<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a>            x_strokeKfold[colunasCategoricas[i]<span class="op">+</span><span class="st">"_"</span><span class="op">+</span>classesColCateg[i][j]] <span class="op">=</span> (x_strokeKfold[colunasCategoricas[i]] <span class="op">==</span> classesColCateg[i][j]).astype(<span class="bu">int</span>)</span>
+<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Precisamos agora deletar as colunas originais:</span></span>
+<span id="cb53-122"><a href="#cb53-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb53-123"><a href="#cb53-123" aria-hidden="true" tabindex="-1"></a>        x_strokeKfold <span class="op">=</span> x_strokeKfold.drop(coluna, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb53-124"><a href="#cb53-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-125"><a href="#cb53-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normalização (Transformação de variáveis)</span></span>
+<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Substituir os valores pelos respectivos mínimos e máximos</span></span>
+<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold[<span class="st">'age'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'age'</span>] <span class="op">-</span> <span class="fl">0.08</span>)<span class="op">/</span>(<span class="fl">82.0</span><span class="op">-</span><span class="fl">0.08</span>)</span>
+<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold[<span class="st">'avg_glucose_level'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'avg_glucose_level'</span>] <span class="op">-</span> <span class="fl">55.12</span>)<span class="op">/</span>(<span class="fl">271.74</span><span class="op">-</span><span class="fl">55.12</span>)</span>
+<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">=</span> (x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">-</span> <span class="fl">10.3</span>)<span class="op">/</span>(<span class="fl">97.6</span><span class="op">-</span><span class="fl">10.3</span>)</span>
+<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-133"><a href="#cb53-133" aria-hidden="true" tabindex="-1"></a>    <span class="co"># KNN Imputation</span></span>
+<span id="cb53-134"><a href="#cb53-134" aria-hidden="true" tabindex="-1"></a>    x_strokeKfold[<span class="st">'bmi'</span>] <span class="op">=</span> KNNImputer(n_neighbors<span class="op">=</span><span class="dv">10</span>).fit_transform(x_strokeKfold)[:, x_strokeKfold.columns.get_loc(<span class="st">'bmi'</span>)]</span>
+<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Rebalanceamento</span></span>
+<span id="cb53-138"><a href="#cb53-138" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Base enviesada para AVC</span></span>
+<span id="cb53-139"><a href="#cb53-139" aria-hidden="true" tabindex="-1"></a>    <span class="co"># definindo o número de amostras para sampling_strategy</span></span>
+<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a>    nAmostrasMinoritaria <span class="op">=</span> y_strokeKfold.value_counts()[<span class="dv">1</span>]</span>
+<span id="cb53-141"><a href="#cb53-141" aria-hidden="true" tabindex="-1"></a>    <span class="co"># criando a base enviesada para AVC</span></span>
+<span id="cb53-142"><a href="#cb53-142" aria-hidden="true" tabindex="-1"></a>    x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC <span class="op">=</span> RandomUnderSampler(sampling_strategy<span class="op">=</span>{<span class="dv">0</span>: <span class="bu">int</span>(nAmostrasMinoritaria<span class="op">*</span><span class="fl">0.67</span>), <span class="dv">1</span>: nAmostrasMinoritaria}, random_state<span class="op">=</span><span class="dv">11</span>).fit_resample(x_strokeKfold, y_strokeKfold)</span>
+<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-144"><a href="#cb53-144" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-145"><a href="#cb53-145" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Validação cruzada pode ser feita aqui. </span></span>
+<span id="cb53-146"><a href="#cb53-146" aria-hidden="true" tabindex="-1"></a>    <span class="co">#testeMetricasKFold(XBase, YBase, n_splits, random_state, funcaoAlgoritmo)</span></span>
+<span id="cb53-147"><a href="#cb53-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-148"><a href="#cb53-148" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construção e salvamento do modelo</span></span>
+<span id="cb53-149"><a href="#cb53-149" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">11</span>).fit(x_strokeKfoldEnviesadoAVC, y_strokeKfoldEnviesadoAVC)</span>
+<span id="cb53-150"><a href="#cb53-150" aria-hidden="true" tabindex="-1"></a>    arq <span class="op">=</span> <span class="bu">open</span>(<span class="st">"preditor.pkl"</span>, <span class="st">"wb"</span>)</span>
+<span id="cb53-151"><a href="#cb53-151" aria-hidden="true" tabindex="-1"></a>    pickle.dump(model, arq)</span>
+<span id="cb53-152"><a href="#cb53-152" aria-hidden="true" tabindex="-1"></a>    arq.close()  </span>
+<span id="cb53-153"><a href="#cb53-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-154"><a href="#cb53-154" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb53-155"><a href="#cb53-155" aria-hidden="true" tabindex="-1"></a>    construcaoPreditor()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Arquivo <strong>preProcessamentoDadosNovos.py</strong></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preProcessamentoDadosNovos(dadosNovos):</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tratamento de NAs</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    dadosNovos <span class="op">=</span> dadosNovos.drop(<span class="st">'id'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    dadosNovos <span class="op">=</span> dadosNovos.replace({</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"gender"</span>: {<span class="st">"Other"</span>: <span class="st">'Male'</span>},          </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"smoking_status"</span>: {<span class="st">"Unknown"</span>: <span class="st">'never smoked'</span>},</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bmi"</span>: {pd.NA: <span class="fl">28.1</span>} </span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># One-Hot encoding (Codificação de variáveis)</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>    colunasCategoricas <span class="op">=</span> [<span class="st">'gender'</span>, <span class="st">'ever_married'</span>, <span class="st">'work_type'</span>, <span class="st">'Residence_type'</span>, <span class="st">'smoking_status'</span>]</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>    classesColCateg <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="st">'Female'</span>], [<span class="st">'Yes'</span>, <span class="st">'No'</span>], [<span class="st">'Private'</span>, <span class="st">'Self-employed'</span>, <span class="st">'Govt_job'</span>, <span class="st">'children'</span>, <span class="st">'Never_worked'</span>], [<span class="st">'Urban'</span>, <span class="st">'Rural'</span>], [<span class="st">'formerly smoked'</span>, <span class="st">'never smoked'</span>, <span class="st">'smokes'</span>, <span class="st">'Unknown'</span>]]</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Para cada coluna</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(colunasCategoricas)):</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Para cada classe de cada coluna</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classesColCateg[i])):</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>                <span class="co">#Se for Dummy Variables descomente o seguinte if e continue:</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>                <span class="co">#if j == 0:</span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>                    <span class="co">#continue</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>                dadosNovos[colunasCategoricas[i]<span class="op">+</span><span class="st">"_"</span><span class="op">+</span>classesColCateg[i][j]] <span class="op">=</span> (dadosNovos[colunasCategoricas[i]] <span class="op">==</span> classesColCateg[i][j]).astype(<span class="bu">int</span>)</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> coluna <span class="kw">in</span> colunasCategoricas:</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>        dadosNovos <span class="op">=</span> dadosNovos.drop(coluna, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normalização (Transformação de variáveis)</span></span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>    dadosNovos[<span class="st">'age'</span>] <span class="op">=</span> (dadosNovos[<span class="st">'age'</span>] <span class="op">-</span> <span class="fl">0.08</span>)<span class="op">/</span>(<span class="fl">82.0</span><span class="op">-</span><span class="fl">0.08</span>)</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>    dadosNovos[<span class="st">'avg_glucose_level'</span>] <span class="op">=</span> (dadosNovos[<span class="st">'avg_glucose_level'</span>] <span class="op">-</span> <span class="fl">55.12</span>)<span class="op">/</span>(<span class="fl">271.74</span><span class="op">-</span><span class="fl">55.12</span>)</span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>    dadosNovos[<span class="st">'bmi'</span>] <span class="op">=</span> (dadosNovos[<span class="st">'bmi'</span>] <span class="op">-</span> <span class="fl">10.3</span>)<span class="op">/</span>(<span class="fl">97.6</span><span class="op">-</span><span class="fl">10.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A função preProcessamentoDadosNovos deverá ser utilizada importando-a no arquivo utilizarPreditor.</p>
+<p>Arquivo <strong>utilizarPreditor.py</strong></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .preProcessamentoDadosNovos <span class="im">import</span> preProcessamentoDadosNovos</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> utilizarPreditor():</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    dadosNovos <span class="op">=</span> pd.read_csv(<span class="st">"dadosNovos.csv"</span>)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    dadosNovosPreProcessados <span class="op">=</span> preProcessamentoDadosNovos(dadosNovos)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    arq <span class="op">=</span> <span class="bu">open</span>(<span class="st">"preditor.pkl"</span>, <span class="st">"rb"</span>)</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> pickle.load(arq)</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    arq.close() </span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    predicoes <span class="op">=</span> model.predict(dadosNovosPreProcessados)</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predicoes</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>    utilizarPreditor()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="referencias" class="level3">
 <h3 class="anchored" data-anchor-id="referencias">Referencias</h3>
 <ul>
@@ -1167,8 +1946,9 @@ Name: count, dtype: int64</code></pre>
 <li><p>STROKE: Analysis and Prediction Using Scikit-Learn, Keras, and TensorFlow with Python de Vivian Siahaan</p></li>
 <li><p>https://imbalanced-learn.org/stable/under_sampling.html (Undersampling)</p></li>
 <li><p>https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html (KNN Imputation)</p></li>
-<li><p>Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron (One-Hot encoding)</p></li>
+<li><p>Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron (One-Hot encoding, Transformação de Variáveis)</p></li>
 <li><p>An Introduction to Statistical Learning with Applications in R - Gereth James (Dummy Variables)</p></li>
+<li><p>Feature Engineering for Machine Learning: Principles and Techniques for Data Scientists - Alice Zheng, Amanda Casari (Transformação Logarítmica)</p></li>
 </ul>
 
 

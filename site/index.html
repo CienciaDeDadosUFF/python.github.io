@@ -627,7 +627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Entendendo melhor o print</h1>
 <p>O <code>print</code> é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário. Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. <code>print</code> significa literalmente “imprimir”.</p>
 <p>O <code>print</code> imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O <code>print</code> por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque <code>, end=" "</code>. Agora para esse <code>print</code> específico uma linha não será pulada no final da execução:</p>
-<div id="9ba26e3c" class="cell" data-execution_count="1">
+<div id="f3f1179e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Esse"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"é meu terceiro programa"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
@@ -642,7 +642,7 @@ Esse é meu terceiro programa em Python</code></pre>
 <h1>Variáveis</h1>
 <p>Na escola quebramos a cabeça em matemática para resolver uma equação. A professora Márcia que todos tivemos passa uma expressão: 4 + x = 7. Mesmo como crianças sabíamos que para o 4 virar 7 o x precisaria ser um 3, o x armazena o valor 3. Na programação existem inúmeras vantagens de se usar variáveis.</p>
 <p>Voltando para o exemplo do print, digamos que queremos imprimir uma mesma mensagem inúmeras vezes:</p>
-<div id="31c587bc" class="cell" data-execution_count="2">
+<div id="00612fd4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ciência de dados!"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ciência de dados!"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ciência de dados!"</span>)</span>
@@ -655,7 +655,7 @@ Ciência de dados!</code></pre>
 </div>
 </div>
 <p>Agora quero invés de imprimir “Ciência de dados!” quero imprimir “O meu filme favorito é troll 2!”. Para fazer isso teríamos que trocar cada uma das vezes o texto dentro do print pelo texto desejado. Existe alguma forma mais rápida de fazer isso: usando variáveis. Podemos criar uma variável x, que nem das aulas de matemática da professora Márcia que armazena o texto a ser impresso.</p>
-<div id="bf6acf71" class="cell" data-execution_count="3">
+<div id="941b6ee4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"Ciência de dados!"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
@@ -669,7 +669,7 @@ Ciência de dados!</code></pre>
 </div>
 </div>
 <p>Reparem que ambos os programas realizam a mesma tarefa, de maneiras diferentes. A vantagem do segundo programa é que para mudar o texto impresso para “O meu filme favorito é troll 2!” basta trocar o valor de x:</p>
-<div id="b13fc767" class="cell" data-execution_count="4">
+<div id="86cb7848" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"O meu filme favorito é troll 2!"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
@@ -684,7 +684,7 @@ O meu filme favorito é troll 2!</code></pre>
 </div>
 <p>A escolha do uso da nomenclatura <code>x</code> para realizar a tarefa é apenas para seguir a didática da professora Márcia. Porém, idealmente a nomeação de variáveis se faz baseado no uso dela, isto é, idealmente criamos variáveis com nomes elusivos. Nesse caso, ao invés de <code>x</code> usar <code>texto</code>. Isso facilita em projetos maiores quando várias pessoas trabalham juntas ou quando você precisa rever um código antigo.</p>
 <p>Para criar uma variável basta colocar o nome que gostaria no início, seguido de <code>=</code> e depois o valor que gostaria de armazenar.</p>
-<div id="e56f962e" class="cell" data-execution_count="5">
+<div id="8120f68c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">"O meu filme favorito é troll 2!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O computador então passa a entender que sempre que escreve texto no código é para substituir pelo valor “O meu filme favorito é troll 2!”.</p>

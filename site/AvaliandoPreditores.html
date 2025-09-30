@@ -533,7 +533,7 @@ window.Quarto = {
 <section id="imports" class="level1">
 <h1>Imports</h1>
 <p>Segue abaixo o código da importação dos módulos que usaremos nesse caderno:</p>
-<div id="d25c8965" class="cell" data-execution_count="2">
+<div id="4f36c8bd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -555,7 +555,7 @@ window.Quarto = {
 <section id="analisando-a-base-spam" class="level2">
 <h2 class="anchored" data-anchor-id="analisando-a-base-spam">Analisando a base spam</h2>
 <p>Vamos analisar a base spam.</p>
-<div id="8d7b4205" class="cell" data-execution_count="3">
+<div id="4f38ef8c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#trocar essa url pelo caminho da base spam de vocês.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">spam.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(spam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -623,7 +623,7 @@ window.Quarto = {
 <section id="separação-treino-e-teste" class="level2">
 <h2 class="anchored" data-anchor-id="separação-treino-e-teste">Separação treino e teste</h2>
 <p>Para fazer a separação das amostras em treino e teste vamos primeiramente particionar a base de dados com a função <code>train_test_split()</code>. Ela divide a base mantendo a proporção das classes de classificação, nesse caso, spam e nonspam, mantendo a proporção da base original. Isso evita que ao acaso possa sair da separação uma base para treino muito diferente da original, que afeta severamente a qualidade do modelo.</p>
-<div id="f191256e" class="cell" data-execution_count="4">
+<div id="e4add743" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando a coluna de rótulo das demais</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>XSpam <span class="op">=</span> spam.loc[:, spam.columns <span class="op">!=</span> <span class="st">"type"</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>YSpam <span class="op">=</span> spam[<span class="st">"type"</span>]</span>
@@ -640,7 +640,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-classificador.">Seleção de algoritmo de aprendizado de máquina para o classificador.</h2>
 <p>Dado que já foi feito a separação das amostras treino e teste, o próximo passo é realizarmos o treinamento. Para isso é preciso escolher um dos algoritmos para ser utilizado. O scikit-learn suporta uma infinidade de diferentes modelos que podemos escolher.</p>
 <p>Uma lista com todos os algoritmos implementados no pacote scikit-learn pode ser obtida com o seguinte comando:</p>
-<div id="04bb9721" class="cell" data-execution_count="5">
+<div id="d34f7575" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators())</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -660,7 +660,7 @@ window.Quarto = {
 <section id="criação-e-treino-do-classificador" class="level2">
 <h2 class="anchored" data-anchor-id="criação-e-treino-do-classificador">Criação e treino do classificador</h2>
 <p>Agora vamos criar o nosso classificador. Para isso vamos usar a função <code>LogisticRegression()</code> para instanciá-lo e o método <code>.fit()</code> para treiná-lo.</p>
-<div id="7ac41835" class="cell" data-execution_count="6">
+<div id="421df5f0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>modelSpam <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">3000</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>modelSpam.fit(x_trainSpam, y_trainSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -1087,7 +1087,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="utilização-do-classificador" class="level2">
 <h2 class="anchored" data-anchor-id="utilização-do-classificador">Utilização do classificador</h2>
 <p>Uma vez que ajustamos o classificador podemos aplicá-lo na amostra teste, para estimarmos sua qualidade. Para isso utilizamos o método <code>.predict()</code>. Dentro do método passamos a base de dados gostaríamos de realizar a predição, nesse caso a base teste.</p>
-<div id="8b61c9f6" class="cell" data-execution_count="7">
+<div id="cf99cdbf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>y_predSpam <span class="op">=</span> modelSpam.predict(x_testSpam)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_predSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1106,7 +1106,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Com as devidas classificações a matriz de confusão fica da seguinte forma:</p>
 <p><img src="Cadernos Grupo Python/Criação e Avaliação de Preditores/matrizDeConfusaoVazia.png" class="img-fluid"></p>
 <p>Dentro da função passamos as predições que obtemos pelo modelo ajustado e as reais classificações dos e-mails do conjunto teste.</p>
-<div id="55e17a58" class="cell" data-execution_count="8">
+<div id="70ee170d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cmSpam <span class="op">=</span> confusion_matrix(y_testSpam, y_predSpam)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cmSpam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1115,7 +1115,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p>O que acharam da matriz confusão? Alguns números numa matriz do Python não é a melhor apresentação. Para deixar mais apresentável podemos fazer um gráfico:</p>
-<div id="bf4d552a" class="cell" data-execution_count="9">
+<div id="087a39f3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">4</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cmSpam, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, xticklabels<span class="op">=</span>[<span class="st">"nonspam"</span>, <span class="st">"spam"</span>], yticklabels<span class="op">=</span>[<span class="st">"nonspam"</span>, <span class="st">"spam"</span>], cbar<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Predito'</span>)</span>
@@ -1159,7 +1159,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="análise-do-resultado-final-do-classificador-de-spam">Análise do resultado final do classificador de Spam</h3>
 <p>Faremos a análise do resultado final do classificador da base Spam com as funções prontas do scikit-learn para o cálculo da sensibilidade, especificidade e acurácia.</p>
 <p>A função <code>classification_report()</code> entrega todas essas métricas e mais algumas. Por suportar classificadores com mais de duas classes, ele usa a coluna recall. Sensibilidade é o recall da classe positiva e especificidade é o recall da negativa.</p>
-<div id="17fafd89" class="cell" data-execution_count="10">
+<div id="29171d8c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_testSpam, y_predSpam))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
@@ -1182,7 +1182,7 @@ weighted avg       0.92      0.92      0.92      1841
 <p>Agora vamos utilizar a base de dados faithful para tentar prever o tempo de espera (waiting) entre uma erupção e outra de um gêiser dado a duração das erupções (eruption).</p>
 <section id="analisando-a-base-faithful" class="level2">
 <h2 class="anchored" data-anchor-id="analisando-a-base-faithful">Analisando a base faithful</h2>
-<div id="52f874fb" class="cell" data-execution_count="11">
+<div id="e1edfbba" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>faithfulDF <span class="op">=</span> pd.read_csv(<span class="st">"Cadernos Grupo Python</span><span class="ch">\\</span><span class="st">Criação e Avaliação de Preditores</span><span class="ch">\\</span><span class="st">faithful.csv"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(faithfulDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1212,7 +1212,7 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="separação-treino-e-teste-1" class="level2">
 <h2 class="anchored" data-anchor-id="separação-treino-e-teste-1">Separação treino e teste</h2>
 <p>Faremos identicamente a como fizemos para o classificador da base spam.</p>
-<div id="96f3c880" class="cell" data-execution_count="12">
+<div id="b45c5a48" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando a coluna de rótulo das demais</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>XFaithful <span class="op">=</span> faithfulDF.loc[:, faithfulDF.columns <span class="op">!=</span> <span class="st">"waiting"</span>]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>YFaithful <span class="op">=</span> faithfulDF[<span class="st">"waiting"</span>]</span>
@@ -1224,7 +1224,7 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-modelo." class="level2">
 <h2 class="anchored" data-anchor-id="seleção-de-algoritmo-de-aprendizado-de-máquina-para-o-modelo.">Seleção de algoritmo de aprendizado de máquina para o modelo.</h2>
 <p>Para a seleção do algoritmo de aprendizado de máquina que usaremos podemos consultar novamente a lista do scikit-learn, agora para regressores.</p>
-<div id="41972d3b" class="cell" data-execution_count="13">
+<div id="7727b5a6" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># para ver todos os algoritmos (ou como o scikit-learn chama, estimadores)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_estimators())</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1240,7 +1240,7 @@ weighted avg       0.92      0.92      0.92      1841
 <section id="criação-e-treino-do-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="criação-e-treino-do-regressor">Criação e treino do regressor</h2>
 <p>Agora vamos criar o nosso regressor. Para isso vamos usar a função <code>LinearRegression()</code> para instanciá-lo e o método <code>.fit()</code> para treiná-lo. Assim como o classificador de regressão logística, precisamos importá-lo antes de instanciá-lo. No início do caderno o import está lá: <code>from sklearn.linear_model import LinearRegression</code></p>
-<div id="5a46a545" class="cell" data-execution_count="14">
+<div id="7e2decbe" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>modelFaithful <span class="op">=</span> LinearRegression()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>modelFaithful.fit(x_trainFaithful, y_trainFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1666,7 +1666,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="utilização-do-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="utilização-do-regressor">Utilização do regressor</h2>
 <p>A utilização do regressor é a mesma do classificador. Basta passar pelo método predict o conjunto de dados que queremos usar para prever a variável resposta. Como queremos testar o modelo, usaremos o conjunto teste que haviámos separado.</p>
-<div id="4b82bb2c" class="cell" data-execution_count="15">
+<div id="a7d2dc21" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y_predFaithful <span class="op">=</span> modelFaithful.predict(x_testFaithful)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_predFaithful)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1738,7 +1738,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="análise-do-resultado-final-do-regressor-de-faithful">Análise do resultado final do regressor de Faithful</h3>
 <p>Faremos a análise do resultado final do regressor da base Faithful com as funções prontas do scikit-learn para o cálculo do MAE, MSE e <span class="math inline">\(R^2\)</span>.</p>
 <p>As funções são <code>mean_absolute_error</code>, <code>mean_squared_error</code>, <code>r2_score</code> respectivamente.</p>
-<div id="c3bab316" class="cell" data-execution_count="16">
+<div id="021c4751" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#MAE</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAE: </span><span class="sc">{</span>mean_absolute_error(y_testFaithful, y_predFaithful)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
