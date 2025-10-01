@@ -253,53 +253,39 @@ while True:
     # SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!
 ```
 
-Um exemplo com flags que são variáveis booleanas que controlam o fluxo.
+Um exemplo com `flags` que são variáveis booleanas que controlam o fluxo.
 
 ``` python
 continuar_execucao = True
 while continuar_execucao:
-    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'(Entre com "quit" para sair da aplicacao)\n\n')
-    if resposta.lower() != 'quit':
+    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n'+'(Entre com "sair" para sair da aplicacao)\n\n')
+    if resposta.lower() != 'sair':
         print('Olá, ' + resposta)
     else:
         continuar_execucao = False
 ```
 
-::: callout
-```         
-Olá quit
-```
-:::
-
-### continue
+#### continue
 
 Também podemos dar continuidade a um ciclo com a utilização do `continue`.
 
 ``` python
 while True:
-    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n' + '(Entre com "quit" para sair da aplicacao)\n\n')
+    resposta = input('Digite seu nome para que eu possa te dar um oi!:\n' + '(Entre com "sair" para sair da aplicacao)\n\n')
     if resposta == '':
         print('Digite um nome válido!')
         continue
     # SE O USUÁRIO APENAS PRECIONAR ENTER SEM ADICIONAR SEU NOME O CICLO REINICIARÁ E PEDIRA NOVAMENTE PARA QUE
     # DIGITE SEU NOME.
-    if resposta.lower() == 'quit':
+    if resposta.lower() == 'sair':
         break
     # SE CAIR NA CONDIÇÃO DO `BREAK` AS LINHAS ABAIXO DESTE COMENTÁRIO NÃO SERÃO EXECUTADAS!!!
     print('Olá, ' + resposta)
 ```
 
-::: callout
-```         
-Digite um nome válido!
-```
-:::
+## Funções
 
-Repare que o `print('Olá, ' + resposta)` não foi feito porque na primeira iteração o loop caiu no continue e no segundo no break porque o quit foi digitado.
-
-# Funções
-
-Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisamos criar uma tarefa que possa ser usada mais tarde em outro programa, para evitar repetição de código e seguir um dos princípios da programação que é a modulação utilizamos da criação de funções.
+Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisamos criar uma tarefa que possa ser usada mais tarde em outro programa, para evitar repetição de código e seguir um dos princípios da programação que é a modulação, utilizamos da criação de funções.
 
 Em resumo, funções são um escopo de código que pode ser chamado para realizar uma tarefa específica, podem ter ou não um tipo de retorno, possuem um título e podem ter ou não parâmetros passados para a função.
 
