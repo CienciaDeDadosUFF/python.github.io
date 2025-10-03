@@ -295,6 +295,7 @@ Exemplos simples de funções podem ser vistos abaixo:
 def soma(a, b): #definição/criação da função
     return a + b #escopo da função
 soma(3, 4) #chamada da função
+
 ```
 ::: callout
 ```         
@@ -314,26 +315,9 @@ Olá, Mundo!
 ```
 :::
 
-Exemplo de uma função com retorno de um objeto do tipo lista:
+[//]: <> (Exemplo de uma função com retorno de um objeto do tipo lista:)
 
-``` python
-def formata_nomes(nomes):
-    lista_formatada = []
-    for nome in nomes:
-        lista_formatada.append(nome.title())     
-    return lista_formatada
-lista_nao_formatada = ['dAnIeL', 'iGoR', 'caRoLINA']
-lista_formatada = formata_nomes(lista_formatada)
-print(lista_formatada)
-```
-
-::: callout
-```         
-['Daniel', 'Igor', 'Carolina']
-```
-:::
-
-# Orientação a objetos
+## Orientação a objetos
 
 No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No Python, um dos paradigmas explorados é o de orientação a objetos.
 
@@ -397,7 +381,7 @@ Para acessar os atributos (características) do objeto, normalmente se usa esses
 
 Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. Orientação a objetos é toda uma forma de se programar, um assunto extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.
 
-# Instalação de bibliotecas
+## Instalação de bibliotecas
 
 O `píp` é um repositório que guarda uma quantidade enorme de pacotes e módulos para utilizarmos em nossas aplicações. Se o Python estiver adicionado ao PATH digite no terminal do windows:\
 \~\~\~ \$ pip --version \~\~\~
@@ -420,7 +404,7 @@ ou ainda
 $ python -m pip install "nome do pacote"
 ```
 
-# Importação
+## Importação
 
 Agora veremos as diferentes formas de importar módulos (os pacotes do Python) para seu ambiente.
 
