@@ -289,15 +289,18 @@ Várias vezes na programação repetimos a mesma tarefa várias vezes ou precisa
 
 Em resumo, funções são um escopo de código que pode ser chamado para realizar uma tarefa específica, podem ter ou não um tipo de retorno, possuem um título e podem ter ou não parâmetros passados para a função.
 
-Em Python utilizamos a sintaxe: def nome_da_funcao(parametros): #escopo da função return objeto_a_ser_retornado
-
-Os exemplos mais simples de funções podem ser vistos abaixo:
+Exemplos simples de funções podem ser vistos abaixo:
 
 ``` python
 def soma(a, b): #definição/criação da função
     return a + b #escopo da função
 soma(3, 4) #chamada da função
 ```
+::: callout
+```         
+7
+```
+:::
 
 ``` python
 def ola_mundo():
