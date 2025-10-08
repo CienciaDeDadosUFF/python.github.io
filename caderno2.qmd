@@ -319,15 +319,23 @@ Olá, Mundo!
 
 ## Orientação a objetos
 
-No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No Python, um dos paradigmas explorados é o de orientação a objetos.
+[//]:<> (No mundo da programação existem diversas linguagens. As linguagens são criadas seguindo paradigmas por vezes distintos, isso é, diferentes lingugagens seguem diferentes formas de se encarar o próprio ato de programar, podendo ainda seguir mais de um paradigma diferente. No Python, um dos paradigmas explorados é o de orientação a objetos.)
 
-Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro.
+As diversas linguagens de programação seguem paradigmas distintos, exigindo abordagens únicas para cada uma, muitas delas suportam múltiplos paradigmas. O Python, por exemplo, implementa entre outros o paradigma de orientação a objetos.
 
-Um carro possui características específicas: modelo, cor, velocidade. O carro possui ainda comportamentos: acelerar e freiar, acessíveis pelo motorista para usar quando quiser. Na programação, o carro é o objeto, a ideia do que é um carro é a classe e o motorista é o programador que usa o carro em seu programa.
+[//]: <> (Uma linguagem orientada a objetos escreve seus programas baseados em classes e objetos. Para entender o que são classes e objetos precisamos fazer um paralelo com o mundo real, por exemplo um carro.Um carro possui características específicas: modelo, cor, velocidade. O carro possui ainda comportamentos: acelerar e freiar, acessíveis pelo motorista para usar quando quiser. Na programação, o carro é o objeto, a ideia do que é um carro é a classe e o motorista é o programador que usa o carro em seu programa.)
+
+Na programação orientada a objetos, os programas são construídos com classes e objetos. Para entendê-los, podemos usar uma analogia com um carro. Pense em um carro. Ele tem características (como modelo, cor e velocidade atual) e comportamentos (como acelerar e frear).
+
+Nessa comparação:
+
+- A **Classe** é o projeto, a definição abstrata do que é um carro.
+- O **Objeto** é uma instância real desse projeto, como um carro específico na garagem.
+- O **Programador** é o motorista, que interage com o objeto (o carro) utilizando seus comportamentos, sem precisar conhecer todos os detalhes internos de como o motor funciona.
 
 Traduzindo para Python:
 
-``` python
+``` {python}
 class Carro():
     
     def __init__(self, modelo, cor, velocidade):
@@ -347,112 +355,113 @@ class Carro():
     def acelerar(self, incrementoVelocidade):
         self.velocidade = self.velocidade + incrementoVelocidade 
 
-    def freiar(self, decrementoVelocidade):
+    def frear(self, decrementoVelocidade):
         if self.velocidade < decrementoVelocidade:
             self.velocidade = 0
         else:
             self.velocidade = self.velocidade - decrementoVelocidade 
 
-
+# Cria o objeto meuCarro: Gol vermelho 
 meuCarro = Carro("Gol", "vermelho", 0)
 ```
 
-O comando class do Python funciona semelhante ao def, porém define uma classe. Dentro da definição da classe, diversas "funções" foram definidas: \_\_init\_\_, getModelo, getCor, getVelocidade, acelerar, freiar. O nome de funções no contexto de um objeto é método. Métodos são semelhantes a funções, porém utilizam também como variáveis os atributos da classe, isso é, são os comportamentos do carro e usam as características do carro. Na definição, os métodos da classe têm os argumentos começando com o self se forem usar algum atributo do objeto, na hora de utilizar esses metodos, não se escreve o self, uma vez que o metodo que parte do objeto em questão já entende que o mesmo é o "self".
+O comando `class` do Python funciona de forma semalahnte ao `def`, porém define uma classe. Dentro da definição da classe, diversas funções foram definidas no exemplo. Chamamos de **métodos** as funções definidas dentro de uma classe.
 
-O método \_\_init\_\_ é um método especial, ele pode ser chamado de construtor. Ele receberá como argumentos as características que julgamos necessárias para definir nosso objeto. Na linha meuCarro = Carro("Gol", "vermelho", 0), o método \_\_init\_\_ é chamado e retorna um objeto da classe Carro de modelo "Gol", de cor "vermelha" e velocidade 0. Sempre com o nome da classe e os argumentos do método \_\_init\_\_ da classe em questão (exceto o self), essa função constroi o objeto.
+Métodos são semelhantes as funções, porém podem utilizar como variáveis os atributos da classe, ou seja, usam as características do carro. 
 
-Para usar os métodos precisa digitar a variável em que o objeto está armazenado depois .nomeDoMetodo(argumentos) como segue no exemplo abaixo:
+Na prática, todo método que precisa acessar atributos do objeto deve receber `self` como primeiro parâmetro. Esse parâmetro referencia a própria instância, permitindo o acesso a seus atributos e outros métodos. Na hora de chamar o método, o `self` é omitido. O Python automaticamente passa o objeto como primeiro argumento.
+
+`\_\_init\_\_` é um método especial chamado de **construtor**. Nele, definimos os atributos necessários para criar o objeto.
+
+Para utilizar um método, digite a variável em que o objeto está armazenado depois `.nomeDoMetodo(argumentos)`, como no exemplo abaixo:
 
 ``` python
-print("Velocidade antes de acelerar:", meuCarro.getVelocidade()) 
+print("Velocidade antes de acelerar:", meuCarro.getVelocidade(),"\n") 
 meuCarro.acelerar(10)
 print("Velocidade depois de acelerar:", meuCarro.getVelocidade())
 ```
+``` {python}
+#| output: asis
+#| echo: false
 
-::: callout
-Velocidade antes de acelerar: 0
+print(':::{.callout}')
 
-Velocidade depois de acelerar: 10
-:::
+print("Velocidade antes de acelerar:", meuCarro.getVelocidade(),"\n") 
+meuCarro.acelerar(10)
+print("Velocidade depois de acelerar:", meuCarro.getVelocidade())
 
-O código do exemplo mudou a velocidade do objeto meuCarro, que originalmente era 0 e passou para 10.
+print(':::')
+```
 
-Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado.
+Note que o código do exemplo mudou a velocidade do objeto meuCarro, que originalmente era 0 e passou para 10.
 
-Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. Orientação a objetos é toda uma forma de se programar, um assunto extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.
+VALE A PENA MANTER?????
+*Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado.*
+
+*Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. Orientação a objetos é toda uma forma de se programar, um assunto extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.*
 
 ## Instalação de bibliotecas
 
-O `píp` é um repositório que guarda uma quantidade enorme de pacotes e módulos para utilizarmos em nossas aplicações. Se o Python estiver adicionado ao PATH digite no terminal do windows:\
-\~\~\~ \$ pip --version \~\~\~
+OBS: pip ("Pip Installs Packages") É O GERENCIADOT DE PACOTES! FERRMENTE QUE PERMITE INSTALAR, ATUALUZAR E REMOVES BIBLIOTECAS E MÓDULOS NO PYTHON DE FORMA FÁCIL. 
+*O `pip` é um repositório que armazena diversos pacotes e módulos. Se o Python estiver adicionado ao PATH digite no terminal do windows:\\~\~\~ \$ pip --version \~\~\~*
 
-Caso seu pip esteja desatualizado utilize:
+Para atualizar o `pip` utilize, no terminal, o seguinte linha de comando:
 
 ```         
-$ python -m pip install --upgrade pip
+python -m pip install --upgrade pip
 ```
 
 Para instalar algum pacote execute:
 
 ```         
-$ pip install "nome do pacote"
+pip install "nome do pacote"
 ```
 
 ou ainda
 
 ```         
-$ python -m pip install "nome do pacote"
+python -m pip install "nome do pacote"
 ```
 
 ## Importação
 
-Agora veremos as diferentes formas de importar módulos (os pacotes do Python) para seu ambiente.
+Para utilizarmos os módulos ou pacotes do Python precisamos realizar sua importação. A seguir apresentamos alguns exemplos. 
 
-``` python
+
+``` {python}
 import numpy                        # Importa o módulo numpy
 import pandas as pd                 # Importa o módulo pandas com um alias pd
 import matplotlib.pyplot as plt     # Importa a classe pyplot dentro do pacote matplotlib com o alias plt
 from os import getcwd               # Importa apenas a função getcwd do módulo os
-from time import asctime as data    # Importa a penas a função asctime com o alias data 
+from time import asctime as data    # Importa apenas a função asctime com o alias data 
 from statistics import *            # Importa tudo que pertence ao módulo statistics
 ```
 
-**Alias é o "apelido" que o módulo terá no código, ou seja, apenas precisamos chamar o alias para referenciar o módulo**
+**Alias** é o "apelido" que o módulo terá no código, ou seja, apenas precisamos chamar o **alias** para referenciar o módulo. 
 
-**Vejamos agora como cada forma de importação é utilizada!**
-
-Veja que o numpy foi importado utilizando `import numpy` dessa forma devemos sempre colocar o nome do módulo antes de utilizar os métodos e atributos que ele possui
+Veja que o numpy foi importado utilizando `import numpy` dessa forma devemos sempre colocar o nome do módulo antes de utilizar os métodos e atributos que ele possui.
 
 ``` python
 numpy.random.seed(60)
 numpy.random.normal(0, 1, 10)       # Cria um array aleatório de tamanho 10 com distriuição normal mu = 0, sigma = 1.
 ```
-
 ::: callout
 array(\[-9.21770993e-01, -5.86317634e-01, 1.16399914e+00, -1.24172396e+00, -1.98523022e+00, 1.30670891e+00, 7.37807059e-01, 3.79111282e-01, 9.89200864e-04, -1.10503482e+00\])
 :::
 
-Já em `from os import getcwd` apenas importamos a função `getcwd` do módulo os
+Já em `from os import getcwd` apenas importamos a função `getcwd` do módulo `os`. 
 
 ``` python
 getcwd()                            # Retorna o diretório atual do workspace.
 ```
 
-::: callout
-'/home/daniel.dsantos/Documents/personal/git/python-basico/notebooks/01_python_basico'
-:::
+Em `from time import asctime as data` importamos a função `asctime` do módulo `time` e adicionamos um *alias* data utilizando a *keyword* `as`.
 
-Utilizando o comando `from time import asctime as data` importamos a função asctime do módulo time e adicionamos um *alias* data utilizando a *keyword* `as`.
-
-``` python
+``` {python}
 data()                              # Retorna a data de hoje
 ```
 
-::: callout
-'Wed Nov 13 10:39:42 2019'
-:::
-
-Ao utilizar `from statistics import *` estamos importando todas as funções e métodos pertencentes ao módulo statistics. Não é aconselhável utilizar já que o código perde semântica.
+Ao utilizar `from statistics import *` estamos importando todas as funções e métodos do módulo `statistics`. Não é aconselhável utilizar já que o código perde semântica.
 
 ``` python
 numpy.random.seed(35)
@@ -462,7 +471,6 @@ print(mean(numbers))
 print(harmonic_mean(numbers))
 print(median(numbers))
 ```
-
 ::: callout
 ```         
 9
