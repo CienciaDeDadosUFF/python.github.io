@@ -12,3 +12,6 @@ Em Instalação de bibliotecas, o píp está com acento.
 Carregar as bibliotecas: corrigir
 Gráfico de linha: erro em sns.lineplot(anos,...
 
+#Teste de Hip
+Problema no teste de Levene
+
