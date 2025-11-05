@@ -1,5 +1,5 @@
 ---
-title:  "Introdução a Aprendizado de Máquina"
+title:  "Introdução ao Aprendizado de Máquina"
 format:
   html:
     code-fold: false
