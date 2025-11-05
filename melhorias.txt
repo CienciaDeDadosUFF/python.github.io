@@ -20,3 +20,6 @@ Atualizar o alternative nos testes t.
 Por que não usar proportions_ztest do statsmodels.stats.proportion?
 
 
+#Teste de Hip
+Problema no teste de Levene
+
