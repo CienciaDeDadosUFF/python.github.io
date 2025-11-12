@@ -712,41 +712,41 @@
   {
     "objectID": "introducaoML.html",
     "href": "introducaoML.html",
-    "title": "Introdução a Aprendizado de Máquina",
+    "title": "Introdução ao Aprendizado de Máquina",
     "section": "",
     "text": "O que é o aprendizado de máquina?\nJa ouvimos em diversos lugares esse termo ser utilizado, em todas as áreas do conhecimento. Seu uso é tão abrangente que parece ser um tipo de oráculo. Existe outro termo, que geralmente aparece junto com aprendizado de máquina e que parece por vezes se tratar de sinônimo: Inteligência Artificial. Vamos entender o que é cada um.\nInteligência Artificial é um campo mais amplo que engloba aprendizado de máquina, é a simulação da inteligência humana por máquinas. Ela não se restringe a aprendizado de máquinas, existem modelos de IA que não são baseados em aprendizado de máquina e sim regras lógicas, campo esse chamado de inteligência artificial simbolista, enquanto aprendizado de máquina se enquadra na inteligencia artificial conexionista.\nSimbolismo baseia-se na ideia de que o raciocínio humano pode ser representado por símbolos e regras explícitas de manipulação lógica. Nesse paradigma, o conhecimento é modelado de forma clara e interpretável, por meio de regras do tipo “se… então…”, expressões lógicas e estruturas simbólicas. Os sistemas simbólicos são ótimos para tarefas que envolvem lógica, planejamento e resolução de problemas estruturados, como jogos de tabuleiro. No entanto, eles têm dificuldade em lidar com incertezas, ambiguidade e informações sensoriais complexas, como imagens ou fala.\nConexionismo é uma abordagem da inteligência artificial e da cognição que propõe que o conhecimento e o pensamento surgem da interação entre muitas unidades simples interconectadas. Em vez de representar o conhecimento como regras lógicas ou símbolos explícitos (como no simbolismo), o conexionismo defende que ele é distribuído em um sistema, e que o comportamento inteligente emerge dos padrões de ativação e das conexões entre essas unidades. Nesse modelo, não há uma regra explícita dizendo o que fazer; o sistema aprende ajustando as forças das conexões entre unidades com base na experiência. A inteligência, portanto, não vem de raciocinar com símbolos, mas de reconhecer padrões e se adaptar com a prática.\nEm 1959, Arthur Samuel definiu o aprendizado de máquina como o “campo de estudo que dá aos computadores a habilidade de aprender sem serem explicitamente programados”. Ou seja, é um método de análise de dados que automatiza a construção de modelos analíticos. É baseado na ideia de que sistemas podem aprender com dados, identificar padrões e tomar decisões com o mínimo de intervenção humana.\nA importância desse aprendizado se deve principalmente ao fato de que atualmente tem surgido cada vez mais a necessidade de manipulações de grandes volumes e variedades de dados disponíveis.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução ao Aprendizado de Máquina</span>"
     ]
   },
   {
     "objectID": "introducaoML.html#aprendizado-supervisionado",
     "href": "introducaoML.html#aprendizado-supervisionado",
-    "title": "Introdução a Aprendizado de Máquina",
+    "title": "Introdução ao Aprendizado de Máquina",
     "section": "Aprendizado supervisionado",
     "text": "Aprendizado supervisionado\nO modelo aprende a partir de dados rotulados, ou seja, cada exemplo de treinamento já vem com a resposta correta (rótulo). O objetivo é criar um modelo capaz de aferir uma classificação ou prever um valor numérico a outros dados do mesmo tipo e que ainda não foram rotulados apenas com suas caracteristicas representadas nos dados pelas variáveis explicativas. Método de construção de aprendizado de máquina comumente utilizado para classificação e regressão. Será o principal foco dos próximos cadernos. Segue alguns exemplos:\n\nExemplo 1: Queremos estimar o preço de venda de uma casa baseado na sua localidade, tamanho e data de construção baseando-se no preço de venda real de casas que possuam esses mesmos dados coletados recentemente.\nExemplo 2: Classificar flores em três espécies diferentes com base em medidas das pétalas e sépalas, com flores com essas medidas e previamente rotuladas para realizar o treinamento.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução ao Aprendizado de Máquina</span>"
     ]
   },
   {
     "objectID": "introducaoML.html#aprendizado-não-supervisionado",
     "href": "introducaoML.html#aprendizado-não-supervisionado",
-    "title": "Introdução a Aprendizado de Máquina",
+    "title": "Introdução ao Aprendizado de Máquina",
     "section": "Aprendizado não supervisionado",
     "text": "Aprendizado não supervisionado\nNa aprendizagem não supervisionada, temos um conjunto de dados não rotulados e queremos de alguma forma agrupá-los por um certo padrão ou estruturas escondidas nos dados. Comumente utilizado para clusterização e detecção de anomalias. Falaremos um pouco sobre mas não será um ponto focal nos próximos cadernos. Segue alguns exemplos:\n\nExemplo 1: Uma plataforma de transmissão de música recebe centenas de músicas novas diferentes todos os dias. Podemos atribuir um gênero musical a elas baseado nas características sonoras.\nExemplo 2: Em uma rede social milhões de tentativas de login são feitas todos os dias. Porém existem dentre esses alguns acessos que podem ter sido feito por hackers invés do dono legítimo da conta. Podemos evitar que isso aconteça baseado no padrão de acesso de cada usuário e como isso destoa em relação a nova tentativa de acesso.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução ao Aprendizado de Máquina</span>"
     ]
   },
   {
     "objectID": "introducaoML.html#aprendizado-por-reforço",
     "href": "introducaoML.html#aprendizado-por-reforço",
-    "title": "Introdução a Aprendizado de Máquina",
+    "title": "Introdução ao Aprendizado de Máquina",
     "section": "Aprendizado por reforço",
     "text": "Aprendizado por reforço\nO modelo aprende a tomar decisões através de interações com um ambiente, recebendo recompensas ou punições conforme as ações executadas. O objetivo é aprender uma política que maximize a recompensa acumulada. Utilizada para aperfeiçoar a capacidade da IA de um jogo e para robótica. Não falaremos sobre isso nos próximos cadernos.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução a Aprendizado de Máquina</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Introdução ao Aprendizado de Máquina</span>"
     ]
   },
   {

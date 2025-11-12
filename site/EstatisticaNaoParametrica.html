@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,8 +74,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -418,7 +418,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./introducaoML.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução ao Aprendizado de Máquina</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -693,7 +693,7 @@ Marca B (<span class="math inline">\(n_2 = 7\)</span>): 82, 79, 76, 81, 77, 80, 
 <p><strong>Variável de estudo</strong>: <strong>crescimento das plantas</strong> (em alguma unidade mensurável, como altura ou biomassa).</p>
 <p><strong>Hipoteses:</strong></p>
 <p><span class="math inline">\(H_0: md_X = md_Y \quad\)</span> vs <span class="math inline">\(\quad H_1: md_X \ne md_Y\)</span></p>
-<div id="a2ab190f" class="cell" data-execution_count="1">
+<div id="267d1112" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> mannwhitneyu</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -889,7 +889,7 @@ Não há evidência estatística suficiente para afirmar de que existe diferenç
 <p><span class="math display">\[
 H_0: md = 70 \quad \text{vs} \quad H_1: md \ne 70
 \]</span></p>
-<div id="ede328b1" class="cell" data-execution_count="2">
+<div id="9bab5b9e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -975,7 +975,7 @@ H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1).
 </ul>
 <p>Queremos testar as hipóteses:</p>
 <p><span class="math inline">\(H_0: md_A = md_B = md_C \quad \text{vs} \quad H_1: \text{Pelo menos uma mediana é diferente}\)</span></p>
-<div id="72290ab4" class="cell" data-execution_count="3">
+<div id="e4c58a60" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> kruskal</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1048,7 +1048,7 @@ Q = \frac{12}{nk(k+1)} \sum_{j=1}^{k} R_j^2 - 3n(k+1).
 <p><strong>Comparação da eficácia de três analgésicos:</strong></p>
 <p>Doze pacientes (<span class="math inline">\(n=12\)</span>) receberam três analgésicos diferentes (A, B, C) em momentos distintos, e a eficácia foi medida em uma escala ordinal de alívio da dor (maior valor = maior alívio). Queremos verificar se há diferença na eficácia percebida entre os analgésicos.</p>
 <p>(Dados hipotéticos para ilustração - precisaria de uma matriz 12x3)</p>
-<div id="4c460a7f" class="cell" data-execution_count="4">
+<div id="0899fd64" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> friedmanchisquare</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados hipotéticos</span></span>
@@ -1138,7 +1138,7 @@ Não há evidência estatística suficiente para sugerir uma diferença na efic�
 </ul>
 <p>Queremos testar as hipóteses:</p>
 <p><span class="math inline">\(H_0: \rho = 0 \quad \text{vs} \quad H_1: \rho \neq 0\)</span>.</p>
-<div id="0cf31753" class="cell" data-execution_count="5">
+<div id="b2ee4ffd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Caso o pacote scipy não esteja instalado, você pode descomentar a linha abaixo para instalá-lo.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install scipy</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1617,8 +1617,8 @@ Há evidência estatística de uma correlação monotônica positiva significati
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introducaoML.html" class="pagination-link" aria-label="Introdução a Aprendizado de Máquina">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução a Aprendizado de Máquina</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./introducaoML.html" class="pagination-link" aria-label="Introdução ao Aprendizado de Máquina">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introdução ao Aprendizado de Máquina</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

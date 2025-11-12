@@ -16,7 +16,7 @@ book:
   page-footer:
     left: |
       Orientação: Douglas Rodrigues (UFF) e Karina Yaginuma (UFF). <br>
-      Equipe atual: Gabriel Caetano, Guilherme Ceacero, Claudionor Ferreira e Fenício Porto.
+      Equipe atual: Gabriel Caetano e Fenício Porto.
   repo-url: https://github.com/CienciaDeDadosUFF/python.github.io
   downloads: [pdf]
   #repo-actions: false #apenas se versão do quarto > 1.4 
@@ -38,7 +38,7 @@ book:
     - "CrossValidation.qmd"
     - "preProcessamento.qmd"
     - "AvaliandoFuncoesPreditoras.qmd"
-    #- "metodosBaseadoArvores.qmd"
+    - "metodosBaseadoArvores.qmd"
     
 
 
