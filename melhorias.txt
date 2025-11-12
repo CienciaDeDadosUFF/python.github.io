@@ -11,14 +11,6 @@ Em Instalação de bibliotecas, o píp está com acento.
 #Visualização de dados
 Carregar as bibliotecas: corrigir
 Gráfico de linha: erro em sns.lineplot(anos,...
-Comando solto em gráfico de dispersão com reta de regressão
-Gênero ao invés de sexo
-
-#Intervalos de confiança.
-Trocar alpha por confidence nos IC
-Atualizar o alternative nos testes t.
-Por que não usar proportions_ztest do statsmodels.stats.proportion?
-
 
 #Teste de Hip
 Problema no teste de Levene
