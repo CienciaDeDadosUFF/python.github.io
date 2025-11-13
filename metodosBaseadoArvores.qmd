@@ -112,7 +112,7 @@ pd.crosstab(base['sex'], base['heart-disease'])
 
 Então a variável “`sex`=M” separa os pacientes da seguinte forma
 
-!["heart_disease_1"](img/heart_disease_1.jpg)
+!["heart_disease_1"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_1.jpg)
 
 Note que a maioria dos pacientes com doença cardíaca terminaram na folha referente ao sexo masculino, mas a maioria dos que não possuem doença também. Já podemos ter uma ideia que essa variável não é tão boa em separar os dados, mas para averiguarmos essa hipótese vamos calcular o índice Gini dela.
 
@@ -145,7 +145,7 @@ base.groupby('chest-pain')['heart-disease'].value_counts().sort_index()
 
 Vamos considerar a variável “ChestPain = Typical”. Ela separa os dados da seguinte forma
 
-!["chest_pain_typical"](img/heart_disease_2.jpg)
+!["chest_pain_typical"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_2.jpg)
 
 Note que quase metade dos pacientes que possuem dor no peito têm doença cardíaca. Dos que não sentem a dor no peito, quase $\frac{1}{4}$ apenas possui a doença.
 
@@ -177,7 +177,7 @@ base.groupby(['thal'])['heart-disease'].value_counts().sort_index()
 
 Vamos, primeiramente, olhar para a variável “thal = normal”. Ela separa os dados da seguinte forma:
 
-!["thal_normal"](img/heart_disease_3.jpg)
+!["thal_normal"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_3.jpg)
 
 Note que a maioria dos pacientes que possuem doença cardíaca estão no grupo dos que possuem “thal = normal”.
 
@@ -201,7 +201,7 @@ $$
 
 Agora vamos olhar para a variável “thal = fixo”. Ela separa os dados da seguinte forma:
 
-!["thal_fixed"](img/heart_disease_4.jpg)
+!["thal_fixed"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_4.jpg)
 
 Vamos calcular o índice Gini do nó “thal = fixo sim”:
 
@@ -223,7 +223,7 @@ $$
 
 Por último, vamos olhar para a variável “thal = reversível".
 
-!["thal_reversable"](img/heart_disease_5.jpg)
+!["thal_reversable"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_5.jpg)
 
 Vamos calcular o índice Gini do nó “thal = reversível Sim”:
 
@@ -245,21 +245,14 @@ $$
 
 Resumindo, os índices de todas as variáveis são:
 
-$$
-\begin{table}[h!]
-\centering
-\caption{Índice Gini para a Variável Thal}
-\begin{tabular}{lc}
-\toprule
-\textbf{Variáveis} & \textbf{Índice Gini} \\
-\midrule
-Thal = Normal & 0,24 \\
-Thal = Fixo & 0,30 \\
-Thal = Reversível & 0,31 \\
-\bottomrule
-\end{tabular}
-\end{table}
-$$
+### Índice Gini para a Variável Thal
+
+| Variáveis       | Índice Gini |
+|-----------------|-------------|
+| Thal = Normal   | 0,24        |
+| Thal = Fixo     | 0,30        |
+| Thal = Reversível | 0,31      |
+
 
 A variável “thal = reversable” é a que possui o menor índice Gini, portanto ela é a mais pura. Ela ficará no topo da árvore de decisão, ou seja, será o nó raiz.
 
@@ -536,7 +529,7 @@ gini_age
 
 A variável `age` tem um grau de impureza menor, então ela será a raiz da árvore.
 
-!["floresta1"](img/floresta1.jpeg)
+!["floresta1"]Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta1.jpeg)
 
 Agora das variáveis que ainda não foram usadas, sorteamos mais duas para continuar a árvore.
 
@@ -574,11 +567,11 @@ gini_act
 
 Como a variável `act` tem o menor grau de impureza, ela será o próximo nó.
 
-!["floresta2"](img/floresta2.jpeg)
+!["floresta2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta2.jpeg)
 
 Assim, temos nossa primeira árvore de decisão.
 
-!["floresta3"](img/floresta3.jpeg)
+!["floresta3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta3.jpeg)
 
 A floresta aleatória pode ser utilizada tanto em classificadores como em regressores. A diferença é que em regressores, utilizamos árvores de regressão no lugar de árvores de classificação.
 
@@ -586,9 +579,9 @@ Em seguida vamos construir várias árvores da mesma maneira que a anterior. Par
 
 Temos então nossas 4 árvores construidas.
 
-!["floresta4"](img/floresta4.jpeg)
+!["floresta4"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta4.jpeg)
 
-!["floresta5"](img/floresta5.jpeg)
+!["floresta5"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta5.jpeg)
 
 Para classificar uma nova amostra, devemos passar ela por todas as árvores construidas e rotular a amostra pela categoria resultada mais vezes.
 
@@ -758,23 +751,16 @@ golf.groupby('Wind')['Play'].value_counts().sort_index()
 
 Logo, os índices Gini de todas as variáveis são:
 
-$$
-\begin{table}[h!]
-\centering
-\caption{Índice Gini para as Variáveis do Banco de Dados Golf}
-\begin{tabular}{lc}
-\toprule
-\textbf{Variáveis} & \textbf{Índice Gini} \\
-\midrule
-Outlook = Overcast & 0.357 \\
-Outlook = Rain & 0.457 \\
-Outlook = Sunny & 0.394 \\
-Humidity = High & 0.367 \\
-Wind = Strong & 0.429 \\
-\bottomrule
-\end{tabular}
-\end{table}
-$$
+### Índice Gini para as Variáveis do Banco de Dados *Golf*
+
+| **Variáveis**       | **Índice Gini** |
+|----------------------|-----------------|
+| Outlook = Overcast   | 0.357           |
+| Outlook = Rain       | 0.457           |
+| Outlook = Sunny      | 0.394           |
+| Humidity = High      | 0.367           |
+| Wind = Strong        | 0.429           |
+
 
 Selecionamos a variável com o menor índice Gini para ser o primeiro toco da floresta. Nesse caso, o menor índice Gini é o da variável “Outlook = Overcast”.
 
@@ -1482,11 +1468,12 @@ Assim, os resíduos que possuem $\text{Apps} < 1889,5$ vão para a esquerda, e o
 Agora vamos calcular o Índice de Similaridade para as duas folhas. Como estamos construindo nossa primeira árvore, a Probabilidade Prévia para todos os resíduos é a predição da folha inicial (0,5). Para simplificar as contas, vamos utilizar o valor padrão de $\lambda = 0$. Contudo, sabemos da regressão que o $\lambda$ reduz o Índice de Similaridade, o que consequentemente diminui o Ganho e assim torna as folhas mais fáceis de serem podadas, o que ajuda a previnir o sobreajuste.
 
 $$
-\begin{align*}
-\text{IS_folha da esquerda} = \frac{(-0.5)^2}{0.5 \times (1 - 0.5) + 0} =  1 \\
-\text{IS_folha da direita} = \frac{(-0.5 + 0.5 + 0.5)^2}{[0.5 \times (1 - 0.5)] + [0.5 \times (1 - 0.5)] + [0.5 \times (1 - 0.5)]} = 1
-\end{align*}
+\begin{eqnarray*}
+& &\text{IS\_folha da esquerda} = \frac{(-0.5)^2}{0.5 \times (1 - 0.5) + 0} =  1 \\
+& &\text{IS\_folha da direita} = \frac{(-0.5 + 0.5 + 0.5)^2}{[0.5 \times (1 - 0.5)] + [0.5 \times (1 - 0.5)] + [0.5 \times (1 - 0.5)]} = 1
+\end{eqnarray*}
 $$
+
 
 Agora, podemos calcular o ganho:
 
@@ -1500,7 +1487,7 @@ Agora vamos realizar os mesmos cálculos para os próximos 2 separadores: a méd
 
 !["xgb_3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_3.png)
 
-Podemos ver que o maior ganho é tanto o da divisão por `$\text{Apps} < 1889,5$` quanto o da divisão por `$\text{Apps} < 2739,5$`, que deram exatamente iguais. Assim, podemos usar qualquer um dos 2 para ser a raiz da árvore XGB. Vamos ficar com o último.
+Podemos ver que o maior ganho é tanto o da divisão por `Apps < 1889,5` quanto o da divisão por `Apps < 2739,5`, que deram exatamente iguais. Assim, podemos usar qualquer um dos 2 para ser a raiz da árvore XGB. Vamos ficar com o último.
 
 O próximo passo agora é ramificar a folha da esquerda para darmos continuidade à nossa árvore. Novamente, vamos limitar a profundidade dela em 2.
 
@@ -1694,10 +1681,15 @@ Agora precisamos nos atentar a um fator importante da função xgboost: ela só 
 ```{python}
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 
 # Separar features (X) e alvo (y)
 X = renda_final.drop('income', axis=1)
 y = renda_final['income']
+
+# Codificar a variável alvo
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
 
 # Converter as colunas de features para o tipo 'category'
 for col in X.select_dtypes(include=['object']).columns:
