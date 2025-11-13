@@ -395,33 +395,38 @@ print(':::')
 
 Note que o código do exemplo mudou a velocidade do objeto meuCarro, que originalmente era 0 e passou para 10.
 
-VALE A PENA MANTER?????
-*Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado.*
+[//]:<> (Para acessar os atributos (características) do objeto, normalmente se usa esses métodos do tipo getAtributo(). Pode-se, também, trazendo pro contexto do exemplo, acessar usando apenas meuCarro.velocidade invés de meuCarro.getVelocidade(). Semelhante a como é feito a chamada dos métodos, porém sem o () no final. Embora possa parecer mais simples acessar a velocidade diretamente, sem criar e chamar o método getVelocidade, em orientação a objetos existem algumas práticas que todo o programador deve seguir, essa é uma delas, o encapsulamento, que consiste em esconder os detalhes da implementação da classe do objeto criado.Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. 
+)
 
-*Essa regra do encapsulamento e outras regrinhas não são importantes de se saber para o contexto de ciência de dados. Orientação a objetos é toda uma forma de se programar, um assunto extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.*
+Orientação a objetos é toda uma forma de se programar, um assunto 
+extenso, imprescindível no processo de criação de um software, não necessariamente para se usar um. É importante saber o básico para entender o que está acontecendo por baixo de bibliotecas, que comumente utilizam classes. O matplotlib, uma biblioteca de visualização de dados, por exemplo, tem um objeto de uma classe de visualizações como meio de se criar as imagens de visualização de dados, todos os comandos de como criar os gráficos são feitos por métodos desse objeto.
 
 ## Instalação de bibliotecas
 
-OBS: pip ("Pip Installs Packages") É O GERENCIADOT DE PACOTES! FERRMENTE QUE PERMITE INSTALAR, ATUALUZAR E REMOVES BIBLIOTECAS E MÓDULOS NO PYTHON DE FORMA FÁCIL. 
-*O `pip` é um repositório que armazena diversos pacotes e módulos. Se o Python estiver adicionado ao PATH digite no terminal do windows:\\~\~\~ \$ pip --version \~\~\~*
+`pip` ("Pip Installs Packages") é o gerenciador de pacotes, ferramente que permite instalar, atualizar e remover bibliotecas e módulos no Python de forma fácil. 
+
+Para verificar versão do `pip`
+::: callout
+pip --version
+:::
 
 Para atualizar o `pip` utilize, no terminal, o seguinte linha de comando:
 
-```         
+::: callout         
 python -m pip install --upgrade pip
-```
+:::
 
 Para instalar algum pacote execute:
 
-```         
+::: callout         
 pip install "nome do pacote"
-```
+:::
 
 ou ainda
 
-```         
+::: callout        
 python -m pip install "nome do pacote"
-```
+:::
 
 ## Importação
 
