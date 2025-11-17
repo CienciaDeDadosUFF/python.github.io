@@ -15,7 +15,7 @@ Neste capítulo, vamos estudar de forma aprofundada modelos de treinamento basea
 
 Uma árvore de decisão opera através de uma estrutura hierárquica, na qual cada nó interno representa um teste sobre um atributo de um dado. Os ramos que partem desse nó correspondem aos possíveis resultados do teste, segmentando os dados até que um nó folha, que contém a classificação final, seja alcançado. Veja a figura abaixo para uma representação visual:
 
-![Nomenclatura_Arvore](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Nomenclatura_Arvore.png)
+![Nomenclatura_Arvore](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Nomenclatura_Arvore.png)
 
 ## Problemas de Classificação
 
@@ -112,7 +112,7 @@ pd.crosstab(base['sex'], base['heart-disease'])
 
 Então a variável “`sex`=M” separa os pacientes da seguinte forma
 
-!["heart_disease_1"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_1.jpg)
+!["heart_disease_1"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/heart_disease_1.jpg)
 
 Note que a maioria dos pacientes com doença cardíaca terminaram na folha referente ao sexo masculino, mas a maioria dos que não possuem doença também. Já podemos ter uma ideia que essa variável não é tão boa em separar os dados, mas para averiguarmos essa hipótese vamos calcular o índice Gini dela.
 
@@ -145,7 +145,7 @@ base.groupby('chest-pain')['heart-disease'].value_counts().sort_index()
 
 Vamos considerar a variável “ChestPain = Typical”. Ela separa os dados da seguinte forma
 
-!["chest_pain_typical"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_2.jpg)
+!["chest_pain_typical"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/heart_disease_2.jpg)
 
 Note que quase metade dos pacientes que possuem dor no peito têm doença cardíaca. Dos que não sentem a dor no peito, quase $\frac{1}{4}$ apenas possui a doença.
 
@@ -177,7 +177,7 @@ base.groupby(['thal'])['heart-disease'].value_counts().sort_index()
 
 Vamos, primeiramente, olhar para a variável “thal = normal”. Ela separa os dados da seguinte forma:
 
-!["thal_normal"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_3.jpg)
+!["thal_normal"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/heart_disease_3.jpg)
 
 Note que a maioria dos pacientes que possuem doença cardíaca estão no grupo dos que possuem “thal = normal”.
 
@@ -201,7 +201,7 @@ $$
 
 Agora vamos olhar para a variável “thal = fixo”. Ela separa os dados da seguinte forma:
 
-!["thal_fixed"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_4.jpg)
+!["thal_fixed"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/heart_disease_4.jpg)
 
 Vamos calcular o índice Gini do nó “thal = fixo sim”:
 
@@ -223,7 +223,7 @@ $$
 
 Por último, vamos olhar para a variável “thal = reversível".
 
-!["thal_reversable"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/heart_disease_5.jpg)
+!["thal_reversable"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/heart_disease_5.jpg)
 
 Vamos calcular o índice Gini do nó “thal = reversível Sim”:
 
@@ -247,16 +247,15 @@ Resumindo, os índices de todas as variáveis são:
 
 ### Índice Gini para a Variável Thal
 
-| Variáveis       | Índice Gini |
-|-----------------|-------------|
-| Thal = Normal   | 0,24        |
-| Thal = Fixo     | 0,30        |
-| Thal = Reversível | 0,31      |
-
+| Variáveis         | Índice Gini |
+|-------------------|-------------|
+| Thal = Normal     | 0,24        |
+| Thal = Fixo       | 0,30        |
+| Thal = Reversível | 0,31        |
 
 A variável “thal = reversable” é a que possui o menor índice Gini, portanto ela é a mais pura. Ela ficará no topo da árvore de decisão, ou seja, será o nó raiz.
 
-!["raiz_arvore_final"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Raiz_Arvore_Final.png)
+!["raiz_arvore_final"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Raiz_Arvore_Final.png)
 
 O próximo passo é definir as variáveis que ficarão no nó “thal = reversível sim” e “thal = reversível não”. Para isso temos que olhar para a base de dados com os indivíduos de cada grupo.
 
@@ -280,7 +279,7 @@ Agora calculamos também o índice Gini para todas as variáveis referentes a es
 
 Dessa forma, podemos dar continuidade a nossa árvore.
 
-!["raiz_arvore_final"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Arvore_de_Decisao_Final.png)
+!["raiz_arvore_final"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Arvore_de_Decisao_Final.png)
 
 Após obtidos esses novos nós, o processo continua se repetindo, obtendo novos nós e/ou folhas para a árvore, até a construção chegar ao fim.
 
@@ -296,7 +295,7 @@ O ganho ao aumentar a árvore pode ser resumido como um conjunto de atributos pr
 
 Agora iremos discutir o processo de construção de uma árvore de regressão. Em uma árvore de regressão, diferentemente de uma árvore para classificação, cada folha possui um valor numérico (ao invés de categorias como “Sim” ou “Não”, como no exemplo anterior da base SmallHeart). Vejamos a seguir um exemplo de árvore de decisão para um problema de regressão.
 
-![Arvore_Regressao](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Ex_Arvore_Reg-01.png)
+![Arvore_Regressao](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Ex_Arvore_Reg-01.png)
 
 Esse valor numérico presente nas folhas não é nada menos que a média do valor da variável de interesse a ser prevista para os elementos que satisfazem a condição do nó. Por exemplo, na árvore de regressão acima a primeira folha dá como resultado uma eficácia de 5%: essa foi a média observada da eficácia do medicamento em pacientes com mais de 50 anos de idade. Para a segunda folha, a com eficácia de 20%: esse valor é a média da eficácia do medicamento em um indivíduo com menos de 50 anos de idade e que toma uma dosagem maior do que 29mg foi de 20%. O processo é o mesmo para as outras folhas.
 
@@ -342,7 +341,7 @@ stat.mean(vendas[vendas['TV'] > 44.95]['sales'])
 
 Assim, o primeiro nó será da seguinte forma:
 
-!["ArvReg1-01"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/ArvReg1-01.png)
+!["ArvReg1-01"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/ArvReg1-01.png)
 
 Para a resposta “sim”, prevemos que o total de vendas do produto será de 0.7, que é o resultado da média dos valores das vendas para todos os produtos cuja publicidade foi menor do que 2.4, ou seja, o valor do primeiro elemento. Para a resposta “Não”, então a folha seguinte contém o resultado da média dos valores das vendas para todos os produtos cuja publicidade foi maior do que 2.4, o qual é de 147.78.
 
@@ -363,7 +362,7 @@ plt.axvline(x=66.95, color='red', linestyle='--', label='Média das duas menores
 
 Então o nó considerado será da forma “Publicidade para a TV \< 66.95?”.
 
-!["ArvReg2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/ArvReg2.png)
+!["ArvReg2"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/ArvReg2.png)
 
 O valor de 2.4 corresponde ao resultado da média dos valores das vendas para todos os produtos cuja publicidade foi menor do que 4.75. O valor de 148.5 é o resultado da média dos valores das vendas para todos os produtos cuja publicidade foi maior do que 4.75. Novamente serão obtidos os resíduos dessa predição e eles serão somados.
 
@@ -529,7 +528,7 @@ gini_age
 
 A variável `age` tem um grau de impureza menor, então ela será a raiz da árvore.
 
-!["floresta1"]Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta1.jpeg)
+\!["floresta1"\]Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta1.jpeg)
 
 Agora das variáveis que ainda não foram usadas, sorteamos mais duas para continuar a árvore.
 
@@ -567,11 +566,11 @@ gini_act
 
 Como a variável `act` tem o menor grau de impureza, ela será o próximo nó.
 
-!["floresta2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta2.jpeg)
+!["floresta2"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/floresta2.jpeg)
 
 Assim, temos nossa primeira árvore de decisão.
 
-!["floresta3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta3.jpeg)
+!["floresta3"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/floresta3.jpeg)
 
 A floresta aleatória pode ser utilizada tanto em classificadores como em regressores. A diferença é que em regressores, utilizamos árvores de regressão no lugar de árvores de classificação.
 
@@ -579,9 +578,9 @@ Em seguida vamos construir várias árvores da mesma maneira que a anterior. Par
 
 Temos então nossas 4 árvores construidas.
 
-!["floresta4"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta4.jpeg)
+!["floresta4"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/floresta4.jpeg)
 
-!["floresta5"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/floresta5.jpeg)
+!["floresta5"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/floresta5.jpeg)
 
 Para classificar uma nova amostra, devemos passar ela por todas as árvores construidas e rotular a amostra pela categoria resultada mais vezes.
 
@@ -684,7 +683,7 @@ print(classification_report(y_test, previsoes_arvore))
 
 O método de treino AdaBoost se baseia na construção de uma floresta aleatória. Entretanto, na floresta construída por esse método as árvores possuem apenas um nó e duas folhas. Essas árvores são chamadas de tocos.
 
-!["Floresta_AdaBoost-01"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Floresta_AdaBoost-01.png)
+!["Floresta_AdaBoost-01"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Floresta_AdaBoost-01.png)
 
 Em geral, tocos não são muito bons em fazer classificações precisas, ou seja, eles são classificadores fracos. No entanto, o método AdaBoost os combina de forma a criar um bom aprendiz. Ele faz isso utilizando diferenciais na classificação e na construção das árvores que a floresta aleatória comum não utiliza:
 
@@ -707,19 +706,19 @@ golf.groupby('Outlook')['Play'].value_counts().sort_index()
 
 Então temos que “Outlook = Overcast” separa os dados da seguinte forma:
 
-!["AB_Overcast"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_Overcast.png)
+!["AB_Overcast"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_Overcast.png)
 
 **Gini(Outlook = Overcast)** = \$ \frac{4}{14} \cdot \left[1 - \left(\frac{4}{4}\right)^2 - \left(\frac{0}{4}\right)^2\right] + \frac{10}{14} \cdot \left[1 - \left(\frac{5}{10}\right)^2 - \left(\frac{5}{10}\right)^2 \right] = 0.357 \$
 
 Agora vamos para a Outlook Rain:
 
-!["AB_Rain"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_Rain.png)
+!["AB_Rain"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_Rain.png)
 
 **Gini(Outlook = Rain)** = \$ \frac{5}{14} \cdot \left[1 - \left(\frac{3}{5}\right)^2 - \left(\frac{2}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{6}{9}\right)^2 - \left(\frac{3}{9}\right)^2\right] = 0.457 \$
 
 e para Otlook Sunny:
 
-!["AB_Sunny"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_Sunny.png)
+!["AB_Sunny"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_Sunny.png)
 
 **Gini(Outlook = Sunny)** = \$ \frac{5}{14} \cdot \left[1 - \left(\frac{2}{5}\right)^2 - \left(\frac{3}{5}\right)^2\right] + \frac{9}{14} \cdot \left[1 - \left(\frac{7}{9}\right)^2 - \left(\frac{2}{9}\right)^2\right] = 0.393 \$
 
@@ -735,7 +734,7 @@ golf.groupby('Humidity')['Play'].value_counts().sort_index()
 
 Temos que “Humidity = High” separa os dados da seguinte forma:
 
-!["AB_High"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_High.png)
+!["AB_High"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_High.png)
 
 **Gini(Humidity = High)** = \$ \frac{7}{14} \cdot \left[1 - \left(\frac{3}{7}\right)^2 - \left(\frac{4}{7}\right)^2\right] + \frac{7}{14} \cdot \left[1 - \left(\frac{6}{7}\right)^2 - \left(\frac{1}{7}\right)^2\right] = 0.367 \$
 
@@ -745,7 +744,7 @@ Por fim, para a variável Wind:
 golf.groupby('Wind')['Play'].value_counts().sort_index()
 ```
 
-!["AB_Wind"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_Wind.png)
+!["AB_Wind"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_Wind.png)
 
 **Gini(Wind = Strong)** = \$ \frac{6}{14} \cdot \left[1 - \left(\frac{3}{6}\right)^2 - \left(\frac{3}{6}\right)^2\right] + \frac{8}{14} \cdot \left[1 - \left(\frac{6}{8}\right)^2 - \left(\frac{2}{8}\right)^2\right] = 0.429 \$
 
@@ -753,24 +752,23 @@ Logo, os índices Gini de todas as variáveis são:
 
 ### Índice Gini para as Variáveis do Banco de Dados *Golf*
 
-| **Variáveis**       | **Índice Gini** |
-|----------------------|-----------------|
-| Outlook = Overcast   | 0.357           |
-| Outlook = Rain       | 0.457           |
-| Outlook = Sunny      | 0.394           |
-| Humidity = High      | 0.367           |
-| Wind = Strong        | 0.429           |
-
+| **Variáveis**      | **Índice Gini** |
+|--------------------|-----------------|
+| Outlook = Overcast | 0.357           |
+| Outlook = Rain     | 0.457           |
+| Outlook = Sunny    | 0.394           |
+| Humidity = High    | 0.367           |
+| Wind = Strong      | 0.429           |
 
 Selecionamos a variável com o menor índice Gini para ser o primeiro toco da floresta. Nesse caso, o menor índice Gini é o da variável “Outlook = Overcast”.
 
-![AB_toco](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_toco.png)
+![AB_toco](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_toco.png)
 
 Agora precisamos calcular o peso desse toco na classificação final. Para isso, vamos calcular seu erro total.
 
 O erro total de um toco é calculado pelo número de amostras classificadas erradas dividido pelo total de amostras.
 
-![AB_toco2](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/AB_toco2.png)
+![AB_toco2](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/AB_toco2.png)
 
 Para esse toco houve 5 amostras classificadas erradas em um total de 14. Logo,
 
@@ -798,11 +796,11 @@ Então, para rebalancearmos os pesos das amostras classificadas de forma certa e
 
 Então temos os pesos para as amostras:
 
-![Tabela Adaboost](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Tabela_Adaboost.png)
+![Tabela Adaboost](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Tabela_Adaboost.png)
 
 A soma dos pesos das amostras deve ser 1, mas isso não ocorre: note que a soma resulta em 4,788. Dessa forma, precisamos reescalar os pesos. Faremos isso dividindo cada um deles por 4,788. Feito isso, temos uma nova tabela de pesos:
 
-![Tabela Adaboost Reescalada](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tabela_adaboost2.png)
+![Tabela Adaboost Reescalada](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tabela_adaboost2.png)
 
 Definidos os pesos, em seguida realizamos uma reamostragem via bootstrap (uma amostragem da própria amostra, com reposição) do mesmo tamanho da base de dados original. A probabilidade de um elemento da amostra ser sorteado é o peso dele.
 
@@ -832,7 +830,7 @@ print("Resultado do Bootstrap:", resultado_bootstrap)
 
 Então temos uma nova amostra formada pelos elementos sorteados na reamostragem:
 
-!["ada_tabela_final"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/ada_tabela_final.png)
+!["ada_tabela_final"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/ada_tabela_final.png)
 
 Agora, com essa nova amostra, fixamos pesos uniformes para os elementos e repetimos o processo de criação para o próximo toco. Em seguida verificamos os elementos que foram classificados de forma errada, aumentamos seus pesos no banco de dados e repetimos o processo de bootstrap, construindo, assim, o próximo toco. O processo se repete até que a floresta de tocos esteja concluída.
 
@@ -932,7 +930,7 @@ Para entendermos como funciona o Gradiente Boosting, considere a seguinte base d
 
 A primeira coisa a fazer é definir um número máximo de folhas de cada árvore. Para nosso exemplo, vamos definir 4 folhas, mas em geral, é definido uma quantidade de 8 a 32 folhas. Feito isso, tiramos uma média dos pesos dos indivíduos e essa será nossa primeira árvore, uma árvore só com a raiz.
 
-![Gradiente Boosting](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGB.png)
+![Gradiente Boosting](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGB.png)
 
 Agora, calculamos o Pseudo-Resíduo, o erro de previsão de cada indivíduo, da forma **Pseudo-Resíduo** = **Valor Real** - **Valor Previsto** para cada observacão. Então, por exemplo, o Pseudo-Resíduo do primeiro indivíduo é 88 - 71.5 = 16.5.
 
@@ -950,11 +948,11 @@ O termo pseudo-resíduo é baseado em Regressão Linear, onde o resíduo é a di
 
 O próximo passo é, utilizando as variáveis explicativas (Altura, Cor e Sexo), construir uma árvore de decisão respeitando o máximo de folhas definido anteriormente. Mas ela deve predizer o pseudo-resíduo e não o Peso.
 
-![Árvore de Decisão Pseudo-Resíduo](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/GB1.png)
+![Árvore de Decisão Pseudo-Resíduo](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/GB1.png)
 
 Note que temos mais observações do que folhas, sendo assim, podemos ter mais que um resultado em cada uma. Nesse caso, substituímos os valores pela média das folhas.
 
-![Árvore de Decisão Pseudo-Resíduo](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/GB2.png)
+![Árvore de Decisão Pseudo-Resíduo](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/GB2.png)
 
 Agora somamos o resultado das duas árvores para classificar na primeira observação, por exemplo, a predição seria $71,5  + 16,5 = 88$. Acertamos exatamente o valor real. Isso é bom? Não. Já vimos como não é bom ter um modelo muito ajustado. Temos pouco viés, mas provavelmente alta variância.
 
@@ -976,7 +974,7 @@ Repare que o valor do segundo pseudo-resíduo diminuiu em módulo em relação a
 
 Agora, utilizando novamente as variáveis explicativas, construímos outra árvore agora para predizer o segundo pseudo-resíduo.
 
-![Árvore de Decisão Pseudo-Resíduo](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/GB3.png)
+![Árvore de Decisão Pseudo-Resíduo](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/GB3.png)
 
 Note que a estrutura da segunda árvore construída ficou semelhante a primeira. Isso não acontece sempre, mas pode acontecer.
 
@@ -1085,7 +1083,7 @@ Considere a seguinte base de dados
 
 Queremos predizer se uma pessoa ama o filme Troll 2 baseado em seu gosto por pipoca, idade e cor favorita. Assim como em regressão, começamos o método de Gradiente Boosting usando uma árvore raiz que represente nossa predição inicial para cada observação. Em regressão usamos a média das observações, em classificação vamos usar o log(chances). Olhando na base de dados, podemos dizer que as chances de alguém amar Troll 2 é $\text{chances} = \frac{\text{quantidade de indivíduos que amaram}}{\text{quantidade de indivíduos que odiaram}} = \frac{4}{2}$, e portanto, o log(chances) é $\log\left(\frac{4}{2}\right) = 0.6932$. e é isso que colocaremos na folha inicial.
 
-!["Toco GBC"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGBC.png)
+!["Toco GBC"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGBC.png)
 
 O jeito mais fácil de usar o log(chances) para classificar é convertendo em probabilidade, e fazemos isso usando a seguinte função:
 
@@ -1095,7 +1093,7 @@ $$
 
 Sendo assim, a Probabilidade de alguém amar \$ \text{Troll} 2 = \frac{e^{log(\frac{4}{2})}}{1+e^{log{4}{2}}} = \frac{2}{3} = 0,6667\$
 
-!["Toco GBC2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGBC2.png)
+!["Toco GBC2"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGBC2.png)
 
 É importante notar que o log(chances) e a probabilidade só ficaram iguais por causa da aproximação.
 
@@ -1123,7 +1121,7 @@ Mas a classificação não ficou muito boa já que 2 indivíduos foram classific
 
 Agora construímos uma árvore utilizando as variáveis explicativas para predizer o pseudo-resíduo. Assim como o Gradiente Boosting para regressão, temos que definir um número máximo de folhas em cada árvore. Aqui vamos limitar a 3 folhas, mas na prática geralmente é um número entre 8 e 32.
 
-!["Toco GB3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGBC3.png)
+!["Toco GB3"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGBC3.png)
 
 Em regressão, os valores das folhas representavam os resíduos. Mas em classificação isso é mais complexo. Isso porque a predição está em log(chances) e as folhas são provenientes de probabilidade. Portanto não podemos apenas somá-las para uma nova predição sem alguma transformação. A transformação mais comum por folha é:
 
@@ -1143,7 +1141,7 @@ Assim, da esquerda para direita, para primeira folha temos:
 
 Por enquanto, a probabilidade anterior é a mesma para todos, mas a partir da próxima árvore isso muda.
 
-!["Toco GBC"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGBC4.png)
+!["Toco GBC"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGBC4.png)
 
 Agora que todas as folhas foram alteradas, podemos somar os resultados escalados pela taxa de aprendizado. Nesse exemplo, vamos usar uma taxa alta, 0.8. Mas geralmente se usa 0.1. E então calculamos o novo $log(\text{chances}) = 0.7 = (0.8 \cdot 1.4) = 1.82$ e então convertemos em probabilidade $\frac{e^{1,82}}{1+e{1,82}} = 0.8606$. Então, note que fizemos progresso, já que o indivíduo em questão ama Troll 2. Antes ele foi classificado corretamente mas com probabilidade 0.7, agora ele foi classificado corretamente mas com probabilidade 0.9.
 
@@ -1175,7 +1173,7 @@ Calculamos os novos pseudo-resíduos que agora serão diferentes para cada obser
 
 Construímos uma segunda árvore agora para prever os novos pseudo-resíduos e fazemos a transformação para log(chances) para cada folha.
 
-!["Toco GBC"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/tocoGBC5.png)
+!["Toco GBC"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/tocoGBC5.png)
 
 Combinamos com as árvores anteriores para obter um valor de saída e transformamos em Probabilidade para classificar. Por exemplo, a primeira observação ficaria:
 
@@ -1234,7 +1232,7 @@ disp.plot()
 ```
 
 ```{python}
-# acurácia do modelo
+# Acurácia do modelo
 accuracy = gbc.score(X_test, y_test)
 
 print(f"Acurácia do modelo: {accuracy:.2f}")
@@ -1252,7 +1250,7 @@ Apesar do XGBoost ser usado para lidar com bases grandes, vamos usar uma base de
 
 O primeiro passo é fazer uma predição inicial, que pode ser qualquer uma. O default é usar 0,5, mas como estamos falando de peso, vamos utilizar a predição inicial “Peso = 70”.
 
-!["xgboost1"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb1.png)
+!["xgboost1"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb1.png)
 
 Agora precisamos calcular os resíduos (diferença entre o valor real e o valor predito) que vão nos mostrar quão boa é essa predição.
 
@@ -1264,7 +1262,7 @@ pa["residuos"] = pa["Peso"] - 70
 
 Assim como no Gradiente Boosting, o próximo passo é construir uma árvore para predizer os resíduos. Mas o XGBoost utiliza uma árvore de regressão diferente que vamos chamar de árvore XGB. Existem muitas formas de construir uma árvore XGB. Vamos aprender a mais comum. A árvore XGB inicia com uma folha que leva todos os resíduos.
 
-!["xgb2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb2.png)
+!["xgb2"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb2.png)
 
 Em seguida, calculamos um índice de qualidade ou Índice de Similaridade.
 
@@ -1274,13 +1272,13 @@ $$
 
 Onde $\lambda$ (Lambda) é um parâmetro de regularização, o que significa que tem o objetivo de reduzir a sensibilidade das observações individuais, ou seja, reduzir o sobreajuste. Por enquanto, vamos considerar $\lambda = 0$ porque esse é o valor default. Sendo assim, o Índice de similaridade da raiz é $\frac{(18+6-14+5-10)^2}{5+0} = \frac{5^2}{5} = 5$
 
-!["xgb3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb3.png)
+!["xgb3"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb3.png)
 
 Agora vamos ver se conseguimos melhorar esse índice dividindo os resíduos, ou seja, criando uma ramificação. Vamos começar dividindo a variável Altura na média entre os dois menores valores, que são 1.4 e 1.5, e calculando o Indice para as novas folhas.
 
 Observe que nas folhas não estarão as alturas e sim os resíduos correspondentes a altura especificada.
 
-!["xgb4"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb4.png)
+!["xgb4"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb4.png)
 
 Agora, precisamos calcular o ganho dessa ramificação para ver o quanto ela foi efetiva. O ganho é calculado da seguinte forma:
 
@@ -1290,7 +1288,7 @@ $$
 
 Assim, o ganho da ramificação $\text{Altura} < 1,45$ é $100 + 56,25 - 5 = 151,25$. Vamos fazer esse calculo em todas as ramificações possiveis, Isto é, se temos 5 observações com diferentes alturas, vamos ter 4 ramificações possiveis: Altura\<1.45, Altura\<1.55, Altura\<1.65 e Altura\<1.75.
 
-!["xgb5"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb5.png)
+!["xgb5"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb5.png)
 
 Podemos ver que o ganho de usar a ramificação ‘Altura\<1.55’ é maior, portanto é essa que vamos usar. Agora vamos ramificar as folhas da mesma maneira e escolher as que tiverem melhor ganho.
 
@@ -1298,7 +1296,7 @@ Nesse exemplo, vamos limitar a profundidade da árvore XGB em 2. Mas o default �
 
 Nossa árvore XGB final ficou:
 
-!["xgb6"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb6.png)
+!["xgb6"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb6.png)
 
 Agora, vamos podar nossa árvore. Fazemos isso porque pode ser que algum nó tenha o ganho muito baixo e por isso não vale a pena estar na árvore. Para decidir se vamos tirar algum nó e, se sim, qual, vamos escolher um valor que será chamado de $\gamma$(gamma). Em seguida, calculamos a diferença entre o ganho associado ao nó e $\gamma$, se essa diferença for negativa, então removemos o nó.
 
@@ -1312,13 +1310,13 @@ Mesmo se o valor da diferença der negativo nos nós de cima, se não removermos
 
 Com isso, nossa árvore XGB ficou:
 
-!["xgb7"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb7.png)
+!["xgb7"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb7.png)
 
 Note que se tivéssemos escolhido um $\gamma$ muito alto, por exemplo $\gamma = 570$, toda árvore seria podada. É preciso cuidado.
 
 Agora vamos voltar ao inicio e reconstruir a árvore agora usando $\lambda = 1$ (Lembra do ? aquele da fórmula do índicador de similaridade!). Para facilitar a vizualização, vamos omitir os cálculos. A nova árvore XGB ficou:
 
-!["xgb8"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb8.png)
+!["xgb8"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb8.png)
 
 Podemos notar que quando $\lambda > 0$, o índice de similaridade é menor. O que significa que se mantivermos o mesmo , a poda será mais extrema. Por outro lado, deixar $\lambda > 0$ ajuda a previnir sobreajustes.
 
@@ -1332,13 +1330,13 @@ Repare que essa fórmula é bem parecida com a do índice de similaridade, mas a
 
 Repare que, como $\lambda = 0$, o valor de saida é uma média aritmética simples entre os resíduos. Mas note que se $\lambda > 0$ e a folha tiver apenas uma observação, isso reduzira a sensibilidade dessa observação individual evitando sobreajuste.
 
-!["xgb9"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb9.png)
+!["xgb9"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb9.png)
 
 Assim a primeira árvore está completa e, como em Gradient Boosting, fazemos novas predições começando com a predição inicial e somando com o resultado da árvore XGB escalada pela taxa de aprendizado.
 
 O XGBoost chama a taxa de aprendizado de $\eta$ (eta) e seu valor default é 0.3, que é o que vamos usar.
 
-!["xgb10"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb10.png)
+!["xgb10"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb10.png)
 
 Por exemplo, se a gente pegasse a primeira observação (indivíduo com altura=1.7), seu peso predito seria $\text{predicao inicial} + \eta \cdot \text{valor de saída da árvore XGB} = 70 + 0,312 = 73,6$ que é mais perto do seu peso real (que era 88) do que a predição anterior (que era 70). Assim, com as novas predições, os novos resíduos ficaram:
 
@@ -1417,7 +1415,7 @@ Para entendermos como o XGBoost funciona para problemas de classificação, vamo
 
 O primeiro passo é fazer uma predição inicial. Essa predição pode ser qualquer valor, como por exemplo a probabilidade de observar universidades públicas no conjunto de dados. Por padrão, essa predição é de 0,5.
 
-!["predição inicial"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/pred_inicial.png)
+!["predição inicial"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/pred_inicial.png)
 
 Feita a predição inicial, agora vamos calcular os resíduos e verificar quão boa é essa predição.
 
@@ -1435,7 +1433,7 @@ sc
 
 O próximo passo é construir uma árvore para predizer os resíduos. Assim como a árvore XGB para regressão, a árvore XGB para classificação se inicia com apenas uma folha que leva todos os resíduos.
 
-!["Resíduos iniciais"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/Residuos_XGB.png)
+!["Resíduos iniciais"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/Residuos_XGB.png)
 
 Agora precisamos calcular o Índice de Similaridade para os resíduos. Porém, como estamos usando XGBoost para classificação, temos uma nova fórmula para ele.
 
@@ -1451,7 +1449,7 @@ $$
 (\sum_{i=1}^{n} Residuo_i)^2 = (0.5-0.5-0.5+0.5)^2 = 0 \rightarrow \text{Índice de Similaridade} = 0
 $$
 
-!["Resíduos iniciais"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/IS1-01.png)
+!["Resíduos iniciais"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/IS1-01.png)
 
 Vamos tentar melhorar o Índice dividindo os resíduos em 2 grupos diferentes. Para isso, temos que testar todos os possíveis separadores para os dados e escolher o que tiver o maior ganho. Vamos começar com o primeiro: a média entre os 2 menores valores da variável `Apps`.
 
@@ -1463,7 +1461,7 @@ print(ordenados)
 
 Assim, os resíduos que possuem $\text{Apps} < 1889,5$ vão para a esquerda, e os com $\text{Apps} > 1889,5$ vão para a direita.
 
-![""](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_1.png)
+![""](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_1.png)
 
 Agora vamos calcular o Índice de Similaridade para as duas folhas. Como estamos construindo nossa primeira árvore, a Probabilidade Prévia para todos os resíduos é a predição da folha inicial (0,5). Para simplificar as contas, vamos utilizar o valor padrão de $\lambda = 0$. Contudo, sabemos da regressão que o $\lambda$ reduz o Índice de Similaridade, o que consequentemente diminui o Ganho e assim torna as folhas mais fáceis de serem podadas, o que ajuda a previnir o sobreajuste.
 
@@ -1474,18 +1472,17 @@ $$
 \end{eqnarray*}
 $$
 
-
 Agora, podemos calcular o ganho:
 
 $$
 \text{Ganho} = \text{IS}_{folha da esquerda} + \text{IS}_{folha da direita} - \text{IS}_{raiz} = 1 + 0.33 - 0 = 1.33
 $$
 
-!["xgb_2"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_2.png)
+!["xgb_2"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_2.png)
 
 Agora vamos realizar os mesmos cálculos para os próximos 2 separadores: a média entre o segundo e o terceiro valor e a média entre o terceiro e o quarto valor da variável `Apps`.
 
-!["xgb_3"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_3.png)
+!["xgb_3"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_3.png)
 
 Podemos ver que o maior ganho é tanto o da divisão por `Apps < 1889,5` quanto o da divisão por `Apps < 2739,5`, que deram exatamente iguais. Assim, podemos usar qualquer um dos 2 para ser a raiz da árvore XGB. Vamos ficar com o último.
 
@@ -1493,7 +1490,7 @@ O próximo passo agora é ramificar a folha da esquerda para darmos continuidade
 
 A árvore XGB fica, então, da seguinte forma:
 
-!["xgb_4"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_4.png)
+!["xgb_4"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_4.png)
 
 Assim, terminamos de construir a árvore XGB. Porém, é importante saber que o XGBoost possui uma forma de determinar um número mínimo de resíduos permitido em cada folha da árvore. Ele faz isso calculando o Cover das folhas.
 
@@ -1508,20 +1505,20 @@ Calculando o Cover das nossas duas últimas folhas, temos que:
 -   Cover da primeira folha: $0.5 \times (1 - 0.5) = 0.25$
 -   Cover da segunda folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.5$
 
-!["xgb_5"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_5.png)
+!["xgb_5"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_5.png)
 
 Como o Cover de ambas as folhas são menores do que 1, o XGBoost não as permite permanecer na árvore. Logo, vamos removê-las. A árvore fica, então, da seguinte forma:
 
-!["xgb_6"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_6.png)
+!["xgb_6"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_6.png)
 
 -   Cover da primeira folha: $0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) + 0.5 \times (1 - 0.5) = 0.75$
 -   Cover da Segunda folha: $0.5 \times (1 - 0.5) = 0.25$
 
-!["xgb_7"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_7.png)
+!["xgb_7"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_7.png)
 
 Como o Cover de ambas as folhas também são menores do que 1, o XGBoost também não as permite permanecer na árvore. Assim, só nos resta a raiz. Mas isso também é um problema, pois o XGBoost requer árvores que sejam maiores do que apenas a raiz. Dessa forma, vamos fixar o valor mínimo para o Cover como 0. Assim podemos permanecer com nossa árvore XGB anterior.
 
-!["xgb_8"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_8.png)
+!["xgb_8"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_8.png)
 
 Quando estamos utilizando XGBoost para regressão usamos a seguinte fórmula para o Índice de Similaridade:
 
@@ -1539,7 +1536,7 @@ Como o default do Cover é 1, isso significa que podemos ter até **1 resíduo p
 
 Agora vamos entrar na parte de como podar a árvore. Ela é feita exatamente como na regressão, nós podamos com base na diferença entre o Ganho associado ao nó e $\gamma$. Para esse exemplo, vamos fixar $\gamma = 0.5$.
 
-!["xgb_9"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_9.png)
+!["xgb_9"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_9.png)
 
 Como a diferença resultou em um número positivo, não podamos o nó. Logo, não precisamos calcular essa diferença para o nó raiz e nossa árvore permanece a mesma. Note que se tivéssemos fixado, por exemplo, $\gamma = 1.5$, todos os nós seriam podados e nos restaria apenas a predição inicial. É necessário cuidado na escolha do $\gamma$.
 
@@ -1551,7 +1548,7 @@ $$
 
 Note que a fórmula é bem parecida com a do Índice de Similaridade, o que muda é apenas o fato de que o numerador não está ao quadrado. Novamente vamos utilizar o valor padrão para $\lambda$, 0.
 
-!["xgb_3-01"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_3-01.png)
+!["xgb_3-01"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_3-01.png)
 
 Agora que construímos nossa primeira árvore, podemos realizar predições. Assim como no XGBoost para regressão, o XGBoost para classificação faz novas predições começando com a predição inicial e somando com o resultado da árvore XGB escalado pela taxa de aprendizado. Porém, assim como com o Gradiente Boosting para classificação, precisamos converter a predição inicial, que é uma probabilidade, para log(chances). A fórmula para converter probabilidades para chances é dada por:
 
@@ -1563,7 +1560,7 @@ Então, para a predição inicial de 0,5, temos que $\text{log(chances)} = \text
 
 Agora precisamos adicionar esse valor aos valores de saída da árvore XGB multiplicado pela taxa de aprendizado. Essa taxa é chamada de $\eta$ e seu valor padrão é 0,3, o qual iremos usar.
 
-!["xgb_11"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_11.png)
+!["xgb_11"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_11.png)
 
 O que as folhas retornarão após esse cálculo serão os log(chances). É preciso, em seguida, converter para probabilidade também.\
 
@@ -1598,7 +1595,7 @@ Assim, temos que:
 
 Assim, temos as predições da nossa árvore:
 
-!["xgb_12"](Cadernos Grupo Python/Métodos de Treino Baseados em Árvore/img/xgb_12.png)
+!["xgb_12"](Cadernos%20Grupo%20Python/Métodos%20de%20Treino%20Baseados%20em%20Árvore/img/xgb_12.png)
 
 Dessa forma podemos obter novos resíduos utilizando a nova árvore:
 
@@ -1682,24 +1679,33 @@ Agora precisamos nos atentar a um fator importante da função xgboost: ela só 
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, classification_report
 
 # Separar features (X) e alvo (y)
 X = renda_final.drop('income', axis=1)
 y = renda_final['income']
 
-# Codificar a variável alvo
-le = LabelEncoder()
-y_encoded = le.fit_transform(y)
-
 # Converter as colunas de features para o tipo 'category'
 for col in X.select_dtypes(include=['object']).columns:
     X[col] = X[col].astype('category')
+
+# Crie e ajuste o LabelEncoder para o 'y'
+le = LabelEncoder()
+y_encoded = le.fit_transform(y) # Agora a variável y_encoded existe
+
+# Dividir os dados usando y_encoded
+X_train, X_test, y_train, y_test = train_test_split(
+    X, 
+    y_encoded, 
+    test_size=0.3, 
+    random_state=42, 
+    stratify=y_encoded 
+)
 
 # Dividir os dados em conjuntos de treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.3, random_state=42, stratify=y_encoded)
 
 # Criar e treinar o modelo com suporte nativo para categorias
-# 🚀 O passo chave está aqui!
 xgb_model = xgb.XGBClassifier(
     objective='binary:logistic',
     eval_metric='logloss',
@@ -1717,5 +1723,5 @@ print(f"\nAcurácia do Modelo: {accuracy:.4f}")
 
 # Exibir um relatório de classificação mais detalhado
 print("\nRelatório de Classificação:")
-print(classification_report(y_test, y_pred))      
+print(classification_report(y_test, y_pred))     
 ```
