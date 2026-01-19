@@ -11,7 +11,7 @@ jupyter: python3
 
 # Porque o python?
 
-Python é uma linguagem de programação rápida de se programar dado a sua simplicidade e versatilidade. Abstrações de detalhes técnicos do computador são usadas na linguagem para auxiliar o programador no desenvolvimento de seus programas, retirando recursos presentes em outras linguagens a fim de manter apenas o essencial ao programador.
+Python é uma linguagem de programação rápida de se programar dado a sua simplicidade e versatilidade. Abstrações de detalhes técnicos do computador são usadas na linguagem para auxiliar o programador no desenvolvimento de programas, extraindo recursos presentes em outras linguagens a fim de manter apenas o essencial ao programador.
 
 Em outras linguagens o programador está sempre preocupado se está usando a tipagem correta, se está compilando os programas com as referências externas corretas, se os buffers de input estão limpos, se a memória alocada é suficiente, tudo isso para receber uma falha de segmentação depois de esquecer um ; em algum lugar.
 
@@ -23,7 +23,7 @@ Por essas e outras razões, Python é uma das principais linguagens de programa�
 
 # Instalação (Windows)
 
-Para instalar o Python precisa acessar o link <https://www.Python.org/downloads/> e fazer o download da versão mais recente. Quando o download estiver concluído, execute o instalador baixado, marque a opção **Add Python.exe to PATH** e clique no **install now**, seguindo as opções padrões do Python.
+Para instalar o Python acesse o link <https://www.Python.org/downloads/> e faça o download da versão mais recente. Quando o download for concluído, execute o instalador baixado, marque a opção **Add Python.exe to PATH** e clique no **install now**, seguindo as opções padrões do Python.
 
 ![](images/instalacao1.png)
 
@@ -75,7 +75,7 @@ Para cada vez que formos abrir o Jupyter precisamos abrir o terminal de comando,
 
 ![](images/jupyter3.png)
 
-Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.
+**Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.**
 
 ## Hello World no Jupyter
 
