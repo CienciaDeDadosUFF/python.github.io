@@ -23,7 +23,7 @@ Por essas e outras razões, Python é uma das principais linguagens de programa�
 
 # Instalação (Windows)
 
-Para instalar o Python acesse o link <https://www.Python.org/downloads/> e faça o download da versão mais recente. Quando o download for concluído, execute o instalador baixado, marque a opção **Add Python.exe to PATH** e clique no **install now**, seguindo as opções padrões do Python.
+Para instalar o Python acesse o link <https://www.Python.org/downloads/> e faça o download da versão mais recente. Quando o download for concluído, execute o instalador baixado, marque a opção **Add Python.exe to PATH** e clique no **Install Now**, seguindo as opções padrões do Python.
 
 ![](images/instalacao1.png)
 
@@ -31,21 +31,25 @@ Para instalar o Python acesse o link <https://www.Python.org/downloads/> e faça
 
 ![](images/instalacao3.png)
 
-Acabamos de instalar o interpretador do Python, que é o programa responsável por dar ao computador capacidade de executar os programas em Python. Todos os programas em Python são executados com o interpretador, o computador entende naturalmente apenas códigos binários, o interpretador é como se fosse um tradutor para o computador.
+Nesta etapa instalamos o interpretador do Python, que é responsável por dar ao computador a capacidade de executar códigos em Python. 
 
-## Primeira execução do Python
+TIRAR ESTE TRECHO **Todos os programas em Python são executados com o interpretador, o computador entende naturalmente apenas códigos binários, o interpretador é como se fosse um tradutor para o computador.**
 
-Tradicionalmente na programação o primeiro código executado quando se instala uma linguagem nova, tanto para aprender quanto em uma nova máquina, é o Hello World. Um programa simples que diz apenas Hello World. O código para isso em Python é:
+## Primeiros Passos 
+
+Tradicionalmente na programação o primeiro código executado quando se instala uma linguagem nova é o *Hello World*. Um programa simples que diz apenas *Hello World* quando executado. O código em Python é dado por 
 
 ``` python
 print("Hello World")
 ```
 
-Porém como diremos para o Python fazer isso? E aonde que ele dirá esse "Hello World"? Ele não tem uma interface visual que nem o Excel que você coloca numa célula uma fórmula que o excel executa.
+Porém como diremos para o Python executar o código? E aonde que ele dirá esse *Hello World*? 
+
+TIRAR ESTE TRECHO **Ele não tem uma interface visual que nem o Excel que você coloca numa célula uma fórmula que o excel executa.**
 
 Existem duas maneiras de executar um programa no Python: diretamente pelo interpretador e através de um arquivo.
 
-Para executar diretamente pelo interpretador, pesquise no menu iniciar por Python e abra o aplicativo do Python. Digite o código em Python que quiser depois do \>\>\> e aperte enter.
+Para executar diretamente pelo interpretador, pesquise no menu **Iniciar** por Python e abra o aplicativo do Python. Digite o código em Python que quiser depois do \>\>\> e aperte enter.
 
 ![](images/python1.png)
 
@@ -55,27 +59,29 @@ Para executar diretamente pelo interpretador, pesquise no menu iniciar por Pytho
 
 ![](images/python4.png)
 
-Execução no interpretador não é muito útil porque não podemos reproduzir o que fizemos de maneira automática. Precisamos reescrever de cabeça cada linha de código que escrevemos anteriormente. A outra alternativa de execução de um código em Python é via um arquivo, onde escrevemos os códigos sequencialmente e eles serão todos executados pelo interpretador em ordem, assim manteremos registro do que foi executado no arquivo que criamos, facilitando sua edição.
+A execução pelo interpretador, em geral, não é muito útil porque não podemos reproduzir o que fizemos de maneira automática. Precisamos reescrever cada linha de código que escrevemos anteriormente. 
 
-Para executar um código em Python presente em um arquivo precisamos cria-lo com extensão .py e chamar o interpretador para ler o arquivo. Isso pode ser feito rusticamente pelo terminal de comando do seu sistema operacional. Alguns programadores executam códigos apenas dessa maneira. Para quem está iniciando na programação, esse método cria uma dificuldade que pode atrapalhar no processo de aprendizagem.
+A outra alternativa de execução de um código em Python é via um arquivo, onde escrevemos os códigos sequencialmente e eles serão todos executados pelo interpretador em ordem, assim mantemos o registro do que foi executado no arquivo, facilitando sua edição.
 
-## IDEs (*Integrated Development environment*)
+Para executar um código em Python presente em um arquivo precisamos cria-lo com extensão **.py** e chamar o interpretador para ler o arquivo. Isto pode ser feito através do terminal de comando do sistema operacional. Para iniciantes na programação, esse método cria uma dificuldade que pode atrapalhar no processo de aprendizagem.
 
-Existem ferramentas desenvolvidas pela comunidade, algumas até por grandes empresas, com a finalidade de simplificar o processo de se programar em Python. Todas as linguagens de programação possuem alguma ferramenta com essa finalidade. O nome desse tipo de ferramenta é IDE (*Integrated Development Environment*) ambiente de desenvolvimento integrado. As funcionalidades mais comuns de uma IDE é a marcação de texto, que ajuda a legibilidade do código destacando palavras chaves da linguagem, explorador de arquivos, que auxilia na criação, remoção e alteração de arquivos, e terminal de comando integrado, um espaço para executar os programas com apenas um botão. A maioria dos programadores profissionais usam alguma IDE. Para a ciência de dados a mais utilizada por desenvolvedores em Python é o Jupyter.
+## IDEs (*Integrated Development Environment*)
 
-## Instalação e execução do Jupyter
+Existem ferramentas desenvolvidas com a finalidade de simplificar o processo de se programar em Python. O nome desse tipo de ferramenta é IDE (*Integrated Development Environment*) ambiente de desenvolvimento integrado. As funcionalidades mais comuns de uma IDE é a marcação de texto, que ajuda a legibilidade do código destacando palavras chaves da linguagem, explorador de arquivos, que auxilia na criação, remoção e alteração de arquivos, e terminal de comando integrado, um espaço para executar os programas com apenas um botão. Para a ciência de dados a mais utilizada por desenvolvedores em Python é o Jupyter.
 
-Para instalar o Jupyter precisaremos usar o pip, uma ferramenta do Python que permite a instalação de complementos a linguagem mais a frente exploraremos esse assunto melhor. No espaço **pesquisar** do windows digite cmd e aperte enter. O cmd é o terminal de comandos do windows, a interface (ou a falta dela) pode assustar um pouco, para o que queremos é só digitar **pip install Jupyter** e apertar enter, após o comando ser inserido, o terminal irá instalar a extensão do jupyter ao Python. Uma vez instalado o jupyter não precisa reinstalar novamente quando for usado.
+## Instalação e Execução do Jupyter
+
+Para instalar o Jupyter precisaremos usar o `pip`, uma ferramenta do Python que permite a instalação de complementos a linguagem, mais a frente exploraremos esse assunto melhor. No espaço **pesquisar** do windows digite **cmd** e aperte enter. O **cmd** é o terminal de comandos do windows, a interface (ou a falta dela) pode assustar um pouco, para o que queremos é só digitar **pip install Jupyter** e apertar enter, após o comando ser inserido, o terminal irá instalar a extensão do Jupyter ao Python. Uma vez instalado o Jupyter não precisa reinstalar novamente quando for usar.
 
 ![](images/jupyter1.png)
 
 ![](images/jupyter2.png)
 
-Para cada vez que formos abrir o Jupyter precisamos abrir o terminal de comando, pesquisando cmd na aba de pesquisa do windows e apertando enter, e digitar **jupyter notebook** e apertar enter. Ao fazer isso, o navegador padrão irá abrir uma aba do Jupyter.
+Para abrir o Jupyter precisamos abrir o terminal de comando, e digitar **jupyter notebook** e apertar enter. Ao fazer isso, o navegador padrão irá abrir uma aba do Jupyter.
 
 ![](images/jupyter3.png)
 
-**Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.**
+Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.
 
 ## Hello World no Jupyter
 

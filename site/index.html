@@ -446,9 +446,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#porque-o-python" id="toc-porque-o-python" class="nav-link active" data-scroll-target="#porque-o-python">Porque o python?</a></li>
   <li><a href="#instalação-windows" id="toc-instalação-windows" class="nav-link" data-scroll-target="#instalação-windows">Instalação (Windows)</a>
   <ul class="collapse">
-  <li><a href="#primeira-execução-do-python" id="toc-primeira-execução-do-python" class="nav-link" data-scroll-target="#primeira-execução-do-python">Primeira execução do Python</a></li>
-  <li><a href="#ides-integrated-development-environment" id="toc-ides-integrated-development-environment" class="nav-link" data-scroll-target="#ides-integrated-development-environment">IDEs (<em>Integrated Development environment</em>)</a></li>
-  <li><a href="#instalação-e-execução-do-jupyter" id="toc-instalação-e-execução-do-jupyter" class="nav-link" data-scroll-target="#instalação-e-execução-do-jupyter">Instalação e execução do Jupyter</a></li>
+  <li><a href="#primeiros-passos" id="toc-primeiros-passos" class="nav-link" data-scroll-target="#primeiros-passos">Primeiros Passos</a></li>
+  <li><a href="#ides-integrated-development-environment" id="toc-ides-integrated-development-environment" class="nav-link" data-scroll-target="#ides-integrated-development-environment">IDEs (<em>Integrated Development Environment</em>)</a></li>
+  <li><a href="#instalação-e-execução-do-jupyter" id="toc-instalação-e-execução-do-jupyter" class="nav-link" data-scroll-target="#instalação-e-execução-do-jupyter">Instalação e Execução do Jupyter</a></li>
   <li><a href="#hello-world-no-jupyter" id="toc-hello-world-no-jupyter" class="nav-link" data-scroll-target="#hello-world-no-jupyter">Hello World no Jupyter</a></li>
   </ul></li>
   <li><a href="#entendendo-melhor-o-print" id="toc-entendendo-melhor-o-print" class="nav-link" data-scroll-target="#entendendo-melhor-o-print">Entendendo melhor o print</a></li>
@@ -581,37 +581,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="instalação-windows" class="level1">
 <h1>Instalação (Windows)</h1>
-<p>Para instalar o Python acesse o link <a href="https://www.Python.org/downloads/" class="uri">https://www.Python.org/downloads/</a> e faça o download da versão mais recente. Quando o download for concluído, execute o instalador baixado, marque a opção <strong>Add Python.exe to PATH</strong> e clique no <strong>install now</strong>, seguindo as opções padrões do Python.</p>
+<p>Para instalar o Python acesse o link <a href="https://www.Python.org/downloads/" class="uri">https://www.Python.org/downloads/</a> e faça o download da versão mais recente. Quando o download for concluído, execute o instalador baixado, marque a opção <strong>Add Python.exe to PATH</strong> e clique no <strong>Install Now</strong>, seguindo as opções padrões do Python.</p>
 <p><img src="images/instalacao1.png" class="img-fluid"></p>
 <p><img src="images/instalacao2.png" class="img-fluid"></p>
 <p><img src="images/instalacao3.png" class="img-fluid"></p>
-<p>Acabamos de instalar o interpretador do Python, que é o programa responsável por dar ao computador capacidade de executar os programas em Python. Todos os programas em Python são executados com o interpretador, o computador entende naturalmente apenas códigos binários, o interpretador é como se fosse um tradutor para o computador.</p>
-<section id="primeira-execução-do-python" class="level2">
-<h2 class="anchored" data-anchor-id="primeira-execução-do-python">Primeira execução do Python</h2>
-<p>Tradicionalmente na programação o primeiro código executado quando se instala uma linguagem nova, tanto para aprender quanto em uma nova máquina, é o Hello World. Um programa simples que diz apenas Hello World. O código para isso em Python é:</p>
+<p>Nesta etapa instalamos o interpretador do Python, que é responsável por dar ao computador a capacidade de executar códigos em Python.</p>
+<p>TIRAR ESTE TRECHO <strong>Todos os programas em Python são executados com o interpretador, o computador entende naturalmente apenas códigos binários, o interpretador é como se fosse um tradutor para o computador.</strong></p>
+<section id="primeiros-passos" class="level2">
+<h2 class="anchored" data-anchor-id="primeiros-passos">Primeiros Passos</h2>
+<p>Tradicionalmente na programação o primeiro código executado quando se instala uma linguagem nova é o <em>Hello World</em>. Um programa simples que diz apenas <em>Hello World</em> quando executado. O código em Python é dado por</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Porém como diremos para o Python fazer isso? E aonde que ele dirá esse “Hello World”? Ele não tem uma interface visual que nem o Excel que você coloca numa célula uma fórmula que o excel executa.</p>
+<p>Porém como diremos para o Python executar o código? E aonde que ele dirá esse <em>Hello World</em>?</p>
+<p>TIRAR ESTE TRECHO <strong>Ele não tem uma interface visual que nem o Excel que você coloca numa célula uma fórmula que o excel executa.</strong></p>
 <p>Existem duas maneiras de executar um programa no Python: diretamente pelo interpretador e através de um arquivo.</p>
-<p>Para executar diretamente pelo interpretador, pesquise no menu iniciar por Python e abra o aplicativo do Python. Digite o código em Python que quiser depois do &gt;&gt;&gt; e aperte enter.</p>
+<p>Para executar diretamente pelo interpretador, pesquise no menu <strong>Iniciar</strong> por Python e abra o aplicativo do Python. Digite o código em Python que quiser depois do &gt;&gt;&gt; e aperte enter.</p>
 <p><img src="images/python1.png" class="img-fluid"></p>
 <p><img src="images/python2.png" class="img-fluid"></p>
 <p><img src="images/python3.png" class="img-fluid"></p>
 <p><img src="images/python4.png" class="img-fluid"></p>
-<p>Execução no interpretador não é muito útil porque não podemos reproduzir o que fizemos de maneira automática. Precisamos reescrever de cabeça cada linha de código que escrevemos anteriormente. A outra alternativa de execução de um código em Python é via um arquivo, onde escrevemos os códigos sequencialmente e eles serão todos executados pelo interpretador em ordem, assim manteremos registro do que foi executado no arquivo que criamos, facilitando sua edição.</p>
-<p>Para executar um código em Python presente em um arquivo precisamos cria-lo com extensão .py e chamar o interpretador para ler o arquivo. Isso pode ser feito rusticamente pelo terminal de comando do seu sistema operacional. Alguns programadores executam códigos apenas dessa maneira. Para quem está iniciando na programação, esse método cria uma dificuldade que pode atrapalhar no processo de aprendizagem.</p>
+<p>A execução pelo interpretador, em geral, não é muito útil porque não podemos reproduzir o que fizemos de maneira automática. Precisamos reescrever cada linha de código que escrevemos anteriormente.</p>
+<p>A outra alternativa de execução de um código em Python é via um arquivo, onde escrevemos os códigos sequencialmente e eles serão todos executados pelo interpretador em ordem, assim mantemos o registro do que foi executado no arquivo, facilitando sua edição.</p>
+<p>Para executar um código em Python presente em um arquivo precisamos cria-lo com extensão <strong>.py</strong> e chamar o interpretador para ler o arquivo. Isto pode ser feito através do terminal de comando do sistema operacional. Para iniciantes na programação, esse método cria uma dificuldade que pode atrapalhar no processo de aprendizagem.</p>
 </section>
 <section id="ides-integrated-development-environment" class="level2">
-<h2 class="anchored" data-anchor-id="ides-integrated-development-environment">IDEs (<em>Integrated Development environment</em>)</h2>
-<p>Existem ferramentas desenvolvidas pela comunidade, algumas até por grandes empresas, com a finalidade de simplificar o processo de se programar em Python. Todas as linguagens de programação possuem alguma ferramenta com essa finalidade. O nome desse tipo de ferramenta é IDE (<em>Integrated Development Environment</em>) ambiente de desenvolvimento integrado. As funcionalidades mais comuns de uma IDE é a marcação de texto, que ajuda a legibilidade do código destacando palavras chaves da linguagem, explorador de arquivos, que auxilia na criação, remoção e alteração de arquivos, e terminal de comando integrado, um espaço para executar os programas com apenas um botão. A maioria dos programadores profissionais usam alguma IDE. Para a ciência de dados a mais utilizada por desenvolvedores em Python é o Jupyter.</p>
+<h2 class="anchored" data-anchor-id="ides-integrated-development-environment">IDEs (<em>Integrated Development Environment</em>)</h2>
+<p>Existem ferramentas desenvolvidas com a finalidade de simplificar o processo de se programar em Python. O nome desse tipo de ferramenta é IDE (<em>Integrated Development Environment</em>) ambiente de desenvolvimento integrado. As funcionalidades mais comuns de uma IDE é a marcação de texto, que ajuda a legibilidade do código destacando palavras chaves da linguagem, explorador de arquivos, que auxilia na criação, remoção e alteração de arquivos, e terminal de comando integrado, um espaço para executar os programas com apenas um botão. Para a ciência de dados a mais utilizada por desenvolvedores em Python é o Jupyter.</p>
 </section>
 <section id="instalação-e-execução-do-jupyter" class="level2">
-<h2 class="anchored" data-anchor-id="instalação-e-execução-do-jupyter">Instalação e execução do Jupyter</h2>
-<p>Para instalar o Jupyter precisaremos usar o pip, uma ferramenta do Python que permite a instalação de complementos a linguagem mais a frente exploraremos esse assunto melhor. No espaço <strong>pesquisar</strong> do windows digite cmd e aperte enter. O cmd é o terminal de comandos do windows, a interface (ou a falta dela) pode assustar um pouco, para o que queremos é só digitar <strong>pip install Jupyter</strong> e apertar enter, após o comando ser inserido, o terminal irá instalar a extensão do jupyter ao Python. Uma vez instalado o jupyter não precisa reinstalar novamente quando for usado.</p>
+<h2 class="anchored" data-anchor-id="instalação-e-execução-do-jupyter">Instalação e Execução do Jupyter</h2>
+<p>Para instalar o Jupyter precisaremos usar o <code>pip</code>, uma ferramenta do Python que permite a instalação de complementos a linguagem, mais a frente exploraremos esse assunto melhor. No espaço <strong>pesquisar</strong> do windows digite <strong>cmd</strong> e aperte enter. O <strong>cmd</strong> é o terminal de comandos do windows, a interface (ou a falta dela) pode assustar um pouco, para o que queremos é só digitar <strong>pip install Jupyter</strong> e apertar enter, após o comando ser inserido, o terminal irá instalar a extensão do Jupyter ao Python. Uma vez instalado o Jupyter não precisa reinstalar novamente quando for usar.</p>
 <p><img src="images/jupyter1.png" class="img-fluid"></p>
 <p><img src="images/jupyter2.png" class="img-fluid"></p>
-<p>Para cada vez que formos abrir o Jupyter precisamos abrir o terminal de comando, pesquisando cmd na aba de pesquisa do windows e apertando enter, e digitar <strong>jupyter notebook</strong> e apertar enter. Ao fazer isso, o navegador padrão irá abrir uma aba do Jupyter.</p>
+<p>Para abrir o Jupyter precisamos abrir o terminal de comando, e digitar <strong>jupyter notebook</strong> e apertar enter. Ao fazer isso, o navegador padrão irá abrir uma aba do Jupyter.</p>
 <p><img src="images/jupyter3.png" class="img-fluid"></p>
-<p><strong>Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.</strong></p>
+<p>Importante não fechar o prompt de comando que executou o Jupyter, se não o Jupyter para de funcionar.</p>
 </section>
 <section id="hello-world-no-jupyter" class="level2">
 <h2 class="anchored" data-anchor-id="hello-world-no-jupyter">Hello World no Jupyter</h2>
