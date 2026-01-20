@@ -118,6 +118,12 @@ O `print` é uma das funções mais importantes do Python por ser a principal fe
 O `print` imprime na tela o conteúdo entre parênteses. Se o conteúdo for textual precisa estar entre aspas. Números podem ser inseridos diretamente sem o uso de aspas. 
 O `print` por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque `end=" "`. Agora para esse `print` específico a linha não será pulada no final da execução:
 
+``` python
+print("Hello World")
+print("Esse", end=" ")
+print("é meu terceiro programa", end=" ")
+print("em Python")
+```
 ``` {python}
 #| output: asis
 #| echo: false
@@ -137,21 +143,47 @@ print(':::')
 
 Suponha que queremos imprimir uma mesma mensagem inúmeras vezes:
 
-``` {python}
+``` python
 print("Ciência de dados!")
 print("Ciência de dados!")
 print("Ciência de dados!")
 print("Ciência de dados!")
 ```
+``` {python}
+#| output: asis
+#| echo: false
+
+print(':::{.callout}')
+
+print("Ciência de dados!", end= '\n')
+print("Ciência de dados!", end= '\n')
+print("Ciência de dados!", end= '\n')
+print("Ciência de dados!")
+
+print(':::')
+```
+
 
 Agora ao invés de imprimir "Ciência de dados!" queremos imprimir "O meu filme favorito é troll 2!". Para fazer isso teríamos que trocar cada uma das vezes o texto dentro do print pelo texto desejado. Existe alguma forma mais rápida de fazer isso: usando variáveis. Podemos criar uma variável x que armazena o texto a ser impresso.
 
-``` {python}
+``` python
 x = "Ciência de dados!"
 print(x)
 print(x)
 print(x)
 print(x)
+```
+``` {python}
+#| output: asis
+#| echo: false
+
+print(':::{.callout}')
+x = "Ciência de dados!"
+print(x)
+print(x)
+print(x)
+print(x)
+print(':::')
 ```
 
 Reparem que ambos os programas realizam a mesma tarefa, de maneiras diferentes. A vantagem do segundo programa é que para mudar o texto impresso para "O meu filme favorito é troll 2!" basta trocar o valor de x:
