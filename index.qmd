@@ -116,20 +116,26 @@ O `print` é uma das funções mais importantes do Python por ser a principal fe
 **TIRAR??? Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. `print` significa literalmente "imprimir".**
 
 O `print` imprime na tela o conteúdo entre parênteses. Se o conteúdo for textual precisa estar entre aspas. Números podem ser inseridos diretamente sem o uso de aspas. 
-O `print` por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque `, end=" "`. Agora para esse `print` específico a linha não será pulada no final da execução:
+O `print` por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque `end=" "`. Agora para esse `print` específico a linha não será pulada no final da execução:
 
 ``` {python}
+#| output: asis
+#| echo: false
+
+print(':::{.callout}')
+
 print("Hello World")
 print("Esse", end=" ")
 print("é meu terceiro programa", end=" ")
 print("em Python")
+print(':::')
 ```
 
 # Variáveis
 
-Na escola quebramos a cabeça em matemática para resolver uma equação. A professora Márcia que todos tivemos passa uma expressão: 4 + x = 7. Mesmo como crianças sabíamos que para o 4 virar 7 o x precisaria ser um 3, o x armazena o valor 3. Na programação existem inúmeras vantagens de se usar variáveis.
+**AJUDA PARA REESCREVER: Na escola quebramos a cabeça em matemática para resolver uma equação. A professora Márcia que todos tivemos passa uma expressão: 4 + x = 7. Mesmo como crianças sabíamos que para o 4 virar 7 o x precisaria ser um 3, o x armazena o valor 3. Na programação existem inúmeras vantagens de se usar variáveis.**
 
-Voltando para o exemplo do print, digamos que queremos imprimir uma mesma mensagem inúmeras vezes:
+Suponha que queremos imprimir uma mesma mensagem inúmeras vezes:
 
 ``` {python}
 print("Ciência de dados!")
@@ -138,7 +144,7 @@ print("Ciência de dados!")
 print("Ciência de dados!")
 ```
 
-Agora quero invés de imprimir "Ciência de dados!" quero imprimir "O meu filme favorito é troll 2!". Para fazer isso teríamos que trocar cada uma das vezes o texto dentro do print pelo texto desejado. Existe alguma forma mais rápida de fazer isso: usando variáveis. Podemos criar uma variável x, que nem das aulas de matemática da professora Márcia que armazena o texto a ser impresso.
+Agora ao invés de imprimir "Ciência de dados!" queremos imprimir "O meu filme favorito é troll 2!". Para fazer isso teríamos que trocar cada uma das vezes o texto dentro do print pelo texto desejado. Existe alguma forma mais rápida de fazer isso: usando variáveis. Podemos criar uma variável x que armazena o texto a ser impresso.
 
 ``` {python}
 x = "Ciência de dados!"
