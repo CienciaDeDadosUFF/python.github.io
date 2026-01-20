@@ -91,29 +91,32 @@ A primeira tela do Jupyter é o explorador de arquivos do seu sistema operaciona
 
 Para criar uma pasta ou um arquivo novo no Jupyter basta selecionar o local desejado no explorador de arquivos clicando duas vezes nos caminhos possíveis e depois apertando o botão New e a opção New Folder. Suponha que queremos criar a pasta do projeto dentro do OneDrive então clique duas vezes na pasta OneDrive depois aperte o botão **New** e selecione a opção **New Folder**. Para renomear, deletar, copiar e outras funcionalidades padrões é só apertar com o botão direito em cima da pasta. Clique duas vezes na pasta Aprendendo Python que acabamos de criar e usando uma outra opção do botão **New** chamada **Notebook** crie o arquivo onde vamos escrever os programas em Python a partir de agora.
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20130253.png)
+![](images/jupyter5.png)
 
-Automaticamente o Jupyter abrirá uma aba no navegador escrita Select Kernel, selecione a opção **"Always start with the preferred kernel"** e aperte a opção **Select** (o Jupyter está perguntando qual versão do Python usar, alguns programadores podem ter mais de uma versão do Python no computador).
+Automaticamente o Jupyter abrirá uma janela no navegador **Select Kernel**, selecione a opção **"Always start with the preferred kernel"** e aperte a opção **Select** (o Jupyter está perguntando qual versão do Python usar, alguns programadores podem ter mais de uma versão do Python no computador).
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131012.png)
+![](images/jupyter6.png)
 
-Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de *run* ou *start* (▶), o código será executado.
+Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo `print("Hello World")` no arquivo e apertando o botão de **run** ou **start** (▶), o código será executado.
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131136.png)
+![](images/jupyter7.png)
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131504.png)
+![](images/jupyter8.png)
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20131521.png)
+![](images/jupyter9.png)
 
 Podemos ainda executar vários comandos de uma vez só. Veja esse exemplo:
 
-![](Cadernos%20Grupo%20Python/Caderno%201/Captura%20de%20tela%202024-01-18%20135407.png)
+![](images/jupyter10.png)
 
-# Entendendo melhor o print
+# Função `print`
 
-O `print` é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário. Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. `print` significa literalmente "imprimir".
+O `print` é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário.
 
-O `print` imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O `print` por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque `, end=" "`. Agora para esse `print` específico uma linha não será pulada no final da execução:
+**TIRAR??? Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. `print` significa literalmente "imprimir".**
+
+O `print` imprime na tela o conteúdo entre parênteses. Se o conteúdo for textual precisa estar entre aspas. Números podem ser inseridos diretamente sem o uso de aspas. 
+O `print` por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque `, end=" "`. Agora para esse `print` específico a linha não será pulada no final da execução:
 
 ``` {python}
 print("Hello World")

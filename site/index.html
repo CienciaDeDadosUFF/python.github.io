@@ -451,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#instalação-e-execução-do-jupyter" id="toc-instalação-e-execução-do-jupyter" class="nav-link" data-scroll-target="#instalação-e-execução-do-jupyter">Instalação e Execução do Jupyter</a></li>
   <li><a href="#hello-world-no-jupyter" id="toc-hello-world-no-jupyter" class="nav-link" data-scroll-target="#hello-world-no-jupyter">Hello World no Jupyter</a></li>
   </ul></li>
-  <li><a href="#entendendo-melhor-o-print" id="toc-entendendo-melhor-o-print" class="nav-link" data-scroll-target="#entendendo-melhor-o-print">Entendendo melhor o print</a></li>
+  <li><a href="#função-print" id="toc-função-print" class="nav-link" data-scroll-target="#função-print">Função <code>print</code></a></li>
   <li><a href="#variáveis" id="toc-variáveis" class="nav-link" data-scroll-target="#variáveis">Variáveis</a></li>
   <li><a href="#tipos-de-variáveis" id="toc-tipos-de-variáveis" class="nav-link" data-scroll-target="#tipos-de-variáveis">Tipos de Variáveis</a>
   <ul class="collapse">
@@ -621,21 +621,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A primeira tela do Jupyter é o explorador de arquivos do seu sistema operacional (no caso Windows 11). Aqui você deve selecionar a qual pasta o projeto criado será salvo. Criei a pasta <strong>Aprendendo Python</strong>. O local ou o nome da pasta que salvará o projeto não é importante, pode ser salva inclusive no diretório inicial que aparece no Jupyter (embora seja recomendado criar uma pasta nova para cada projeto para uma melhor organização).</p>
 <p><img src="images/jupyter4.png" class="img-fluid"></p>
 <p>Para criar uma pasta ou um arquivo novo no Jupyter basta selecionar o local desejado no explorador de arquivos clicando duas vezes nos caminhos possíveis e depois apertando o botão New e a opção New Folder. Suponha que queremos criar a pasta do projeto dentro do OneDrive então clique duas vezes na pasta OneDrive depois aperte o botão <strong>New</strong> e selecione a opção <strong>New Folder</strong>. Para renomear, deletar, copiar e outras funcionalidades padrões é só apertar com o botão direito em cima da pasta. Clique duas vezes na pasta Aprendendo Python que acabamos de criar e usando uma outra opção do botão <strong>New</strong> chamada <strong>Notebook</strong> crie o arquivo onde vamos escrever os programas em Python a partir de agora.</p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 130253.png" class="img-fluid"></p>
-<p>Automaticamente o Jupyter abrirá uma aba no navegador escrita Select Kernel, selecione a opção <strong>“Always start with the preferred kernel”</strong> e aperte a opção <strong>Select</strong> (o Jupyter está perguntando qual versão do Python usar, alguns programadores podem ter mais de uma versão do Python no computador).</p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 131012.png" class="img-fluid"></p>
-<p>Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo <code>print("Hello World")</code> no arquivo e apertando o botão de <em>run</em> ou <em>start</em> (▶), o código será executado.</p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 131136.png" class="img-fluid"></p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 131504.png" class="img-fluid"></p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 131521.png" class="img-fluid"></p>
+<p><img src="images/jupyter5.png" class="img-fluid"></p>
+<p>Automaticamente o Jupyter abrirá uma janela no navegador <strong>Select Kernel</strong>, selecione a opção <strong>“Always start with the preferred kernel”</strong> e aperte a opção <strong>Select</strong> (o Jupyter está perguntando qual versão do Python usar, alguns programadores podem ter mais de uma versão do Python no computador).</p>
+<p><img src="images/jupyter6.png" class="img-fluid"></p>
+<p>Agora estamos finalmente no arquivo que executará programas em Python. Escrevendo <code>print("Hello World")</code> no arquivo e apertando o botão de <strong>run</strong> ou <strong>start</strong> (▶), o código será executado.</p>
+<p><img src="images/jupyter7.png" class="img-fluid"></p>
+<p><img src="images/jupyter8.png" class="img-fluid"></p>
+<p><img src="images/jupyter9.png" class="img-fluid"></p>
 <p>Podemos ainda executar vários comandos de uma vez só. Veja esse exemplo:</p>
-<p><img src="Cadernos Grupo Python/Caderno 1/Captura de tela 2024-01-18 135407.png" class="img-fluid"></p>
+<p><img src="images/jupyter10.png" class="img-fluid"></p>
 </section>
 </section>
-<section id="entendendo-melhor-o-print" class="level1">
-<h1>Entendendo melhor o print</h1>
-<p>O <code>print</code> é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário. Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. <code>print</code> significa literalmente “imprimir”.</p>
-<p>O <code>print</code> imprime na tela o conteúdo entre parênteses na tela. Se o conteúdo for textual precisa estar entre aspas. Números podem ser imprimidos diretamente sem o uso de aspas. O <code>print</code> por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque <code>, end=" "</code>. Agora para esse <code>print</code> específico uma linha não será pulada no final da execução:</p>
+<section id="função-print" class="level1">
+<h1>Função <code>print</code></h1>
+<p>O <code>print</code> é uma das funções mais importantes do Python por ser a principal ferramenta de comunicação entre o programa, o programador e o usuário.</p>
+<p><strong>TIRAR??? Linguagens de programação quase sempre tem os comandos no imperativo da língua inglesa, já que os ingleses e posteriormente os americanos foram pioneiros no desenvolvimento da ciência da computação. <code>print</code> significa literalmente “imprimir”.</strong></p>
+<p>O <code>print</code> imprime na tela o conteúdo entre parênteses. Se o conteúdo for textual precisa estar entre aspas. Números podem ser inseridos diretamente sem o uso de aspas. O <code>print</code> por configuração padrão imprime as mensagens pulando uma linha depois. Para mudar essa configuração em um print específico, no final do comando, antes de fechar os parênteses, coloque <code>, end=" "</code>. Agora para esse <code>print</code> específico a linha não será pulada no final da execução:</p>
 <div id="726d321c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Esse"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
