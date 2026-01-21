@@ -124,18 +124,12 @@ print("Esse", end=" ")
 print("é meu terceiro programa", end=" ")
 print("em Python")
 ```
-``` {python}
-#| output: asis
-#| echo: false
-
-print(':::{.callout}')
-
-print("Hello World")
-print("Esse", end=" ")
-print("é meu terceiro programa", end=" ")
-print("em Python")
-print(':::')
+::: callout
 ```
+Hello World
+Esse é meu terceiro programa em Python
+```
+:::
 
 # Variáveis
 
@@ -149,19 +143,14 @@ print("Ciência de dados!")
 print("Ciência de dados!")
 print("Ciência de dados!")
 ```
-``` {python}
-#| output: asis
-#| echo: false
-
-print(':::{.callout}')
-
-print("Ciência de dados!", end= '\n')
-print("Ciência de dados!", end= '\n')
-print("Ciência de dados!", end= '\n')
-print("Ciência de dados!")
-
-print(':::')
+:::callout
 ```
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+```
+:::
 
 
 Agora ao invés de imprimir "Ciência de dados!" queremos imprimir "O meu filme favorito é troll 2!". Para fazer isso teríamos que trocar cada uma das vezes o texto dentro do print pelo texto desejado. Existe alguma forma mais rápida de fazer isso: usando variáveis. Podemos criar uma variável x que armazena o texto a ser impresso.
@@ -173,30 +162,38 @@ print(x)
 print(x)
 print(x)
 ```
-``` {python}
-#| output: asis
-#| echo: false
-
-print(':::{.callout}')
-x = "Ciência de dados!"
-print(x)
-print(x)
-print(x)
-print(x)
-print(':::')
+:::callout
 ```
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+
+```
+:::
+
 
 Reparem que ambos os programas realizam a mesma tarefa, de maneiras diferentes. A vantagem do segundo programa é que para mudar o texto impresso para "O meu filme favorito é troll 2!" basta trocar o valor de x:
 
-``` {python}
+``` python
 x = "O meu filme favorito é troll 2!"
 print(x)
 print(x)
 print(x)
 print(x)
 ```
+::: callout 
+```
+O meu filme favorito é troll 2!
+O meu filme favorito é troll 2!
+O meu filme favorito é troll 2!
+O meu filme favorito é troll 2!
+```
+:::
 
-A escolha do uso da nomenclatura `x` para realizar a tarefa é apenas para seguir a didática da professora Márcia. Porém, idealmente a nomeação de variáveis se faz baseado no uso dela, isto é, idealmente criamos variáveis com nomes elusivos. Nesse caso, ao invés de `x` usar `texto`. Isso facilita em projetos maiores quando várias pessoas trabalham juntas ou quando você precisa rever um código antigo.
+**TIRAR: A escolha do uso da nomenclatura `x` para realizar a tarefa é apenas para seguir a didática da professora Márcia. Porém, idealmente** 
+
+A nomeação de variáveis se faz baseado no uso dela, isto é, idealmente criamos variáveis com nomes elusivos. Nesse caso, ao invés de `x` usar `texto`. Isso facilita em projetos maiores quando várias pessoas trabalham juntas ou quando você precisa rever um código antigo.
 
 Para criar uma variável basta colocar o nome que gostaria no início, seguido de `=` e depois o valor que gostaria de armazenar. 
 
@@ -204,23 +201,21 @@ Para criar uma variável basta colocar o nome que gostaria no início, seguido d
 texto = "O meu filme favorito é troll 2!"
 ```
 
-O computador então passa a entender que sempre que escreve texto no código é para substituir pelo valor "O meu filme favorito é troll 2!".
+O computador então passa a entender que sempre que escreve `texto` no código é para substituir pelo valor "O meu filme favorito é troll 2!".
 
-O python possui algumas regras para nomeação de variáveis. Assim como todas as linguagens de programação, existem alguns comandos que fazem uma tarefa, como o print. Esses comandos ou como chamamos na programação, funções, possuem o status de palavra reservada, que não podem ser usadas para outras coisas, entre outras palavras. Outras regras de nomeação de variáveis no python é que as variáveis não podem começar com números (podem ter números, só não como primeiro caracter), não podem ter `.` e nem espaços.
+O Python possui algumas regras para nomeação de variáveis. Assim como todas as linguagens de programação, existem alguns comandos que fazem uma tarefa, como o `print`. Esses comandos ou como chamamos na programação, funções, possuem o status de palavra reservada, que não podem ser usadas para outras coisas. Outras regras de nomeação de variáveis no Python são que as variáveis não podem começar com números (podem ter números, só não como primeiro caracter), não podem ter "." e nem espaços.
 
-# Tipos de Variáveis 
+## Tipos de Variáveis (TIRAR SUBSEÇÃO)
 
-No exemplo anterior, `x` é uma variável não numérica, para definirmos 
+No exemplo anterior, `texto` é uma variável não numérica, para definir um valor numérico basta associar a variável ao valor numérico desejado usando `=`.
 
 ``` python
 x = 4
 ```
 
-Note que para colocar um número não precisa colocar entre aspas. Essa diferença se dá no tipo do dado atribuído, um conceito importantíssimo em linguagens de programação. Enquanto "O meu filme favorito é troll 2!" é um texto, 4 é um número.
+Note que para valores numéricos não há a necessidade de colocar o valor entre aspas. Essa diferença se dá no tipo do dado atribuído, um conceito importantíssimo em linguagens de programação. Enquanto "O meu filme favorito é troll 2!" é um texto, 4 é um número.
 
-Mas poderíamos também ter feito x = "4"? Então o que seria? Nesse caso seria um texto.
-
-O que define se um dado é do tipo texto é se ele está entre `" "` e um dado do tipo numérico é um número que não está entre aspas. Mas então qual a diferença?
+O que define se um dado é do tipo texto ou numérico é se ele está entre `" "` ou não, respectivamente. Mas então qual a diferença?
 
 ``` python
 x = 4
@@ -236,7 +231,7 @@ print(y)
 ```
 :::
 
-Pelo print parece a mesma coisa. A diferença seria no comportamento que essas variáveis vão ter no programa. Digamos que eu queira somar duas variáveis. Para isso utilizamos operadores matemáticos. O que se espera que será o resultado de x + x? 8, certo? E de y + y? Não será 8.
+Pelo print parece a mesma coisa. A diferença é no comportamento que essas variáveis vão ter no programa. Qual será o resultado de x + x? E de y + y? 
 
 ``` python
 x = 4
@@ -252,15 +247,15 @@ print(y + y)
 ```
 :::
 
-Textos, ao invés de somarem, concatenam quando usamos o operador `+`. Falaremos mais de operadores em breve.
+Para textos o operador `+` concatena os termos, já para valores numéricos realiza soma dos termos.
 
-Quando criamos uma variável nova, estamos criando uma instância de um tipo, ou instanciando um tipo.
+Quando criamos uma variável, estamos criando uma instância de um tipo, ou instanciando um tipo. **SERÁ QUE USAMOS ESTA TERMOLOGIA?**
 
-Cada tipo possui características próprias, que vão além de apenas o comportamento frente a operadores. Forma de instanciar, memória do computador usada, uso em funções, cada uma dessas características definem um `tipo`.
+Cada **tipo** possui características próprias, que vão além de apenas comportamentoS frente a operadores. **VERIFICAR: Forma de instanciar, memória do computador usada, uso em funções, cada uma dessas características definem um tipo.**
 
-## Função type()
+## Função `type`
 
-Antes de entrar mais especificamente em cada tipo, precisamos falar de uma ferramenta importante. Existe uma função no python que retorna o tipo de uma variável, o `type()`, que quando usado com o print imprime o tipo na tela. Veja um exemplo:
+Antes de entrar mais especificamente em cada tipo, vamos apresentar uma ferramenta importante, a função `type` que verifica o tipo de uma variável. Em conjunto com o `print` imprime o tipo da variável.
 
 ``` python
 x = 4
@@ -273,21 +268,19 @@ class 'int'
 ```
 :::
 
-Repare que uma função pode ser usada dentro de outra. Falaremos mais de funções em breve.
+**TIRA?? Repare que uma função pode ser usada dentro de outra. Falaremos mais de funções em breve.**
 
-Sabemos que se trata de um int, afinal, nós criamos essa variável. Porém, como muitas coisas na programação, quando se aumenta a escala saber o tipo específico de uma variável em um programa maior ou de outra pessoa pode ser um pouco mais difícil.
-
-Dito isso, podemos agora falar dos principais tipos.
+Sabemos que se trata de um valor inteiro, afinal, nós criamos essa variável. Porém, como muitas coisas na programação, aumentando a escala saber o tipo específico de uma variável em um programa pode ser um pouco mais difícil.
 
 ## Principais tipos de variáveis
 
 ### int
 
-Abreviação para `integer`, que traduzido do inglês significa inteiro. São equivalentes a números inteiros da matemática, podendo ser positivos ou negativos e se comportam igual na matemática.
+Abreviação para *integer*, que traduzido do inglês significa inteiro. São equivalentes a números inteiros da matemática, podendo ser positivos ou negativos e se comportam igual na matemática.
 
-**Instanciação**
+**TIRAR?? Instanciação**
 
-Sempre que colocamos números sem estar entre aspas estamos instanciando um int:
+**TIRAR??Sempre que colocamos números sem estar entre aspas estamos instanciando um int:**
 
 ``` python
 x = 4
@@ -304,11 +297,11 @@ class 'int'
 
 ### str
 
-Abreviação de `string`, que traduzido do inglês significa fio, corda ou barbante, mas quando usado na programação significa cadeia, uma cadeia de caracteres. Linguagens de programação tradicionalmente possuem o tipo char, que é uma abreviação de characters que traduzido do inglês é caracteres. Esse tipo armazena apenas um caractere textual, o conjunto desses caracteres que é chamado de string. No python, para simplificar, todo dado textual é `str`.
+Abreviação para *string*, que traduzido do inglês significa fio, corda ou barbante, mas quando usado na programação significa cadeia, uma cadeia de caracteres. Linguagens de programação tradicionalmente possuem o tipo **char**, que é uma abreviação de characters que traduzido do inglês é caracteres. Esse tipo armazena apenas um caractere textual, o conjunto desses caracteres é chamado de *string*. No python, para simplificar, todo dado textual é um `str`.
 
-**Instanciação**
+**TIRAR?? Instanciação**
 
-Sempre que colocamos caracteres entre aspas simples ('') ou duplas(""). Podemos também usar """ """. Esse último é usado para quando queremos escrever um texto em mais de uma linha de código no python. Segue abaixo exemplos de instanciação:
+Para definir um `str` colocamos o texto entre aspas simples ou duplas.Podemos também usar `""" """`, usado quando queremos escrever um texto em mais de uma linha de código no Python. 
 
 ``` python
 texto1 = "Ciência de dados!"
@@ -340,7 +333,7 @@ class 'str'
 ```
 :::
 
-Note que para usar aspas duplas dentro de uma string (str) precisamos escrever a string entre aspas simples para não terminar precocemente a string, o que resultaria em um erro. O contrário também serve para aspas simples como no apóstrofe da frase em inglês: `"That's life."`.
+Note que para usar aspas duplas dentro de uma *string* precisamos escrever a *string* entre aspas simples para não terminar precocemente a *string*, o que resultaria em um erro. O contrário também serve para aspas simples como no apóstrofe da frase em inglês: `"That's life."`.
 
 ### float
 
