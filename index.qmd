@@ -303,7 +303,7 @@ Abreviação para *string*, que traduzido do inglês significa fio, corda ou bar
 
 Para definir um `str` colocamos o texto entre aspas simples ou duplas.Podemos também usar `""" """`, usado quando queremos escrever um texto em mais de uma linha de código no Python. 
 
-``` python
+``` {python}
 texto1 = "Ciência de dados!"
 texto2 = 'O meu filme favorito é "troll 2"!'
 texto3 = """Minha terra tem palmeiras
@@ -337,15 +337,13 @@ Note que para usar aspas duplas dentro de uma *string* precisamos escrever a *st
 
 ### float
 
-É o equivalente aos números racionais da matemática.
+Equivalente aos números racionais, `float` vem do padrão de **ponto flutuante**, uma técnica da computação para representar números com casas decimais no sistema binário. Enquanto os números inteiros têm uma tradução mais simples para o binário, as frações decimais muitas vezes resultam em sequências binárias infinitas, similar à dízima periódica. O padrão `float` é uma forma eficiente, mas aproximada, de lidar com isso.
 
-O nome `float` vem do padrão de `ponto flutuante`, uma técnica da computação para representar números com casas decimais no sistema binário. Enquanto os números inteiros têm uma tradução mais simples para o binário, as frações decimais muitas vezes resultam em sequências binárias infinitas, similar à dízima periódica. O padrão float é uma forma eficiente, mas aproximada, de lidar com isso.
+**TIRAR?? Instanciação**
 
-**Instanciação**
+Sempre que colocamos números com a parte decimal explicita, o Python reconhece como um `float`. Lembrando que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.
 
-Sempre que colocamos números com a parte decimal explicita, o python reconhece como um `float`. Lembramos que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.
-
-``` python
+``` {python}
 numeroRacional1 = 1.0
 numeroRacional2 = 56.133000
 print(numeroRacional1)
@@ -363,7 +361,7 @@ class 'float'
 ```
 :::
 
-Note que o python por padrão corta os zeros à direita por padrão, ele só mantém o primeiro decimal obrigatóriamente para mostrar que se trata de um float.
+Note que o Python por padrão corta os zeros à direita, ele só mantém o primeiro decimal obrigatório para mostrar que se trata de um `float`.
 
 ### bool
 
