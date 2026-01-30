@@ -341,7 +341,7 @@ Equivalente aos números racionais, `float` vem do padrão de **ponto flutuante*
 
 **TIRAR?? Instanciação**
 
-Sempre que colocamos números com a parte decimal explicita, o Python reconhece como um `float`. Lembrando que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.
+Para definirmos um `float` colocando os números com a parte decimal explicita. Lembrando que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.
 
 ``` {python}
 numeroRacional1 = 1.0
@@ -361,17 +361,17 @@ class 'float'
 ```
 :::
 
-Note que o Python por padrão corta os zeros à direita, ele só mantém o primeiro decimal obrigatório para mostrar que se trata de um `float`.
+Note que o Python por padrão corta os zeros à direita, ele só mantém o primeiro decimal obrigatório.
 
 ### bool
 
 A classe `bool` (booleanos) representa valores lógicos binários: *True* (Verdadeiro) ou *False* (Falso). Esses valores são o resultado de operações de comparação (ex.: ==, \>) e lógicas (ex.: and, or), e são essenciais para estruturas condicionais que dirigem a lógica de um programa.
 
-**Instanciação**
+**TIRAR??Instanciação**
 
-Para instanciar, podemos escrever simplesmente True ou False, sem aspas. Outra opção é fazer um teste com operadores lógicos.
+Para definição basta escrever *True* ou *False*, sem aspas. Outra opção é fazer um teste com operadores lógicos.
 
-``` python
+``` {python}
 chovendo = True
 calor = False
 Teste = 4 > 7
