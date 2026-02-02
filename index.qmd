@@ -398,15 +398,17 @@ Existem diversos operadores lógicos que analisam sentenças lógicas e retornam
 
 ### list
 
-Antes de aprender sobre listas (`list`) em Python, é útil entender o conceito de vetor na computação. Um vetor é uma estrutura de dados que armazena uma coleção ordenada de itens do mesmo tipo, de forma eficiente. Em Python, a estrutura nativa mais similar a um vetor é o `array` (do módulo array).
+Antes de introduzirmos o conceito de listas (`list`) em Python, é útil entender o conceito de vetor na computação. Um vetor é uma estrutura de dados que armazena uma coleção ordenada de itens do mesmo tipo. Em Python, a estrutura nativa mais similar a um vetor é o `array` (do módulo array).
 
-As listas são muito mais flexíveis: elas podem armazenar itens de tipos diferentes e são a estrutura mais comum e versátil para guardar sequências de elementos.
+**TALVEZ COLOCAR EXEMPLO DO ARRAY**
 
-**Instanciação**
+As listas são mais flexíveis: elas podem armazenar itens de tipos diferentes e são a estrutura mais comum e versátil para guardar sequências de elementos.
 
-Para instanciar uma lista no python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:
+**TIRAR?? Instanciação**
 
-``` python
+Para definir uma lista no Python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:
+
+``` {python}
 Numeros = [1, 2, 3, 4]
 print(Numeros)
 print(type(Numeros))
@@ -431,13 +433,11 @@ print(type(Mix))
 ```
 :::
 
-Existem outros tipos de vetores além das listas no próprio python: `tuple`, `set`, `dict`. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais sobre isso.
+**TIRAR?? Existem outros tipos de vetores além das listas no próprio python: `tuple`, `set`, `dict`. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais sobre isso.**
 
-**Uso**
+Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no Python).
 
-Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no python).
-
-``` python
+``` {python}
 Frutas = ["Morango", "Pera", "Banana"]
 print(Frutas[0])
 print(Frutas[1])
@@ -467,30 +467,19 @@ IndexError: list index out of range
 ```
 :::
 
-Esse erro é bem frequente quando trabalhamos com listas.
-
-
-**Matrizes**
-
 Existem ainda listas de lista, as chamadas matrizes. Matrizes na álgebra podem ser entendidas como conjunto de vetores, na computação é o mesmo entendimento. Elas são particularmente interessantes quando estamos usando um conjunto grande de dados. Imagina que além da matrícula e do nome temos a idade, o curso, o período que entrou na faculdade etc. Podemos ter apenas uma lista que possui todas essas listas.
 
-``` python
+``` {python}
 cabecalhoInformacoesAlunos = ["matricula", "nome", "idade", "curso", "semestreIngresso"]
 matrizInformacoesAlunos = [[123, 456, 789], ["Anderson", "Antonio", "Alexandre"], [20, 18, 33], ["estatística", "direito", "medicina"], ["2023.1", "2019.1", "2020.2"]]
-print(matrizInformacoesAluno)
+print(matrizInformacoesAlunos)
 ```
 
-::: callout
-```         
-[[123, 456, 789], ["Anderson", "Antonio", "Alexandre"], [20, 18, 33], ["estatística", "direito", "medicina"], ["2023.1", "2019.1", "2020.2"]]
-```
-:::
-
-É importante lembrarmos a qual se refere cada lista da matriz, por isso a variável cabecalhoInformacoesAlunos. Em ferramentas específicas para ciência de dados no python isso é feito diretamente, mas no fundo é uma abstração do código a cima. Não preciso nem dizer que isso faz sentido se tivermos um projeto grande, né? A mesma lógica de sempre na programação se aplica aqui também. Assim como sobre quando usar uma variável simples ou uma lista, matrizes são interessantes quando for usar mais de uma lista de dados relacionados, nome de alunos, matrícula de alunos etc. Idealmente uma matriz possui listas de mesmo tamanho, mas isso é uma convenção, não uma regra.
+**AJUDA PARA AJUSTAR PARÁGRAFO:: É importante lembrar a qual se refere cada uma das lista da matriz, por isso a variável `cabecalhoInformacoesAlunos`. Em ferramentas específicas para ciência de dados no Python isso é feito diretamente, mas no fundo é uma abstração do código a cima. Não preciso nem dizer que isso faz sentido se tivermos um projeto grande, né? A mesma lógica de sempre na programação se aplica aqui também. Assim como sobre quando usar uma variável simples ou uma lista, matrizes são interessantes quando for usar mais de uma lista de dados relacionados, nome de alunos, matrícula de alunos etc. Idealmente uma matriz possui listas de mesmo tamanho, mas isso é uma convenção, não uma regra.**
 
 Para acessar as informações de uma matriz é preciso dois índices entre colchetes.
 
-``` python
+``` {python}
 cabecalhoInformacoesAlunos = ["matricula", "nome", "idade", "curso", "semestreIngresso"]
 matrizInformacoesAlunos = [[123, 456, 789], ["Anderson", "Antonio", "Alexandre"], [20, 18, 33], ["estatística", "direito", "medicina"], ["2023.1", "2019.1", "2020.2"]]
 print("Matrícula e idade do segundo aluno:")
@@ -506,23 +495,24 @@ Matrícula e idade do segundo aluno:
 ```
 :::
 
-O primeiro índice é referente a posição da lista na matriz e o segundo índice é a posição do elemento específico na lista desejada. É equivalente ao conceito de colunas e linhas de uma matriz(ij) da matemática. Lembrando que o primeiro índice de uma lista é 0 e não 1.
+O primeiro índice é referente a posição da lista na matriz e o segundo índice é a posição do elemento específico na lista desejada. É equivalente ao conceito de colunas e linhas de uma matriz. Lembrando que o primeiro índice de uma lista é 0 e não 1.
 
-Pode-se também fazer uma lista de matrizes, que se acessa usando 3 colchetes. Matrizes tem dimensões infinitas no python, mas para ciência de dados comumente usamos apenas 2 dimensões: colunas e linhas. Para computação gráfica, por exemplo, podemos usar mais dimensões e matrizes passam a ser chamadas de tensores. Isso não é importante para ciência de dados, pelo menos não agora (uma pequena antecipação de cenas dos próximos capítulos).
+Pode-se também fazer uma lista de matrizes, que se acessa usando 3 colchetes. Matrizes tem dimensões infinitas no Python, mas para ciência de dados comumente usamos apenas 2 dimensões: colunas e linhas. Para computação gráfica, por exemplo, podemos usar mais dimensões e matrizes passam a ser chamadas de tensores. 
+**TIRAR???Isso não é importante para ciência de dados, pelo menos não agora (uma pequena antecipação de cenas dos próximos capítulos).**
 
 ### function
 
-As functions, que do inglês significa `funções`, possuem um conceito semelhante ao da matemática, elas transformam uma informação.
+`function`, que do inglês significa função, possui conceito semelhante ao da matemática, realizar tarefas pré determinadas a partir de entradas especificadas.
 
-O print() é um exemplo de função. Ele recebe como argumento um texto e imprime na tela. O type() recebe uma variável qualquer e retorna o seu tipo.
+O `print()` é um exemplo de função. Ele recebe como argumento um texto e imprime na tela. Outro exemplo é a função `type()` que recebe uma variável qualquer e retorna o seu tipo.
 
-Existe uma nomenclatura própria para trabalhar com funções, o que a função recebe para trabalhar é o que chamamos de argumentos e o que ela cria a partir desse argumento é o retorno ou resultado. Uma função pode ter mais de um argumento, que são separados por vírgulas. Algumas funções não possuem resultado, o print() por mais que imprima na tela o texto, ele não gera retorno específico, ele é uma função bem especial, por isso falamos dela antes de qualquer outra.
+Existe uma nomenclatura própria para trabalhar com funções, o que a função recebe de entrada é o que chamamos de argumentos e o que ela cria a partir desse argumento é o retorno ou resultado. Uma função pode ter mais de um argumento, que são separados por vírgulas. Algumas funções não possuem resultado, o print() por mais que imprima na tela o texto, ele não gera retorno específico, ele é uma função bem especial, por isso falamos dela antes de qualquer outra.
 
 `nomeDaFunção(argumento1, argumento2, …, argumentoN)`
 
-Lembra que para imprimir duas informações diferentes em uma mesma linha precisávamos escrever um , end="" depois do texto no print()? O print tem inúmeros argumentos. O end é um dos argumentos, ele por padrão é um `"\n"` que faz com que o computador pule uma linha. Argumentos que possuem padrão, se quisermos alterar, precisamos especificá-los, já que não é obrigatório para o funcionamento da função. Quando falarmos mais sobre como criar uma função falaremos mais sobre isso, não precisa entender isso agora.
+Lembra que para imprimir duas informações diferentes em uma mesma linha precisávamos escrever um `, end=""` depois do texto no `print()`? O print tem diversos argumentos, o `end` é um dos argumentos, por padrão é um `"\n"` que faz com que o computador pule uma linha. Argumentos que possuem padrão, se quisermos alterar, precisamos especificá-los, já que não é obrigatório para o funcionamento da função. 
 
-**Chamar uma função X Referenciar uma função**
+**PAREI AQUI Chamar uma função X Referenciar uma função**
 
 Venho falando de funções sempre com os parêntesis para diferenciar de outras variáveis normais. Na verdade, os parênteses servem para chamar a função para fazer alguma coisa. Nós podemos referenciar funções apenas pelo seu nome. Por exemplo:
 
