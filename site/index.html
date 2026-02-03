@@ -467,29 +467,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#objetos" id="toc-objetos" class="nav-link" data-scroll-target="#objetos">Objetos</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#operandos" id="toc-operandos" class="nav-link" data-scroll-target="#operandos">Operandos</a>
+  <li><a href="#operandos-operadores" id="toc-operandos-operadores" class="nav-link" data-scroll-target="#operandos-operadores">Operandos (Operadores???)</a>
   <ul class="collapse">
-  <li><a href="#e--" id="toc-e--" class="nav-link" data-scroll-target="#e--">+ e -</a>
+  <li><a href="#adição-e-subtração--" id="toc-adição-e-subtração--" class="nav-link" data-scroll-target="#adição-e-subtração--">Adição (+) e Subtração (-)</a>
   <ul class="collapse">
   <li><a href="#int-e-float" id="toc-int-e-float" class="nav-link" data-scroll-target="#int-e-float">int e float</a></li>
   <li><a href="#str-1" id="toc-str-1" class="nav-link" data-scroll-target="#str-1">str</a></li>
   <li><a href="#bool-1" id="toc-bool-1" class="nav-link" data-scroll-target="#bool-1">bool</a></li>
   </ul></li>
-  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">* e /</a>
+  <li><a href="#multiplicação-e-divisão" id="toc-multiplicação-e-divisão" class="nav-link" data-scroll-target="#multiplicação-e-divisão">Multiplicação (*) e Divisão (/)</a>
   <ul class="collapse">
   <li><a href="#int-e-float-1" id="toc-int-e-float-1" class="nav-link" data-scroll-target="#int-e-float-1">int e float</a></li>
   <li><a href="#str-2" id="toc-str-2" class="nav-link" data-scroll-target="#str-2">str</a></li>
   </ul></li>
-  <li><a href="#e-1" id="toc-e-1" class="nav-link" data-scroll-target="#e-1">// e %</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">**</a></li>
-  <li><a href="#e-2" id="toc-e-2" class="nav-link" data-scroll-target="#e-2">( e )</a>
+  <li><a href="#divisão-interira-e-módulo" id="toc-divisão-interira-e-módulo" class="nav-link" data-scroll-target="#divisão-interira-e-módulo">Divisão interira (//) e Módulo (%)</a></li>
+  <li><a href="#exponenciação" id="toc-exponenciação" class="nav-link" data-scroll-target="#exponenciação">Exponenciação (**)</a></li>
+  <li><a href="#parei-aqui-e" id="toc-parei-aqui-e" class="nav-link" data-scroll-target="#parei-aqui-e">PAREI AQUI ( e )</a>
   <ul class="collapse">
   <li><a href="#funções" id="toc-funções" class="nav-link" data-scroll-target="#funções">funções</a></li>
   </ul></li>
   <li><a href="#operadores-condicionais" id="toc-operadores-condicionais" class="nav-link" data-scroll-target="#operadores-condicionais">Operadores condicionais</a>
   <ul class="collapse">
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">&gt;, &lt;, &gt;=, &lt;=</a></li>
-  <li><a href="#e-3" id="toc-e-3" class="nav-link" data-scroll-target="#e-3">== e !=</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">&gt;, &lt;, &gt;=, &lt;=</a></li>
+  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">== e !=</a></li>
   <li><a href="#not-and-or" id="toc-not-and-or" class="nav-link" data-scroll-target="#not-and-or">not, and, or</a></li>
   <li><a href="#in" id="toc-in" class="nav-link" data-scroll-target="#in">in</a></li>
   </ul></li>
@@ -716,7 +716,7 @@ O meu filme favorito é troll 2!</code></pre>
 <p><strong>TIRAR: A escolha do uso da nomenclatura <code>x</code> para realizar a tarefa é apenas para seguir a didática da professora Márcia. Porém, idealmente</strong></p>
 <p>A nomeação de variáveis se faz baseado no uso dela, isto é, idealmente criamos variáveis com nomes elusivos. Nesse caso, ao invés de <code>x</code> usar <code>texto</code>. Isso facilita em projetos maiores quando várias pessoas trabalham juntas ou quando você precisa rever um código antigo.</p>
 <p>Para criar uma variável basta colocar o nome que gostaria no início, seguido de <code>=</code> e depois o valor que gostaria de armazenar.</p>
-<div id="0233b4dd" class="cell" data-execution_count="2">
+<div id="8eef12ac" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">"O meu filme favorito é troll 2!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O computador então passa a entender que sempre que escreve <code>texto</code> no código é para substituir pelo valor “O meu filme favorito é troll 2!”.</p>
@@ -807,7 +807,7 @@ class 'int'</code></pre>
 <p>Abreviação para <em>string</em>, que traduzido do inglês significa fio, corda ou barbante, mas quando usado na programação significa cadeia, uma cadeia de caracteres. Linguagens de programação tradicionalmente possuem o tipo <strong>char</strong>, que é uma abreviação de characters que traduzido do inglês é caracteres. Esse tipo armazena apenas um caractere textual, o conjunto desses caracteres é chamado de <em>string</em>. No python, para simplificar, todo dado textual é um <code>str</code>.</p>
 <p><strong>TIRAR?? Instanciação</strong></p>
 <p>Para definir um <code>str</code> colocamos o texto entre aspas simples ou duplas.Podemos também usar <code>""" """</code>, usado quando queremos escrever um texto em mais de uma linha de código no Python.</p>
-<div id="dea868e8" class="cell" data-execution_count="3">
+<div id="eed8c7b0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>texto1 <span class="op">=</span> <span class="st">"Ciência de dados!"</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>texto2 <span class="op">=</span> <span class="st">'O meu filme favorito é "troll 2"!'</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>texto3 <span class="op">=</span> <span class="st">"""Minha terra tem palmeiras</span></span>
@@ -858,7 +858,7 @@ class 'str'</code></pre>
 <p>Equivalente aos números racionais, <code>float</code> vem do padrão de <strong>ponto flutuante</strong>, uma técnica da computação para representar números com casas decimais no sistema binário. Enquanto os números inteiros têm uma tradução mais simples para o binário, as frações decimais muitas vezes resultam em sequências binárias infinitas, similar à dízima periódica. O padrão <code>float</code> é uma forma eficiente, mas aproximada, de lidar com isso.</p>
 <p><strong>TIRAR?? Instanciação</strong></p>
 <p>Para definirmos um <code>float</code> colocando os números com a parte decimal explicita. Lembrando que a linguagem usa o sistema americano, que utiliza o ponto como separador decimal.</p>
-<div id="013d33c2" class="cell" data-execution_count="4">
+<div id="2ae8688b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>numeroRacional1 <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>numeroRacional2 <span class="op">=</span> <span class="fl">56.133000</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroRacional1)</span>
@@ -892,7 +892,7 @@ class 'float'</code></pre>
 <p>A classe <code>bool</code> (booleanos) representa valores lógicos binários: <em>True</em> (Verdadeiro) ou <em>False</em> (Falso). Esses valores são o resultado de operações de comparação (ex.: ==, &gt;) e lógicas (ex.: and, or), e são essenciais para estruturas condicionais que dirigem a lógica de um programa.</p>
 <p><strong>TIRAR??Instanciação</strong></p>
 <p>Para definição basta escrever <em>True</em> ou <em>False</em>, sem aspas. Outra opção é fazer um teste com operadores lógicos.</p>
-<div id="0a181357" class="cell" data-execution_count="5">
+<div id="ef5c7ef0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>chovendo <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>calor <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Teste <span class="op">=</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">7</span></span>
@@ -935,7 +935,7 @@ type 'bool'</code></pre>
 <p>As listas são mais flexíveis: elas podem armazenar itens de tipos diferentes e são a estrutura mais comum e versátil para guardar sequências de elementos.</p>
 <p><strong>TIRAR?? Instanciação</strong></p>
 <p>Para definir uma lista no Python usamos colchetes, e separamos diferentes elementos com uso de vírgulas:</p>
-<div id="3814660c" class="cell" data-execution_count="6">
+<div id="5f1145d3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Numeros <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Numeros)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(Numeros))</span>
@@ -973,7 +973,7 @@ type 'bool'</code></pre>
 </div>
 <p><strong>TIRAR?? Existem outros tipos de vetores além das listas no próprio python: <code>tuple</code>, <code>set</code>, <code>dict</code>. Eles são usados em certas situações mais específicas. Para se aprofundar no python são indispensáveis. Quando chegarmos no uso de ferramentas mais diretas para ciência de dados falaremos um pouco mais sobre isso.</strong></p>
 <p>Cada elemento de uma lista é acessível usando o nome da lista e colchetes com o índice do elemento na lista começando por 0 (índice zero aponta para o primeiro elemento da lista, uma herança do sistema binário dos computadores no Python).</p>
-<div id="9ca1d23d" class="cell" data-execution_count="7">
+<div id="572d8f8f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Frutas <span class="op">=</span> [<span class="st">"Morango"</span>, <span class="st">"Pera"</span>, <span class="st">"Banana"</span>]</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">0</span>])</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Frutas[<span class="dv">1</span>])</span>
@@ -1012,7 +1012,7 @@ IndexError: list index out of range</code></pre>
 </div>
 </div>
 <p>Existem ainda listas de lista, as chamadas matrizes. Matrizes na álgebra podem ser entendidas como conjunto de vetores, na computação é o mesmo entendimento. Elas são particularmente interessantes quando estamos usando um conjunto grande de dados. Imagina que além da matrícula e do nome temos a idade, o curso, o período que entrou na faculdade etc. Podemos ter apenas uma lista que possui todas essas listas.</p>
-<div id="6cf38571" class="cell" data-execution_count="8">
+<div id="570678b6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cabecalhoInformacoesAlunos <span class="op">=</span> [<span class="st">"matricula"</span>, <span class="st">"nome"</span>, <span class="st">"idade"</span>, <span class="st">"curso"</span>, <span class="st">"semestreIngresso"</span>]</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>matrizInformacoesAlunos <span class="op">=</span> [[<span class="dv">123</span>, <span class="dv">456</span>, <span class="dv">789</span>], [<span class="st">"Anderson"</span>, <span class="st">"Antonio"</span>, <span class="st">"Alexandre"</span>], [<span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">33</span>], [<span class="st">"estatística"</span>, <span class="st">"direito"</span>, <span class="st">"medicina"</span>], [<span class="st">"2023.1"</span>, <span class="st">"2019.1"</span>, <span class="st">"2020.2"</span>]]</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(matrizInformacoesAlunos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1022,7 +1022,7 @@ IndexError: list index out of range</code></pre>
 </div>
 <p><strong>AJUDA PARA AJUSTAR PARÁGRAFO:: É importante lembrar a qual se refere cada uma das lista da matriz, por isso a variável <code>cabecalhoInformacoesAlunos</code>. Em ferramentas específicas para ciência de dados no Python isso é feito diretamente, mas no fundo é uma abstração do código a cima. Não preciso nem dizer que isso faz sentido se tivermos um projeto grande, né? A mesma lógica de sempre na programação se aplica aqui também. Assim como sobre quando usar uma variável simples ou uma lista, matrizes são interessantes quando for usar mais de uma lista de dados relacionados, nome de alunos, matrícula de alunos etc. Idealmente uma matriz possui listas de mesmo tamanho, mas isso é uma convenção, não uma regra.</strong></p>
 <p>Para acessar as informações de uma matriz é preciso dois índices entre colchetes.</p>
-<div id="aa0a0dfa" class="cell" data-execution_count="9">
+<div id="1ebdf643" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cabecalhoInformacoesAlunos <span class="op">=</span> [<span class="st">"matricula"</span>, <span class="st">"nome"</span>, <span class="st">"idade"</span>, <span class="st">"curso"</span>, <span class="st">"semestreIngresso"</span>]</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>matrizInformacoesAlunos <span class="op">=</span> [[<span class="dv">123</span>, <span class="dv">456</span>, <span class="dv">789</span>], [<span class="st">"Anderson"</span>, <span class="st">"Antonio"</span>, <span class="st">"Alexandre"</span>], [<span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">33</span>], [<span class="st">"estatística"</span>, <span class="st">"direito"</span>, <span class="st">"medicina"</span>], [<span class="st">"2023.1"</span>, <span class="st">"2019.1"</span>, <span class="st">"2020.2"</span>]]</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Matrícula e idade do segundo aluno:"</span>)</span>
@@ -1054,10 +1054,10 @@ IndexError: list index out of range</code></pre>
 <p><code>function</code>, que do inglês significa função, possui conceito semelhante ao da matemática, realizar tarefas pré determinadas a partir de entradas especificadas.</p>
 <p>O <code>print()</code> é um exemplo de função. Ele recebe como argumento um texto e imprime na tela. Outro exemplo é a função <code>type()</code> que recebe uma variável qualquer e retorna o seu tipo.</p>
 <p>Existe uma nomenclatura própria para trabalhar com funções, o que a função recebe de entrada é o que chamamos de argumentos e o que ela cria a partir desse argumento é o retorno ou resultado. Uma função pode ter mais de um argumento, que são separados por vírgulas. Algumas funções não possuem resultado, o print() por mais que imprima na tela o texto, ele não gera retorno específico, ele é uma função bem especial, por isso falamos dela antes de qualquer outra.</p>
-<p><code>nomeDaFunção(argumento1, argumento2, …, argumentoN)</code></p>
+<p><strong>TIRAR????</strong> <code>nomeDaFunção(argumento1, argumento2, …, argumentoN)</code></p>
 <p>Lembra que para imprimir duas informações diferentes em uma mesma linha precisávamos escrever um <code>, end=""</code> depois do texto no <code>print()</code>? O print tem diversos argumentos, o <code>end</code> é um dos argumentos, por padrão é um <code>"\n"</code> que faz com que o computador pule uma linha. Argumentos que possuem padrão, se quisermos alterar, precisamos especificá-los, já que não é obrigatório para o funcionamento da função.</p>
-<p><strong>PAREI AQUI Chamar uma função X Referenciar uma função</strong></p>
-<p>Venho falando de funções sempre com os parêntesis para diferenciar de outras variáveis normais. Na verdade, os parênteses servem para chamar a função para fazer alguma coisa. Nós podemos referenciar funções apenas pelo seu nome. Por exemplo:</p>
+<p><strong>TIRAR TODA SEÇÃO??? Chamar uma função X Referenciar uma função</strong></p>
+<p><strong>Venho falando de funções sempre com os parêntesis para diferenciar de outras variáveis normais. Na verdade, os parênteses servem para chamar a função para fazer alguma coisa. Nós podemos referenciar funções apenas pelo seu nome. Por exemplo:</strong></p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="bu">print</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -1069,15 +1069,21 @@ IndexError: list index out of range</code></pre>
 </div>
 </div>
 </div>
-<p>Esse código apenas exibe o tipo da variável print, que é uma função. Essa forma de representar funções é útil em códigos mais complexos que usam funções customizadas dentro de outras funções.</p>
-<p>Na referenciação, funções funcionam como qualquer outra variável.</p>
-<p><strong>Instanciação</strong></p>
-<p>def soma(x, y): return x + y</p>
-<p>Como pode ver é diferente dos demais tipos, usa uma palavra reservada para definir, o def. Para funções, invés de dizer que estamos instanciando, dizemos que estamos definindo-a. Em breve falaremos mais sobre como definir uma função, por enquanto é importante apenas entender que existem algumas funções padrões no python e que podemos criar mais se desejarmos.</p>
+<p><strong>Esse código apenas exibe o tipo da variável print, que é uma função. Essa forma de representar funções é útil em códigos mais complexos que usam funções customizadas dentro de outras funções.Na referenciação, funções funcionam como qualquer outra variável.</strong></p>
+<p><strong>TIRAR?? Instanciação</strong> Diferentes dos demais tipos, para definir uma função é necessário defini-la através do comando <code>def</code>.</p>
+<div id="a014add7" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> soma(x, y): <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>soma(<span class="dv">2</span>,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>12</code></pre>
+</div>
+</div>
+<p><strong>TALVEZ TIRAR? Como pode ver é diferente dos demais tipos, usa uma palavra reservada para definir, o def. Para funções, invés de dizer que estamos instanciando, dizemos que estamos definindo-a. Em breve falaremos mais sobre como definir uma função, por enquanto é importante apenas entender que existem algumas funções padrões no python e que podemos criar mais se desejarmos.</strong></p>
 </section>
 <section id="objetos" class="level3">
 <h3 class="anchored" data-anchor-id="objetos">Objetos</h3>
-<p>Os objetos são tipos especiais no python, especiais porque? Nós que o criamos!</p>
+<p>PRECISO DE AJUDA PARA AVALIAR ESTA SEÇÃO. TAMBÉM HÁ REFERENCIAS AOS OBJETOS NO CADERNO 2.</p>
+<p>Os objetos são tipos especiais no Python, especiais porque? Nós que o criamos!</p>
 <p><strong>Mas nós podemos criar uma função, ou uma String também não? O que tem de especial nisso?</strong></p>
 <p>Nós não criamos de fato uma String, nós instanciamos ela, ou seja, criamos exemplos delas. E funções nós definimos, o tipo continua sendo funções.</p>
 <p><strong>No dicionário li que essas palavras podem ser sinônimos, não estamos falando da mesma coisa?</strong></p>
@@ -1088,19 +1094,23 @@ IndexError: list index out of range</code></pre>
 </section>
 </section>
 </section>
-<section id="operandos" class="level1">
-<h1>Operandos</h1>
-<p>Os operandos são sinalizações para o python para realizar alguma operação com dois elementos que referenciamos. Muitos são idênticos ou semelhantes a matemática.</p>
-<p>Os elementos referenciados podem ser variáveis ou valores. Podem ser usados dentro de funções como atribuição de variáveis.</p>
+<section id="operandos-operadores" class="level1">
+<h1>Operandos (Operadores???)</h1>
+<p>Os operandos <strong>operadores</strong> são sinalizações para o Python para realizar alguma operação sobre variáveis/valores. Muitos são idênticos ou semelhantes aos operadores matemáticos.</p>
 <p>Diferentes tipos possuem diferentes comportamentos em relação aos operadores.</p>
-<section id="e--" class="level2">
-<h2 class="anchored" data-anchor-id="e--">+ e -</h2>
-<p>Os primeiros operadores que aprendemos na escola. O operador + é o operador da adição e - da subtração.</p>
+<section id="adição-e-subtração--" class="level2">
+<h2 class="anchored" data-anchor-id="adição-e-subtração--">Adição (+) e Subtração (-)</h2>
+<p>O operador + é o operador da adição e - da subtração.</p>
 <section id="int-e-float" class="level3">
 <h3 class="anchored" data-anchor-id="int-e-float">int e float</h3>
-<p>Em relação a ints e floats funcionam igual à matemática:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">-</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Em relação a <code>int</code> e <code>float</code> funcionam igual à matemática:</p>
+<div id="388f3cab" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">-</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1111,9 +1121,14 @@ IndexError: list index out of range</code></pre>
 </div>
 </div>
 </div>
-<p>Se somar um inteiro com um float a resposta será sempre um float, nem que seja com .0</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">3.0</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">-</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se somar/subtrair um <code>int</code> com um <code>float</code> a resposta será sempre um <code>float</code>.</p>
+<div id="40cd7ab4" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">3.0</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">-</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.0</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1128,8 +1143,13 @@ IndexError: list index out of range</code></pre>
 <section id="str-1" class="level3">
 <h3 class="anchored" data-anchor-id="str-1">str</h3>
 <p>Para strings também é possível usar o operador +. Porém diferente de números, como citado anteriormente quando falamos de strings, o + concatena duas strings. Não podemos somar strings a outros tipos.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">"ketchup"</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(texto <span class="op">+</span> <span class="st">" e mostarda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3b98323c" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">"ketchup"</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(texto <span class="op">+</span> <span class="st">" e mostarda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ketchup e mostarda</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1143,8 +1163,13 @@ IndexError: list index out of range</code></pre>
 </section>
 <section id="bool-1" class="level3">
 <h3 class="anchored" data-anchor-id="bool-1">bool</h3>
-<p>Até dá para usar, mas não serve de muita coisa. O python transforma o valor de True para o inteiro 1 e False para o inteiro 0 e soma como se fosse inteiros</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="op">+</span> <span class="va">True</span> <span class="op">+</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>O Python transforma o valor de True para o inteiro 1 e False para o inteiro 0 e soma como se fossem inteiros.</p>
+<div id="0d33e604" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span> <span class="op">+</span> <span class="va">True</span> <span class="op">+</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1157,14 +1182,13 @@ IndexError: list index out of range</code></pre>
 </div>
 </section>
 </section>
-<section id="e" class="level2">
-<h2 class="anchored" data-anchor-id="e">* e /</h2>
-<p>Multiplicação e divisão respectivamente.</p>
+<section id="multiplicação-e-divisão" class="level2">
+<h2 class="anchored" data-anchor-id="multiplicação-e-divisão">Multiplicação (*) e Divisão (/)</h2>
 <section id="int-e-float-1" class="level3">
 <h3 class="anchored" data-anchor-id="int-e-float-1">int e float</h3>
 <p>Funcionam igual na matemática também, só o símbolo do operador que é diferente.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">8</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">/</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">8</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">/</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1175,14 +1199,24 @@ IndexError: list index out of range</code></pre>
 </div>
 </div>
 </div>
-<p>Quando dividimos dois números inteiros que não possuem valor exato, a resposta é automaticamente convertida para float.</p>
+<p>Quando dividimos dois números inteiros que não possuem valor exato, a resposta é automaticamente convertida para <code>float</code>.</p>
 <p>Repare que a divisão retornou o valor sem aproximação. Por mais que se trate de uma dízima periódica, por conta do funcionamento dos floats nos computadores, o resultado pode vir um pouco diferente do esperado, como no caso, que deveria ter vindo com um 7 no final.</p>
 </section>
 <section id="str-2" class="level3">
 <h3 class="anchored" data-anchor-id="str-2">str</h3>
-<p>Podemos usar multiplicação em strings. É como se fosse várias operações de adição em sequência, e funcionam igual a adição de strings normal. Não há divisão de strings no python.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>textoOriginal <span class="op">=</span> <span class="st">"Ciência de dados!</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(textoOriginal<span class="op">*</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Podemos usar multiplicação em strings. É como se fosse várias operações de adição em sequência, e funciona igual a adição de strings normal. Não há divisão de strings no Python.</p>
+<div id="009b0056" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>textoOriginal <span class="op">=</span> <span class="st">"Ciência de dados!</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(textoOriginal<span class="op">*</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+Ciência de dados!
+</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1199,17 +1233,25 @@ Ciência de dados!</code></pre>
 </div>
 </section>
 </section>
-<section id="e-1" class="level2">
-<h2 class="anchored" data-anchor-id="e-1">// e %</h2>
-<p><code>//</code> é o operador para divisão inteira e <code>%</code> é o operador de resto da divisão. Digamos que você não queira a parte decimal de uma divisão por alguma razão e quer o resto da divisão também. Funciona apenas para ints e floats.</p>
-<p>25 amigos foram jogar futebol na praça, querem montar equipes de 11 e duas pessoas ficam “na de fora” e entram quando o jogo acabar substituindo alguém do time perdedor. Quantos ficaram na de fora e quantas equipes serão formadas?</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>nAmigos <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>nEquipes <span class="op">=</span> <span class="dv">25</span><span class="op">//</span><span class="dv">11</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>amigosNaDeFora <span class="op">=</span> <span class="dv">25</span><span class="op">%</span><span class="dv">11</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Amigos na de fora:"</span>)</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">3</span>)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Equipes formadas:"</span>)</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="divisão-interira-e-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="divisão-interira-e-módulo">Divisão interira (//) e Módulo (%)</h2>
+<p><code>//</code> é o operador para divisão inteira e <code>%</code> é o operador módulo (resto da divisão). Funciona apenas para valores inteiros e <code>float</code>.</p>
+<p>25 amigos foram jogar futebol na praça, querem montar equipes de 11 e as pessoas restantes ficam “de fora” e entram quando o jogo acabar substituindo alguém do time perdedor. Quantos ficaram “de fora” e quantas equipes foram formadas?</p>
+<div id="29f97d40" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>nAmigos <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>nEquipes <span class="op">=</span> <span class="dv">25</span><span class="op">//</span><span class="dv">11</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>amigosDeFora <span class="op">=</span> <span class="dv">25</span><span class="op">%</span><span class="dv">11</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Amigos na de fora:"</span>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(amigosDeFora)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Equipes formadas:"</span>)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nEquipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Amigos na de fora:
+3
+Equipes formadas:
+2</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1224,14 +1266,20 @@ Equipes formadas:
 </div>
 </div>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">**</h2>
-<p>Exponenciação. Funciona igual a matemática, apenas o símbolo que é novo. Apenas para inteiros e floats. Assim como na matemática, exponenciação pode ser radiciação se usando números menores que 1 como expoentes.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>xAoQuadrado <span class="op">=</span> <span class="dv">9</span> <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>raizQuadradaDeX <span class="op">=</span> <span class="dv">9</span> <span class="op">**</span> <span class="fl">0.5</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xAoQuadrado)</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raizQuadradaDeX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="exponenciação" class="level2">
+<h2 class="anchored" data-anchor-id="exponenciação">Exponenciação (**)</h2>
+<p>Funciona igual a matemática, apenas o símbolo que é novo. Apenas para inteiros e <code>float</code>. Assim como na matemática, exponenciação pode ser radiciação se usando números menores que 1 como expoentes.</p>
+<div id="2a56e4d9" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>xAoQuadrado <span class="op">=</span> <span class="dv">9</span> <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>raizQuadradaDeX <span class="op">=</span> <span class="dv">9</span> <span class="op">**</span> <span class="fl">0.5</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xAoQuadrado)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raizQuadradaDeX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>81
+3.0</code></pre>
+</div>
+</div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1244,12 +1292,12 @@ Equipes formadas:
 </div>
 </div>
 </section>
-<section id="e-2" class="level2">
-<h2 class="anchored" data-anchor-id="e-2">( e )</h2>
+<section id="parei-aqui-e" class="level2">
+<h2 class="anchored" data-anchor-id="parei-aqui-e">PAREI AQUI ( e )</h2>
 <p>Colocando assim parece que são dois operadores diferentes, mas na verdade funcionam sempre juntos. São os parêntesis. Funcionam independente do tipo. Colocar uma expressão entre parêntesis significa que ela será executada antes. Seguindo as regras da matemática, exponenciação e radiciação serão sempre feitas antes, multiplicação e divisão em seguida e por último adição e subtração. Usando parêntesis, semelhante a como funciona na matemática, muda essa ordem de prioridade. Os [ ] (colchetes) e { } (chaves) não funcionam que nem na matemática, servem para outras coisas, mas com os parêntesis já podemos fazer qualquer operação na ordem que quisermos.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>expressaoAlgebrica <span class="op">=</span> (((<span class="dv">2</span><span class="op">+</span><span class="dv">3</span>)<span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">4</span><span class="op">**</span><span class="dv">2</span>)<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Resultado da expressão algébrica (((2+3)/2)+4**2)**(1/2):"</span>)</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expressaoAlgebrica)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>expressaoAlgebrica <span class="op">=</span> (((<span class="dv">2</span><span class="op">+</span><span class="dv">3</span>)<span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">4</span><span class="op">**</span><span class="dv">2</span>)<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Resultado da expressão algébrica (((2+3)/2)+4**2)**(1/2):"</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expressaoAlgebrica)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1264,7 +1312,7 @@ Equipes formadas:
 <section id="funções" class="level3">
 <h3 class="anchored" data-anchor-id="funções">funções</h3>
 <p>Para funções funcionam um pouco diferente. Parêntesis executam uma função.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Olá Mundo!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Olá Mundo!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1292,12 +1340,12 @@ Equipes formadas:
 <li>or (ou |)</li>
 <li>in</li>
 </ul>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">&gt;, &lt;, &gt;=, &lt;=</h3>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">&gt;, &lt;, &gt;=, &lt;=</h3>
 <p>Funcionam quando comparando números (inteiros ou floats) ou quando comparando strings. No caso dos números funcionam igual a matemática. Para strings considera o número de caracteres de cada uma e faz a comparação de tamanho.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">7</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">5</span> <span class="op">&lt;=</span> <span class="fl">10.4</span>)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Mostarda"</span> <span class="op">&gt;=</span> <span class="st">"Maionese"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">7</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">5</span> <span class="op">&lt;=</span> <span class="fl">10.4</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Mostarda"</span> <span class="op">&gt;=</span> <span class="st">"Maionese"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1311,13 +1359,13 @@ True</code></pre>
 </div>
 </div>
 </section>
-<section id="e-3" class="level3">
-<h3 class="anchored" data-anchor-id="e-3">== e !=</h3>
+<section id="e" class="level3">
+<h3 class="anchored" data-anchor-id="e">== e !=</h3>
 <p>Podem ser usados entre diferentes tipos para avaliar se os elementos são iguais, note que “4” é diferente de 4 por conta do tipo.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">==</span> <span class="dv">7</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span>)</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">!=</span> <span class="st">"4"</span>)</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="va">True</span> <span class="op">!=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">==</span> <span class="dv">7</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span>)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">4</span> <span class="op">!=</span> <span class="st">"4"</span>)</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="va">True</span> <span class="op">!=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1339,12 +1387,12 @@ False</code></pre>
 <p>O <code>and</code>, “e” traduzido do inglês, precisa ser usado entre duas expressões e retorna True se ambas expressões são verdadeiras e False caso não.</p>
 <p>O <code>or</code>, “e” traduzido do inglês, precisa ser usado entre duas expressões e retorna True se ambas expressões forem verdadeiras ou se uma delas for verdadeira. Se ambas expressões forem falsas retornará False.</p>
 <p>Expressões lógicas precisam estar entre parêntesis quando avaliadas.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>    expressao1 <span class="op">=</span> (<span class="dv">1</span> <span class="op">&lt;</span> <span class="dv">4</span>) <span class="kw">and</span> (<span class="dv">1</span> <span class="op">==</span> <span class="fl">0.0</span>)</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    expressao2 <span class="op">=</span> (expressao1) <span class="kw">or</span> (<span class="st">"Mostarda"</span> <span class="op">==</span> <span class="st">"Mostarda"</span>)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>    expressao3 <span class="op">=</span> (<span class="kw">not</span> expressao1) <span class="kw">and</span> (<span class="st">"Mostarda"</span> <span class="op">==</span> <span class="st">"Mostarda"</span>)</span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao1)</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao2)</span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>    expressao1 <span class="op">=</span> (<span class="dv">1</span> <span class="op">&lt;</span> <span class="dv">4</span>) <span class="kw">and</span> (<span class="dv">1</span> <span class="op">==</span> <span class="fl">0.0</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    expressao2 <span class="op">=</span> (expressao1) <span class="kw">or</span> (<span class="st">"Mostarda"</span> <span class="op">==</span> <span class="st">"Mostarda"</span>)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    expressao3 <span class="op">=</span> (<span class="kw">not</span> expressao1) <span class="kw">and</span> (<span class="st">"Mostarda"</span> <span class="op">==</span> <span class="st">"Mostarda"</span>)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao1)</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao2)</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(expressao3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1361,10 +1409,10 @@ True</code></pre>
 <section id="in" class="level3">
 <h3 class="anchored" data-anchor-id="in">in</h3>
 <p>Exclusivo para vetores e strings, muito útil para saber se um elemento está dentro de um vetor ou não, já para strings, se uma string menor está presente em uma string maior.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>    listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Maionese"</span>]</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Pimenta"</span> <span class="kw">in</span> listaDeCodimentos)</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Mostarda"</span> <span class="kw">in</span> listaDeCodimentos)</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ostar"</span> <span class="kw">in</span> listaDeCodimentos[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>    listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Maionese"</span>]</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Pimenta"</span> <span class="kw">in</span> listaDeCodimentos)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Mostarda"</span> <span class="kw">in</span> listaDeCodimentos)</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ostar"</span> <span class="kw">in</span> listaDeCodimentos[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1389,7 +1437,7 @@ True</code></pre>
 <h2 class="anchored" data-anchor-id="transformação-de-tipo-casting">Transformação de tipo (casting)</h2>
 <p>O cast, ou transformação de tipo (uma tradução aproximada do inglês), é uma função que existe de uma forma ou outra em qualquer linguagem de programação. Serve para transformar um tipo em outro, simples assim.</p>
 <p>Lembra que quando comparamos 4 com “4” usando o operador <code>==</code> recebemos False? Retornará verdadeiro se o tipo fosse o mesmo:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">int</span>(<span class="st">"4"</span>) <span class="op">==</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">int</span>(<span class="st">"4"</span>) <span class="op">==</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1401,12 +1449,12 @@ True</code></pre>
 </div>
 </div>
 <p>Para fazer uma transformação de tipo usamos funções com o nome do tipo que queremos receber e dentro do parêntesis o elemento que queremos converter. Como no exemplo, transformamos uma string em um inteiro usando <code>int()</code>. Com booleanos, se uma string não estiver vazia ou se um número inteiro ou float não for 0 (ou 0.0) <code>bool()</code> retornará True e False caso contrário.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"4"</span> <span class="op">==</span> <span class="bu">str</span>(<span class="dv">4</span>))</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    numeroInteiro <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    numeroRacional <span class="op">=</span> <span class="fl">3.0</span></span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">int</span>(numeroRacional))</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">float</span>(numeroInteiro))</span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">bool</span>(numeroInteiro))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"4"</span> <span class="op">==</span> <span class="bu">str</span>(<span class="dv">4</span>))</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    numeroInteiro <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    numeroRacional <span class="op">=</span> <span class="fl">3.0</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">int</span>(numeroRacional))</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">float</span>(numeroInteiro))</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">bool</span>(numeroInteiro))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1421,8 +1469,8 @@ True</code></pre>
 </div>
 </div>
 <p>O mesmo serve para converter em strings, floats e booleanos. Entre diferentes tipos de vetores, podemos fazer casts também. Entre listas e tuplas por exemplo, basta usar <code>list()</code> ou <code>tuple()</code></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>    listaDeCodimentos <span class="op">=</span> [<span class="st">"Mostarda"</span>, <span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">tuple</span>(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>    listaDeCodimentos <span class="op">=</span> [<span class="st">"Mostarda"</span>, <span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">tuple</span>(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1441,12 +1489,12 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="range">range()</h3>
 <p>O <code>range</code> cria um uma sequência numérica com os parâmetros passados.</p>
 <p>Se usarmos apenas um número inteiro na função, a sequência iniciará com 0, terá passo 1 e será até o número anterior ao escrito. Com dois inteiros entre os parêntesis, o primeiro será o início e o segundo o número seguinte ao último da sequência. O terceiro argumento inteiro, que também é opcional, modifica o passo. O resultado da função é um tipo único, o tipo range, que pode ser convertido em lista.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>de0a4 <span class="op">=</span> <span class="bu">range</span>(<span class="dv">5</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>numerosDeUmADez <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>)</span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>numerosParesDeZeroAVinte <span class="op">=</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">21</span>, <span class="dv">2</span>)</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(de0a4))</span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(numerosDeUmADez))</span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(numerosParesDeZeroAVinte))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>de0a4 <span class="op">=</span> <span class="bu">range</span>(<span class="dv">5</span>)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>numerosDeUmADez <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>numerosParesDeZeroAVinte <span class="op">=</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">21</span>, <span class="dv">2</span>)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(de0a4))</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(numerosDeUmADez))</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(numerosParesDeZeroAVinte))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1464,15 +1512,15 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="random.randint">random.randint()</h3>
 <p>Retorna um número inteiro aleatório dentro de um intervalo, especificado por dois inteiros inseridos.</p>
 <p>Utiliza uma extensão do python chamada random. Para poder usar essa função precisamos escrever import random no início do arquivo python.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>numeroAleatorio1 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>numeroAleatorio2 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>numeroAleatorio3 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>numeroAleatorio4 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio1)</span>
-<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio2)</span>
-<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio3)</span>
-<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>numeroAleatorio1 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>numeroAleatorio2 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>numeroAleatorio3 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>numeroAleatorio4 <span class="op">=</span> random.randint(<span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio1)</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio2)</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio3)</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeroAleatorio4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1493,9 +1541,9 @@ True</code></pre>
 <section id="round" class="level3">
 <h3 class="anchored" data-anchor-id="round">round()</h3>
 <p>Arredonda um número. .5 é arredondado para baixo. O resultado é um número inteiro.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">3.3</span>))</span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">2.5</span>))</span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">3.3</span>))</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">2.5</span>))</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1513,10 +1561,10 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="math.ceil">math.ceil()</h3>
 <p>Arredonda um número racional para cima, ceil é uma palavra do inglês que significa teto.</p>
 <p>Utiliza uma extensão do python chamada math. Para poder usar essa função precisamos escrever import math no início do arquivo python.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">3.3</span>))</span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">2.5</span>))</span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">3.3</span>))</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">2.5</span>))</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1534,10 +1582,10 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="math.floor">math.floor()</h3>
 <p>Arredonda um número racional para baixo, floor é uma palavra do inglês que significa chão</p>
 <p>Utiliza uma extensão do python chamada math. Para poder usar essa função precisamos escrever import math no início do arquivo python.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">3.3</span>))</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">2.5</span>))</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">3.3</span>))</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">2.5</span>))</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1555,10 +1603,10 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="math.trunc">math.trunc()</h3>
 <p>Sigla para truncate, truncar em português. Remove a parte decimal de um número. Equivalente ao math.floor() para números positivos e equivalente ao math.ceil() para números negativos.</p>
 <p>Utiliza uma extensão do python chamada math. Para poder usar essa função precisamos escrever import math no início do arquivo python.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="fl">3.3</span>))</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="fl">2.5</span>))</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="op">-</span><span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="fl">3.3</span>))</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="fl">2.5</span>))</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.trunc(<span class="op">-</span><span class="fl">4.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1579,9 +1627,9 @@ True</code></pre>
 <h3 class="anchored" data-anchor-id="input">input()</h3>
 <p>O <code>input</code> recebe uma string que será impressa na tela. Não muito diferente de um print né? A diferença é que o input após imprimir essa string recebe o que digitarmos até apertamos enter.</p>
 <p>Ela sempre receberá uma string, então se quisermos inserir números, precisamos fazer uma transformação de tipo depois.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>nome <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Digite seu nome: </span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>idade <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Digite sua idade: </span><span class="ch">\n</span><span class="st">"</span>))</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Você se chama "</span> <span class="op">+</span> nome <span class="op">+</span> <span class="st">" e fará "</span> <span class="op">+</span> <span class="bu">str</span>((idade <span class="op">+</span> <span class="dv">1</span>)) <span class="op">+</span> <span class="st">" anos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>nome <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Digite seu nome: </span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>idade <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Digite sua idade: </span><span class="ch">\n</span><span class="st">"</span>))</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Você se chama "</span> <span class="op">+</span> nome <span class="op">+</span> <span class="st">" e fará "</span> <span class="op">+</span> <span class="bu">str</span>((idade <span class="op">+</span> <span class="dv">1</span>)) <span class="op">+</span> <span class="st">" anos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1600,8 +1648,8 @@ Você se chama Gabriel e fará 24 anos</code></pre>
 <section id="len" class="level3">
 <h3 class="anchored" data-anchor-id="len">len()</h3>
 <p>Sigla para length, que significa comprimento. Recebe uma string ou vetor e retorna quantos caracteres ou elementos possui em int.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Meu filme favorito é troll 2!"</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(frase))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Meu filme favorito é troll 2!"</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(frase))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1617,8 +1665,8 @@ Você se chama Gabriel e fará 24 anos</code></pre>
 <h3 class="anchored" data-anchor-id="strip">.strip()</h3>
 <p>Remove espaços no início e no final de uma frase.</p>
 <p>O <code>.strip()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, não colocamos nada dentro dos parêntesis como parâmetro.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"     Meu filme    favorito é troll 2!                  "</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase.strip())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"     Meu filme    favorito é troll 2!                  "</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase.strip())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1634,8 +1682,8 @@ Você se chama Gabriel e fará 24 anos</code></pre>
 <h3 class="anchored" data-anchor-id="replace">.replace()</h3>
 <p>Substituir do inglês. Substitui todas as ocorrências de uma string dentro de uma outra string por outra. Muito usada quando queremos remover elementos textuais.</p>
 <p>O <code>.replace()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, colocamos como parâmetro a string que queremos substituir e em seguida a string nova.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Meu filme favorito é troll 2 e o meu segundo filme favorito é troll 1!"</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase.replace(<span class="st">"troll"</span>, <span class="st">"sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Meu filme favorito é troll 2 e o meu segundo filme favorito é troll 1!"</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase.replace(<span class="st">"troll"</span>, <span class="st">"sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1651,9 +1699,9 @@ Você se chama Gabriel e fará 24 anos</code></pre>
 <h3 class="anchored" data-anchor-id="split">.split()</h3>
 <p>Do inglês separar. Separa uma string em várias dado um separador. O resultado é uma lista de strings.</p>
 <p>O <code>.split()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, colocamos como parâmetro uma string que será usada como separadora. Se não colocarmos nada dentro do split ele considerá por padrão o separador como sendo um espaço.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Ketchup Maionese Mostarda"</span></span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentosGastronomicos <span class="op">=</span> frase.split(<span class="st">" "</span>)</span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Ketchup Maionese Mostarda"</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentosGastronomicos <span class="op">=</span> frase.split(<span class="st">" "</span>)</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1669,9 +1717,9 @@ Você se chama Gabriel e fará 24 anos</code></pre>
 <h3 class="anchored" data-anchor-id="format">.format()</h3>
 <p>Do inglês formatar. Substitui da string alvo as <code>{}</code> por outras strings.</p>
 <p>O <code>.format()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, colocamos como parâmetro n strings para n {} na string alvo.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentosGastronomicos <span class="op">=</span> [<span class="st">'Ketchup'</span>, <span class="st">'Maionese'</span>, <span class="st">'Mostarda'</span>]</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Codimento Gastronomico 1: </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">Codimento Gastronomico 2: </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">Codimento Gastronomico 3: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(listaDeCodimentosGastronomicos[<span class="dv">0</span>], listaDeCodimentosGastronomicos[<span class="dv">1</span>], listaDeCodimentosGastronomicos[<span class="dv">2</span>])</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentosGastronomicos <span class="op">=</span> [<span class="st">'Ketchup'</span>, <span class="st">'Maionese'</span>, <span class="st">'Mostarda'</span>]</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>frase <span class="op">=</span> <span class="st">"Codimento Gastronomico 1: </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">Codimento Gastronomico 2: </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">Codimento Gastronomico 3: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(listaDeCodimentosGastronomicos[<span class="dv">0</span>], listaDeCodimentosGastronomicos[<span class="dv">1</span>], listaDeCodimentosGastronomicos[<span class="dv">2</span>])</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(frase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1689,12 +1737,12 @@ Codimento Gastronomico 3: Mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="isalnum-.isalpha-e-.isnumeric">.isalnum(), .isalpha() e .isnumeric()</h3>
 <p><code>.isalnum()</code> retorna True se a string alvo for composta exclusivamente de números e letras. <code>.isalpha()</code> retorna True se a string alvo for composta exclusivamente de letras. <code>.isnumeric()</code> retorna True se a string alvo for composta exclusivamente de números.</p>
 <p>Os três são métodos, então precisamos colocar a string antes do ponto e, para esses métodos, não colocamos nada dentro dos parêntesis como parâmetro.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Troll2"</span>.isalnum())</span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ketchup"</span>.isalpha())</span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ciência de dados!"</span>.isalpha())</span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2024"</span>.isnumeric())</span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sharknado 5 e troll 2!"</span>.isalnum())</span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ano de 2024"</span>.isnumeric())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Troll2"</span>.isalnum())</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ketchup"</span>.isalpha())</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ciência de dados!"</span>.isalpha())</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2024"</span>.isnumeric())</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sharknado 5 e troll 2!"</span>.isalnum())</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ano de 2024"</span>.isnumeric())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1715,9 +1763,9 @@ False</code></pre>
 <h3 class="anchored" data-anchor-id="upper-.lower-e-.capitalize">.upper(), .lower() e .capitalize()</h3>
 <p><code>.upper()</code> significa superior, transforma todos os caracteres de uma string em caracteres maiúsculos. <code>.lower()</code> significa inferior, transforma todos os caracteres de uma string em caracteres minúsculos. <code>.capitalize()</code> significa capitalizar, transforma o primeiro caracter de uma string em um caractere maiúsculo e os demais em minúsculos.</p>
 <p>Os três são métodos, então precisamos colocar a string antes do ponto e, para esses métodos, não colocamos nada dentro dos parêntesis como parâmetro.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>.lower())</span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ketchup, maionese, mostarda"</span>.upper())</span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ketchup, maionese, mostarda"</span>.capitalize())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>.lower())</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ketchup, maionese, mostarda"</span>.upper())</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ketchup, maionese, mostarda"</span>.capitalize())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1735,8 +1783,8 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="join">.join()</h3>
 <p>Significa juntar. Junta uma lista de strings usando uma string comum no meio e retorna como uma string apenas.</p>
 <p>O <code>.join()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, a string antes do ponto será a string comum que unirá e dentro do parêntesis a lista de strings para unir.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1752,8 +1800,8 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="find">.find()</h3>
 <p>Do inglês encontrar. Retorna o índice em que uma string se encontra dentro da outra. Apenas para a primeira ocorrência. Se não encontrar a string, retornará -1.</p>
 <p>O <code>.find()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, colocamos dentro do parêntesis a string que queremos encontrar dentro da string que referenciamos antes do ponto.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Melhores filmes: Troll 2 e Troll 1"</span>.find(<span class="st">"Troll"</span>))</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Melhores filmes: Troll 2 e Troll 1"</span>.find(<span class="st">"Sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Melhores filmes: Troll 2 e Troll 1"</span>.find(<span class="st">"Troll"</span>))</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Melhores filmes: Troll 2 e Troll 1"</span>.find(<span class="st">"Sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1770,7 +1818,7 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="count">.count()</h3>
 <p>Do inglês contar. Conta ocorrências de uma string dentro de outra.</p>
 <p>O <code>.count()</code> é um método, então precisamos colocar a string antes do ponto e, para esse método, colocamos dentro do parêntesis a string que queremos contar dentro da string que referenciamos antes do ponto.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sharknado 1, Sharknado 2, Sharknado 3, Sharknado 4, Sharknado 5, Sharknado 6"</span>.count(<span class="st">"Sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sharknado 1, Sharknado 2, Sharknado 3, Sharknado 4, Sharknado 5, Sharknado 6"</span>.count(<span class="st">"Sharknado"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1788,7 +1836,7 @@ Ketchup, maionese, mostarda</code></pre>
 <section id="max" class="level3">
 <h3 class="anchored" data-anchor-id="max">max()</h3>
 <p>Do inglês máximo. Retorna o maior valor da lista inserida entre os parêntesis. Funciona tanto para lista de inteiros quanto lista de racionais</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1803,7 +1851,7 @@ Ketchup, maionese, mostarda</code></pre>
 <section id="min" class="level3">
 <h3 class="anchored" data-anchor-id="min">min()</h3>
 <p>Do inglês mínimo. Retorna o menor valor da lista inserida entre os parêntesis. Funciona para listas com qualquer valor numérico, isto é, tanto floats quanto ints.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">min</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">min</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1818,7 +1866,7 @@ Ketchup, maionese, mostarda</code></pre>
 <section id="sum" class="level3">
 <h3 class="anchored" data-anchor-id="sum">sum()</h3>
 <p>Do inglês somar. Retorna o valor da soma dos elementos da lista. Funciona para listas com qualquer valor numérico, isto é, tanto floats quanto ints.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1833,7 +1881,7 @@ Ketchup, maionese, mostarda</code></pre>
 <section id="len-1" class="level3">
 <h3 class="anchored" data-anchor-id="len-1">len()</h3>
 <p>Semelhante ao len() das strings. Retorna quantos elementos uma lista inserida entre os parêntesis possui.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1849,9 +1897,9 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="append">.append()</h3>
 <p>Do inglês acrescentar. Acrescenta um elemento no final de uma lista. Não tem retorno, apenas modifica uma lista já existente.</p>
 <p>O <code>.append()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o elemento que queremos adicionar dentro da lista que referenciamos antes do ponto.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.append(<span class="st">"Mostarda"</span>)</span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.append(<span class="st">"Mostarda"</span>)</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1867,9 +1915,9 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="extend">.extend()</h3>
 <p>Do inglês extender. Adiciona os elementos de uma lista a outra. Não tem retorno, apenas modifica uma lista já existente.</p>
 <p>O <code>.extend()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis a lista que possui os elementos que queremos adicionar na que referenciamos antes do ponto.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.extend([<span class="st">"Mostarda"</span>])</span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>]</span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.extend([<span class="st">"Mostarda"</span>])</span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1885,10 +1933,10 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="insert">.insert()</h3>
 <p>Do inglês inserir. Insere um elemento dentro de uma lista no índice fornecido. Se o índice for maior que o número de elementos da lista, será adicionado no final da lista. Não tem retorno, apenas modifica uma lista já existente.</p>
 <p>O <code>.insert()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o índice seguido do elemento que queremos adicionar.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>]</span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.insert(<span class="dv">231</span>, <span class="st">"Mostarda"</span>)</span>
-<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.insert(<span class="dv">1</span>, <span class="st">"Maionese"</span>)</span>
-<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>]</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.insert(<span class="dv">231</span>, <span class="st">"Mostarda"</span>)</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.insert(<span class="dv">1</span>, <span class="st">"Maionese"</span>)</span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1904,9 +1952,9 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="remove">.remove()</h3>
 <p>Do inglês remover. Remove a primeira ocorrência de um elemento de uma lista. Não tem retorno, apenas modifica uma lista já existente.</p>
 <p>O <code>.remove()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o elemento que queremos remover.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.remove(<span class="st">"Ketchup"</span>)</span>
-<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.remove(<span class="st">"Ketchup"</span>)</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1922,11 +1970,11 @@ Ketchup, maionese, mostarda</code></pre>
 <h3 class="anchored" data-anchor-id="pop">.pop()</h3>
 <p>Do inglês disparar. Retorna o elemento da lista apontado pelo índice fornecido e o remove da lista.</p>
 <p>O <code>.pop()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o índice elemento que queremos remover. Se não colocarmos nenhum índice, o último elemento será removido.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.pop(<span class="dv">1</span>)</span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span>
-<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos.pop())</span>
-<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos.pop(<span class="dv">1</span>)</span>
+<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span>
+<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos.pop())</span>
+<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1944,8 +1992,8 @@ Mostarda
 <h3 class="anchored" data-anchor-id="index">.index()</h3>
 <p>Do inglês índice. Retorna o índice da primeira ocorrência do elemento entre os parêntesis.</p>
 <p>O <code>.index()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o elemento que queremos o índice. Se o elemento não estiver na lista resultará em um erro.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos.index(<span class="st">"Ketchup"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>codimentosGastronomicos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(codimentosGastronomicos.index(<span class="st">"Ketchup"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1961,8 +2009,8 @@ Mostarda
 <h3 class="anchored" data-anchor-id="count-1">.count()</h3>
 <p>Semelhante ao .count das strings. Retorna o número de ocorrências do elemento em uma lista.</p>
 <p>O <code>.count()</code> é um método, então precisamos colocar a lista antes do ponto e, para esse método, colocamos dentro do parêntesis o elemento que queremos contar.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> [<span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>]</span>
-<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista.count(<span class="st">"Ciência de dados!"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> [<span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>, <span class="st">"Ciência de dados!"</span>]</span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista.count(<span class="st">"Ciência de dados!"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1979,14 +2027,14 @@ Mostarda
 <p>Do inglês organizar e organizado. Rearruma uma lista de números organizando ela por ordem crescente ou decrescente. Funciona para listas que contém apenas números inteiros e racionais e para listas que contém apenas strings (organiza por ordem alfabética nesse caso).</p>
 <p>Por padrão será de ordem crescente, mas se colocarmos <code>reverse=True</code> como parâmetro, será em ordem decrescente.</p>
 <p>.sort() é um método que altera uma lista já existente, sorted() é uma função que retorna uma lista nova organizada.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>numeros1 <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">77</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3213</span>, <span class="dv">23</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">7</span>]</span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>numeros1.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>numeros2 <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">77</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3213</span>, <span class="dv">23</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">7</span>]</span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>numeros2 <span class="op">=</span> <span class="bu">sorted</span>(numeros2)</span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Maionese"</span>]</span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeros1)</span>
-<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeros2)</span>
-<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sorted</span>(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>numeros1 <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">77</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3213</span>, <span class="dv">23</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">7</span>]</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>numeros1.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>numeros2 <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">77</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3213</span>, <span class="dv">23</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">7</span>]</span>
+<span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>numeros2 <span class="op">=</span> <span class="bu">sorted</span>(numeros2)</span>
+<span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Maionese"</span>]</span>
+<span id="cb143-6"><a href="#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeros1)</span>
+<span id="cb143-7"><a href="#cb143-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numeros2)</span>
+<span id="cb143-8"><a href="#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sorted</span>(listaDeCodimentos))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -2004,9 +2052,9 @@ Mostarda
 <h3 class="anchored" data-anchor-id="reverse">.reverse()</h3>
 <p>Do inglês inverso. Inverte a ordem de uma lista. Não gera retorno, apenas altera uma lista já existente.</p>
 <p>É um método.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos.reverse()</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Ketchup"</span>, <span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>]</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos.reverse()</span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -2030,13 +2078,13 @@ Mostarda
 <h2 class="anchored" data-anchor-id="comentários-com-hashtag">Comentários com hashtag</h2>
 <p>Principal forma de comentar um código no python. Deixa tudo que está depois do caractere # comentado. Pode ser usado no início de uma linha ou no meio, no segundo caso, apenas o que está depois do # será comentado.</p>
 <p>Ideal para explicar o funcionamento de uma parte do código e para deixar salvo algo que não foi utilizado mas que pode ser utilizado no futuro.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lista de codimentos mais utilizados na cozinha brasileira</span></span>
-<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Ketchup"</span>]</span>
-<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Organiza em ordem alfabética</span></span>
-<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos.sort()</span>
-<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Inverte a ordem dos codimentos (não vou utilizar agora)</span></span>
-<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="co">#listaDeCodimentos.reverse()</span></span>
-<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lista de codimentos mais utilizados na cozinha brasileira</span></span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos <span class="op">=</span> [<span class="st">"Maionese"</span>, <span class="st">"Mostarda"</span>, <span class="st">"Ketchup"</span>]</span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Organiza em ordem alfabética</span></span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>listaDeCodimentos.sort()</span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Inverte a ordem dos codimentos (não vou utilizar agora)</span></span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a><span class="co">#listaDeCodimentos.reverse()</span></span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listaDeCodimentos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">

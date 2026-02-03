@@ -508,13 +508,14 @@ O `print()` é um exemplo de função. Ele recebe como argumento um texto e impr
 
 Existe uma nomenclatura própria para trabalhar com funções, o que a função recebe de entrada é o que chamamos de argumentos e o que ela cria a partir desse argumento é o retorno ou resultado. Uma função pode ter mais de um argumento, que são separados por vírgulas. Algumas funções não possuem resultado, o print() por mais que imprima na tela o texto, ele não gera retorno específico, ele é uma função bem especial, por isso falamos dela antes de qualquer outra.
 
+**TIRAR????**
 `nomeDaFunção(argumento1, argumento2, …, argumentoN)`
 
 Lembra que para imprimir duas informações diferentes em uma mesma linha precisávamos escrever um `, end=""` depois do texto no `print()`? O print tem diversos argumentos, o `end` é um dos argumentos, por padrão é um `"\n"` que faz com que o computador pule uma linha. Argumentos que possuem padrão, se quisermos alterar, precisamos especificá-los, já que não é obrigatório para o funcionamento da função. 
 
-**PAREI AQUI Chamar uma função X Referenciar uma função**
+**TIRAR TODA SEÇÃO??? Chamar uma função X Referenciar uma função**
 
-Venho falando de funções sempre com os parêntesis para diferenciar de outras variáveis normais. Na verdade, os parênteses servem para chamar a função para fazer alguma coisa. Nós podemos referenciar funções apenas pelo seu nome. Por exemplo:
+**Venho falando de funções sempre com os parêntesis para diferenciar de outras variáveis normais. Na verdade, os parênteses servem para chamar a função para fazer alguma coisa. Nós podemos referenciar funções apenas pelo seu nome. Por exemplo:**
 
 ``` python
 print(type(print))
@@ -526,19 +527,23 @@ class 'builtin_function_or_method'
 ```
 :::
 
-Esse código apenas exibe o tipo da variável print, que é uma função. Essa forma de representar funções é útil em códigos mais complexos que usam funções customizadas dentro de outras funções.
+**Esse código apenas exibe o tipo da variável print, que é uma função. Essa forma de representar funções é útil em códigos mais complexos que usam funções customizadas dentro de outras funções.Na referenciação, funções funcionam como qualquer outra variável.**
 
-Na referenciação, funções funcionam como qualquer outra variável.
+**TIRAR?? Instanciação**
+Diferentes dos demais tipos, para definir uma função é necessário defini-la através do comando `def`. 
 
-**Instanciação**
-
+```{python}
 def soma(x, y): return x + y
+soma(2,10)
+```
 
-Como pode ver é diferente dos demais tipos, usa uma palavra reservada para definir, o def. Para funções, invés de dizer que estamos instanciando, dizemos que estamos definindo-a. Em breve falaremos mais sobre como definir uma função, por enquanto é importante apenas entender que existem algumas funções padrões no python e que podemos criar mais se desejarmos.
+**TALVEZ TIRAR? Como pode ver é diferente dos demais tipos, usa uma palavra reservada para definir, o def. Para funções, invés de dizer que estamos instanciando, dizemos que estamos definindo-a. Em breve falaremos mais sobre como definir uma função, por enquanto é importante apenas entender que existem algumas funções padrões no python e que podemos criar mais se desejarmos.**
 
 ### Objetos
 
-Os objetos são tipos especiais no python, especiais porque? Nós que o criamos!
+PRECISO DE AJUDA PARA AVALIAR ESTA SEÇÃO. TAMBÉM HÁ REFERENCIAS AOS OBJETOS NO CADERNO 2.
+
+Os objetos são tipos especiais no Python, especiais porque? Nós que o criamos!
 
 **Mas nós podemos criar uma função, ou uma String também não? O que tem de especial nisso?**
 
@@ -554,23 +559,21 @@ Enfim,
 
 Nós definimos uma classe que o objeto pertence e instanciamos a partir dessa classe, essencialmente, essa classe que criamos é um tipo novo, definimos seu comportamento características etc. No próximo caderno falaremos mais sobre elas. Por enquanto vale apenas saber que eles existem.
 
-# Operandos
+# Operandos (Operadores???)
 
-Os operandos são sinalizações para o python para realizar alguma operação com dois elementos que referenciamos. Muitos são idênticos ou semelhantes a matemática.
-
-Os elementos referenciados podem ser variáveis ou valores. Podem ser usados dentro de funções como atribuição de variáveis.
+Os operandos **operadores** são sinalizações para o Python para realizar alguma operação sobre variáveis/valores. Muitos são idênticos ou semelhantes aos operadores matemáticos. 
 
 Diferentes tipos possuem diferentes comportamentos em relação aos operadores.
 
-## + e -
+## Adição (+) e Subtração (-)
 
-Os primeiros operadores que aprendemos na escola. O operador + é o operador da adição e - da subtração.
+O operador + é o operador da adição e - da subtração.
 
 ### int e float
 
-Em relação a ints e floats funcionam igual à matemática:
+Em relação a `int` e `float` funcionam igual à matemática:
 
-``` python
+``` {python}
 x = 1 + 3
 print(x - 2)
 ```
@@ -581,9 +584,9 @@ print(x - 2)
 ```
 :::
 
-Se somar um inteiro com um float a resposta será sempre um float, nem que seja com .0
+Se somar/subtrair um `int` com um `float` a resposta será sempre um `float`. 
 
-``` python
+``` {python}
 x = 1 + 3.0
 print(x - 2)
 ```
@@ -598,7 +601,7 @@ print(x - 2)
 
 Para strings também é possível usar o operador +. Porém diferente de números, como citado anteriormente quando falamos de strings, o + concatena duas strings. Não podemos somar strings a outros tipos.
 
-``` python
+``` {python}
 texto = "ketchup"
 print(texto + " e mostarda")
 ```
@@ -611,9 +614,9 @@ ketchup e mostarda
 
 ### bool
 
-Até dá para usar, mas não serve de muita coisa. O python transforma o valor de True para o inteiro 1 e False para o inteiro 0 e soma como se fosse inteiros
+O Python transforma o valor de True para o inteiro 1 e False para o inteiro 0 e soma como se fossem inteiros. 
 
-``` python
+``` {python}
 print(True + True + False)
 ```
 
@@ -623,9 +626,7 @@ print(True + True + False)
 ```
 :::
 
-## \* e /
-
-Multiplicação e divisão respectivamente.
+## Multiplicação (\*) e Divisão (/)
 
 ### int e float
 
@@ -642,15 +643,15 @@ print(x / 3)
 ```
 :::
 
-Quando dividimos dois números inteiros que não possuem valor exato, a resposta é automaticamente convertida para float.
+Quando dividimos dois números inteiros que não possuem valor exato, a resposta é automaticamente convertida para `float`.
 
 Repare que a divisão retornou o valor sem aproximação. Por mais que se trate de uma dízima periódica, por conta do funcionamento dos floats nos computadores, o resultado pode vir um pouco diferente do esperado, como no caso, que deveria ter vindo com um 7 no final.
 
 ### str
 
-Podemos usar multiplicação em strings. É como se fosse várias operações de adição em sequência, e funcionam igual a adição de strings normal. Não há divisão de strings no python.
+Podemos usar multiplicação em strings. É como se fosse várias operações de adição em sequência, e funciona igual a adição de strings normal. Não há divisão de strings no Python.
 
-``` python
+``` {python}
 textoOriginal = "Ciência de dados!\n"
 print(textoOriginal*5)
 ```
@@ -665,20 +666,20 @@ Ciência de dados!
 ```
 :::
 
-## // e %
+## Divisão interira (//) e Módulo (%)
 
-`//` é o operador para divisão inteira e `%` é o operador de resto da divisão. Digamos que você não queira a parte decimal de uma divisão por alguma razão e quer o resto da divisão também. Funciona apenas para ints e floats.
+`//` é o operador para divisão inteira e `%` é o operador módulo (resto da divisão). Funciona apenas para valores inteiros e `float`.
 
-25 amigos foram jogar futebol na praça, querem montar equipes de 11 e duas pessoas ficam "na de fora" e entram quando o jogo acabar substituindo alguém do time perdedor. Quantos ficaram na de fora e quantas equipes serão formadas?
+25 amigos foram jogar futebol na praça, querem montar equipes de 11 e as pessoas restantes ficam "de fora" e entram quando o jogo acabar substituindo alguém do time perdedor. Quantos ficaram "de fora" e quantas equipes foram formadas?
 
-``` python
+``` {python}
 nAmigos = 25
 nEquipes = 25//11
-amigosNaDeFora = 25%11
+amigosDeFora = 25%11
 print("Amigos na de fora:")
-print(3)
+print(amigosDeFora)
 print("Equipes formadas:")
-print(2)
+print(nEquipes)
 ```
 
 ::: callout
@@ -690,11 +691,11 @@ Equipes formadas:
 ```
 :::
 
-## \*\*
+## Exponenciação (\*\*)
 
-Exponenciação. Funciona igual a matemática, apenas o símbolo que é novo. Apenas para inteiros e floats. Assim como na matemática, exponenciação pode ser radiciação se usando números menores que 1 como expoentes.
+Funciona igual a matemática, apenas o símbolo que é novo. Apenas para inteiros e `float`. Assim como na matemática, exponenciação pode ser radiciação se usando números menores que 1 como expoentes.
 
-``` python
+``` {python}
 x = 9
 xAoQuadrado = 9 ** 2
 raizQuadradaDeX = 9 ** 0.5
@@ -709,7 +710,7 @@ print(raizQuadradaDeX)
 ```
 :::
 
-## ( e )
+## PAREI AQUI ( e )
 
 Colocando assim parece que são dois operadores diferentes, mas na verdade funcionam sempre juntos. São os parêntesis. Funcionam independente do tipo. Colocar uma expressão entre parêntesis significa que ela será executada antes. Seguindo as regras da matemática, exponenciação e radiciação serão sempre feitas antes, multiplicação e divisão em seguida e por último adição e subtração. Usando parêntesis, semelhante a como funciona na matemática, muda essa ordem de prioridade. Os \[ \] (colchetes) e { } (chaves) não funcionam que nem na matemática, servem para outras coisas, mas com os parêntesis já podemos fazer qualquer operação na ordem que quisermos.
 
